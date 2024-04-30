@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Birthday Reminder</string>
+    <string name="birthdays">Birthdays</string>
+    <string name="profile">Profile</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="name_surname">Name surname</string>
+    <string name="date">Date</string>
+    <string name="gift_idea">Gift Idea</string>
+    <string name="gift_idea_details">Clothes,Watch,Toy etc.</string>
+    <string name="user_degree">User Degree</string>
+    <string name="birthdays_uppercase">BIRTHDAYS</string>
+    <string name="everyone">Everyone</string>
+    <string name="family">Family</string>
+    <string name="work">Work</string>
+    <string name="friends">Friends</string>
+    <string name="bros">Bros</string>
+    <string name="date_format">DD/MM/YYYY</string>
+    <string name="select_birthday">Please select birthdate.</string>
+    <string name="text_name_surname">Please text name and surname</string>
+    <string name="add_birthday">Add Birthday</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="update_birthday">Update Birthday</string>
+    <string name="no_added_birthday">There is no added birthday. \n Press + button and add new birthday</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

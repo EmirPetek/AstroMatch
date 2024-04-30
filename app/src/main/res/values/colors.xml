@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="light_blue">#96D1F8</color>
+    <color name="red">#FF0000</color>
+    <color name="alert_bd_add">#F1FAFF</color>
+    <color name="birthdays_background">#FEECEB</color>
+    <color name="toolbar">#E7D2CC</color>
+</resources>
