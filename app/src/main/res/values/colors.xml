@@ -7,4 +7,6 @@
     <color name="alert_bd_add">#F1FAFF</color>
     <color name="birthdays_background">#FEECEB</color>
     <color name="toolbar">#E7D2CC</color>
+    <color name="delete">#C70000</color>
+    <color name="statusBar">#9191dc</color>
 </resources>

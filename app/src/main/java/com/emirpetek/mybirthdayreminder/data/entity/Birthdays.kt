@@ -13,7 +13,9 @@ data class Birthdays(val saverID:String,
                      val giftIdea:String,
                      val userDegree:String,
                      val dataAddTime:Long,
-                     var birthdayKey:String) : Serializable{
-    constructor() : this("","","","","","","",11111111111,""){}
+                     var birthdayKey:String,
+                     val deletedState: String,
+                     val deleteTime : Long) : Serializable{
+    constructor() : this("","","","","","","",11111111111,"","0",0){}
 
 }

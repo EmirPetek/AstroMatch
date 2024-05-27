@@ -78,14 +78,11 @@ class BirthdayAddFragment : Fragment() {
     private fun bindAddButton(){
         binding.buttonAddBirthday.setOnClickListener {
             setUserDegreeSpinner(binding.spinnerDBUserDegree)
-            Log.e("userDegree ",userDegree)
             birthdaySelecter(binding.editTextBDAddDate)
 
             name_surname = binding.editTextBDAddNameSurname.text.toString()
             bdDate = binding.editTextBDAddDate.text.toString()
             gift_idea = binding.editTextBDAddGiftIdea.text.toString()
-            Log.e("sdkfsd","bindAddButton")
-            Log.e("bdDate ve name surname","$bdDate ve $name_surname")
 
             val checkStatus = checkEditTextField(bdDate,name_surname)
             if (checkStatus == 2) { // namesurname and birthday were selected
@@ -98,7 +95,9 @@ class BirthdayAddFragment : Fragment() {
                     gift_idea,
                     userDegree,
                     System.currentTimeMillis(),
-                    ""
+                    "",
+                    "0",
+                    0
                 )
                 viewModel.insertBirthday(birthdate)
                 returnPreviousPage()

@@ -21,6 +21,7 @@ import java.time.Period
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.ui.fragment.BirthdayUpdateFragment
 
 
 class BirthdaysAdapter(
@@ -68,8 +69,10 @@ class BirthdaysAdapter(
         holder.textViewBirthdateDate.text = date
         holder.textViewRemainDay.text = "After $remainDay days, new age will be $age"
         holder.textViewCardGiftIdea.text = textGiftIdea
-        holder.imageViewMore.visibility = View.GONE
-        holder.imageViewMore.setOnClickListener {popUpMenu(holder.imageViewMore,pos.birthdayKey) }
+        //holder.imageViewMore.visibility = View.GONE
+
+       // holder.imageViewMore.setOnClickListener {popUpMenu(holder.imageViewMore,pos.birthdayKey) }
+        holder.imageViewMore.setOnClickListener {openUpdateFragment(pos.birthdayKey) }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -88,33 +91,16 @@ class BirthdaysAdapter(
 
     }
 
-    private fun popUpMenu(imageViewMore: ImageView, birthdayKey: String) {
-        val popupMenu: PopupMenu = PopupMenu(mContext,imageViewMore)
-        popupMenu.menuInflater.inflate(R.menu.birthday_popup,popupMenu.menu)
-        popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
-            when(item.itemId) {
-                R.id.action_update ->{
-                    //  openUpdateFragment(birthdayKey)
-                    Toast.makeText(mContext, "You Clicked : " + item.title, Toast.LENGTH_SHORT).show()
-                    Log.e("birthdaykey ->: " , birthdayKey)
-                }
-                R.id.action_delete ->
-                    Toast.makeText(mContext, "You Clicked : " + item.title, Toast.LENGTH_SHORT).show()
-            }
-            true
-        })
-        popupMenu.show()
-    }
+    private fun openUpdateFragment(birthdayKey: String){
+        val bundle = Bundle()
+        bundle.putString("BIRTHDAY_KEY", birthdayKey)
 
-    /*private fun openUpdateFragment(birthdayKey: String){
-        // send birthdays obj to BirthdayUpdateFragment fragment
-
-        val anotherFragment = BirthdayUpdateFragment()
-
+        val updateFragment = BirthdayUpdateFragment()
+        updateFragment.arguments = bundle
 
         val transaction = (mContext as AppCompatActivity).supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.mainactivity_constraint_layout,anotherFragment)
+        transaction.replace(R.id.constraintLayoutFragmentBirthdays, updateFragment)
         transaction.addToBackStack(null)
         transaction.commit()
-    }*/
+    }
 }

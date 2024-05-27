@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
-    android:backgroundTint="@android:color/transparent">
+    android:background="@color/birthdays_background"
+    android:backgroundTint="@color/birthdays_background">
 
     <Button
         android:id="@+id/buttonAddBirthday"

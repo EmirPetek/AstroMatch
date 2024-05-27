@@ -3,6 +3,9 @@
     <style name="Base.Theme.MyBirthdayReminder" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/statusBar</item>
+        <item name="colorPrimaryDark">@color/statusBar</item> <!-- Durum çubuğu rengi -->
+
     </style>
 
     <style name="Theme.MyBirthdayReminder" parent="Base.Theme.MyBirthdayReminder" />
