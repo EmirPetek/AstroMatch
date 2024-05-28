@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Koyu tema tanımlamaları -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <!-- Diğer tema özellikleri -->
+        <item name="colorPrimary">@color/birthdays_background</item>
+        <item name="colorPrimaryDark">@color/birthdays_background</item> <!-- Durum çubuğu rengi -->
+
+    </style>
+</resources>
