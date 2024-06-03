@@ -1,4 +1,4 @@
-package com.emirpetek.mybirthdayreminder.ui.activity
+package com.emirpetek.mybirthdayreminder
 
 import android.content.Context
 import android.content.SharedPreferences

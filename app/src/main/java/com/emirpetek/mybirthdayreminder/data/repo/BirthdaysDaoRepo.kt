@@ -59,7 +59,7 @@ class BirthdaysDaoRepo {
                         if (birthday.saverID.equals(userID) && i.key.equals(birthdayKey) && birthday.deletedState.equals("0")){
                             birthday.birthdayKey = i.key!!
                             bdList.add(birthday)
-                            Log.e("getspecialbirthdaydata fun"," if içinde")
+                           // Log.e("getspecialbirthdaydata fun"," if içinde")
                         }
                     }
                 }
