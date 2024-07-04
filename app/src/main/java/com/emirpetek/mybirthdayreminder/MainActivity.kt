@@ -5,9 +5,11 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.databinding.ActivityMainBinding
 import com.emirpetek.mybirthdayreminder.ui.fragment.BirthdaysFragment
+import com.emirpetek.mybirthdayreminder.ui.fragment.login.LoginFragment
 import java.security.SecureRandom
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         checkOrSaveUser()
-        loadFragment(BirthdaysFragment())
+      //  loadFragment(LoginFragment())
 
         /*binding.bottomNavigationBar.setOnItemSelectedListener {
             when(it.itemId){

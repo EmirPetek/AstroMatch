@@ -45,6 +45,7 @@ class BirthdaysFragment : Fragment() {
         userkey = sharedPreferences.getString("userKey","")!!
 
         binding.progressBarFragmentBirthdays.visibility = View.VISIBLE
+        binding.textViewNoAddedBirthday.visibility = View.GONE
 
         bindFABbtn()
         hideNoBirthdayText()
@@ -83,6 +84,7 @@ class BirthdaysFragment : Fragment() {
             val size = it.size
             if (size == 0) {
                 binding.progressBarFragmentBirthdays.visibility = View.GONE
+                binding.textViewNoAddedBirthday.visibility = View.VISIBLE
             }else{
                 binding.textViewNoAddedBirthday.visibility = View.GONE
             }
