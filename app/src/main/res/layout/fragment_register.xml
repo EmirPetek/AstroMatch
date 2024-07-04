@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.login.RegisterFragment"
+    android:background="@color/birthdays_background">
+
+    <EditText
+        android:id="@+id/editTextRegisterEmail"
+        android:layout_width="350dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:fontFamily="@font/nunito"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/text_black"
+        android:textColorHint="@color/hint_color"
+        android:textColorLink="#CE0808"
+        app:layout_constraintStart_toStartOf="@+id/textViewRegisterEmail"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRegisterEmail" />
+
+    <EditText
+        android:id="@+id/editTextRegisterPassword"
+        android:layout_width="350dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:fontFamily="@font/nunito"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:textColor="@color/text_black"
+        android:textColorHint="@color/hint_color"
+        android:textColorLink="#CE0808"
+        app:layout_constraintStart_toStartOf="@+id/textViewRegisterPassword"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRegisterPassword" />
+
+    <EditText
+        android:id="@+id/editTextRegisterPasswordAgain"
+        android:layout_width="350dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:fontFamily="@font/nunito"
+        android:hint="@string/password_again"
+        android:inputType="textPassword"
+        android:textColor="@color/text_black"
+        android:textColorHint="@color/hint_color"
+        android:textColorLink="#CE0808"
+        app:layout_constraintStart_toStartOf="@+id/textViewRegisterPasswordAgain"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRegisterPasswordAgain" />
+
+    <EditText
+        android:id="@+id/editTextRegisterBirthdate"
+        android:layout_width="350dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:fontFamily="@font/nunito"
+        android:hint="@string/dd_mm_yyyy"
+        android:inputType="date"
+        android:textColor="@color/text_black"
+        android:textColorHint="@color/hint_color"
+        android:textColorLink="#CE0808"
+        app:layout_constraintStart_toStartOf="@+id/textViewRegisterBirthdate"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRegisterBirthdate" />
+
+    <Button
+        android:id="@+id/buttonRegisterSignUp"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/muli_semibold"
+        android:text="@string/register"
+        android:textColor="@color/text_white"
+        android:textSize="19sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRegisterBirthdate" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textViewRegisterToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/oleo_script"
+            android:text="@string/register"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageButtonSignUpBack"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/imageButtonSignUpBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/baseline_arrow_back_ios_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textViewRegisterTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/oleo_script"
+        android:text="@string/birthdays_uppercase"
+        android:textColor="@color/black"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
+
+    <TextView
+        android:id="@+id/textViewRegisterEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/nunito"
+        android:text="@string/email"
+        android:textColor="@color/text_black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/editTextRegisterNameSurname"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRegisterNameSurname" />
+
+    <TextView
+        android:id="@+id/textViewRegisterPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/nunito"
+        android:text="@string/password"
+        android:textColor="@color/text_black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/editTextRegisterEmail"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRegisterEmail" />
+
+    <TextView
+        android:id="@+id/textViewRegisterPasswordAgain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/nunito"
+        android:text="@string/password_again"
+        android:textColor="@color/text_black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/editTextRegisterPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRegisterPassword" />
+
+    <TextView
+        android:id="@+id/textViewRegisterBirthdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/nunito"
+        android:text="@string/birthdate"
+        android:textColor="@color/text_black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/editTextRegisterPasswordAgain"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRegisterPasswordAgain" />
+
+    <TextView
+        android:id="@+id/textViewRegisterNameSurname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/nunito"
+        android:text="@string/name_surname"
+        android:textColor="@color/text_black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRegisterTitle" />
+
+    <EditText
+        android:id="@+id/editTextRegisterNameSurname"
+        android:layout_width="350dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:fontFamily="@font/nunito"
+        android:hint="@string/name_surname"
+        android:inputType="text"
+        android:textColor="@color/text_black"
+        android:textColorHint="@color/hint_color"
+        app:layout_constraintStart_toStartOf="@+id/textViewRegisterNameSurname"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRegisterNameSurname"
+        android:textColorLink="#CE0808" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
