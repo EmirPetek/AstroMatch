@@ -9,4 +9,7 @@
     <color name="toolbar">#E7D2CC</color>
     <color name="delete">#C70000</color>
     <color name="statusBar">#9191dc</color>
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_black">#000000</color>
+    <color name="hint_color">#C0C0C0</color>
 </resources>
