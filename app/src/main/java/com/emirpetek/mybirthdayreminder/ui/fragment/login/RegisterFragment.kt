@@ -63,6 +63,8 @@ class RegisterFragment : Fragment() {
             var password = ""
 
 
+
+
             if ((passwordEdit.isEmpty() && passwordEditAgain.isEmpty()) || (passwordEdit.isEmpty() || passwordEditAgain.isEmpty())){
                 toastShow(requireContext().getString(R.string.not_empty_password_fields))
             }else if(email.isEmpty()){
