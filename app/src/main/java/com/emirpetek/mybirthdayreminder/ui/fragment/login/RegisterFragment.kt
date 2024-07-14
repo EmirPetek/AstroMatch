@@ -71,8 +71,7 @@ class RegisterFragment : Fragment() {
                 toastShow(requireContext().getString(R.string.not_empty_birthday_field))
             }else if (passwordEdit != passwordEditAgain){
                 toastShow(requireContext().getString(R.string.not_match_passwords))
-            }else if((passwordEdit.isNotEmpty() && passwordEditAgain.isNotEmpty()
-                        && passwordEdit.equals(passwordEditAgain) && passwordEditAgain.length < 6)){
+            }else if((passwordEdit.isNotEmpty() && passwordEditAgain.isNotEmpty() && passwordEditAgain.length < 6)){
                 toastShow(requireContext().getString(R.string.password_charachters_at_least_six))
             }else if (fullname.isEmpty()){
                 toastShow(requireContext().getString(R.string.not_empty_fullname_field))
