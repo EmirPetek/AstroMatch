@@ -16,6 +16,7 @@
         android:fontFamily="@font/nunito"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
+        android:text="emirpetek2002@gmail.com"
         android:textColor="@color/text_black"
         android:textColorHint="@color/hint_color"
         android:textColorLink="#CE0808"
@@ -31,6 +32,7 @@
         android:fontFamily="@font/nunito"
         android:hint="@string/password"
         android:inputType="textPassword"
+        android:text="emir2002"
         android:textColor="@color/text_black"
         android:textColorHint="@color/hint_color"
         android:textColorLink="#CE0808"
@@ -46,6 +48,7 @@
         android:fontFamily="@font/nunito"
         android:hint="@string/password_again"
         android:inputType="textPassword"
+        android:text="emir2002"
         android:textColor="@color/text_black"
         android:textColorHint="@color/hint_color"
         android:textColorLink="#CE0808"
@@ -61,6 +64,7 @@
         android:fontFamily="@font/nunito"
         android:hint="@string/dd_mm_yyyy"
         android:inputType="date"
+        android:text="25/01/2002"
         android:textColor="@color/text_black"
         android:textColorHint="@color/hint_color"
         android:textColorLink="#CE0808"
@@ -210,11 +214,12 @@
         android:fontFamily="@font/nunito"
         android:hint="@string/name_surname"
         android:inputType="text"
+        android:text="Emir Petek"
         android:textColor="@color/text_black"
         android:textColorHint="@color/hint_color"
+        android:textColorLink="#CE0808"
         app:layout_constraintStart_toStartOf="@+id/textViewRegisterNameSurname"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRegisterNameSurname"
-        android:textColorLink="#CE0808" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewRegisterNameSurname" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

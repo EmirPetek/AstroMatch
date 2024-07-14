@@ -30,6 +30,14 @@
     <string name="birthdate">Birthdate</string>
     <string name="dont_have_account">Do not you have account?</string>
     <string name="continue_without_account_big">CONTINUE WITHOUT ACCOUNT</string>
+    <string name="not_empty_password_fields">Please fill password fields.</string>
+    <string name="not_empty_email_field">Please fill email field.</string>
+    <string name="not_empty_fullname_field">Please fill fullname field.</string>
+    <string name="not_empty_birthday_field">Please fill birthday field.</string>
+    <string name="not_match_passwords">Passwords do not match.</string>
+    <string name="password_charachters_at_least_six">Passwords should be at least 6 characters.</string>
+    <string name="email_already_using">The email address is already in use by another account.</string>
+    <string name="register_successfull">Register operation has completed successfully.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
