@@ -9,18 +9,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
-import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.data.entity.User
 import com.emirpetek.mybirthdayreminder.databinding.FragmentRegisterBinding
-import com.emirpetek.mybirthdayreminder.viewmodel.RegisterViewModel
+import com.emirpetek.mybirthdayreminder.viewmodel.login.RegisterViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthEmailException
-import com.google.firebase.auth.FirebaseAuthException
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
@@ -34,7 +32,6 @@ class RegisterFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private val TAG = "RegisterFragment Log"
     private var isFillAllPlace = false
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -136,9 +133,27 @@ class RegisterFragment : Fragment() {
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
-                        val user = auth.currentUser
+                        var userAuth = auth.currentUser!!
                         toastShow(requireContext().getString(R.string.register_successfull))
-                        //updateUI(user)
+
+                        var user = User(
+                                userAuth.uid,
+                                binding.editTextRegisterNameSurname.text.toString(),
+                                binding.editTextRegisterEmail.text.toString(),
+                                binding.editTextRegisterPassword.text.toString(),
+                                binding.editTextRegisterBirthdate.text.toString(),
+                            "null",
+                                System.currentTimeMillis()
+                                )
+                        viewModel.addUser(user)
+
+                        lifecycleScope.launchWhenStarted {
+                            viewModel.userAdded.collect { isAdded ->
+                                if (isAdded) {
+                                    findNavController().popBackStack()
+                                }
+                            }
+                        }
                     } else {
                         // If sign in fails, display a message to the user.
                         try {
