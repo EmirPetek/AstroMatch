@@ -29,8 +29,13 @@ class LoginFragment : Fragment() {
 
         binding.buttonLoginRegister.setOnClickListener{ NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment) }
 
-
+        mockEditText()
 
         return binding.root
+    }
+
+    private fun mockEditText(){
+        binding.editTextLoginEmail.setText("emirpetek2002@gmail.com")
+        binding.editTextLoginPassword.setText("Emir2002")
     }
 }

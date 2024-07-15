@@ -48,6 +48,9 @@ class RegisterFragment : Fragment() {
 
         auth = Firebase.auth
 
+        mockEditText()
+
+
         binding.editTextRegisterBirthdate.setOnClickListener {
             showDatePickerDialog()
         }
@@ -107,6 +110,14 @@ class RegisterFragment : Fragment() {
 
     private fun toastShow(text:String){
         Toast.makeText(context,text, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun mockEditText(){
+        binding.editTextRegisterNameSurname.setText("Emir Petek")
+        binding.editTextRegisterEmail.setText("emirpetek2002@gmail.com")
+        binding.editTextRegisterPassword.setText("emir2002")
+        binding.editTextRegisterPasswordAgain.setText("emir2002")
+        binding.editTextRegisterBirthdate.setText("25/01/2002")
     }
 
     public override fun onStart() {
