@@ -19,6 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlin.math.round
 
 class LoginFragment : Fragment() {
 
@@ -39,7 +40,10 @@ class LoginFragment : Fragment() {
 
         binding = FragmentLoginBinding.inflate(inflater,container,false)
 
-        binding.buttonLoginRegister.setOnClickListener{ NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment) }
+        binding.buttonLoginRegister.setOnClickListener{
+            NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment)
+
+        }
         auth = Firebase.auth
 
         hideBottomNav()
@@ -62,8 +66,6 @@ class LoginFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        bottomNav?.visibility = View.VISIBLE
     }
 
     private fun mockEditText(){
@@ -85,8 +87,10 @@ class LoginFragment : Fragment() {
         if (email.isNotEmpty() && password.isNotEmpty()) {
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(requireActivity()){ task ->
                 if (task.isSuccessful){
-                    requireContext().getString(R.string.fill_all_place)
+                     toastShow(requireContext().getString(R.string.login_successfull))
                     findNavController().navigate(R.id.action_loginFragment_to_birthdaysFragment)
+                    val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+                    bottomNav?.visibility = View.VISIBLE
                 }
             }
 

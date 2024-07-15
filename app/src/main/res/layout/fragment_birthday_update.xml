@@ -17,6 +17,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/light_blue"
+        android:fontFamily="@font/nunito"
         android:text="@string/update"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -31,6 +32,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:fontFamily="@font/nunito"
         android:hint="@string/name_surname"
         android:inputType="text"
         android:textColor="#000000"
@@ -46,9 +48,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/nunito"
         android:text="@string/name_surname"
         android:textColor="#000000"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
@@ -60,6 +64,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:fontFamily="@font/nunito"
         android:hint="@string/gift_idea_details"
         android:inputType="text"
         android:textColor="#000000"
@@ -88,6 +93,7 @@
         android:text="@string/user_degree"
         android:textColor="#000000"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextBDUpdateGiftIdea" />
 
@@ -97,9 +103,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/nunito"
         android:text="@string/gift_idea"
         android:textColor="#000000"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextBDUpdateDate" />
 
@@ -115,6 +123,7 @@
         android:ems="10"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:fontFamily="@font/nunito"
         android:hint="@string/date_format"
         android:textColor="#000000"
         android:textColorHint="#393535"
@@ -128,9 +137,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/nunito"
         android:text="@string/date"
         android:textColor="#000000"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextBDUpdateNameSurname" />
 
@@ -162,9 +173,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            android:fontFamily="@font/nunito"
             android:text="@string/update_birthday"
             android:textColor="#000000"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageViewUpdateBirthdayArrowBack"
             app:layout_constraintTop_toTopOf="parent" />
@@ -178,6 +191,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/delete"
+        android:fontFamily="@font/nunito"
         android:text="@string/delete"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"

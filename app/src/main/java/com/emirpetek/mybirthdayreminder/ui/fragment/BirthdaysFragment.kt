@@ -72,10 +72,6 @@ class BirthdaysFragment : Fragment() {
         }
     }
 
-
-
-
-
     private fun getBirthdayList(){
         binding.recyclerViewBirthdays.setHasFixedSize(true)
         binding.recyclerViewBirthdays.layoutManager = LinearLayoutManager(requireContext())

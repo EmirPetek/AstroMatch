@@ -27,7 +27,7 @@ class BirthdaysDaoRepo {
                     for (i in snapshot.children) {
                         val birthday = i.getValue(Birthdays::class.java)!!
                         if (birthday.saverID.equals(userID)  && birthday.deletedState.equals("0")){
-                            Log.e("sdkflşds",birthday.toString())
+                           // Log.e("sdkflşds",birthday.toString())
                             birthday.birthdayKey = i.key!!
                             bdList.add(birthday)
                         }

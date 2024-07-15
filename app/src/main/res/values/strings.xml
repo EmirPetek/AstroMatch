@@ -52,5 +52,7 @@
     <string name="register">REGISTER</string>
     <string name="home">Home</string>
     <string name="social">Social</string>
+    <string name="social_gift_ideas">SOCIAL GIFT IDEAS</string>
+    <string name="profile_toolbar">PROFILE</string>
 
 </resources>

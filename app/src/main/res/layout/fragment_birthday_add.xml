@@ -15,28 +15,12 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/light_blue"
+        android:fontFamily="@font/nunito"
         android:text="@string/add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerDBUserDegree" />
-
-    <EditText
-        android:id="@+id/editTextBDAddNameSurname"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:hint="@string/name_surname"
-        android:inputType="text"
-        android:textColor="#000000"
-        android:textColorHint="#403C3C"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewBDAddNameSurname" />
 
     <TextView
         android:id="@+id/textViewBDAddNameSurname"
@@ -44,27 +28,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/nunito"
         android:text="@string/name_surname"
         android:textColor="#000000"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-    <EditText
-        android:id="@+id/editTextBDAddGiftIdea"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:hint="@string/gift_idea_details"
-        android:inputType="text"
-        android:textColor="#000000"
-        android:textColorHint="#403C3C"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewBDAddGiftIdea" />
 
     <Spinner
         android:id="@+id/spinnerDBUserDegree"
@@ -74,32 +44,27 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewBDAddUserDegree" />
 
-    <TextView
-        android:id="@+id/textViewBDAddUserDegree"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/editTextBDAddNameSurname"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/user_degree"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:fontFamily="@font/nunito"
+        android:hint="@string/name_surname"
+        android:inputType="text"
         android:textColor="#000000"
-        android:textSize="16sp"
+        android:textColorHint="#403C3C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextBDAddGiftIdea" />
-
-    <TextView
-        android:id="@+id/textViewBDAddGiftIdea"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/gift_idea"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextBDAddDate" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewBDAddNameSurname" />
 
     <EditText
         android:id="@+id/editTextBDAddDate"
@@ -113,12 +78,60 @@
         android:ems="10"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:fontFamily="@font/nunito"
         android:hint="@string/date_format"
         android:textColor="#000000"
         android:textColorHint="#403C3C"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewBDAddDate" />
+
+    <EditText
+        android:id="@+id/editTextBDAddGiftIdea"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:fontFamily="@font/nunito"
+        android:hint="@string/gift_idea_details"
+        android:inputType="text"
+        android:textColor="#000000"
+        android:textColorHint="#403C3C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewBDAddGiftIdea" />
+
+    <TextView
+        android:id="@+id/textViewBDAddUserDegree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/nunito"
+        android:text="@string/user_degree"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextBDAddGiftIdea" />
+
+    <TextView
+        android:id="@+id/textViewBDAddGiftIdea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/nunito"
+        android:text="@string/gift_idea"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextBDAddDate" />
 
     <TextView
         android:id="@+id/textViewBDAddDate"
@@ -126,9 +139,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/nunito"
         android:text="@string/date"
         android:textColor="#000000"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextBDAddNameSurname" />
 
@@ -160,9 +175,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            android:fontFamily="@font/nunito"
             android:text="@string/add_birthday"
             android:textColor="#000000"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageViewAddBirthdayArrowBack"
             app:layout_constraintTop_toTopOf="parent" />

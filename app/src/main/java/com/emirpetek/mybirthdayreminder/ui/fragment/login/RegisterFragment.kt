@@ -17,6 +17,7 @@ import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.User
 import com.emirpetek.mybirthdayreminder.databinding.FragmentRegisterBinding
 import com.emirpetek.mybirthdayreminder.viewmodel.login.RegisterViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.ktx.auth
@@ -42,9 +43,9 @@ class RegisterFragment : Fragment() {
         binding.imageButtonSignUpBack.setOnClickListener {
             Navigation.findNavController(it).popBackStack()
         }
+        hideBottomNav()
 
         auth = Firebase.auth
-
         mockEditText()
 
 
@@ -105,8 +106,18 @@ class RegisterFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
     private fun toastShow(text:String){
         Toast.makeText(context,text, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun hideBottomNav(){
+        Log.e("dsskfl","jdfksdfsf")
+        val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNav?.visibility = View.GONE
     }
 
     private fun mockEditText(){

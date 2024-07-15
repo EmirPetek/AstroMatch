@@ -6,27 +6,28 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.databinding.FragmentProfileBinding
 import com.emirpetek.mybirthdayreminder.viewmodel.ProfileViewModel
 
 class ProfileFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ProfileFragment()
-    }
-
     private val viewModel: ProfileViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
+    private lateinit var binding: FragmentProfileBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        binding = FragmentProfileBinding.inflate(inflater,container,false)
+
+        Glide.with(this)
+            .load("https://www.bio.purdue.edu/lab/deng/images/photo_not_yet_available.jpg")
+            .circleCrop()
+            .into(binding.imageViewProfilePhoto)
+
+
+        return binding.root
     }
 }
