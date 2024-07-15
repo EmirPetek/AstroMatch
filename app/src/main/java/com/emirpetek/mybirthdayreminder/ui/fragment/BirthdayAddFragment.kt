@@ -17,10 +17,14 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.Birthdays
 import com.emirpetek.mybirthdayreminder.databinding.FragmentBirthdayAddBinding
 import com.emirpetek.mybirthdayreminder.viewmodel.BirthdayAddViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -36,6 +40,8 @@ class BirthdayAddFragment : Fragment() {
     private lateinit var userkey:String
     private lateinit var gift_idea:String
     private var userDegree:String = ""
+    private lateinit var auth: FirebaseAuth
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,12 +54,14 @@ class BirthdayAddFragment : Fragment() {
     ): View? {
         binding = FragmentBirthdayAddBinding.inflate(layoutInflater, container, false)
 
+        auth = Firebase.auth
+
+
         (activity as? AppCompatActivity)?.supportActionBar?.hide()
         setUserDegreeSpinner(binding.spinnerDBUserDegree)
-        Log.e("ksdlşfkdsşflsd",userDegree)
         birthdaySelecter(binding.editTextBDAddDate)
         sharedPreferences = requireActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-        userkey = sharedPreferences.getString("userKey", "")!!
+        userkey = auth.currentUser!!.uid//sharedPreferences.getString("userKey", "")!!
 
         bindBackButton()
         bindAddButton()
@@ -69,10 +77,13 @@ class BirthdayAddFragment : Fragment() {
     }
 
     private fun returnPreviousPage(){
+
+        findNavController().popBackStack()
+        /*
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.mainactivity_constraint_layout,BirthdaysFragment())
         transaction.addToBackStack(null)
-        transaction.commit()
+        transaction.commit()*/
     }
 
     private fun bindAddButton(){

@@ -19,6 +19,9 @@ import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.Birthdays
 import com.emirpetek.mybirthdayreminder.databinding.FragmentBirthdayUpdateBinding
 import com.emirpetek.mybirthdayreminder.viewmodel.BirthdayUpdateViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class BirthdayUpdateFragment : Fragment() {
 
@@ -31,6 +34,8 @@ class BirthdayUpdateFragment : Fragment() {
     private var birthdayData : List<Birthdays> = listOf()
     private var userDegrees = arrayListOf<String>()
     private var userDegree:String = ""
+    private lateinit var auth: FirebaseAuth
+
 
 
 
@@ -40,8 +45,10 @@ class BirthdayUpdateFragment : Fragment() {
     ): View? {
         binding = FragmentBirthdayUpdateBinding.inflate(inflater,container,false)
 
+        auth = Firebase.auth
+
         sharedPreferences = requireActivity().getSharedPreferences("userInfo", AppCompatActivity.MODE_PRIVATE)
-        userkey = sharedPreferences.getString("userKey", "0")!!
+        userkey = auth.currentUser!!.uid//sharedPreferences.getString("userKey", "0")!!
 
         birthdayKey = arguments?.getString("BIRTHDAY_KEY").toString()
         //birthdayKey = Bundle().getBundle("BIRTHDAY_KEY").toString()
@@ -137,31 +144,37 @@ class BirthdayUpdateFragment : Fragment() {
         transaction.commit()
     }
 
-    private fun setUserDegreeSpinner(spinner: Spinner, userDegreeStr: String) : String{
+    private fun setUserDegreeSpinner(spinner: Spinner, userDegreeStr: String): String {
         val family = getString(R.string.family)
         val friend = getString(R.string.friends)
         val work = getString(R.string.work)
         val bros = getString(R.string.bros)
-        userDegrees = arrayListOf(family,bros,friend,work)
-        var getUserDegree = ""
+        userDegrees = arrayListOf(family, bros, friend, work)
 
         val spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, userDegrees)
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = spinnerAdapter
 
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                if (!userDegree.equals("")) {
-                    this@BirthdayUpdateFragment.userDegree = p0!!.getItemAtPosition(p2).toString()
-                }else{
-                    this@BirthdayUpdateFragment.userDegree = userDegreeStr
-                }
+        // Spinner'da userDegreeStr'ye göre öğeyi seçili hale getir
+        val position = userDegrees.indexOf(userDegreeStr)
+        if (position >= 0) {
+            spinner.setSelection(position)
+        }
+
+        // Seçilen öğeyi saklamak için bir değişken
+        var selectedDegree = userDegreeStr
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                selectedDegree = parent?.getItemAtPosition(position).toString()
             }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Hiçbir şey seçilmediğinde yapılacak işlemler
             }
         }
-        return getUserDegree
+
+        return selectedDegree
     }
 
 

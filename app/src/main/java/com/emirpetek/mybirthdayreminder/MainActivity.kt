@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.databinding.ActivityMainBinding
 import com.emirpetek.mybirthdayreminder.ui.fragment.BirthdaysFragment
@@ -22,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        createBottomNavigation()
 
         checkOrSaveUser()
       //  loadFragment(LoginFragment())
@@ -42,6 +45,12 @@ class MainActivity : AppCompatActivity() {
             }
         }*/
     }
+
+    private fun createBottomNavigation(){
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        NavigationUI.setupWithNavController(binding.bottomNavigationView,navHostFragment.navController)
+    }
+
 
     fun loadFragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()

@@ -18,11 +18,15 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.databinding.FragmentBirthdaysBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.BirthdaysAdapter
 import com.emirpetek.mybirthdayreminder.viewmodel.BirthdaysViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -36,13 +40,16 @@ class BirthdaysFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var adapter: BirthdaysAdapter
     private var userkey = ""
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBirthdaysBinding.inflate(inflater,container,false)
 
+        auth = Firebase.auth
+
         sharedPreferences = requireActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-        userkey = sharedPreferences.getString("userKey","")!!
+        userkey = auth.currentUser!!.uid//sharedPreferences.getString("userKey","")!!
 
         binding.progressBarFragmentBirthdays.visibility = View.VISIBLE
         binding.textViewNoAddedBirthday.visibility = View.GONE
@@ -57,9 +64,11 @@ class BirthdaysFragment : Fragment() {
 
     private fun bindFABbtn(){
         binding.floatingActionButtonAddBirthday.setOnClickListener {
+            findNavController().navigate(R.id.action_birthdaysFragment_to_birthdayAddFragment)
+            /*
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
             transaction.replace(R.id.mainactivity_constraint_layout,BirthdayAddFragment())
-            transaction.commit()
+            transaction.commit()*/
         }
     }
 

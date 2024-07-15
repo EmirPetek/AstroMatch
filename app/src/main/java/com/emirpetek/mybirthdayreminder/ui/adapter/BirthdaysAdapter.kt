@@ -13,6 +13,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.emirpetek.mybirthdayreminder.data.entity.Birthdays
 import com.emirpetek.mybirthdayreminder.viewmodel.BirthdaysViewModel
@@ -22,6 +24,7 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.ui.fragment.BirthdayUpdateFragment
+import kotlin.contracts.contract
 
 
 class BirthdaysAdapter(
@@ -72,7 +75,15 @@ class BirthdaysAdapter(
         //holder.imageViewMore.visibility = View.GONE
 
        // holder.imageViewMore.setOnClickListener {popUpMenu(holder.imageViewMore,pos.birthdayKey) }
-        holder.imageViewMore.setOnClickListener {openUpdateFragment(pos.birthdayKey) }
+        holder.imageViewMore.setOnClickListener {
+        //    openUpdateFragment(pos.birthdayKey, it)
+            val bundle = Bundle()
+            bundle.putString("BIRTHDAY_KEY", pos.birthdayKey)
+
+            val updateFragment = BirthdayUpdateFragment()
+            updateFragment.arguments = bundle
+            it.findNavController().navigate(R.id.action_birthdaysFragment_to_birthdayUpdateFragment,bundle)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -91,12 +102,14 @@ class BirthdaysAdapter(
 
     }
 
-    private fun openUpdateFragment(birthdayKey: String){
+    private fun openUpdateFragment(birthdayKey: String, view: View){
         val bundle = Bundle()
         bundle.putString("BIRTHDAY_KEY", birthdayKey)
 
         val updateFragment = BirthdayUpdateFragment()
         updateFragment.arguments = bundle
+
+        //Navigation.findNavController(mContext).navigate(R.id.action_birthdaysFragment_to_birthdayUpdateFragment, bundle)
 
         val transaction = (mContext as AppCompatActivity).supportFragmentManager.beginTransaction()
         transaction.replace(R.id.constraintLayoutFragmentBirthdays, updateFragment)

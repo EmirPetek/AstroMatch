@@ -13,5 +13,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bottomNavigationView"
         app:navGraph="@navigation/nav_graph" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/toolbar"
+        app:itemIconTint="@color/text_black"
+        app:itemRippleColor="@color/birthdays_background"
+        app:itemTextAppearanceActiveBoldEnabled="true"
+        app:itemTextColor="@color/text_black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_bar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
