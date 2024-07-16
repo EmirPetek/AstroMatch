@@ -22,6 +22,7 @@ import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.Birthdays
 import com.emirpetek.mybirthdayreminder.databinding.FragmentBirthdayAddBinding
 import com.emirpetek.mybirthdayreminder.viewmodel.BirthdayAddViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -63,12 +64,19 @@ class BirthdayAddFragment : Fragment() {
         sharedPreferences = requireActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         userkey = auth.currentUser!!.uid//sharedPreferences.getString("userKey", "")!!
 
+        hideBottomNav()
         bindBackButton()
         bindAddButton()
 
         return binding.root
 
     }
+
+    private fun hideBottomNav(){
+        val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNav?.visibility = View.GONE
+    }
+
 
     private fun bindBackButton(){
         binding.imageViewAddBirthdayArrowBack.setOnClickListener {
@@ -96,7 +104,7 @@ class BirthdayAddFragment : Fragment() {
             gift_idea = binding.editTextBDAddGiftIdea.text.toString()
 
             val checkStatus = checkEditTextField(bdDate,name_surname)
-            if (checkStatus == 2) { // namesurname and birthday were selected
+            if (!checkStatus) { // namesurname and birthday were selected
                 val birthdate = Birthdays(
                     userkey,
                     "",
@@ -118,20 +126,15 @@ class BirthdayAddFragment : Fragment() {
 
     }
 
-    private fun checkEditTextField(birthdate: String, nameSurname: String):Int{
-        var checkStatus = 0
-        if (birthdate.equals("")) {
+    private fun checkEditTextField(birthdate: String, nameSurname: String):Boolean{
+        if (birthdate.isEmpty()){
             Toast.makeText(requireContext(),getText(R.string.select_birthday), Toast.LENGTH_SHORT).show()
-        }else{
-            checkStatus++
-        }
-        if (nameSurname.equals("")){
+        }else if (nameSurname.isEmpty()){
             Toast.makeText(requireContext(),getText(R.string.text_name_surname), Toast.LENGTH_SHORT).show()
         }else{
-            checkStatus++
+            return false
         }
-
-        return checkStatus
+        return true
 
     }
 

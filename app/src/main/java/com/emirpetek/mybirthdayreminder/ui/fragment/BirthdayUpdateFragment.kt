@@ -15,10 +15,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.Birthdays
 import com.emirpetek.mybirthdayreminder.databinding.FragmentBirthdayUpdateBinding
 import com.emirpetek.mybirthdayreminder.viewmodel.BirthdayUpdateViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -56,8 +58,13 @@ class BirthdayUpdateFragment : Fragment() {
         bindBackButton()
         bindUpdateButton()
         bindDeleteButton()
+        hideBottomNav()
 
         return binding.root
+    }
+    private fun hideBottomNav(){
+        val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNav?.visibility = View.GONE
     }
 
     private fun getBirthdayList(){
@@ -67,7 +74,6 @@ class BirthdayUpdateFragment : Fragment() {
             birthdayData = it.toList()
             bindComponents()
         })
-
     }
 
     private fun bindComponents(){
@@ -138,10 +144,11 @@ class BirthdayUpdateFragment : Fragment() {
 
 
     private fun returnPreviousPage(){
-        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        findNavController().popBackStack()
+        /*val transaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.mainactivity_constraint_layout,BirthdaysFragment())
         transaction.addToBackStack(null)
-        transaction.commit()
+        transaction.commit()*/
     }
 
     private fun setUserDegreeSpinner(spinner: Spinner, userDegreeStr: String): String {

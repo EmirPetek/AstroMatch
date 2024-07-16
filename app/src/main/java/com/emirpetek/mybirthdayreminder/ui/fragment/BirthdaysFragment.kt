@@ -24,6 +24,7 @@ import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.databinding.FragmentBirthdaysBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.BirthdaysAdapter
 import com.emirpetek.mybirthdayreminder.viewmodel.BirthdaysViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -54,12 +55,18 @@ class BirthdaysFragment : Fragment() {
         binding.progressBarFragmentBirthdays.visibility = View.VISIBLE
         binding.textViewNoAddedBirthday.visibility = View.GONE
 
+        showBottomNav()
         bindFABbtn()
         hideNoBirthdayText()
         getBirthdayList()
 
         return binding.root
 
+    }
+
+    private fun showBottomNav(){
+        val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNav?.visibility = View.VISIBLE
     }
 
     private fun bindFABbtn(){
