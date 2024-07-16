@@ -15,6 +15,6 @@
     <color name="card_color_profile">#C0C0C0</color>
     <color name="background_light">#FFFFFF</color>
     <color name="background_light_2">#E7D2CC</color>
-    <color name="background_bottom_sheet_item">#CCE1E7</color>
+    <color name="background_bottom_sheet_item">#CAB1B4</color>
 
 </resources>
