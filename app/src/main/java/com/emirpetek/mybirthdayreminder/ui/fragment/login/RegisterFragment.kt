@@ -1,6 +1,7 @@
 package com.emirpetek.mybirthdayreminder.ui.fragment.login
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.util.Log
@@ -33,6 +34,8 @@ class RegisterFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private val TAG = "RegisterFragment Log"
     private var isFillAllPlace = false
+    private lateinit var zodiacSign:String
+    private lateinit var ascendant:String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +56,12 @@ class RegisterFragment : Fragment() {
             showDatePickerDialog()
         }
 
+        binding.editTextRegisterBirthTime.setOnClickListener {
+            showTimePickerDialog() { hour, minute ->
+                binding.editTextRegisterBirthTime.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute))
+            }
+        }
+
 
         binding.buttonRegisterSignUp.setOnClickListener {
 
@@ -61,6 +70,7 @@ class RegisterFragment : Fragment() {
             val passwordEdit = binding.editTextRegisterPassword.text.toString()
             val passwordEditAgain = binding.editTextRegisterPasswordAgain.text.toString()
             val birthdate = binding.editTextRegisterBirthdate.text.toString()
+            val birthTime = binding.editTextRegisterBirthTime.text.toString()
             var password = ""
 
 
@@ -78,28 +88,14 @@ class RegisterFragment : Fragment() {
                 toastShow(requireContext().getString(R.string.password_charachters_at_least_six))
             }else if (fullname.isEmpty()){
                 toastShow(requireContext().getString(R.string.not_empty_fullname_field))
+            }else if (birthTime.isEmpty()){
+                toastShow(requireContext().getString(R.string.not_empty_birthTime_field))
             }
             else{
                 password = passwordEditAgain
                 registerUser(email, password)
+                calculateZodiacAndAscendant()
             }
-
-            /*
-             burada
-             kullanıcı zaten kayıtlı,
-             parola boş geçilemez,
-             parolalar eşleşmiyor,
-             email formatı hatalı
-
-             bu exceptionları throw etsin. buna göre kontrolleri yap
-             sonra users adlı dataclassta uid_234DFSgbddv43ver4gfdvdd gibi şey node olacak
-             şekilde realtime dbye kayıtları sağla. mvvm ile yap bunu
-
-             sonra login işlemlerini yap.
-             */
-
-
-
         }
 
 
@@ -125,7 +121,8 @@ class RegisterFragment : Fragment() {
         binding.editTextRegisterEmail.setText("emirpetek2002@gmail.com")
         binding.editTextRegisterPassword.setText("emir2002")
         binding.editTextRegisterPasswordAgain.setText("emir2002")
-        binding.editTextRegisterBirthdate.setText("25/01/2002")
+        binding.editTextRegisterBirthdate.setText("25-01-2002")
+        binding.editTextRegisterBirthTime.setText("04:20")
     }
 
     public override fun onStart() {
@@ -153,8 +150,13 @@ class RegisterFragment : Fragment() {
                                 binding.editTextRegisterEmail.text.toString(),
                                 binding.editTextRegisterPassword.text.toString(),
                                 binding.editTextRegisterBirthdate.text.toString(),
+                                binding.editTextRegisterBirthTime.text.toString(),
                             "null",
-                                System.currentTimeMillis()
+                                System.currentTimeMillis(),
+                            "0",
+                            0,
+                            zodiacSign,
+                            ascendant
                                 )
                         viewModel.addUser(user)
 
@@ -208,5 +210,73 @@ class RegisterFragment : Fragment() {
         calendar.set(year, month, day)
         val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
         return dateFormat.format(calendar.time)
+    }
+
+    private fun showTimePickerDialog(onTimeSet: (hourOfDay: Int, minute: Int) -> Unit) {
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
+
+        val timePickerDialog = TimePickerDialog(
+            requireContext(),
+            { _, selectedHour, selectedMinute ->
+                onTimeSet(selectedHour, selectedMinute)
+            },
+            hour,
+            minute,
+            true
+        )
+
+        timePickerDialog.show()
+    }
+
+    private fun calculateZodiacAndAscendant() {
+        val date = binding.editTextRegisterBirthdate.text.toString()
+        val time = binding.editTextRegisterBirthTime.text.toString()
+
+        if (date.isNotEmpty() && time.isNotEmpty()) {
+            val (day, month, year) = date.split("-").map { it.toInt() }
+            val (hour, minute) = time.split(":").map { it.toInt() }
+
+            zodiacSign = calculateZodiacSign(day, month)
+            ascendant = calculateAscendant(hour)
+
+        }
+    }
+
+    private fun calculateZodiacSign(day: Int, month: Int): String {
+        return when (month) {
+            1 -> if (day < 20) getString(R.string.capricorn) else getString(R.string.aquarius)
+            2 -> if (day < 19) getString(R.string.aquarius) else getString(R.string.pisces)
+            3 -> if (day < 21) getString(R.string.pisces) else getString(R.string.aries)
+            4 -> if (day < 20) getString(R.string.aries) else getString(R.string.taurus)
+            5 -> if (day < 21) getString(R.string.taurus) else getString(R.string.gemini)
+            6 -> if (day < 21) getString(R.string.gemini) else getString(R.string.cancer)
+            7 -> if (day < 23) getString(R.string.cancer) else getString(R.string.leo)
+            8 -> if (day < 23) getString(R.string.leo) else getString(R.string.virgo)
+            9 -> if (day < 23) getString(R.string.virgo) else getString(R.string.libra)
+            10 -> if (day < 23) getString(R.string.libra) else getString(R.string.scorpio)
+            11 -> if (day < 22) getString(R.string.scorpio) else getString(R.string.sagittarius)
+            12 -> if (day < 22) getString(R.string.sagittarius) else getString(R.string.capricorn)
+            else -> getString(R.string.unknown)
+        }
+    }
+
+    private fun calculateAscendant(hour: Int): String {
+        return when (hour) {
+            in 0..1 -> getString(R.string.aries)
+            in 2..3 -> getString(R.string.taurus)
+            in 4..5 -> getString(R.string.gemini)
+            in 6..7 -> getString(R.string.cancer)
+            in 8..9 -> getString(R.string.leo)
+            in 10..11 -> getString(R.string.virgo)
+            in 12..13 -> getString(R.string.libra)
+            in 14..15 -> getString(R.string.scorpio)
+            in 16..17 -> getString(R.string.sagittarius)
+            in 18..19 -> getString(R.string.capricorn)
+            in 20..21 -> getString(R.string.aquarius)
+            in 22..23 -> getString(R.string.pisces)
+            else -> getString(R.string.unknown)
+        }
     }
 }

@@ -5,6 +5,7 @@
     <string name="add">Add</string>
     <string name="cancel">Cancel</string>
     <string name="name_surname">Name surname</string>
+    <string name="fullname">Fullname</string>
     <string name="date">Date</string>
     <string name="gift_idea">Gift Idea</string>
     <string name="gift_idea_details">Clothes,Watch,Toy etc.</string>
@@ -34,6 +35,7 @@
     <string name="not_empty_email_field">Please fill email field.</string>
     <string name="not_empty_fullname_field">Please fill fullname field.</string>
     <string name="not_empty_birthday_field">Please fill birthday field.</string>
+    <string name="not_empty_birthTime_field">Please fill birth time field.</string>
     <string name="not_match_passwords">Passwords do not match.</string>
     <string name="password_charachters_at_least_six">Passwords should be at least 6 characters.</string>
     <string name="email_already_using">The email address is already in use by another account.</string>
@@ -54,5 +56,25 @@
     <string name="social">Social</string>
     <string name="social_gift_ideas">SOCIAL GIFT IDEAS</string>
     <string name="profile_toolbar">PROFILE</string>
+    <string name="birth_time">Birth Time</string>
+    <string name="joined_at">Joined At</string>
+
+
+    <!-- 12 tane burç bilgisi-->
+    <string name="capricorn">Capricorn</string>
+    <string name="aquarius">Aquarius</string>
+    <string name="pisces">Pisces</string>
+    <string name="aries">Aries</string>
+    <string name="taurus">Taurus</string>
+    <string name="gemini">Gemini</string>
+    <string name="cancer">Cancer</string>
+    <string name="leo">Leo</string>
+    <string name="virgo">Virgo</string>
+    <string name="libra">Libra</string>
+    <string name="scorpio">Scorpio</string>
+    <string name="sagittarius">Sagittarius</string>
+    <string name="unknown">Unknown</string>
+    <string name="zodiac">ZODIAC</string>
+    <string name="ascendant">ASCENDANT</string>
 
 </resources>

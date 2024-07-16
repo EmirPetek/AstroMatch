@@ -60,6 +60,7 @@
         android:ems="10"
         android:fontFamily="@font/nunito"
         android:hint="@string/dd_mm_yyyy"
+        android:focusable="false"
         android:inputType="date"
         android:textColor="@color/text_black"
         android:textColorHint="@color/hint_color"
@@ -72,7 +73,7 @@
         android:layout_width="360dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/muli_semibold"
         android:text="@string/register"
@@ -80,8 +81,9 @@
         android:textSize="19sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextRegisterBirthdate" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextRegisterBirthTime" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout4"
@@ -215,6 +217,34 @@
         android:textColorLink="#CE0808"
         app:layout_constraintStart_toStartOf="@+id/textViewRegisterNameSurname"
         app:layout_constraintTop_toBottomOf="@+id/textViewRegisterNameSurname" />
+
+    <TextView
+        android:id="@+id/textViewRegisterBirthTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/nunito"
+        android:text="@string/birth_time"
+        android:textColor="@color/text_black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/editTextRegisterBirthdate"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRegisterBirthdate" />
+
+    <EditText
+        android:id="@+id/editTextRegisterBirthTime"
+        android:layout_width="350dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="MM:HH"
+        android:focusable="false"
+        android:inputType="time"
+        android:textColor="@color/text_black"
+        android:textColorHint="@color/hint_color"
+        android:textColorLink="#CE0808"
+        app:layout_constraintStart_toStartOf="@+id/textViewRegisterBirthTime"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRegisterBirthTime" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
