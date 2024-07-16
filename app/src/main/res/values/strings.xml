@@ -58,6 +58,8 @@
     <string name="profile_toolbar">PROFILE</string>
     <string name="birth_time">Birth Time</string>
     <string name="joined_at">Joined At</string>
+    <string name="make_survey">Make Survey</string>
+    <string name="ask_question">Ask Question</string>
 
 
     <!-- 12 tane burç bilgisi-->
