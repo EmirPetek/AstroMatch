@@ -16,5 +16,7 @@
     <color name="background_light">#FFFFFF</color>
     <color name="background_light_2">#E7D2CC</color>
     <color name="background_bottom_sheet_item">#CAB1B4</color>
+    <color name="red_negative">#F44336</color>
+    <color name="green_positive">#4CAF50</color>
 
 </resources>

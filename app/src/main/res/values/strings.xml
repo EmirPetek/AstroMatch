@@ -4,6 +4,9 @@
     <string name="profile">Profile</string>
     <string name="add">Add</string>
     <string name="cancel">Cancel</string>
+    <string name="cancel_big">CANCEL</string>
+    <string name="share">Share</string>
+    <string name="share_big">SHARE</string>
     <string name="name_surname">Name surname</string>
     <string name="fullname">Fullname</string>
     <string name="date">Date</string>
@@ -59,7 +62,9 @@
     <string name="birth_time">Birth Time</string>
     <string name="joined_at">Joined At</string>
     <string name="make_survey">Make Survey</string>
+    <string name="make_survey_big">MAKE SURVEY</string>
     <string name="ask_question">Ask Question</string>
+    <string name="ask_question_big">ASK QUESTION</string>
 
 
     <!-- 12 tane burç bilgisi-->

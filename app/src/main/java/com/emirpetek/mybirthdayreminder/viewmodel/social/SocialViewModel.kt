@@ -1,4 +1,4 @@
-package com.emirpetek.mybirthdayreminder.viewmodel
+package com.emirpetek.mybirthdayreminder.viewmodel.social
 
 import androidx.lifecycle.ViewModel
 

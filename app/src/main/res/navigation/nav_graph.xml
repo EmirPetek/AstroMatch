@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/birthdaysFragment"
-        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.BirthdaysFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.birthdays.BirthdaysFragment"
         android:label="fragment_birthdays"
         tools:layout="@layout/fragment_birthdays" >
         <action
@@ -45,15 +45,32 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/socialFragment"
-        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.SocialFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.social.SocialFragment"
         android:label="fragment_social"
-        tools:layout="@layout/fragment_social" />
+        tools:layout="@layout/fragment_social" >
+        <action
+            android:id="@+id/action_socialFragment_to_askQuestionFragment"
+            app:destination="@id/askQuestionFragment" />
+        <action
+            android:id="@+id/action_socialFragment_to_makeSurveyFragment"
+            app:destination="@id/makeSurveyFragment" />
+    </fragment>
     <fragment
         android:id="@+id/birthdayAddFragment"
-        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.BirthdayAddFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.birthdays.BirthdayAddFragment"
         android:label="BirthdayAddFragment" />
     <fragment
         android:id="@+id/birthdayUpdateFragment"
-        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.BirthdayUpdateFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.birthdays.BirthdayUpdateFragment"
         android:label="BirthdayUpdateFragment" />
+    <fragment
+        android:id="@+id/askQuestionFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.social.AskQuestionFragment"
+        android:label="fragment_ask_question"
+        tools:layout="@layout/fragment_ask_question" />
+    <fragment
+        android:id="@+id/makeSurveyFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.social.MakeSurveyFragment"
+        android:label="fragment_make_survey"
+        tools:layout="@layout/fragment_make_survey" />
 </navigation>
