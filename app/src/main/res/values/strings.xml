@@ -65,7 +65,8 @@
     <string name="make_survey_big">MAKE SURVEY</string>
     <string name="ask_question">Ask Question</string>
     <string name="ask_question_big">ASK QUESTION</string>
-
+    <string name="select_image_optional">Select Image(Optional)</string>
+    <string name="write_message">Write Message</string>
 
     <!-- 12 tane burç bilgisi-->
     <string name="capricorn">Capricorn</string>
