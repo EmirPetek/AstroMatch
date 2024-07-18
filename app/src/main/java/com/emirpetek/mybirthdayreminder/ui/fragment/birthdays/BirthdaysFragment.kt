@@ -1,21 +1,12 @@
-package com.emirpetek.mybirthdayreminder.ui.fragment
+package com.emirpetek.mybirthdayreminder.ui.fragment.birthdays
 
-import android.app.AlertDialog
-import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.DatePicker
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -23,14 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.databinding.FragmentBirthdaysBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.BirthdaysAdapter
-import com.emirpetek.mybirthdayreminder.viewmodel.BirthdaysViewModel
+import com.emirpetek.mybirthdayreminder.viewmodel.birthdays.BirthdaysViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
 
 class BirthdaysFragment : Fragment() {
 

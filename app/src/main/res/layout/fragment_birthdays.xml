@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/birthdays_background"
-    tools:context=".ui.fragment.BirthdaysFragment">
+    tools:context=".ui.fragment.birthdays.BirthdaysFragment">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButtonAddBirthday"

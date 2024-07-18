@@ -1,10 +1,9 @@
-package com.emirpetek.mybirthdayreminder.ui.fragment
+package com.emirpetek.mybirthdayreminder.ui.fragment.birthdays
 
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +20,7 @@ import androidx.navigation.fragment.findNavController
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.Birthdays
 import com.emirpetek.mybirthdayreminder.databinding.FragmentBirthdayAddBinding
-import com.emirpetek.mybirthdayreminder.viewmodel.BirthdayAddViewModel
+import com.emirpetek.mybirthdayreminder.viewmodel.birthdays.BirthdayAddViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth

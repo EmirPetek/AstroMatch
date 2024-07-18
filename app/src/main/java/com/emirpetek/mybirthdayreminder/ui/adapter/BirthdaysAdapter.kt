@@ -3,28 +3,23 @@ package com.emirpetek.mybirthdayreminder.ui.adapter
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.PopupMenu
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.emirpetek.mybirthdayreminder.data.entity.Birthdays
-import com.emirpetek.mybirthdayreminder.viewmodel.BirthdaysViewModel
+import com.emirpetek.mybirthdayreminder.viewmodel.birthdays.BirthdaysViewModel
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import com.emirpetek.mybirthdayreminder.R
-import com.emirpetek.mybirthdayreminder.ui.fragment.BirthdayUpdateFragment
-import kotlin.contracts.contract
+import com.emirpetek.mybirthdayreminder.ui.fragment.birthdays.BirthdayUpdateFragment
 
 
 class BirthdaysAdapter(
