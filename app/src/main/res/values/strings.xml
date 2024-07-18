@@ -44,6 +44,7 @@
     <string name="email_already_using">The email address is already in use by another account.</string>
     <string name="register_successfull">Register operation has completed successfully.</string>
     <string name="fill_all_place">Please fill all places.</string>
+    <string name="fill_option_place">Please fill option place.</string>
     <string name="login_successfull">Login Successful!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -67,6 +68,9 @@
     <string name="ask_question_big">ASK QUESTION</string>
     <string name="select_image_optional">Select Image(Optional)</string>
     <string name="write_message">Write Message</string>
+    <string name="add_option_at_least_two_options">Add Options(At least 2 options)</string>
+    <string name="option_colon">Option:</string>
+    <string name="option">Option</string>
 
     <!-- 12 tane burç bilgisi-->
     <string name="capricorn">Capricorn</string>

@@ -32,7 +32,7 @@ class AskQuestionFragment : Fragment() {
     private var selectedImages = ArrayList<Uri>()
 
     companion object {
-        private const val REQUEST_CODE_PICK_IMAGE = 1001
+        const val REQUEST_CODE_PICK_IMAGE = 1001
     }
 
 
@@ -96,8 +96,6 @@ class AskQuestionFragment : Fragment() {
                         selectedImages.add(it)
                     }
                 }
-                Log.e("askQuestionFragment","selected images onactivityresult: ")
-
                 selectedImagesAdapter.notifyDataSetChanged()
             }
         }
