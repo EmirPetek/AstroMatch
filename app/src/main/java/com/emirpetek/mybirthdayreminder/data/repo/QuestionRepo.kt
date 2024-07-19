@@ -5,12 +5,12 @@ import com.google.firebase.database.FirebaseDatabase
 
 class QuestionRepo {
 
-    val dbRef = FirebaseDatabase.getInstance().getReference("posts").child("questions")
+    val dbRefQuestions = FirebaseDatabase.getInstance().getReference("posts").child("questions").child("question")
 
 
     suspend fun insertQuestion(q : Question) : Boolean{
         return try {
-            dbRef.child("question").setValue(q)
+            dbRefQuestions.push().setValue(q)
             true
         }catch (e : Exception){
             false
