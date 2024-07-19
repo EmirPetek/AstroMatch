@@ -1,6 +1,7 @@
 package com.emirpetek.mybirthdayreminder.ui.fragment.social
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.viewModels
@@ -10,16 +11,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.data.entity.Survey
 import com.emirpetek.mybirthdayreminder.databinding.FragmentMakeSurveyBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.social.MakeSurveyFragmentOptionsAdapter
 import com.emirpetek.mybirthdayreminder.ui.adapter.social.MakeSurveyFragmentImageAdapter
 import com.emirpetek.mybirthdayreminder.viewmodel.social.MakeSurveyViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.launch
 import java.util.UUID
 
 class MakeSurveyFragment : Fragment() {
@@ -30,6 +36,11 @@ class MakeSurveyFragment : Fragment() {
     private lateinit var optionsAdapter: MakeSurveyFragmentOptionsAdapter
     private var selectedImages = ArrayList<Uri>()
     private var options = ArrayList<String>()
+    private var alertDialog: AlertDialog? = null
+    private var imgUrlRefList = ArrayList<String>()
+    private var imagesToUpload = 0
+    private var uploadedImages = 0
+
 
     companion object {
         private const val REQUEST_CODE_PICK_IMAGE = 1001
@@ -46,7 +57,7 @@ class MakeSurveyFragment : Fragment() {
         addOptionRV()
 
         binding.imageViewMakeSurveyAddPhoto.setOnClickListener { pickImages() }
-
+        bindShareButton()
         return binding.root
     }
 
@@ -83,7 +94,51 @@ class MakeSurveyFragment : Fragment() {
         Toast.makeText(requireContext(),message,Toast.LENGTH_SHORT).show()
     }
 
+    private fun bindShareButton(){
+        binding.buttonMakeSurveyFragmentShare.setOnClickListener {
+            if (binding.editTextMakeSurveyMessage.text.toString().isEmpty()){
+                showToast(getString(R.string.fill_all_place))
+            }else if (options.size < 2){
+                showToast(getString(R.string.options_at_least_two_item))
+            } else {
+                showLoadingAlert()
+                uploadDataToDatabase()
+            }
+        }
+    }
 
+    private fun showLoadingAlert() {
+        if (alertDialog == null) {
+            val dialogView = layoutInflater.inflate(R.layout.alert_wait_screen, null)
+            val alertDialogBuilder = AlertDialog.Builder(requireContext())
+            alertDialogBuilder.setView(dialogView)
+            alertDialog = alertDialogBuilder.create().apply {
+                setCancelable(false)
+                setCanceledOnTouchOutside(false)
+            }
+        }
+        alertDialog?.show()
+    }
+
+    private fun closeLoadingAlert() {
+        alertDialog?.let {
+            it.dismiss()
+            alertDialog = null
+        }
+    }
+
+    private fun uploadDataToDatabase(){
+        imagesToUpload = selectedImages.size
+        if (imagesToUpload == 0){
+            imgUrlRefList.add("null")
+            addSurveyPostDataToDatabase()
+        }else {
+            uploadedImages = 0
+            for (uri in selectedImages) {
+                uploadImageToDatabase(uri)
+            }
+        }
+    }
 
 
 
@@ -131,11 +186,18 @@ class MakeSurveyFragment : Fragment() {
 
     private fun uploadImageToDatabase(imageUri: Uri) {
         val storageReference = FirebaseStorage.getInstance().reference
-        val imageReference = storageReference.child("makeSurveyPhotos/${UUID.randomUUID()}.jpg")
+        val imgPathString = "posts/makeSurveyPhoto/${UUID.randomUUID()}.jpg"
+        val imageReference = storageReference.child(imgPathString)
 
         imageReference.putFile(imageUri)
             .addOnSuccessListener {
                 imageReference.downloadUrl.addOnSuccessListener { uri ->
+                    imgUrlRefList.add(imgPathString)
+                    uploadedImages++
+                    if (uploadedImages == imagesToUpload) {
+                        // Tüm resimler yüklendiğinde yapılacak işlem
+                        addSurveyPostDataToDatabase()
+                    }
                     // Resmin URL'sini veritabanına kaydedebilirsin
                     // saveImageUrlToDatabase(uri.toString())
                 }
@@ -143,6 +205,32 @@ class MakeSurveyFragment : Fragment() {
             .addOnFailureListener { exception ->
                 // Yükleme başarısız olduysa hata işlemlerini burada yapabilirsin
             }
+    }
+
+    private fun addSurveyPostDataToDatabase(){
+        val survey = Survey(
+            "",
+            Firebase.auth.currentUser!!.uid,
+            binding.editTextMakeSurveyMessage.text.toString(),
+            options,
+            imgUrlRefList,
+            System.currentTimeMillis(),
+            "0",
+            0
+        )
+
+
+        viewModel.insertSurvey(survey)
+        lifecycleScope.launch {
+            viewModel.surveyAdded.collect{ isAdded ->
+                if (isAdded){
+                    showToast(getString(R.string.post_shared))
+                    closeLoadingAlert()
+                    findNavController().popBackStack()
+
+                }
+            }
+        }
     }
 
     private fun saveImageUrlToDatabase(imageUrl: String) {
