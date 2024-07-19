@@ -119,7 +119,7 @@ class AskQuestionFragment : Fragment() {
                 Toast.makeText(requireContext(),getString(R.string.fill_all_place),Toast.LENGTH_SHORT).show()
             }else {
                 showLoadingAlert()
-                uploadAllImages()
+                uploadDataToDB()
             }
         }
     }
@@ -144,7 +144,7 @@ class AskQuestionFragment : Fragment() {
         }
     }
 
-    private fun uploadAllImages() {
+    private fun uploadDataToDB() {
         imagesToUpload = selectedImages.size
         if (imagesToUpload == 0){
             imgUrlRefList.add("null")
