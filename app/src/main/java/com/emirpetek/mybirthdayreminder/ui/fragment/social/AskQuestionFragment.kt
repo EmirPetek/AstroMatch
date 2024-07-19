@@ -1,6 +1,7 @@
 package com.emirpetek.mybirthdayreminder.ui.fragment.social
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.viewModels
