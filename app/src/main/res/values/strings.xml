@@ -46,6 +46,9 @@
     <string name="fill_all_place">Please fill all places.</string>
     <string name="fill_option_place">Please fill option place.</string>
     <string name="login_successfull">Login Successful!</string>
+    <string name="something_wrong">Something went wrong. PLease try again.</string>
+    <string name="post_sharing_waiting">Your post is sharing. \n Please wait.</string>
+    <string name="post_shared">Your post was shared successfully.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

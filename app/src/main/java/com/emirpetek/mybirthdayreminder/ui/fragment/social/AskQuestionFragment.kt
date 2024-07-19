@@ -39,6 +39,7 @@ class AskQuestionFragment : Fragment() {
     private var imgUrlRefList = ArrayList<String>()
     private var imagesToUpload = 0
     private var uploadedImages = 0
+    private var alertDialog: AlertDialog? = null
 
 
     companion object {
@@ -122,6 +123,26 @@ class AskQuestionFragment : Fragment() {
         }
     }
 
+    private fun showLoadingAlert() {
+        if (alertDialog == null) {
+            val dialogView = layoutInflater.inflate(R.layout.alert_wait_screen, null)
+            val alertDialogBuilder = AlertDialog.Builder(requireContext())
+            alertDialogBuilder.setView(dialogView)
+            alertDialog = alertDialogBuilder.create().apply {
+                setCancelable(false)
+                setCanceledOnTouchOutside(false)
+            }
+        }
+        alertDialog?.show()
+    }
+
+    private fun closeLoadingAlert() {
+        alertDialog?.let {
+            it.dismiss()
+            alertDialog = null
+        }
+    }
+
     private fun uploadAllImages() {
         imagesToUpload = selectedImages.size
         if (imagesToUpload == 0){
@@ -174,6 +195,7 @@ class AskQuestionFragment : Fragment() {
             viewModel.questionAdded.collect{ isAdded ->
                 if (isAdded){
                     Toast.makeText(requireContext(),getString(R.string.post_shared),Toast.LENGTH_SHORT).show()
+                    closeLoadingAlert()
                     findNavController().popBackStack()
 
                 }
