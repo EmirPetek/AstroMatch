@@ -66,7 +66,7 @@ class MakeSurveyFragment : Fragment() {
                 options.add(optionText)
                 binding.recyclerViewMakeSurveyOptions.setHasFixedSize(true)
                 binding.recyclerViewMakeSurveyOptions.layoutManager =
-                    LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL  , false)
                 optionsAdapter = MakeSurveyFragmentOptionsAdapter(requireContext(), options)
                 binding.recyclerViewMakeSurveyOptions.adapter = optionsAdapter
                 binding.editTextMakeSurveyOptionEdit.text.clear()

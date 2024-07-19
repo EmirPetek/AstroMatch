@@ -13,15 +13,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.data.entity.Question
 import com.emirpetek.mybirthdayreminder.databinding.FragmentAskQuestionBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.social.AskQuestionFragmentImageAdapter
 import com.emirpetek.mybirthdayreminder.viewmodel.social.AskQuestionViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.util.UUID
 
 class AskQuestionFragment : Fragment() {
@@ -30,6 +36,10 @@ class AskQuestionFragment : Fragment() {
     private lateinit var binding: FragmentAskQuestionBinding
     private lateinit var selectedImagesAdapter: AskQuestionFragmentImageAdapter
     private var selectedImages = ArrayList<Uri>()
+    private var imgUrlRefList = ArrayList<String>()
+    private var imagesToUpload = 0
+    private var uploadedImages = 0
+
 
     companion object {
         const val REQUEST_CODE_PICK_IMAGE = 1001
@@ -44,7 +54,7 @@ class AskQuestionFragment : Fragment() {
         binding.fragmentObj = this
 
         hideBottomNav()
-
+        bindShareButton()
         binding.imageViewAskQuestionAddPhoto.setOnClickListener { pickImages() }
 
         return binding.root
@@ -101,20 +111,75 @@ class AskQuestionFragment : Fragment() {
         }
     }
 
+    private fun bindShareButton(){
+        binding.buttonAskQuestionFragmentShare.setOnClickListener {
+            if (binding.editTextAskQuestionMessage.text.toString().isEmpty()){
+                Toast.makeText(requireContext(),getString(R.string.fill_all_place),Toast.LENGTH_SHORT).show()
+            }else {
+                showLoadingAlert()
+                uploadAllImages()
+            }
+        }
+    }
+
+    private fun uploadAllImages() {
+        imagesToUpload = selectedImages.size
+        if (imagesToUpload == 0){
+            imgUrlRefList.add("null")
+            addQuestionPostDataToDatabase()
+        }else {
+            uploadedImages = 0
+            for (uri in selectedImages) {
+                uploadImageToDatabase(uri)
+            }
+        }
+    }
+
     private fun uploadImageToDatabase(imageUri: Uri) {
         val storageReference = FirebaseStorage.getInstance().reference
-        val imageReference = storageReference.child("askQuestionPhotos/${UUID.randomUUID()}.jpg")
+        var imgPathString = "posts/askQuestionPhoto/${UUID.randomUUID()}.jpg"
+        val imageReference = storageReference.child(imgPathString)
 
         imageReference.putFile(imageUri)
             .addOnSuccessListener {
                 imageReference.downloadUrl.addOnSuccessListener { uri ->
+                    imgUrlRefList.add(imgPathString)
+                    uploadedImages++
+                    if (uploadedImages == imagesToUpload) {
+                        // Tüm resimler yüklendiğinde yapılacak işlem
+                        addQuestionPostDataToDatabase()
+                    }
                     // Resmin URL'sini veritabanına kaydedebilirsin
                    // saveImageUrlToDatabase(uri.toString())
                 }
             }
             .addOnFailureListener { exception ->
+                Toast.makeText(requireContext(),getString(R.string.something_wrong),Toast.LENGTH_SHORT).show()
                 // Yükleme başarısız olduysa hata işlemlerini burada yapabilirsin
             }
+    }
+
+    private fun addQuestionPostDataToDatabase(){
+        val question = Question(
+            "",
+            Firebase.auth.currentUser!!.uid,
+            binding.editTextAskQuestionMessage.text.toString(),
+            imgUrlRefList,
+            System.currentTimeMillis(),
+            "0",
+            0
+        )
+        viewModel.insertQuestion(question)
+        lifecycleScope.launch {
+            viewModel.questionAdded.collect{ isAdded ->
+                if (isAdded){
+                    Toast.makeText(requireContext(),getString(R.string.post_shared),Toast.LENGTH_SHORT).show()
+                    findNavController().popBackStack()
+
+                }
+            }
+        }
+
     }
 
     private fun saveImageUrlToDatabase(imageUrl: String) {
