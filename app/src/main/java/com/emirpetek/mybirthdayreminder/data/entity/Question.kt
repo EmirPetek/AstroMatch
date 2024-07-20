@@ -12,5 +12,5 @@ data class Question(
     val deleteState: String,
     val deleteTimestamp: Long
 ): Serializable{
-
+        constructor() : this("","","", arrayListOf(),0,"",0)
 }

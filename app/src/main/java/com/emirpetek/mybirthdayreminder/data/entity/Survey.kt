@@ -12,5 +12,5 @@ data class Survey(
     val deleteState:String,
     val deleteTime:Long
 ) : Serializable{
-
+        constructor() : this("","","", arrayListOf("0","1"),arrayListOf("0","1"),0,"",0)
 }
