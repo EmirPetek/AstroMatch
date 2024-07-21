@@ -1,7 +1,6 @@
-package com.emirpetek.mybirthdayreminder.data.repo
+package com.emirpetek.mybirthdayreminder.data.repo.social
 
 import androidx.lifecycle.MutableLiveData
-import com.emirpetek.mybirthdayreminder.data.entity.Birthdays
 import com.emirpetek.mybirthdayreminder.data.entity.Survey
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

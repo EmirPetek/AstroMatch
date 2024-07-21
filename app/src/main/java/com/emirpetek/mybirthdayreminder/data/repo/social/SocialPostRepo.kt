@@ -1,4 +1,4 @@
-package com.emirpetek.mybirthdayreminder.data.repo
+package com.emirpetek.mybirthdayreminder.data.repo.social
 
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
@@ -8,10 +8,6 @@ import com.emirpetek.mybirthdayreminder.data.entity.Question
 import com.emirpetek.mybirthdayreminder.data.entity.Survey
 import com.emirpetek.mybirthdayreminder.viewmodel.social.AskQuestionViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.MakeSurveyViewModel
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class SocialPostRepo(
     val viewModelSurvey: MakeSurveyViewModel,
