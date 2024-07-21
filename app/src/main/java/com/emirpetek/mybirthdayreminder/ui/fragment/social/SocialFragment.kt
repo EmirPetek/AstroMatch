@@ -10,8 +10,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.data.entity.Post
+import com.emirpetek.mybirthdayreminder.data.entity.Question
+import com.emirpetek.mybirthdayreminder.data.entity.Survey
 import com.emirpetek.mybirthdayreminder.data.repo.social.SocialPostRepo
 import com.emirpetek.mybirthdayreminder.databinding.FragmentSocialBinding
 import com.emirpetek.mybirthdayreminder.viewmodel.social.AskQuestionViewModel
@@ -19,6 +23,11 @@ import com.emirpetek.mybirthdayreminder.viewmodel.social.MakeSurveyViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.SocialViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class SocialFragment : Fragment() {
 
@@ -27,6 +36,7 @@ class SocialFragment : Fragment() {
     private val viewModelSurvey: MakeSurveyViewModel by viewModels()
     private val viewModelQuestion: AskQuestionViewModel by viewModels()
     private lateinit var binding: FragmentSocialBinding
+    private var post: Post = Post()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,33 +59,42 @@ class SocialFragment : Fragment() {
             val obj = SocialPostRepo(MakeSurveyViewModel(), AskQuestionViewModel(), viewLifecycleOwner)
 
 
-        var post =  obj.getAllPost()
-        Log.e("Post", post.toString())
+
+
+
+                getPostData()
+
 
         /*
 
         coroutine ile bu verileri asenkron olarak çek ve çektikten sonra ekrana yazdır.
         iki verinin de aynı anda ekrana ulaşması gerekiyor
-
-
          */
-
-
-
-
-
-
-
-
-            // post ile yapılacak işlemler
-
-
 
 
         Log.e("AFTER GET ALL POST",System.currentTimeMillis().toString())
 
         return binding.root
     }
+
+    private fun getPostData(){
+        viewModelQuestion.getQuestionList()
+        viewModelQuestion.questionList.observe(viewLifecycleOwner,Observer{ it ->
+            post.question = it as ArrayList<Question>
+        })
+
+        viewModelSurvey.getSurveyList()
+        viewModelSurvey.surveyList.observe(viewLifecycleOwner, Observer{ it ->
+            post.survey = it as ArrayList<Survey>
+            Log.e("post: ", post.toString())
+            Log.e("post question: ", post.question.toString())
+            Log.e("post survey: ", post.survey.toString())
+
+        })
+
+    }
+
+
 
     private fun setupBottomSheetDialog(){
         val dialog = BottomSheetDialog(requireContext())
