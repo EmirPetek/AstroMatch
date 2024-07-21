@@ -10,23 +10,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.emirpetek.mybirthdayreminder.R
-import com.emirpetek.mybirthdayreminder.data.repo.SocialPostRepo
+import com.emirpetek.mybirthdayreminder.data.repo.social.SocialPostRepo
 import com.emirpetek.mybirthdayreminder.databinding.FragmentSocialBinding
 import com.emirpetek.mybirthdayreminder.viewmodel.social.AskQuestionViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.MakeSurveyViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.SocialViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class SocialFragment : Fragment() {
 
@@ -44,6 +36,43 @@ class SocialFragment : Fragment() {
 
         showBottomNav()
         binding.imageViewSocialFragmentSharePost.setOnClickListener { setupBottomSheetDialog() }
+
+//        viewModelSurvey.getSurveyList()
+//        viewModelSurvey.surveyList.observe(viewLifecycleOwner, Observer {  it ->
+//            Log.e("surveylist: ", it.toString() )
+//        })
+//
+//        viewModelQuestion.getQuestionList()
+//        viewModelQuestion.questionList.observe(viewLifecycleOwner, Observer {  it ->
+//            Log.e("questionlist: ", it.toString() )
+//        })
+            val obj = SocialPostRepo(MakeSurveyViewModel(), AskQuestionViewModel(), viewLifecycleOwner)
+
+
+        var post =  obj.getAllPost()
+        Log.e("Post", post.toString())
+
+        /*
+
+        coroutine ile bu verileri asenkron olarak çek ve çektikten sonra ekrana yazdır.
+        iki verinin de aynı anda ekrana ulaşması gerekiyor
+
+
+         */
+
+
+
+
+
+
+
+
+            // post ile yapılacak işlemler
+
+
+
+
+        Log.e("AFTER GET ALL POST",System.currentTimeMillis().toString())
 
         return binding.root
     }

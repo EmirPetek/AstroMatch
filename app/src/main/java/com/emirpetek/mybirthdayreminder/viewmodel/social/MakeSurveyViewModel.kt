@@ -3,10 +3,8 @@ package com.emirpetek.mybirthdayreminder.viewmodel.social
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.emirpetek.mybirthdayreminder.data.entity.Question
 import com.emirpetek.mybirthdayreminder.data.entity.Survey
-import com.emirpetek.mybirthdayreminder.data.repo.QuestionRepo
-import com.emirpetek.mybirthdayreminder.data.repo.SurveyRepo
+import com.emirpetek.mybirthdayreminder.data.repo.social.SurveyRepo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

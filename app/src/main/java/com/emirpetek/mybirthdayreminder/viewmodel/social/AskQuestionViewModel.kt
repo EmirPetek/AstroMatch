@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.emirpetek.mybirthdayreminder.data.entity.Question
-import com.emirpetek.mybirthdayreminder.data.repo.QuestionRepo
+import com.emirpetek.mybirthdayreminder.data.repo.social.QuestionRepo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
