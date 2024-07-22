@@ -75,6 +75,7 @@
     <string name="add_option_at_least_two_options">Add Options(At least 2 options)</string>
     <string name="option_colon">Option:</string>
     <string name="option">Option</string>
+    <string name="reply_big">REPLY</string>
 
     <!-- 12 tane burç bilgisi-->
     <string name="capricorn">Capricorn</string>
