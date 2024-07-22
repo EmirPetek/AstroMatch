@@ -19,7 +19,7 @@ class SocialPostRepo(
     var questionList = ArrayList<Question>()
 
 
-    fun getAllPost() : Post {
+    fun getAllPost()  {
 
                 viewModelQuestion.getQuestionList()
                 viewModelSurvey.getSurveyList()
@@ -28,20 +28,20 @@ class SocialPostRepo(
 
 
 
-
-                viewModelQuestion.questionList.observe(viewLifecycleOwner, Observer { it ->
-                    questionList = it as ArrayList
-                    Log.e("questionList: ", it.toString() )
-
-                })
-
-
-
-                viewModelSurvey.surveyList.observe(viewLifecycleOwner, Observer { it ->
-                    surveyList = it as ArrayList
-                    Log.e("surveylist: ", it.toString() )
-
-                })
+//
+//                viewModelQuestion.questionList.observe(viewLifecycleOwner, Observer { it ->
+//                    questionList = it as ArrayList
+//                    Log.e("questionList: ", it.toString() )
+//
+//                })
+//
+//
+//
+//                viewModelSurvey.surveyList.observe(viewLifecycleOwner, Observer { it ->
+//                    surveyList = it as ArrayList
+//                    Log.e("surveylist: ", it.toString() )
+//
+//                })
 
 
 
@@ -51,8 +51,6 @@ class SocialPostRepo(
 
 
 
-        val post = Post(questionList, surveyList)
-        return post
     }
 
 

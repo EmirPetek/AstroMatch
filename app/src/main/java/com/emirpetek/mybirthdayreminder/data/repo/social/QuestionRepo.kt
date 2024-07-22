@@ -1,6 +1,7 @@
 package com.emirpetek.mybirthdayreminder.data.repo.social
 
 import androidx.lifecycle.MutableLiveData
+import com.emirpetek.mybirthdayreminder.data.entity.Post
 import com.emirpetek.mybirthdayreminder.data.entity.Question
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -11,14 +12,13 @@ class QuestionRepo {
 
     val dbRefQuestions = FirebaseDatabase.getInstance()
         .getReference("posts")
-        .child("questions")
         .child("question")
 
-    val questionList: MutableLiveData<List<Question>> = MutableLiveData()
+    val questionList: MutableLiveData<List<Post>> = MutableLiveData()
 
 
 
-    suspend fun insertQuestion(q : Question) : Boolean{
+    suspend fun insertQuestion(q : Post) : Boolean{
         return try {
             dbRefQuestions.push().setValue(q)
             true
@@ -29,13 +29,13 @@ class QuestionRepo {
 
     fun getQuestionList(){
         dbRefQuestions
-            .orderByChild("question")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    var questionl = ArrayList<Question>()
+                    var questionl = ArrayList<Post>()
                     for (q in snapshot.children){
-                        val questionModel = q.getValue(Question::class.java)!!
+                        val questionModel = q.getValue(Post::class.java)!!
                         if (questionModel.deleteState.equals("0")){
+                            questionModel.postID= q.key!!
                             questionl.add(questionModel)
                         }
                     }

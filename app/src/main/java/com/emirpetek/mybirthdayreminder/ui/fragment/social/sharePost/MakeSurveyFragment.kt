@@ -1,4 +1,4 @@
-package com.emirpetek.mybirthdayreminder.ui.fragment.social
+package com.emirpetek.mybirthdayreminder.ui.fragment.social.sharePost
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -15,10 +15,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.data.entity.Post
 import com.emirpetek.mybirthdayreminder.data.entity.Survey
 import com.emirpetek.mybirthdayreminder.databinding.FragmentMakeSurveyBinding
-import com.emirpetek.mybirthdayreminder.ui.adapter.social.MakeSurveyFragmentOptionsAdapter
-import com.emirpetek.mybirthdayreminder.ui.adapter.social.MakeSurveyFragmentImageAdapter
+import com.emirpetek.mybirthdayreminder.ui.adapter.social.sharePost.MakeSurveyFragmentOptionsAdapter
+import com.emirpetek.mybirthdayreminder.ui.adapter.social.sharePost.MakeSurveyFragmentImageAdapter
 import com.emirpetek.mybirthdayreminder.viewmodel.social.MakeSurveyViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.ktx.auth
@@ -208,15 +209,18 @@ class MakeSurveyFragment : Fragment() {
     }
 
     private fun addSurveyPostDataToDatabase(){
-        val survey = Survey(
+        val survey = Post(
             "",
             Firebase.auth.currentUser!!.uid,
+            "survey",
             binding.editTextMakeSurveyMessage.text.toString(),
-            options,
             imgUrlRefList,
             System.currentTimeMillis(),
             "0",
-            0
+            0,
+            options,
+            null,
+            arrayListOf()
         )
 
 

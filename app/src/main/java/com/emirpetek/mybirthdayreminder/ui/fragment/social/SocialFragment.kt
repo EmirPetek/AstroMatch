@@ -36,7 +36,10 @@ class SocialFragment : Fragment() {
     private val viewModelSurvey: MakeSurveyViewModel by viewModels()
     private val viewModelQuestion: AskQuestionViewModel by viewModels()
     private lateinit var binding: FragmentSocialBinding
-    private var post: Post = Post()
+   // private var post: Post = Post()
+    private var postList : ArrayList<Post> = arrayListOf()
+    private var surveyList : ArrayList<Post> = arrayListOf()
+    private var questionList : ArrayList<Post> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,32 +50,7 @@ class SocialFragment : Fragment() {
         showBottomNav()
         binding.imageViewSocialFragmentSharePost.setOnClickListener { setupBottomSheetDialog() }
 
-//        viewModelSurvey.getSurveyList()
-//        viewModelSurvey.surveyList.observe(viewLifecycleOwner, Observer {  it ->
-//            Log.e("surveylist: ", it.toString() )
-//        })
-//
-//        viewModelQuestion.getQuestionList()
-//        viewModelQuestion.questionList.observe(viewLifecycleOwner, Observer {  it ->
-//            Log.e("questionlist: ", it.toString() )
-//        })
-            val obj = SocialPostRepo(MakeSurveyViewModel(), AskQuestionViewModel(), viewLifecycleOwner)
-
-
-
-
-
-                getPostData()
-
-
-        /*
-
-        coroutine ile bu verileri asenkron olarak çek ve çektikten sonra ekrana yazdır.
-        iki verinin de aynı anda ekrana ulaşması gerekiyor
-         */
-
-
-        Log.e("AFTER GET ALL POST",System.currentTimeMillis().toString())
+        getPostData()
 
         return binding.root
     }
@@ -80,19 +58,27 @@ class SocialFragment : Fragment() {
     private fun getPostData(){
         viewModelQuestion.getQuestionList()
         viewModelQuestion.questionList.observe(viewLifecycleOwner,Observer{ it ->
-            post.question = it as ArrayList<Question>
+            //post.question = it as ArrayList<Question>
+            postList = it as ArrayList<Post>
         })
 
         viewModelSurvey.getSurveyList()
         viewModelSurvey.surveyList.observe(viewLifecycleOwner, Observer{ it ->
-            post.survey = it as ArrayList<Survey>
-            Log.e("post: ", post.toString())
-            Log.e("post question: ", post.question.toString())
-            Log.e("post survey: ", post.survey.toString())
-
+            //post.survey = it as ArrayList<Survey>
+            postList = it as ArrayList<Post>
+            setupPostItems()
         })
-
     }
+
+
+   private fun setupPostItems() {
+
+       for (p in postList){
+           Log.e("post type: ", p.postType.toString())
+           Log.e("post content: ", p.questionText.toString())
+           Log.e("post ts: ", p.timestamp.toString())
+       }
+   }
 
 
 

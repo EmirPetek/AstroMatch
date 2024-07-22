@@ -5,14 +5,14 @@
 <data>
     <variable
         name="fragmentObj"
-        type="com.emirpetek.mybirthdayreminder.ui.fragment.social.AskQuestionFragment" />
+        type="com.emirpetek.mybirthdayreminder.ui.fragment.social.sharePost.AskQuestionFragment" />
 </data>
     <androidx.constraintlayout.widget.ConstraintLayout
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/birthdays_background"
-        tools:context=".ui.fragment.social.AskQuestionFragment">
+        tools:context=".ui.fragment.social.sharePost.AskQuestionFragment">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

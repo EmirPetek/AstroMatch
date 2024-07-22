@@ -7,7 +7,7 @@
     <data>
         <variable
             name="fragmentObjMakeSurvey"
-            type="com.emirpetek.mybirthdayreminder.ui.fragment.social.MakeSurveyFragment" />
+            type="com.emirpetek.mybirthdayreminder.ui.fragment.social.sharePost.MakeSurveyFragment" />
     </data>
 
 
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/birthdays_background"
-        tools:context=".ui.fragment.social.MakeSurveyFragment">
+        tools:context=".ui.fragment.social.sharePost.MakeSurveyFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutMakeSurveyToolbar"

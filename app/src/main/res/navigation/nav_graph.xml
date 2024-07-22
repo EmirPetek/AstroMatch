@@ -65,12 +65,12 @@
         android:label="BirthdayUpdateFragment" />
     <fragment
         android:id="@+id/askQuestionFragment"
-        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.social.AskQuestionFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.social.sharePost.AskQuestionFragment"
         android:label="fragment_ask_question"
         tools:layout="@layout/fragment_ask_question" />
     <fragment
         android:id="@+id/makeSurveyFragment"
-        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.social.MakeSurveyFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.social.sharePost.MakeSurveyFragment"
         android:label="fragment_make_survey"
         tools:layout="@layout/fragment_make_survey" />
 </navigation>

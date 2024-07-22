@@ -3,7 +3,7 @@ package com.emirpetek.mybirthdayreminder.data.entity
 import java.io.Serializable
 
 data class Survey(
-    val surveyID: String,
+    var surveyID: String,
     val userID:String,
     val questionText: String,
     val options:ArrayList<String>,

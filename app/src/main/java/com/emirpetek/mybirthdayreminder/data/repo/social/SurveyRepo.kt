@@ -1,6 +1,7 @@
 package com.emirpetek.mybirthdayreminder.data.repo.social
 
 import androidx.lifecycle.MutableLiveData
+import com.emirpetek.mybirthdayreminder.data.entity.Post
 import com.emirpetek.mybirthdayreminder.data.entity.Survey
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -11,17 +12,16 @@ class SurveyRepo {
 
     val dbRefSurvey = FirebaseDatabase.getInstance()
         .getReference("posts")
-        .child("surveys")
         .child("survey")
 
-    val surveyList: MutableLiveData<List<Survey>> = MutableLiveData()
+    val surveyList: MutableLiveData<List<Post>> = MutableLiveData()
 
 
    /* fun getSurveyList(): MutableLiveData<List<Survey>> {
         return surveyList
     }*/
 
-    suspend fun insertSurvey(survey: Survey) : Boolean{
+    suspend fun insertSurvey(survey: Post) : Boolean{
         return try {
             dbRefSurvey.push().setValue(survey)
             true
@@ -36,10 +36,11 @@ class SurveyRepo {
             .orderByChild("survey")
             .addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                    var surveyl = ArrayList<Survey>()
+                    var surveyl = ArrayList<Post>()
                     for (s in snapshot.children){
-                        val surveyModel = s.getValue(Survey::class.java)!!
+                        val surveyModel = s.getValue(Post::class.java)!!
                         if (surveyModel.deleteState.equals("0")){
+                            surveyModel.postID = s.key!!
                             surveyl.add(surveyModel)
                         }
                     }
