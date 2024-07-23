@@ -12,22 +12,16 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.Post
-import com.emirpetek.mybirthdayreminder.data.entity.Question
-import com.emirpetek.mybirthdayreminder.data.entity.Survey
-import com.emirpetek.mybirthdayreminder.data.repo.social.SocialPostRepo
 import com.emirpetek.mybirthdayreminder.databinding.FragmentSocialBinding
+import com.emirpetek.mybirthdayreminder.ui.adapter.social.main.SocialPostAdapter
 import com.emirpetek.mybirthdayreminder.viewmodel.social.AskQuestionViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.MakeSurveyViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.SocialViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class SocialFragment : Fragment() {
 
@@ -38,8 +32,7 @@ class SocialFragment : Fragment() {
     private lateinit var binding: FragmentSocialBinding
    // private var post: Post = Post()
     private var postList : ArrayList<Post> = arrayListOf()
-    private var surveyList : ArrayList<Post> = arrayListOf()
-    private var questionList : ArrayList<Post> = arrayListOf()
+    private lateinit var postAdapter : SocialPostAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,7 +58,7 @@ class SocialFragment : Fragment() {
         viewModelSurvey.getSurveyList()
         viewModelSurvey.surveyList.observe(viewLifecycleOwner, Observer{ it ->
             //post.survey = it as ArrayList<Survey>
-            postList = it as ArrayList<Post>
+            postList += it as ArrayList<Post>
             setupPostItems()
         })
     }
@@ -73,11 +66,16 @@ class SocialFragment : Fragment() {
 
    private fun setupPostItems() {
 
-       for (p in postList){
-           Log.e("post type: ", p.postType.toString())
-           Log.e("post content: ", p.questionText.toString())
-           Log.e("post ts: ", p.timestamp.toString())
-       }
+           postList.sortByDescending { it.timestamp }
+            for (i in postList){
+               // Log.e("djfkfdlfa", i.postType)
+            }
+           binding.recyclerViewSocialFragment.setHasFixedSize(true)
+           binding.recyclerViewSocialFragment.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+           postAdapter = SocialPostAdapter(requireContext(),postList,viewModelQuestion,viewModelSurvey)
+           binding.recyclerViewSocialFragment.adapter = postAdapter
+
+
    }
 
 
