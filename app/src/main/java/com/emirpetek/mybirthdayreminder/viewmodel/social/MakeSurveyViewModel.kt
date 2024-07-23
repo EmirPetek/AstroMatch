@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.emirpetek.mybirthdayreminder.data.entity.Post
+import com.emirpetek.mybirthdayreminder.data.entity.SelectedOptions
 import com.emirpetek.mybirthdayreminder.data.entity.Survey
 import com.emirpetek.mybirthdayreminder.data.repo.social.SurveyRepo
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,10 +16,13 @@ class MakeSurveyViewModel : ViewModel() {
     private val _surveyAdded = MutableStateFlow(false)
     val surveyAdded: StateFlow<Boolean> get() = _surveyAdded
     var surveyList = MutableLiveData<List<Post>>()
-
+    var surveyOptionList = MutableLiveData<List<SelectedOptions>>()
+    private val _surveyOptionAdded = MutableStateFlow(false)
+    val surveyOptionAdded: StateFlow<Boolean> get() = _surveyOptionAdded
 
     init {
         surveyList = repo.surveyList
+        surveyOptionList = repo.surveyOption
     }
 
     fun insertSurvey(survey: Post){
@@ -32,6 +36,19 @@ class MakeSurveyViewModel : ViewModel() {
         viewModelScope.launch {
             repo.getSurvey()
 
+        }
+    }
+
+    fun insertSelectedSurvey(selectedOptions: SelectedOptions){
+        viewModelScope.launch {
+            repo.insertSelectedOption(selectedOptions)
+           // _surveyOptionAdded.value = result
+        }
+    }
+
+    fun getSelectedSurveyUsers(selectedOptions: SelectedOptions){
+        viewModelScope.launch {
+            repo.checkSelectedOptions(selectedOptions)
         }
     }
 }

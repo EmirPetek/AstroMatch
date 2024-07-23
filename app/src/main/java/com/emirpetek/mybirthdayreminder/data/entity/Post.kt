@@ -13,7 +13,7 @@ class Post(
     val deleteTimestamp: Long,
     val options:ArrayList<String>? = null,
     val questionAnswers:ArrayList<QuestionAnswers>? = null,
-    val selectedOptions:ArrayList<SelectedOptions>? = null
+    var selectedOptions:ArrayList<SelectedOptions>? = null
     ):Serializable{
 
         constructor() : this("","","","", arrayListOf(),0,"",0, arrayListOf(), arrayListOf())

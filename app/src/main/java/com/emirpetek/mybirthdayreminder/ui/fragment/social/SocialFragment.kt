@@ -2,7 +2,6 @@ package com.emirpetek.mybirthdayreminder.ui.fragment.social
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -61,6 +60,8 @@ class SocialFragment : Fragment() {
             postList += it as ArrayList<Post>
             setupPostItems()
         })
+
+
     }
 
 
@@ -72,7 +73,7 @@ class SocialFragment : Fragment() {
             }
            binding.recyclerViewSocialFragment.setHasFixedSize(true)
            binding.recyclerViewSocialFragment.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-           postAdapter = SocialPostAdapter(requireContext(),postList,viewModelQuestion,viewModelSurvey)
+           postAdapter = SocialPostAdapter(requireContext(),postList,viewModelQuestion,viewModelSurvey,viewLifecycleOwner)
            binding.recyclerViewSocialFragment.adapter = postAdapter
 
 

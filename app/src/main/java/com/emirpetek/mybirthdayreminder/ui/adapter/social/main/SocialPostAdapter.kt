@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emirpetek.mybirthdayreminder.R
@@ -18,7 +19,8 @@ class SocialPostAdapter(
     val mContext: Context,
     val postList: ArrayList<Post>,
     val viewModelQuestion: AskQuestionViewModel,
-    val viewModelSurvey: MakeSurveyViewModel
+    val viewModelSurvey: MakeSurveyViewModel,
+    val viewLifecycleOwner: LifecycleOwner
 ): RecyclerView.Adapter<SocialPostAdapter.PostCardHolder>() {
 
 
@@ -89,11 +91,7 @@ class SocialPostAdapter(
 
                     holder.recyclerViewPhoto.setHasFixedSize(true)
                     holder.recyclerViewPhoto.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL,false)
-                    val imgAdapter = SocialPostImageAdapter(
-                        mContext,
-                        imgList,
-                        "posts/askQuestionPhoto"
-                    )
+                    val imgAdapter = SocialPostImageAdapter(mContext,imgList,"posts/askQuestionPhoto")
                     holder.recyclerViewPhoto.adapter = imgAdapter
                 }
 
@@ -101,31 +99,35 @@ class SocialPostAdapter(
             }
             is SurveyViewHolder -> {
                 holder.textViewSurveyText.text = post.questionText
-                if (post.imageURL[0].equals("null")){ holder.constraintLayoutSocialSurveyPhoto.visibility = View.GONE }
-                else{
-                    var imgList : ArrayList<String> = arrayListOf()
-                    imgList = (post.imageURL)
 
+
+                if (post.imageURL[0] == "null"){ holder.constraintLayoutSocialSurveyPhoto.visibility = View.GONE }
+                else{
+                    holder.constraintLayoutSocialSurveyPhoto.visibility = View.VISIBLE
+                    val imgList : ArrayList<String> = post.imageURL
                     holder.recyclerViewSurveyPhoto.setHasFixedSize(true)
                     holder.recyclerViewSurveyPhoto.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL,false)
                     val imgAdapter = SocialPostImageAdapter(mContext,imgList,"posts/makeSurveyPhoto")
-                    holder.recyclerViewSurveyOptions.adapter = imgAdapter
+                    holder.recyclerViewSurveyPhoto.adapter = imgAdapter
                 }
+
 
                 holder.recyclerViewSurveyOptions.setHasFixedSize(true)
                 holder.recyclerViewSurveyOptions.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL,false)
+                val optionList : ArrayList<String> = post.options!!
+                //val userSelectedOptionList : ArrayList<SelectedOptions> ?= post.selectedOptions
 
-                var optionList : ArrayList<String> = arrayListOf()
-                optionList = post.options!!
-
-                val optionAdapter = SocialPostSurveyOptionsAdapter(mContext,optionList,viewModelSurvey)
+                val optionAdapter = SocialPostSurveyOptionsAdapter(mContext,optionList,post.postID, viewModelSurvey,postList.size,this,viewLifecycleOwner)
                 holder.recyclerViewSurveyOptions.adapter = optionAdapter
-
 
                 /*
 
 
-                resimlerin urlsini alıp glide ile yükle.
+                    radiobutton 1 kere tıklandı mı diğerlerinin clickablelerini false yap
+                    card yapısına isim, eklenme tarihi koy
+                    lazyloading
+                    5 taneden sonra daha fazla yükle ile ++5 tane daha göster
+
                  */
 
 
