@@ -50,6 +50,7 @@
     <string name="post_sharing_waiting">Your post is sharing. \n Please wait.</string>
     <string name="post_shared">Your post was shared successfully.</string>
     <string name="options_at_least_two_item">You should add at least 2 options item.</string>
+    <string name="your_message_sended">Your message has sent.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
