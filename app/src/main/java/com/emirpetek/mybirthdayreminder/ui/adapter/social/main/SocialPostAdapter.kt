@@ -1,26 +1,38 @@
 package com.emirpetek.mybirthdayreminder.ui.adapter.social.main
 
+import android.app.AlertDialog
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.Post
+import com.emirpetek.mybirthdayreminder.data.entity.QuestionAnswers
+import com.emirpetek.mybirthdayreminder.data.entity.SelectedOptions
 import com.emirpetek.mybirthdayreminder.viewmodel.social.AskQuestionViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.MakeSurveyViewModel
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 class SocialPostAdapter(
     val mContext: Context,
     val postList: ArrayList<Post>,
     val viewModelQuestion: AskQuestionViewModel,
     val viewModelSurvey: MakeSurveyViewModel,
-    val viewLifecycleOwner: LifecycleOwner
+    val viewLifecycleOwner: LifecycleOwner,
+    val lifecycleScope: CoroutineScope
 ): RecyclerView.Adapter<SocialPostAdapter.PostCardHolder>() {
 
 
@@ -43,6 +55,8 @@ class SocialPostAdapter(
             view.findViewById(R.id.recyclerViewSocialSurveyOptions)
         val constraintLayoutSocialSurveyPhoto: ConstraintLayout =
             view.findViewById(R.id.constraintLayoutSocialSurveyPhoto)
+        val constraintLayoutCardSocialSurvey: ConstraintLayout =
+            view.findViewById(R.id.constraintLayoutCardSocialSurvey)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostCardHolder {
@@ -94,10 +108,13 @@ class SocialPostAdapter(
                     val imgAdapter = SocialPostImageAdapter(mContext,imgList,"posts/askQuestionPhoto")
                     holder.recyclerViewPhoto.adapter = imgAdapter
                 }
+                holder.buttonReply.setOnClickListener { showReplyAlertDialog(post) }
+
 
 
             }
             is SurveyViewHolder -> {
+
                 holder.textViewSurveyText.text = post.questionText
 
 
@@ -116,9 +133,30 @@ class SocialPostAdapter(
                 holder.recyclerViewSurveyOptions.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL,false)
                 val optionList : ArrayList<String> = post.options!!
                 //val userSelectedOptionList : ArrayList<SelectedOptions> ?= post.selectedOptions
+                var userSelectedOptionList : ArrayList<SelectedOptions>
+                val ownUserID =  Firebase.auth.currentUser!!.uid
 
-                val optionAdapter = SocialPostSurveyOptionsAdapter(mContext,optionList,post.postID, viewModelSurvey,postList.size,this,viewLifecycleOwner)
-                holder.recyclerViewSurveyOptions.adapter = optionAdapter
+                var optionPosition : Int
+                viewModelSurvey.getSelectedSurveyUsers(post.postID)
+                viewModelSurvey.surveyOptionList.observe(viewLifecycleOwner, Observer { it ->
+                    userSelectedOptionList = it as ArrayList<SelectedOptions>
+                    userSelectedOptionList.reverse()
+                    for (i in userSelectedOptionList){
+                        if (i.userID == ownUserID && i.postID == post.postID) {
+                            optionPosition = i.selectedOption
+                            val optionAdapter = SocialPostSurveyOptionsAdapter(mContext,optionList,post.postID, viewModelSurvey,viewLifecycleOwner,userSelectedOptionList,optionPosition)
+                            holder.recyclerViewSurveyOptions.adapter = optionAdapter
+
+                        }else{
+                            optionPosition = -1
+                            val optionAdapter = SocialPostSurveyOptionsAdapter(mContext,optionList,post.postID, viewModelSurvey,viewLifecycleOwner,userSelectedOptionList,optionPosition)
+                            holder.recyclerViewSurveyOptions.adapter = optionAdapter
+                        }
+                    }
+
+                })
+
+
 
                 /*
 
@@ -130,9 +168,78 @@ class SocialPostAdapter(
 
                  */
 
+            }
+        }
+    }
+
+    private fun showReplyAlertDialog(post: Post) {
+        Log.e("alert içi", "alert var")
+        // Özel layout'u şişir
+        val inflater = LayoutInflater.from(mContext)
+        val view = inflater.inflate(R.layout.alert_social_reply_question, null)
+
+        // Layout içindeki bileşenleri bulun
+        val recyclerViewAlertSocialReplyQuestion = view.findViewById<RecyclerView>(R.id.recyclerViewAlertSocialReplyQuestion)
+        val textViewAlertSocialQuestionText = view.findViewById<TextView>(R.id.textViewAlertSocialQuestionText)
+        val buttonAlertSocialReplyQuestionReply = view.findViewById<Button>(R.id.buttonAlertSocialReplyQuestionReply)
+        val buttonAlertSocialReplyQuestionCancel = view.findViewById<Button>(R.id.buttonAlertSocialReplyQuestionCancel)
+        val editTextAlertReplyQuestionMessage = view.findViewById<EditText>(R.id.editTextAlertReplyQuestionMessage)
+        val constraintLayoutAlertSocialQuestionPhoto = view.findViewById<ConstraintLayout>(R.id.constraintLayoutAlertSocialQuestionPhoto)
+
+        // AlertDialog.Builder oluştur
+        val builder = AlertDialog.Builder(mContext)
+            .setView(view)
+            .setCancelable(true)
+
+        // Dialog'u oluştur ve göster
+        val dialog = builder.create()
+
+        buttonAlertSocialReplyQuestionCancel.setOnClickListener { dialog.dismiss() }
+        textViewAlertSocialQuestionText.text = post.questionText
+
+        if (post.imageURL[0] == "null"){ constraintLayoutAlertSocialQuestionPhoto.visibility = View.GONE }
+        else{
+            constraintLayoutAlertSocialQuestionPhoto.visibility = View.VISIBLE
+            val imgList : ArrayList<String> = post.imageURL
+            recyclerViewAlertSocialReplyQuestion.setHasFixedSize(true)
+            recyclerViewAlertSocialReplyQuestion.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL,false)
+            val imgAdapter = SocialPostImageAdapter(mContext,imgList,"posts/askQuestionPhoto")
+            recyclerViewAlertSocialReplyQuestion.adapter = imgAdapter
+        }
+
+
+
+        buttonAlertSocialReplyQuestionReply.setOnClickListener {
+            val replyMessage = editTextAlertReplyQuestionMessage.text.toString()
+            if (replyMessage.isEmpty()){
+                showToastMessage(mContext.getString(R.string.fill_all_place))
+            }else{
+                val q = QuestionAnswers(
+                    Firebase.auth.currentUser!!.uid,
+                    post.postID,
+                    replyMessage,
+                    System.currentTimeMillis()
+                )
+                viewModelQuestion.insertQuestionAnswer(q)
+                lifecycleScope.launch {
+                    viewModelQuestion.questionAnswerAdded.collect{ isAdded ->
+                        if (isAdded){
+                            showToastMessage(mContext.getString(R.string.your_message_sended))
+                            dialog.dismiss()
+                        }
+                    }
+                }
 
 
             }
         }
+
+        dialog.show()
+        Log.e("alert içi", "alert var en sonda")
+
+    }
+
+    private fun showToastMessage(msg:String){
+        Toast.makeText(mContext,msg,Toast.LENGTH_SHORT).show()
     }
 }

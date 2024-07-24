@@ -5,10 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import com.emirpetek.mybirthdayreminder.data.entity.Post
 import com.emirpetek.mybirthdayreminder.data.entity.SelectedOptions
 import com.emirpetek.mybirthdayreminder.data.entity.Survey
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
 
 class SurveyRepo {
 
@@ -61,8 +63,8 @@ class SurveyRepo {
         })
     }
 
-    fun checkSelectedOptions(selectedOptions: SelectedOptions) {
-        val ref = surveyOptionsRef.child(selectedOptions.postID)
+    fun checkSelectedOptions(postID: String) {
+        val ref = surveyOptionsRef.child(postID)
 
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -71,7 +73,9 @@ class SurveyRepo {
                     for(i in snapshot.children){
                        // Log.e("laskş","survey repo veri var")
                         val obj = i.getValue(SelectedOptions::class.java)!!
-                        selectedList.add(obj)
+                        if (obj.postID == postID && obj.userID == Firebase.auth.currentUser!!.uid){
+                            selectedList.add(obj)
+                        }
 
 
                     }

@@ -46,9 +46,9 @@ class MakeSurveyViewModel : ViewModel() {
         }
     }
 
-    fun getSelectedSurveyUsers(selectedOptions: SelectedOptions){
+    fun getSelectedSurveyUsers(postID: String){
         viewModelScope.launch {
-            repo.checkSelectedOptions(selectedOptions)
+            repo.checkSelectedOptions(postID)
         }
     }
 }

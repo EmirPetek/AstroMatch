@@ -3,6 +3,7 @@ package com.emirpetek.mybirthdayreminder.data.repo.social
 import androidx.lifecycle.MutableLiveData
 import com.emirpetek.mybirthdayreminder.data.entity.Post
 import com.emirpetek.mybirthdayreminder.data.entity.Question
+import com.emirpetek.mybirthdayreminder.data.entity.QuestionAnswers
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -13,6 +14,10 @@ class QuestionRepo {
     val dbRefQuestions = FirebaseDatabase.getInstance()
         .getReference("posts")
         .child("question")
+
+    val dbRefQuestionAnswer = FirebaseDatabase.getInstance()
+        .getReference("posts")
+        .child("questionAnswers")
 
     val questionList: MutableLiveData<List<Post>> = MutableLiveData()
 
@@ -47,6 +52,15 @@ class QuestionRepo {
                 }
 
             })
+    }
+
+    fun insertQuestionAnswer(q: QuestionAnswers): Boolean{
+        return try {
+            dbRefQuestionAnswer.child(q.postID).push().setValue(q)
+            true
+        }catch (e: Exception){
+            false
+        }
     }
 
 }

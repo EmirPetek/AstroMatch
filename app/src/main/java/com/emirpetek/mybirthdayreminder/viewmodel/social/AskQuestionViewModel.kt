@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.emirpetek.mybirthdayreminder.data.entity.Post
 import com.emirpetek.mybirthdayreminder.data.entity.Question
+import com.emirpetek.mybirthdayreminder.data.entity.QuestionAnswers
 import com.emirpetek.mybirthdayreminder.data.repo.social.QuestionRepo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,6 +16,9 @@ class AskQuestionViewModel : ViewModel() {
     private val _questionAdded = MutableStateFlow(false)
     val questionAdded: StateFlow<Boolean> get() = _questionAdded
     var questionList = MutableLiveData<List<Post>>()
+
+    private val _questionAnswerAdded = MutableStateFlow(false)
+    val questionAnswerAdded: StateFlow<Boolean> get() = _questionAnswerAdded
 
 
     init {
@@ -34,5 +38,12 @@ class AskQuestionViewModel : ViewModel() {
              repo.getQuestionList()
 
          }
+    }
+
+    fun insertQuestionAnswer(q:QuestionAnswers){
+        viewModelScope.launch {
+            val result = repo.insertQuestionAnswer(q)
+            _questionAnswerAdded.value = result
+        }
     }
 }

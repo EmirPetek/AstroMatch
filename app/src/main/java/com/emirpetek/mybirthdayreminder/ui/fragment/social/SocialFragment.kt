@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.R
@@ -40,7 +41,10 @@ class SocialFragment : Fragment() {
         binding = FragmentSocialBinding.inflate(inflater,container,false)
 
         showBottomNav()
-        binding.imageViewSocialFragmentSharePost.setOnClickListener { setupBottomSheetDialog() }
+        binding.imageViewSocialFragmentSharePost.setOnClickListener {
+            findNavController().navigate(R.id.action_socialFragment_to_askQuestionFragment)
+            //setupBottomSheetDialog()
+        }
 
         getPostData()
 
@@ -52,14 +56,15 @@ class SocialFragment : Fragment() {
         viewModelQuestion.questionList.observe(viewLifecycleOwner,Observer{ it ->
             //post.question = it as ArrayList<Question>
             postList = it as ArrayList<Post>
+            setupPostItems()
         })
 
-        viewModelSurvey.getSurveyList()
+      /*  viewModelSurvey.getSurveyList()
         viewModelSurvey.surveyList.observe(viewLifecycleOwner, Observer{ it ->
             //post.survey = it as ArrayList<Survey>
             postList += it as ArrayList<Post>
             setupPostItems()
-        })
+        })*/
 
 
     }
@@ -73,7 +78,7 @@ class SocialFragment : Fragment() {
             }
            binding.recyclerViewSocialFragment.setHasFixedSize(true)
            binding.recyclerViewSocialFragment.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-           postAdapter = SocialPostAdapter(requireContext(),postList,viewModelQuestion,viewModelSurvey,viewLifecycleOwner)
+           postAdapter = SocialPostAdapter(requireContext(),postList,viewModelQuestion,viewModelSurvey,viewLifecycleOwner,lifecycleScope)
            binding.recyclerViewSocialFragment.adapter = postAdapter
 
 

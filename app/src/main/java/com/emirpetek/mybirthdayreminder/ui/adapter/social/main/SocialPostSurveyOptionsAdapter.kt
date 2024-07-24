@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.SelectedOptions
@@ -18,12 +19,11 @@ import com.google.firebase.ktx.Firebase
 class SocialPostSurveyOptionsAdapter(
     val mContext: Context,
     val optionList: ArrayList<String>,
-  //  val userSelectList: ArrayList<SelectedOptions>? = null,
     val postID: String,
     val viewModelSurvey: MakeSurveyViewModel,
-    val postPosition: Int,
-    val socialPostAdapter: SocialPostAdapter,
     val viewLifecycleOwner: LifecycleOwner,
+    val userSelectedOptionList: ArrayList<SelectedOptions>,
+    var optionPosition: Int,
 ): RecyclerView.Adapter<SocialPostSurveyOptionsAdapter.OptionViewHolder>() {
 
     private var isAnyRadioButtonChecked = false
@@ -32,6 +32,7 @@ class SocialPostSurveyOptionsAdapter(
 
     inner class OptionViewHolder(view:View) : RecyclerView.ViewHolder(view){
         val radioButtonOption : RadioButton = view.findViewById(R.id.radioButtonSocialSurveyOption)
+        val constraintLayoutCardSurveyOption : ConstraintLayout = view.findViewById(R.id.constraintLayoutCardSurveyOption)
     }
 
     override fun onCreateViewHolder(
@@ -57,24 +58,85 @@ class SocialPostSurveyOptionsAdapter(
             System.currentTimeMillis()
         )
 
-        viewModelSurvey.getSelectedSurveyUsers(selectedOptions)
-        viewModelSurvey.surveyOptionList.observe(viewLifecycleOwner,Observer{ it ->
-            if (it != null) {
-                radioButtonList.add(holder.radioButtonOption)
-                val userSelectList =
-                    it as ArrayList<SelectedOptions>
-                for (u in userSelectList){
-                    if (u.userID == selectedOptions.userID && u.postID == selectedOptions.postID){
-                        val pos = u.selectedOption
-                        if (position == pos){
-                            holder.radioButtonOption.isChecked = true
-                            for (radioButton in radioButtonList) {
-                                radioButton.isClickable = false
-                            }
-                        }
-                    }else{
+        if (position == 0) {
+            radioButtonList.clear()
+        }
 
+        radioButtonList.add(holder.radioButtonOption)
+        //Log.e("numbers: ", "optionPosition: $optionPosition ve position: $position ve eleman adı $option")
+
+        if (optionPosition == -1){ // kullanıcı ilgili postta survey işareti hiç yapmamış
+            //Log.e("hangi ifte -1: ", holder.radioButtonOption.text.toString())
+
+        }else{//(optionPosition == position){
+            if (optionPosition == position) {
+
+                holder.radioButtonOption.isChecked = true
+
+
+            }
+            for (radioButton in radioButtonList) {
+                radioButton.setOnClickListener {
+                    Log.e("hangi ifte else if: ",radioButton.text.toString())
+                }
+                radioButton.isClickable = false
+            }
+        }
+
+
+      /*  for (i in userSelectedOptionList){
+
+            if (i.userID == selectedOptions.userID && i.postID == postID && i.selectedOption == selectedOptions.selectedOption) {
+//                Log.e("i post id: ", i.postID)
+//                Log.e("anlık post id: ", postID)
+//                Log.e("i selected option: ", i.selectedOption.toString())
+//                Log.e("anlık selected option: ", selectedOptions.selectedOption.toString())
+//                Log.e("i userid: ", i.userID)
+              //  if (i.selectedOption == selectedOptions.selectedOption) {
+                    Log.e("checked text: ", holder.radioButtonOption.text.toString())
+                    Log.e("gelen obj: ", i.postID.toString())
+                //holder.radioButtonOption.isChecked = true
+                holder.radioButtonOption.isSelected = true
+                //}
+                for (radioButton in radioButtonList) {
+                    radioButton.isClickable = false
+                }
+                continue
+            }
+
+
+        }*/
+
+
+
+     /*   viewModelSurvey.getSelectedSurveyUsers(selectedOptions)
+       viewModelSurvey.surveyOptionList.observe(viewLifecycleOwner,Observer{ it ->
+           Log.e("userselectlist size: ", it.size.toString())
+
+           if (it != null) {
+                radioButtonList.add(holder.radioButtonOption)
+                val userSelectList = it as ArrayList<SelectedOptions>
+                for (u in userSelectList){
+//                    if (u.userID == selectedOptions.userID
+//                        && u.postID == selectedOptions.postID){
+                    if (u.selectedOption == selectedOptions.selectedOption
+                        && u.userID == selectedOptions.userID
+                        && u.postID == selectedOptions.postID){
+                        //Log.e("socialpostsurveyoptionsadapter","iki u şartı altı postID: ${u.postID}")
+                      //  Log.e("post içeriği" ,"u ların olduğu if ve ${u.selectedOption} ? $option")
+                        val pos = u.selectedOption
+                        for (radioButton in radioButtonList) {
+                            radioButton.isClickable = false
+                        }
+                        holder.radioButtonOption.isChecked = true
+
+
+                    }else{
+                       // Log.e("socialpostsurveyoptionsadapter","iki u olmaayan taraf postID: ${u.postID}")
+                      //  Log.e("post içeriği" ,"u ların olduğu else ve ${u.selectedOption} ?  $option")
+                        // kullanıcı seçim yapmamış
                         holder.radioButtonOption.setOnClickListener {
+                            Log.e("options survey", "else kısmı ve u: ${u.postID}")
                             for (radioButton in radioButtonList) {
                                 radioButton.isClickable = false
                                 radioButton.isChecked = true
@@ -90,14 +152,18 @@ class SocialPostSurveyOptionsAdapter(
                             viewModelSurvey.insertSelectedSurvey(selectedOptionsData)
                             notifyItemChanged(position)
                         }
+
                     }
 
                 }
-            } else {
-                Log.e("userseelctlist: ", "nulllll")
+            }
+            else {
                 radioButtonList.add(holder.radioButtonOption)
+                Log.e("socialpostsurveyoptionsadapter","it null")
 
                 holder.radioButtonOption.setOnClickListener {
+                    Log.e("socialpostsurveyoptionsadapter","it null")
+
                     for (radioButton in radioButtonList) {
                         radioButton.isClickable = false
                         radioButton.isChecked = true
@@ -113,81 +179,8 @@ class SocialPostSurveyOptionsAdapter(
                     viewModelSurvey.insertSelectedSurvey(selectedOptionsData)
                     notifyItemChanged(position)
                 }
-
-
-                /*   if (userSelectList != null){
-
-            }else{
-
-                val selectedOptions = SelectedOptions(
-                    Firebase.auth.currentUser!!.uid,
-                    postID,
-                    position,
-                    System.currentTimeMillis()
-                )
-                viewModelSurvey.insertSelectedSurvey(selectedOptions)
-            }*/
-
-
-                /*   if (userSelectList != null){
-
-
-              //  Log.e("kslşdak","diğer kullanıcı falan" + Firebase.auth.currentUser!!.uid)
-
-                for (u in 0 until userSelectList.size){
-                if (userSelectList[u].userID.equals(Firebase.auth.currentUser!!.uid)) {
-                    //Log.e("kslşdak","diğer kullanıcı falan" + Firebase.auth.currentUser!!.uid)
-                    // seçeneği seçen kullanıcılar arasında cihaz kullanıcısı varsa, yani kullanıcı bu postta seçim yaptıysa
-                    val selectedOptionPositionDB = userSelectList[u].selectedOption
-                    if (position == selectedOptionPositionDB) {
-                        holder.radioButtonOption.isChecked = true
-                        isAnyRadioButtonChecked = true
-                    }
-                    holder.radioButtonOption.isClickable = false // kullanıcı seçim yapmış ve diğer seçimleri yapamaz
-
-                }else{
-                    radioButtonList.add(holder.radioButtonOption)
-
-                    holder.radioButtonOption.setOnClickListener {
-                        for (radioButton in radioButtonList){
-                            radioButton.isClickable = false
-                            val selectedOptions = SelectedOptions(
-                                Firebase.auth.currentUser!!.uid,
-                                postID,
-                                position,
-                                System.currentTimeMillis()
-                            )
-                            viewModelSurvey.insertSelectedSurvey(selectedOptions)
-                            notifyItemChanged(position)
-                        }
-
-
-                    }
-                }
             }
-            }else{
-
-                radioButtonList.add(holder.radioButtonOption)
-
-                holder.radioButtonOption.setOnClickListener {
-                    for (radioButton in radioButtonList){
-                        radioButton.isClickable = false
-                        val selectedOptions = SelectedOptions(
-                            Firebase.auth.currentUser!!.uid,
-                            postID,
-                            position,
-                            System.currentTimeMillis()
-                        )
-                        viewModelSurvey.insertSelectedSurvey(selectedOptions)
-                        notifyItemChanged(position)
-                    }
-
-
-                }
-
-            }*/
-            }
-        })
+        })*/
 
 
     }
