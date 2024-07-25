@@ -2,6 +2,7 @@ package com.emirpetek.mybirthdayreminder.ui.adapter.social.main
 
 import android.app.AlertDialog
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -126,12 +127,12 @@ class SocialPostAdapter(
                 holder.buttonReply.setOnClickListener { showReplyAlertDialog(post) }
 
                 if (position == visibleItemCount - 1 && visibleItemCount < postList.size) {
-                    holder.textViewCardSocialQuestionMore.visibility = View.VISIBLE
+                    holder.constraintLayoutTextViewMore.visibility = View.VISIBLE
                     holder.textViewCardSocialQuestionMore.setOnClickListener {
                         showMoreItems()
                     }
                 } else {
-                    holder.textViewCardSocialQuestionMore.visibility = View.GONE
+                    holder.constraintLayoutTextViewMore.visibility = View.GONE
                 }
 
                 holder.textViewCardSocialQuestionUserFullname.text = post.userFullname
@@ -233,7 +234,7 @@ class SocialPostAdapter(
         val inflater = LayoutInflater.from(mContext)
         val view = inflater.inflate(R.layout.alert_social_reply_question, null)
 
-        // Layout içindeki bileşenleri bulun
+        // Layout içindeki bileşenleri bul
         val recyclerViewAlertSocialReplyQuestion = view.findViewById<RecyclerView>(R.id.recyclerViewAlertSocialReplyQuestion)
         val textViewAlertSocialQuestionText = view.findViewById<TextView>(R.id.textViewAlertSocialQuestionText)
         val buttonAlertSocialReplyQuestionReply = view.findViewById<Button>(R.id.buttonAlertSocialReplyQuestionReply)

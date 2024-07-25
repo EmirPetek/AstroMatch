@@ -55,6 +55,8 @@ class SocialFragment : Fragment() {
     }
 
     private fun getPostData(){
+
+        binding.progressBarFragmentSocial.visibility = View.VISIBLE
         viewModelQuestion.getQuestionList()
         viewModelQuestion.questionList.observe(viewLifecycleOwner,Observer{ it ->
             //post.question = it as ArrayList<Question>
@@ -89,6 +91,7 @@ class SocialFragment : Fragment() {
             for (i in postList){
                // Log.e("djfkfdlfa", i.postType)
             }
+           binding.progressBarFragmentSocial.visibility = View.GONE
            binding.recyclerViewSocialFragment.setHasFixedSize(true)
            binding.recyclerViewSocialFragment.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
            postAdapter = SocialPostAdapter(requireContext(),postList,viewModelQuestion,viewModelSurvey,viewLifecycleOwner,lifecycleScope)
