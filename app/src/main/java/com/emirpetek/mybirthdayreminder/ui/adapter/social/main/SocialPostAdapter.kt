@@ -25,6 +25,10 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 class SocialPostAdapter(
     val mContext: Context,
@@ -35,6 +39,9 @@ class SocialPostAdapter(
     val lifecycleScope: CoroutineScope
 ): RecyclerView.Adapter<SocialPostAdapter.PostCardHolder>() {
 
+    private val VISIBLE_THRESHOLD = 5
+    private var visibleItemCount = VISIBLE_THRESHOLD
+
 
     abstract class PostCardHolder(view: View) : RecyclerView.ViewHolder(view)
 
@@ -42,9 +49,16 @@ class SocialPostAdapter(
         val recyclerViewPhoto: RecyclerView =
             view.findViewById(R.id.recyclerViewSocialQuestionPhoto)
         val textViewQuestionText: TextView = view.findViewById(R.id.textViewSocialQuestionText)
+        val textViewCardSocialQuestionShareTime: TextView = view.findViewById(R.id.textViewCardSocialQuestionShareTime)
         val buttonReply: Button = view.findViewById(R.id.buttonSocialQuestionReply)
         val constraintLayoutSocialQuestionPhoto : ConstraintLayout =
             view.findViewById(R.id.constraintLayoutSocialQuestionPhoto)
+        val constraintLayoutTextViewMore : ConstraintLayout =
+            view.findViewById(R.id.constraintLayoutTextViewMore)
+        val textViewCardSocialQuestionMore : TextView =
+            view.findViewById(R.id.textViewCardSocialQuestionMore)
+
+
     }
 
     class SurveyViewHolder(view: View) : PostCardHolder(view) {
@@ -77,7 +91,7 @@ class SocialPostAdapter(
     }
 
     override fun getItemCount(): Int {
-        return postList.size
+        return minOf(visibleItemCount, postList.size)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -110,6 +124,16 @@ class SocialPostAdapter(
                 }
                 holder.buttonReply.setOnClickListener { showReplyAlertDialog(post) }
 
+                if (position == visibleItemCount - 1 && visibleItemCount < postList.size) {
+                    holder.textViewCardSocialQuestionMore.visibility = View.VISIBLE
+                    holder.textViewCardSocialQuestionMore.setOnClickListener {
+                        showMoreItems()
+                    }
+                } else {
+                    holder.textViewCardSocialQuestionMore.visibility = View.GONE
+                }
+
+                holder.textViewCardSocialQuestionUserFullname.text = post.userFullname
 
 
             }
@@ -241,5 +265,12 @@ class SocialPostAdapter(
 
     private fun showToastMessage(msg:String){
         Toast.makeText(mContext,msg,Toast.LENGTH_SHORT).show()
+    }
+
+    fun showMoreItems() {
+        if (visibleItemCount < postList.size) {
+            visibleItemCount += VISIBLE_THRESHOLD
+            notifyDataSetChanged()
+        }
     }
 }
