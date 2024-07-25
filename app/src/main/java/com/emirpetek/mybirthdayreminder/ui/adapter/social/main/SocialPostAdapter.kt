@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -15,6 +16,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.Post
 import com.emirpetek.mybirthdayreminder.data.entity.QuestionAnswers
@@ -30,6 +32,7 @@ import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -69,6 +72,10 @@ class SocialPostAdapter(
             view.findViewById(R.id.constraintLayoutTextViewMore)
         val textViewCardSocialQuestionMore : TextView =
             view.findViewById(R.id.textViewCardSocialQuestionMore)
+        val constraintLayoutCardSocialQuestionProfileField : ConstraintLayout =
+            view.findViewById(R.id.constraintLayoutCardSocialQuestionProfileField)
+        val imageViewProfileImg : ImageView =
+            view.findViewById(R.id.imageViewCardSocialQuestionProfileImg)
 
     }
 
@@ -161,6 +168,22 @@ class SocialPostAdapter(
                 holder.textViewCardSocialQuestionUserFullname.text = post.userFullname
 
 
+
+                val imageName = post.userImg
+                Log.e("imagename" , imageName!!)
+                if (!imageName.equals("null")){
+                    val storage = Firebase.storage.reference.child(imageName)
+                    storage.downloadUrl.addOnSuccessListener { uri ->
+                        Glide
+                            .with(mContext)
+                            .load(uri)
+                            .into(holder.imageViewProfileImg)
+                    }
+                }
+
+            //    Glide.with(mContext).load(post.userImg).into(holder.imageViewProfileImg)
+
+
                 // post zamanını gösterme kodu
                 val unixTimestamp = post.timestamp.toString()
                 val formattedDateTime = getLocalizedDateTime(unixTimestamp)
@@ -191,8 +214,8 @@ class SocialPostAdapter(
             }
 
             is AdviewViewHolder -> {
-                adShowed++
-                    holder.constraintLayoutSocialQuestionAdBanner.visibility = View.VISIBLE
+                //adShowed++
+                    //holder.constraintLayoutSocialQuestionAdBanner.visibility = View.VISIBLE
                   /*  val backgroundScope = CoroutineScope(Dispatchers.IO)
                     backgroundScope.launch {
                         // Initialize the Google Mobile Ads SDK on a background thread.

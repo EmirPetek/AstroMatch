@@ -76,10 +76,11 @@ class SocialFragment : Fragment() {
                 viewModelUser.getUserFromUserID(postList[p].userID)
                 viewModelUser.userFullname.observe(viewLifecycleOwner, Observer { fullname ->
                     postList[p].userFullname = fullname
-                    setupPostItems()
-
                 })
-
+                viewModelUser.userImgURL.observe(viewLifecycleOwner, Observer { imgURI ->
+                    postList[p].userImg = imgURI
+                    setupPostItems()
+                })
             }
         })
 

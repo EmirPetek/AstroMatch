@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.databinding.FragmentProfileBinding
 import com.emirpetek.mybirthdayreminder.viewmodel.profile.ProfileViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -31,7 +33,7 @@ class ProfileFragment : Fragment() {
         binding = FragmentProfileBinding.inflate(inflater,container,false)
 
         auth = Firebase.auth
-
+        showBottomNav()
 
         Glide.with(this)
             .load("https://www.bio.purdue.edu/lab/deng/images/photo_not_yet_available.jpg")
@@ -58,8 +60,17 @@ class ProfileFragment : Fragment() {
             bindZodiacAscendantImage(zodiac,ascendant)
         })
 
+        binding.imageViewProfileFragmentSettings.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_profileSettingsFragment)
+        }
+
 
         return binding.root
+    }
+
+    private fun showBottomNav(){
+        val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNav?.visibility = View.VISIBLE
     }
 
     private fun bindZodiacAscendantImage(zodiac:String,ascendant:String){

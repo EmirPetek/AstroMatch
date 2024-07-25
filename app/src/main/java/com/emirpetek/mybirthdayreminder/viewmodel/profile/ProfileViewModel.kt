@@ -11,10 +11,12 @@ class ProfileViewModel : ViewModel() {
     private val repo = UserRepo()
     var user = MutableLiveData<User>()// = MutableLiveData()
     var userFullname = MutableLiveData<String>()// = MutableLiveData()
+    var userImgURL = MutableLiveData<String>()// = MutableLiveData()
 
     init {
         user = repo.getUser()
         userFullname = repo.getUserFullname()
+        userImgURL = repo.getUserImage()
 
     }
 
