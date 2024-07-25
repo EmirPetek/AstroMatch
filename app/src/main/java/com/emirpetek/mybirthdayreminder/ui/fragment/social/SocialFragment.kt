@@ -22,8 +22,18 @@ import com.emirpetek.mybirthdayreminder.viewmodel.profile.ProfileViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.AskQuestionViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.MakeSurveyViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.SocialViewModel
+import com.google.ads.mediation.admob.AdMobAdapter
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.nativead.NativeAd
+import com.google.android.gms.ads.nativead.NativeAdOptions
+import com.google.android.gms.ads.nativead.NativeAdView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.rvadapter.AdmobNativeAdAdapter
+
 
 class SocialFragment : Fragment() {
 
@@ -36,6 +46,7 @@ class SocialFragment : Fragment() {
    // private var post: Post = Post()
     private var postList : ArrayList<Post> = arrayListOf()
     private lateinit var postAdapter : SocialPostAdapter
+    lateinit var adLoader: AdLoader
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,17 +99,30 @@ class SocialFragment : Fragment() {
    private fun setupPostItems() {
 
            postList.sortByDescending { it.timestamp }
+
+
             for (i in postList){
                // Log.e("djfkfdlfa", i.postType)
             }
            binding.progressBarFragmentSocial.visibility = View.GONE
            binding.recyclerViewSocialFragment.setHasFixedSize(true)
            binding.recyclerViewSocialFragment.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-           postAdapter = SocialPostAdapter(requireContext(),postList,viewModelQuestion,viewModelSurvey,viewLifecycleOwner,lifecycleScope)
-           binding.recyclerViewSocialFragment.adapter = postAdapter
+           postAdapter = SocialPostAdapter(requireContext(),postList,viewModelQuestion,viewModelSurvey,viewLifecycleOwner,lifecycleScope,layoutInflater)
+
+       // NATIVE REKLAM İÇİN GEREKEN KODLAR. GITHUB FORKLADIM. ORADAN BAK. GEREKLI DEPENDENCIESLERI SYNC ETMEN LAZIM
+       val admobNativeAdAdapter: AdmobNativeAdAdapter = AdmobNativeAdAdapter.Builder.with(
+           getString(R.string.ad_native_id),
+               postAdapter,
+               "small")
+           .adItemInterval(3)
+           .build()
+
+       binding.recyclerViewSocialFragment.adapter = admobNativeAdAdapter
 
 
    }
+
+
 
 
 

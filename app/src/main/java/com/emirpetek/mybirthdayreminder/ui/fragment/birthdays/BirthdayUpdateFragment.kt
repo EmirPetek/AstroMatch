@@ -1,6 +1,7 @@
 package com.emirpetek.mybirthdayreminder.ui.fragment.birthdays
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.DatePicker
+import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -19,10 +22,20 @@ import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.Birthdays
 import com.emirpetek.mybirthdayreminder.databinding.FragmentBirthdayUpdateBinding
 import com.emirpetek.mybirthdayreminder.viewmodel.birthdays.BirthdayUpdateViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class BirthdayUpdateFragment : Fragment() {
 
@@ -36,6 +49,7 @@ class BirthdayUpdateFragment : Fragment() {
     private var userDegrees = arrayListOf<String>()
     private var userDegree:String = ""
     private lateinit var auth: FirebaseAuth
+    private lateinit var mAdView : AdView
 
 
 
@@ -58,12 +72,33 @@ class BirthdayUpdateFragment : Fragment() {
         bindUpdateButton()
         bindDeleteButton()
         hideBottomNav()
+        bindAdMob()
+
 
         return binding.root
     }
     private fun hideBottomNav(){
         val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNav?.visibility = View.GONE
+    }
+
+    fun bindAdMob(){
+        // birthdays sayfası reklam gösterme kısmı
+        val backgroundScope = CoroutineScope(Dispatchers.IO)
+        backgroundScope.launch {
+            // Initialize the Google Mobile Ads SDK on a background thread.
+            MobileAds.initialize(requireContext()) {}
+        }
+        mAdView = binding.adViewFragmentBirthdayUpdate
+        val adView = AdView(requireContext())
+        adView.adUnitId = getString(R.string.ad_unit_id)
+        val adSize = AdSize(400,80)
+        adView.setAdSize(adSize)
+        this.mAdView = adView
+        binding.adViewFragmentBirthdayUpdate.removeAllViews()
+        binding.adViewFragmentBirthdayUpdate.addView(adView)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 
     private fun getBirthdayList(){
@@ -82,6 +117,7 @@ class BirthdayUpdateFragment : Fragment() {
             binding.editTextBDUpdateGiftIdea.setText(b.giftIdea)
             binding.editTextBDUpdateNameSurname.setText(b.name)
             setUserDegreeSpinner(binding.spinnerDBUserDegree,b.userDegree)
+            birthdaySelecter(binding.editTextBDUpdateDate,b.date)
         }
     }
 
@@ -182,6 +218,53 @@ class BirthdayUpdateFragment : Fragment() {
 
         return selectedDegree
     }
+
+    private fun birthdaySelecter(editTextBirthdate: EditText, date: String){
+        editTextBirthdate.setOnClickListener {
+            showDatePickerDialog(editTextBirthdate,date)
+        }
+    }
+
+    private fun showDatePickerDialog(editTextBirthdate: EditText, date: String) {
+        val calendar = Calendar.getInstance()
+
+        // Gelen date stringini parse et
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val parsedDate = dateFormat.parse(date)
+        calendar.time = parsedDate
+
+        val selectedYear = calendar.get(Calendar.YEAR)
+        val selectedMonth = calendar.get(Calendar.MONTH)
+        val selectedDay = calendar.get(Calendar.DAY_OF_MONTH)
+
+        // DatePickerDialog için minimum ve maksimum tarihleri ayarla
+        calendar.set(1900, 0, 1)
+        val minDate = calendar.timeInMillis
+
+        val maxDate = System.currentTimeMillis()
+
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { view: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
+                val selectedDate = formatDate(year, monthOfYear, dayOfMonth)
+                editTextBirthdate.setText(selectedDate)
+            },
+            selectedYear, selectedMonth, selectedDay
+        )
+
+        datePickerDialog.datePicker.minDate = minDate
+        datePickerDialog.datePicker.maxDate = maxDate
+
+        datePickerDialog.show()
+    }
+
+    private fun formatDate(year: Int, month: Int, day: Int): String {
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, day)
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        return dateFormat.format(calendar.time)
+    }
+
 
 
 

@@ -21,6 +21,13 @@ import com.emirpetek.mybirthdayreminder.data.entity.Question
 import com.emirpetek.mybirthdayreminder.databinding.FragmentAskQuestionBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.social.sharePost.AskQuestionFragmentImageAdapter
 import com.emirpetek.mybirthdayreminder.viewmodel.social.AskQuestionViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.OnUserEarnedRewardListener
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
@@ -39,6 +46,7 @@ class AskQuestionFragment : Fragment() {
     private var imagesToUpload = 0
     private var uploadedImages = 0
     private var alertDialog: AlertDialog? = null
+    private var mInterstitialAd: InterstitialAd? = null
 
 
     companion object {
@@ -55,6 +63,7 @@ class AskQuestionFragment : Fragment() {
 
         hideBottomNav()
         bindShareButton()
+        loadAds()
         binding.imageViewAskQuestionAddPhoto.setOnClickListener { pickImages() }
 
         return binding.root
@@ -142,6 +151,30 @@ class AskQuestionFragment : Fragment() {
         }
     }
 
+    private fun loadAds(){
+        var adRequest = AdRequest.Builder().build()
+
+        InterstitialAd.load(requireContext(),getString(R.string.ad_interstitial_id), adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                mInterstitialAd = interstitialAd
+            }
+        })
+
+
+    }
+
+    fun showAd(){
+        if (mInterstitialAd != null) {
+            mInterstitialAd?.show(requireActivity())
+        } else {
+            Log.e("askquestionfragment", "reklam gösterilirken hata oluştu")
+        }
+    }
+
     private fun uploadDataToDB() {
         imagesToUpload = selectedImages.size
         if (imagesToUpload == 0){
@@ -199,6 +232,8 @@ class AskQuestionFragment : Fragment() {
                 if (isAdded){
                     Toast.makeText(requireContext(),getString(R.string.post_shared),Toast.LENGTH_SHORT).show()
                     closeLoadingAlert()
+                    showAd()
+
                     findNavController().popBackStack()
 
                 }

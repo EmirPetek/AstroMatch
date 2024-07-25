@@ -2,7 +2,6 @@ package com.emirpetek.mybirthdayreminder.ui.adapter.social.main
 
 import android.app.AlertDialog
 import android.content.Context
-import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -22,9 +21,17 @@ import com.emirpetek.mybirthdayreminder.data.entity.QuestionAnswers
 import com.emirpetek.mybirthdayreminder.data.entity.SelectedOptions
 import com.emirpetek.mybirthdayreminder.viewmodel.social.AskQuestionViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.MakeSurveyViewModel
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.nativead.NativeAd
+import com.google.android.gms.ads.nativead.NativeAdView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -37,12 +44,15 @@ class SocialPostAdapter(
     val viewModelQuestion: AskQuestionViewModel,
     val viewModelSurvey: MakeSurveyViewModel,
     val viewLifecycleOwner: LifecycleOwner,
-    val lifecycleScope: CoroutineScope
+    val lifecycleScope: CoroutineScope,
+    val layoutInflater: LayoutInflater
 ): RecyclerView.Adapter<SocialPostAdapter.PostCardHolder>() {
 
-    private val VISIBLE_THRESHOLD = 5
+    private val VISIBLE_THRESHOLD = 8
     private var visibleItemCount = VISIBLE_THRESHOLD
-
+    private lateinit var mAdView : AdView
+    private var currentItemNum = 0
+    private var adShowed = 0
 
     abstract class PostCardHolder(view: View) : RecyclerView.ViewHolder(view)
 
@@ -60,7 +70,6 @@ class SocialPostAdapter(
         val textViewCardSocialQuestionMore : TextView =
             view.findViewById(R.id.textViewCardSocialQuestionMore)
 
-
     }
 
     class SurveyViewHolder(view: View) : PostCardHolder(view) {
@@ -73,6 +82,13 @@ class SocialPostAdapter(
             view.findViewById(R.id.constraintLayoutSocialSurveyPhoto)
         val constraintLayoutCardSocialSurvey: ConstraintLayout =
             view.findViewById(R.id.constraintLayoutCardSocialSurvey)
+    }
+
+    class AdviewViewHolder(view: View): PostCardHolder(view){
+        val constraintLayoutSocialQuestionAdBanner : ConstraintLayout =
+            view.findViewById(R.id.constraintLayoutSocialQuestionAdBanner)
+        val adView : AdView =
+            view.findViewById(R.id.adViewCardSocialQuestion)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostCardHolder {
@@ -88,25 +104,30 @@ class SocialPostAdapter(
                 SurveyViewHolder(view)
             }
 
+            VIEW_TYPE_ADVIEW -> {
+                val view = inflater.inflate(R.layout.card_social_adview,parent,false)
+                return AdviewViewHolder(view)
+            }
+
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
 
     override fun getItemCount(): Int {
-        return minOf(visibleItemCount, postList.size)
+        return minOf(visibleItemCount, (postList.size))
     }
+    private fun isCard(position: Int) = (position + 1) % AD_FREQUENCY != 0
+
 
     override fun getItemViewType(position: Int): Int {
-        return when (postList[position].postType) {
-            "question" -> VIEW_TYPE_QUESTION
-            "survey" -> VIEW_TYPE_SURVEY
-            else -> throw IllegalArgumentException("Invalid type of data at position $position")
-        }
+        return VIEW_TYPE_QUESTION
     }
 
     companion object {
         private const val VIEW_TYPE_QUESTION = 0
         private const val VIEW_TYPE_SURVEY = 1
+        private const val VIEW_TYPE_ADVIEW = 2
+        private const val AD_FREQUENCY = 3
     }
 
     override fun onBindViewHolder(holder: PostCardHolder, position: Int) {
@@ -126,6 +147,7 @@ class SocialPostAdapter(
                 }
                 holder.buttonReply.setOnClickListener { showReplyAlertDialog(post) }
 
+                // more butonu gösterimi ve operasyonları
                 if (position == visibleItemCount - 1 && visibleItemCount < postList.size) {
                     holder.constraintLayoutTextViewMore.visibility = View.VISIBLE
                     holder.textViewCardSocialQuestionMore.setOnClickListener {
@@ -134,6 +156,7 @@ class SocialPostAdapter(
                 } else {
                     holder.constraintLayoutTextViewMore.visibility = View.GONE
                 }
+
 
                 holder.textViewCardSocialQuestionUserFullname.text = post.userFullname
 
@@ -166,6 +189,28 @@ class SocialPostAdapter(
                 }
                 holder.textViewCardSocialQuestionShareTime.text = text
             }
+
+            is AdviewViewHolder -> {
+                adShowed++
+                    holder.constraintLayoutSocialQuestionAdBanner.visibility = View.VISIBLE
+                  /*  val backgroundScope = CoroutineScope(Dispatchers.IO)
+                    backgroundScope.launch {
+                        // Initialize the Google Mobile Ads SDK on a background thread.
+                        MobileAds.initialize(mContext) {}
+                    }
+                    mAdView = holder.adView
+                    val adView = AdView(mContext)
+                    adView.adUnitId = mContext.getString(R.string.ad_unit_id)
+                    val adSize = AdSize(400,50)
+                    adView.setAdSize(adSize)
+                    this.mAdView = adView
+                    mAdView.removeAllViews()
+                    mAdView.addView(adView)
+                    val adRequest = AdRequest.Builder().build()
+                    adView.loadAd(adRequest)*/
+            }
+
+
             is SurveyViewHolder -> {
 
                 holder.textViewSurveyText.text = post.questionText

@@ -18,6 +18,9 @@ import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.User
 import com.emirpetek.mybirthdayreminder.databinding.FragmentRegisterBinding
 import com.emirpetek.mybirthdayreminder.viewmodel.login.RegisterViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -36,6 +39,7 @@ class RegisterFragment : Fragment() {
     private var isFillAllPlace = false
     private lateinit var zodiacSign:String
     private lateinit var ascendant:String
+    private lateinit var mAdView : AdView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +51,7 @@ class RegisterFragment : Fragment() {
             Navigation.findNavController(it).popBackStack()
         }
         hideBottomNav()
+        bindAdMob()
 
         auth = Firebase.auth
         mockEditText()
@@ -61,6 +66,8 @@ class RegisterFragment : Fragment() {
                 binding.editTextRegisterBirthTime.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute))
             }
         }
+
+
 
 
         binding.buttonRegisterSignUp.setOnClickListener {
@@ -100,6 +107,19 @@ class RegisterFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    private fun bindAdMob(){
+        mAdView = binding.adViewFragmentRegister
+        val adView = AdView(requireContext())
+        adView.adUnitId = getString(R.string.ad_unit_id)
+        val adSize = AdSize(380,50)
+        adView.setAdSize(adSize)
+        this.mAdView = adView
+        binding.adViewFragmentRegister.removeAllViews()
+        binding.adViewFragmentRegister.addView(adView)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -15,10 +15,17 @@ import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.databinding.FragmentBirthdaysBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.BirthdaysAdapter
 import com.emirpetek.mybirthdayreminder.viewmodel.birthdays.BirthdaysViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class BirthdaysFragment : Fragment() {
 
@@ -31,6 +38,9 @@ class BirthdaysFragment : Fragment() {
     private var userkey = ""
     private lateinit var auth: FirebaseAuth
 
+    private lateinit var mAdView : AdView
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBirthdaysBinding.inflate(inflater,container,false)
@@ -39,6 +49,25 @@ class BirthdaysFragment : Fragment() {
 
         sharedPreferences = requireActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         userkey = auth.currentUser!!.uid//sharedPreferences.getString("userKey","")!!
+
+
+        // birthdays sayfası banner reklam gösterme kısmı
+        val backgroundScope = CoroutineScope(Dispatchers.IO)
+        backgroundScope.launch {
+            // Initialize the Google Mobile Ads SDK on a background thread.
+            MobileAds.initialize(requireContext()) {}
+        }
+        mAdView = binding.adView
+        val adView = AdView(requireContext())
+        adView.adUnitId = getString(R.string.ad_unit_id)
+        val adSize = AdSize(320,50)
+        adView.setAdSize(adSize)
+        this.mAdView = adView
+        binding.adView.removeAllViews()
+        binding.adView.addView(adView)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+
 
         binding.progressBarFragmentBirthdays.visibility = View.VISIBLE
         binding.textViewNoAddedBirthday.visibility = View.GONE

@@ -21,10 +21,17 @@ import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.Birthdays
 import com.emirpetek.mybirthdayreminder.databinding.FragmentBirthdayAddBinding
 import com.emirpetek.mybirthdayreminder.viewmodel.birthdays.BirthdayAddViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -41,6 +48,7 @@ class BirthdayAddFragment : Fragment() {
     private lateinit var gift_idea:String
     private var userDegree:String = ""
     private lateinit var auth: FirebaseAuth
+    private lateinit var mAdView : AdView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,9 +74,30 @@ class BirthdayAddFragment : Fragment() {
         hideBottomNav()
         bindBackButton()
         bindAddButton()
+        bindAdMob()
+
 
         return binding.root
 
+    }
+
+    fun bindAdMob(){
+        // birthdays sayfası reklam gösterme kısmı
+        val backgroundScope = CoroutineScope(Dispatchers.IO)
+        backgroundScope.launch {
+            // Initialize the Google Mobile Ads SDK on a background thread.
+            MobileAds.initialize(requireContext()) {}
+        }
+        mAdView = binding.adViewFragmentAddBirthday
+        val adView = AdView(requireContext())
+        adView.adUnitId = getString(R.string.ad_unit_id)
+        val adSize = AdSize(400,80)
+        adView.setAdSize(adSize)
+        this.mAdView = adView
+        binding.adViewFragmentAddBirthday.removeAllViews()
+        binding.adViewFragmentAddBirthday.addView(adView)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 
     private fun hideBottomNav(){
