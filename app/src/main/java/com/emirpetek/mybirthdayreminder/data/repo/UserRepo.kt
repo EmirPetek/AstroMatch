@@ -10,11 +10,16 @@ import com.google.firebase.database.ValueEventListener
 class UserRepo {
 
     private var user : MutableLiveData<User> = MutableLiveData()
+    private var userFullname : MutableLiveData<String> = MutableLiveData()
     private val dbRef = FirebaseDatabase.getInstance().getReference("users")
 
 
     fun getUser() : MutableLiveData<User>{
         return user
+    }
+
+    fun getUserFullname() : MutableLiveData<String>{
+        return userFullname
     }
 
     suspend fun addUser(user: User) : Boolean{
@@ -35,6 +40,26 @@ class UserRepo {
                     userModel = i.getValue(User::class.java)!!
                 }
                 user.value = userModel
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+
+    fun getUserFullnameFromUserID(userID: String){
+        dbRef.orderByChild(userID).addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var userModel : User = User()
+                var fullname: String = String()
+                for (i in snapshot.children){
+                    userModel = i.getValue(User::class.java)!!
+                    fullname = userModel.fullname
+                }
+                userFullname.value = fullname
             }
 
             override fun onCancelled(error: DatabaseError) {

@@ -50,6 +50,7 @@ class SocialPostAdapter(
             view.findViewById(R.id.recyclerViewSocialQuestionPhoto)
         val textViewQuestionText: TextView = view.findViewById(R.id.textViewSocialQuestionText)
         val textViewCardSocialQuestionShareTime: TextView = view.findViewById(R.id.textViewCardSocialQuestionShareTime)
+        val textViewCardSocialQuestionUserFullname: TextView = view.findViewById(R.id.textViewCardSocialQuestionUserFullname)
         val buttonReply: Button = view.findViewById(R.id.buttonSocialQuestionReply)
         val constraintLayoutSocialQuestionPhoto : ConstraintLayout =
             view.findViewById(R.id.constraintLayoutSocialQuestionPhoto)
@@ -136,11 +137,37 @@ class SocialPostAdapter(
                 holder.textViewCardSocialQuestionUserFullname.text = post.userFullname
 
 
+                // post zamanını gösterme kodu
+                val unixTimestamp = post.timestamp.toString()
+                val formattedDateTime = getLocalizedDateTime(unixTimestamp)
+                var postTime = formattedDateTime.substring(11,16)
+                var yyyy = formattedDateTime.substring(0,4)
+                var mm = formattedDateTime.substring(5,7)
+                var dd = formattedDateTime.substring(8,10)
+                var postDate = "$dd/$mm/$yyyy"
+
+                val nowTimeStamp = System.currentTimeMillis().toString()
+
+                val timeDifference = (nowTimeStamp.substring(0, nowTimeStamp.length - 3).toLong() - unixTimestamp.substring(0, unixTimestamp.length - 3).toLong())
+                // timedifference saniye cinsinden gelir
+
+                val min = timeDifference/60 // üstünden kaç dakika geçmiş onu gösterir
+                val hour = timeDifference/3600 // üstünden kaç saat geçmiş onu gösterir
+                //Log.e("times: ", "min: $min hour: $hour")
+                var text: String = String()
+                if (min >= 0 && min < 60) {
+                    text = "$min ${mContext.getString(R.string.minutes_ago)}"
+
+                } else if (hour >= 1 && hour < 24) {
+                    text = "$hour ${mContext.getString(R.string.hours_ago)}"
+                } else {
+                    text =  postTime + " - " + postDate
+                }
+                holder.textViewCardSocialQuestionShareTime.text = text
             }
             is SurveyViewHolder -> {
 
                 holder.textViewSurveyText.text = post.questionText
-
 
                 if (post.imageURL[0] == "null"){ holder.constraintLayoutSocialSurveyPhoto.visibility = View.GONE }
                 else{
@@ -177,23 +204,27 @@ class SocialPostAdapter(
                             holder.recyclerViewSurveyOptions.adapter = optionAdapter
                         }
                     }
-
                 })
-
-
-
-                /*
-
-
-                    radiobutton 1 kere tıklandı mı diğerlerinin clickablelerini false yap
-                    card yapısına isim, eklenme tarihi koy
-                    lazyloading
-                    5 taneden sonra daha fazla yükle ile ++5 tane daha göster
-
-                 */
-
             }
         }
+    }
+
+    private fun getLocalizedDateTime(unixTime: String): String {
+        // Unix zamanını milisaniye cinsine çevir
+        val date = Date(unixTime.toLong() * 1)
+
+        // Cihazın mevcut dil ve bölge ayarlarını al
+        val locale = Locale.getDefault()
+
+        // Tarih ve saat formatını belirle
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", locale)
+
+        // Cihazın zaman dilimini al
+        val timeZone = TimeZone.getDefault()
+        dateFormat.timeZone = timeZone
+
+        // Tarih ve saati formatla ve döndür
+        return dateFormat.format(date)
     }
 
     private fun showReplyAlertDialog(post: Post) {
@@ -231,8 +262,6 @@ class SocialPostAdapter(
             recyclerViewAlertSocialReplyQuestion.adapter = imgAdapter
         }
 
-
-
         buttonAlertSocialReplyQuestionReply.setOnClickListener {
             val replyMessage = editTextAlertReplyQuestionMessage.text.toString()
             if (replyMessage.isEmpty()){
@@ -253,14 +282,9 @@ class SocialPostAdapter(
                         }
                     }
                 }
-
-
             }
         }
-
         dialog.show()
-        Log.e("alert içi", "alert var en sonda")
-
     }
 
     private fun showToastMessage(msg:String){

@@ -17,6 +17,8 @@ import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.Post
 import com.emirpetek.mybirthdayreminder.databinding.FragmentSocialBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.social.main.SocialPostAdapter
+import com.emirpetek.mybirthdayreminder.viewmodel.login.RegisterViewModel
+import com.emirpetek.mybirthdayreminder.viewmodel.profile.ProfileViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.AskQuestionViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.MakeSurveyViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.SocialViewModel
@@ -29,6 +31,7 @@ class SocialFragment : Fragment() {
     private val viewModel: SocialViewModel by viewModels()
     private val viewModelSurvey: MakeSurveyViewModel by viewModels()
     private val viewModelQuestion: AskQuestionViewModel by viewModels()
+    private val viewModelUser: ProfileViewModel by viewModels()
     private lateinit var binding: FragmentSocialBinding
    // private var post: Post = Post()
     private var postList : ArrayList<Post> = arrayListOf()
@@ -56,8 +59,18 @@ class SocialFragment : Fragment() {
         viewModelQuestion.questionList.observe(viewLifecycleOwner,Observer{ it ->
             //post.question = it as ArrayList<Question>
             postList = it as ArrayList<Post>
-            setupPostItems()
+            for (p in 0 until  postList.size){
+                viewModelUser.getUserFromUserID(postList[p].userID)
+                viewModelUser.userFullname.observe(viewLifecycleOwner, Observer { fullname ->
+                    postList[p].userFullname = fullname
+                    setupPostItems()
+
+                })
+
+            }
         })
+
+
 
       /*  viewModelSurvey.getSurveyList()
         viewModelSurvey.surveyList.observe(viewLifecycleOwner, Observer{ it ->

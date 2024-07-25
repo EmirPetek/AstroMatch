@@ -77,6 +77,9 @@
     <string name="option_colon">Option:</string>
     <string name="option">Option</string>
     <string name="reply_big">REPLY</string>
+    <string name="more_big">MORE</string>
+    <string name="hours_ago">hours ago</string>
+    <string name="minutes_ago">minutes ago</string>
 
     <!-- 12 tane burç bilgisi-->
     <string name="capricorn">Capricorn</string>
