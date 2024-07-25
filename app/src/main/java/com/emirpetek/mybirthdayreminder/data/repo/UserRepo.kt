@@ -11,6 +11,7 @@ class UserRepo {
 
     private var user : MutableLiveData<User> = MutableLiveData()
     private var userFullname : MutableLiveData<String> = MutableLiveData()
+    private var userImageURL : MutableLiveData<String> = MutableLiveData()
     private val dbRef = FirebaseDatabase.getInstance().getReference("users")
 
 
@@ -20,6 +21,9 @@ class UserRepo {
 
     fun getUserFullname() : MutableLiveData<String>{
         return userFullname
+    }
+    fun getUserImage() : MutableLiveData<String>{
+        return userImageURL
     }
 
     suspend fun addUser(user: User) : Boolean{
@@ -55,11 +59,14 @@ class UserRepo {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var userModel : User = User()
                 var fullname: String = String()
+                var userImg: String = String()
                 for (i in snapshot.children){
                     userModel = i.getValue(User::class.java)!!
                     fullname = userModel.fullname
+                    userImg = userModel.profile_img
                 }
                 userFullname.value = fullname
+                userImageURL.value = userImg
             }
 
             override fun onCancelled(error: DatabaseError) {

@@ -131,7 +131,6 @@ class RegisterFragment : Fragment() {
     }
 
     private fun hideBottomNav(){
-        Log.e("dsskfl","jdfksdfsf")
         val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNav?.visibility = View.GONE
     }

@@ -45,14 +45,6 @@ class SocialPostImageAdapter(
                 .into(holder.imageView)
             holder.progressBar.visibility = View.GONE
         }
-
-
-
-
-
-
-
-
     }
 
     override fun getItemCount(): Int {

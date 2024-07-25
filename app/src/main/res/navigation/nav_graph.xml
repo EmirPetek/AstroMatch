@@ -42,7 +42,11 @@
         android:id="@+id/profileFragment"
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_profileSettingsFragment"
+            app:destination="@id/profileSettingsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/socialFragment"
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.social.SocialFragment"
@@ -73,4 +77,9 @@
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.social.sharePost.MakeSurveyFragment"
         android:label="fragment_make_survey"
         tools:layout="@layout/fragment_make_survey" />
+    <fragment
+        android:id="@+id/profileSettingsFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.ProfileSettingsFragment"
+        android:label="fragment_profile_settings"
+        tools:layout="@layout/fragment_profile_settings" />
 </navigation>

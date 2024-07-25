@@ -14,7 +14,8 @@ class Post(
     val options:ArrayList<String>? = null,
     val questionAnswers:ArrayList<QuestionAnswers>? = null,
     var selectedOptions:ArrayList<SelectedOptions>? = null,
-    var userFullname:String?= null
+    var userFullname:String?= null,
+    var userImg:String?=null
     ):Serializable{
 
         constructor() : this("","","","", arrayListOf(),0,"",0, arrayListOf(), arrayListOf(),
