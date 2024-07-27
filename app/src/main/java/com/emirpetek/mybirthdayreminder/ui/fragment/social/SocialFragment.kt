@@ -2,6 +2,7 @@ package com.emirpetek.mybirthdayreminder.ui.fragment.social
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,19 +18,11 @@ import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.Post
 import com.emirpetek.mybirthdayreminder.databinding.FragmentSocialBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.social.main.SocialPostAdapter
-import com.emirpetek.mybirthdayreminder.viewmodel.login.RegisterViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.profile.ProfileViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.AskQuestionViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.MakeSurveyViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.SocialViewModel
-import com.google.ads.mediation.admob.AdMobAdapter
-import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.nativead.NativeAd
-import com.google.android.gms.ads.nativead.NativeAdOptions
-import com.google.android.gms.ads.nativead.NativeAdView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.rvadapter.AdmobNativeAdAdapter
@@ -47,7 +40,7 @@ class SocialFragment : Fragment() {
     private var postList : ArrayList<Post> = arrayListOf()
     private lateinit var postAdapter : SocialPostAdapter
     lateinit var adLoader: AdLoader
-
+    lateinit var admobNativeAdAdapter: AdmobNativeAdAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,16 +64,22 @@ class SocialFragment : Fragment() {
         viewModelQuestion.getQuestionList()
         viewModelQuestion.questionList.observe(viewLifecycleOwner,Observer{ it ->
             //post.question = it as ArrayList<Question>
-            postList = it as ArrayList<Post>
-            for (p in 0 until  postList.size){
-                viewModelUser.getUserFromUserID(postList[p].userID)
-                viewModelUser.userFullname.observe(viewLifecycleOwner, Observer { fullname ->
-                    postList[p].userFullname = fullname
-                })
-                viewModelUser.userImgURL.observe(viewLifecycleOwner, Observer { imgURI ->
-                    postList[p].userImg = imgURI
-                    setupPostItems()
-                })
+            if (it != null && it.isNotEmpty()) {
+                postList.clear()
+                postList = it as ArrayList<Post>
+                Log.e("postlist size: ", postList.size.toString())
+                for (p in 0 until postList.size -1) {
+                    viewModelUser.getUserFromUserID(postList[p].userID)
+                    viewModelUser.userFullname.observe(viewLifecycleOwner, Observer { fullname ->
+                        Log.e("p num: ", "$p ve p elemanı $")
+                        postList[p].userFullname = fullname
+                    })
+                    viewModelUser.userImgURL.observe(viewLifecycleOwner, Observer { imgURI ->
+                        postList[p].userImg = imgURI
+                        setupPostItems(postList)
+
+                    })
+                }
             }
         })
 
@@ -97,21 +96,22 @@ class SocialFragment : Fragment() {
     }
 
 
-   private fun setupPostItems() {
+   private fun setupPostItems(postList1: ArrayList<Post>) {
 
-           postList.sortByDescending { it.timestamp }
+           postList1.sortByDescending { it.timestamp }
 
 
-            for (i in postList){
+            for (i in this.postList){
                // Log.e("djfkfdlfa", i.postType)
             }
            binding.progressBarFragmentSocial.visibility = View.GONE
            binding.recyclerViewSocialFragment.setHasFixedSize(true)
            binding.recyclerViewSocialFragment.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-           postAdapter = SocialPostAdapter(requireContext(),postList,viewModelQuestion,viewModelSurvey,viewLifecycleOwner,lifecycleScope,layoutInflater)
+           postAdapter = SocialPostAdapter(requireContext(),
+               postList1,viewModelQuestion,viewModelSurvey,viewLifecycleOwner,lifecycleScope,layoutInflater)
 
        // NATIVE REKLAM İÇİN GEREKEN KODLAR. GITHUB FORKLADIM. ORADAN BAK. GEREKLI DEPENDENCIESLERI SYNC ETMEN LAZIM
-       val admobNativeAdAdapter: AdmobNativeAdAdapter = AdmobNativeAdAdapter.Builder.with(
+       admobNativeAdAdapter = AdmobNativeAdAdapter.Builder.with(
            getString(R.string.ad_native_id),
                postAdapter,
                "small")
