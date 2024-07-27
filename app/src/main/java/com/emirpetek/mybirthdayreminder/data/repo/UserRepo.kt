@@ -2,80 +2,85 @@ package com.emirpetek.mybirthdayreminder.data.repo
 
 import androidx.lifecycle.MutableLiveData
 import com.emirpetek.mybirthdayreminder.data.entity.User
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class UserRepo {
 
-    private var user : MutableLiveData<User> = MutableLiveData()
-    private var userFullname : MutableLiveData<String> = MutableLiveData()
-    private var userImageURL : MutableLiveData<String> = MutableLiveData()
-    private val dbRef = FirebaseDatabase.getInstance().getReference("users")
+    private var user: MutableLiveData<User> = MutableLiveData()
+    private var userFullname: MutableLiveData<String> = MutableLiveData()
+    private var userImageURL: MutableLiveData<String> = MutableLiveData()
+    private val dbRef = Firebase.firestore.collection("users")
 
-
-    fun getUser() : MutableLiveData<User>{
+    fun getUser(): MutableLiveData<User> {
         return user
     }
 
-    fun getUserFullname() : MutableLiveData<String>{
+    fun getUserFullname(): MutableLiveData<String> {
         return userFullname
     }
-    fun getUserImage() : MutableLiveData<String>{
+
+    fun getUserImage(): MutableLiveData<String> {
         return userImageURL
     }
 
-    suspend fun addUser(user: User) : Boolean{
-
+    suspend fun addUser(user: User): Boolean {
         return try {
-            dbRef.child(user.userID).setValue(user)
+            dbRef.document(user.userID).set(user)
             true
-        }catch (e : Exception){
+        } catch (e: Exception) {
             false
         }
     }
 
-    fun getUserData(userID:String) {
-        dbRef.orderByChild(userID).addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var userModel : User = User()
-                for (i in snapshot.children){
-                    userModel = i.getValue(User::class.java)!!
-                }
+    fun getUserData(userID: String) {
+        dbRef.document(userID).addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                // Handle error
+                return@addSnapshotListener
+            }
+
+            if (snapshot != null && snapshot.exists()) {
+                val userModel = snapshot.toObject(User::class.java)!!
                 user.value = userModel
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
+        }
     }
 
+    fun getUserFullnameFromUserID(userID: String) {
+        dbRef.document(userID).addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                // Handle error
+                return@addSnapshotListener
+            }
 
-    fun getUserFullnameFromUserID(userID: String){
-        dbRef.orderByChild(userID).addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var userModel : User = User()
-                var fullname: String = String()
-                var userImg: String = String()
-                for (i in snapshot.children){
-                    userModel = i.getValue(User::class.java)!!
-                    fullname = userModel.fullname
-                    userImg = userModel.profile_img
-                }
+            if (snapshot != null && snapshot.exists()) {
+                val userModel = snapshot.toObject(User::class.java)!!
+                val fullname = userModel.fullname
+                val userImg = userModel.profile_img
                 userFullname.value = fullname
                 userImageURL.value = userImg
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
+        }
     }
 
+    fun updateUser(userID: String, userUpdates: Map<String, Any>) {
+        dbRef.document(userID).update(userUpdates)
+            .addOnSuccessListener {
+                // Log success or handle accordingly
+            }
+            .addOnFailureListener { e ->
+                // Log error or handle accordingly
+            }
+    }
 
-
+    fun deleteUser(userID: String) {
+        dbRef.document(userID).delete()
+            .addOnSuccessListener {
+                // Log success or handle accordingly
+            }
+            .addOnFailureListener { e ->
+                // Log error or handle accordingly
+            }
+    }
 }

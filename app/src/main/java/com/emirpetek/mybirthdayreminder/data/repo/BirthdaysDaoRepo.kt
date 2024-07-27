@@ -3,84 +3,84 @@ package com.emirpetek.mybirthdayreminder.data.repo
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.emirpetek.mybirthdayreminder.data.entity.Birthdays
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class BirthdaysDaoRepo {
 
     val birthdayList: MutableLiveData<List<Birthdays>> = MutableLiveData()
-    private val dbReference = FirebaseDatabase.getInstance().getReference("birthdays")
+    private val dbFirestoreRef = Firebase.firestore.collection("birthdays")
+
+    fun insertBirthdayFS(birthday: Birthdays) {
+        dbFirestoreRef
+            .document(birthday.saverID)
+            .collection("savedBirthdays")
+            .add(birthday)
+            .addOnSuccessListener { documentReference ->
+                // Log.e("birthdaysdaorepo: ", "DocumentSnapshot added with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                // Log.e("birthdaysdaorepo", "Error adding document", e)
+            }
+    }
 
     fun getBirthdays(): MutableLiveData<List<Birthdays>> {
         return birthdayList
     }
 
-    fun getBirthdaysData(userID:String){
-        val refGetBirthdays = dbReference.child(userID)
-        refGetBirthdays.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val bdList = ArrayList<Birthdays>()
-                if (snapshot.exists()) {
-                    for (i in snapshot.children) {
-                        val birthday = i.getValue(Birthdays::class.java)!!
-                        if (birthday.saverID.equals(userID)  && birthday.deletedState.equals("0")){
-                           // Log.e("sdkflşds",birthday.toString())
-                            birthday.birthdayKey = i.key!!
-                            bdList.add(birthday)
-                        }
-                    }
+    fun getBirthdaysData(userID: String) {
+        dbFirestoreRef.document(userID).collection("savedBirthdays")
+            .whereEqualTo("saverID", userID)
+            .whereEqualTo("deletedState", "0")
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Log.w("BirthdaysDaoRepo", "Listen failed.", e)
+                    return@addSnapshotListener
                 }
-                birthdayList.value = bdList
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
-
-    fun addBirthdays(birthday: Birthdays){
-        dbReference.child(birthday.saverID).push().setValue(birthday)
-    }
-
-    fun getSpecialBirthdayData(userID:String,birthdayKey:String){
-        val refGetBirthdays = dbReference.child(userID)//.child(birthdayKey)
-        refGetBirthdays.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val bdList = ArrayList<Birthdays>()
-                if (snapshot.exists()) {
-                    for (i in snapshot.children) {
-                        val birthday = i.getValue(Birthdays::class.java)!!
-                    //    Log.e("getspecialbirthdaydata fun"," if üstünde")
-                       // Log.e("birhtdaykeyler eşit mi", birthdayKey == i.)
-                        if (birthday.saverID.equals(userID) && i.key.equals(birthdayKey) && birthday.deletedState.equals("0")){
-                            birthday.birthdayKey = i.key!!
-                            bdList.add(birthday)
-                           // Log.e("getspecialbirthdaydata fun"," if içinde")
-                        }
+                if (snapshot != null && !snapshot.isEmpty) {
+                    val bdList = ArrayList<Birthdays>()
+                    for (document in snapshot.documents) {
+                        val birthday = document.toObject(Birthdays::class.java)!!
+                        birthday.birthdayKey = document.id
+                        bdList.add(birthday)
                     }
+                    birthdayList.value = bdList
+                } else {
+                    Log.d("BirthdaysDaoRepo", "No data found")
+                    birthdayList.value = emptyList()
                 }
-                birthdayList.value = bdList
             }
+    }
 
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+    fun getSpecialBirthdayData(userID: String, birthdayKey: String) {
+        dbFirestoreRef.document(userID).collection("savedBirthdays").document(birthdayKey)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Log.w("BirthdaysDaoRepo", "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    val bdList = ArrayList<Birthdays>()
+                    val birthday = snapshot.toObject(Birthdays::class.java)!!
+                    if (birthday.saverID == userID && birthday.deletedState == "0") {
+                        birthday.birthdayKey = snapshot.id
+                        bdList.add(birthday)
+                    }
+                    birthdayList.value = bdList
+                } else {
+                    Log.d("BirthdaysDaoRepo", "No data found")
+                    birthdayList.value = emptyList()
+                }
             }
-        })
     }
 
-
-    fun updateBirthday(userID: String, birthdayKey: String, birthday: Map<String, String>){
-        dbReference.child(userID).child(birthdayKey).updateChildren(birthday)
+    fun updateBirthday(userID: String, birthdayKey: String, birthday: Map<String, String>) {
+        dbFirestoreRef.document(userID).collection("savedBirthdays").document(birthdayKey).update(birthday)
     }
 
-    fun deleteBirthday(userID: String, birthdayKey: String, delete: Map<String, Any>){
-        dbReference.child(userID).child(birthdayKey).updateChildren(delete)
+    fun deleteBirthday(userID: String, birthdayKey: String, delete: Map<String, Any>) {
+        dbFirestoreRef.document(userID).collection("savedBirthdays").document(birthdayKey).update(delete)
     }
-
-
-
 }
