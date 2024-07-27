@@ -67,11 +67,11 @@ class SocialFragment : Fragment() {
             if (it != null && it.isNotEmpty()) {
                 postList.clear()
                 postList = it as ArrayList<Post>
-                Log.e("postlist size: ", postList.size.toString())
+               // Log.e("postlist size: ", postList.size.toString())
                 for (p in 0 until postList.size -1) {
                     viewModelUser.getUserFromUserID(postList[p].userID)
                     viewModelUser.userFullname.observe(viewLifecycleOwner, Observer { fullname ->
-                        Log.e("p num: ", "$p ve p elemanı $")
+                     //   Log.e("p num: ", "$p ve p elemanı $")
                         postList[p].userFullname = fullname
                     })
                     viewModelUser.userImgURL.observe(viewLifecycleOwner, Observer { imgURI ->

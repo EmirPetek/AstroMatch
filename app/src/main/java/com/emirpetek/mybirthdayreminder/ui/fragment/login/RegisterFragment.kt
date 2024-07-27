@@ -170,7 +170,7 @@ class RegisterFragment : Fragment() {
                                 binding.editTextRegisterPassword.text.toString(),
                                 binding.editTextRegisterBirthdate.text.toString(),
                                 binding.editTextRegisterBirthTime.text.toString(),
-                            "null",
+                            "no_photo",
                                 System.currentTimeMillis(),
                             "0",
                             0,

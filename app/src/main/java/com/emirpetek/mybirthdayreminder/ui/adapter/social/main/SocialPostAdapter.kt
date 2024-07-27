@@ -170,9 +170,16 @@ class SocialPostAdapter(
 
 
                 val imageName = post.userImg
-                Log.e("imagename" , imageName!!)
-                if (!imageName.equals("null")){
-                    val storage = Firebase.storage.reference.child(imageName)
+             //   Log.e("imagename" , imageName.toString())
+                if (imageName.equals("no_photo")){
+                    Glide
+                        .with(mContext)
+                        .load(R.drawable.baseline_person_24)
+                        .into(holder.imageViewProfileImg)
+
+                }else{
+
+                    val storage = Firebase.storage.reference.child(imageName!!)
                     storage.downloadUrl.addOnSuccessListener { uri ->
                         Glide
                             .with(mContext)
