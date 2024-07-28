@@ -2,20 +2,25 @@ package com.emirpetek.mybirthdayreminder.ui.fragment.profile
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.data.entity.Post
 import com.emirpetek.mybirthdayreminder.databinding.FragmentProfileBinding
+import com.emirpetek.mybirthdayreminder.ui.adapter.ProfileFragmentPostAdapter
 import com.emirpetek.mybirthdayreminder.viewmodel.profile.ProfileViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.rvadapter.AdmobNativeAdAdapter
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -25,6 +30,7 @@ class ProfileFragment : Fragment() {
     private val viewModel: ProfileViewModel by viewModels()
     private lateinit var binding: FragmentProfileBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var postAdapter: ProfileFragmentPostAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +45,9 @@ class ProfileFragment : Fragment() {
             .load("https://www.bio.purdue.edu/lab/deng/images/photo_not_yet_available.jpg")
             .circleCrop()
             .into(binding.imageViewProfilePhoto)
+
+
+        bindUserPost()
 
 
         viewModel.getUser(auth.currentUser!!.uid)
@@ -120,4 +129,50 @@ class ProfileFragment : Fragment() {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return dateFormat.format(date)
     }
+
+    fun bindUserPost(){
+
+        val ownUserID = Firebase.auth.currentUser?.uid!!
+
+        // bundle ile veri kontrolü yapıp eğer veri varsa post type değişecek
+        // ve bottombar visibilitysi değişecek
+        binding.progressBarFragmentProfilePost.visibility = View.VISIBLE
+        binding.textViewFragmentProfilePostTitle.setText(getString(R.string.your_post))
+        viewModel.getQuestions(ownUserID)
+        viewModel.questionList.observe(viewLifecycleOwner, Observer { it ->
+            val postList = it as ArrayList<Post>
+
+            if (postList.isNotEmpty()) binding.textViewFragmentProfileNoPostHere.visibility = View.GONE
+            postList.sortByDescending { it.timestamp }
+            viewModel.getAllQuestionAnswerNumbers(postList)
+            viewModel.answerSizeList.observe(viewLifecycleOwner, Observer { answerSize ->
+                var answerSizeList = answerSize as ArrayList
+                binding.recyclerViewFragmentProfilePosts.setHasFixedSize(true)
+                binding.recyclerViewFragmentProfilePosts.layoutManager = LinearLayoutManager(requireContext(),
+                    LinearLayoutManager.VERTICAL,false)
+                postAdapter = ProfileFragmentPostAdapter(requireContext(),postList,answerSizeList)
+
+                // NATIVE REKLAM İÇİN GEREKEN KODLAR. GITHUB FORKLADIM. ORADAN BAK. GEREKLI DEPENDENCIESLERI SYNC ETMEN LAZIM
+                val admobNativeAdAdapter: AdmobNativeAdAdapter = AdmobNativeAdAdapter.Builder.with(
+                    getString(R.string.ad_native_id),
+                    postAdapter,
+                    "custom"
+                )
+                    .adItemInterval(10)
+
+                    .build()
+
+
+                binding.recyclerViewFragmentProfilePosts.adapter  = admobNativeAdAdapter
+                binding.progressBarFragmentProfilePost.visibility = View.GONE
+                viewModel.questionList.removeObservers(viewLifecycleOwner)
+
+            })
+
+        })
+
+
+
+
+}
 }

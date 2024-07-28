@@ -8,7 +8,7 @@
     tools:context=".ui.fragment.profile.ProfileFragment" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout5"
+        android:id="@+id/constraintLayoutFragmentProfileToolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/toolbar"
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutFragmentProfileToolbar">
 
         <ImageView
             android:id="@+id/imageViewProfilePhoto"
@@ -115,6 +115,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/card_color_profile"
@@ -225,6 +226,83 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewProfileAscendant" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutFragmentProfilePostLayout"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textViewFragmentProfilePostTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito"
+                android:text="TextView"
+                android:textColor="@color/text_black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout10">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewFragmentProfilePosts"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewFragmentProfileNoPostHere"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito"
+                android:text="@string/no_post_here"
+                android:textColor="@color/text_black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/recyclerViewFragmentProfilePosts"
+                app:layout_constraintTop_toTopOf="@+id/recyclerViewFragmentProfilePosts" />
+
+            <ProgressBar
+                android:id="@+id/progressBarFragmentProfilePost"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/recyclerViewFragmentProfilePosts"
+                app:layout_constraintTop_toTopOf="@+id/recyclerViewFragmentProfilePosts" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
