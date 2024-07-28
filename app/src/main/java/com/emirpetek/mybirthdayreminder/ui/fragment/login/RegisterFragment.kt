@@ -140,7 +140,7 @@ class RegisterFragment : Fragment() {
         binding.editTextRegisterEmail.setText("emirpetek2002@gmail.com")
         binding.editTextRegisterPassword.setText("emir2002")
         binding.editTextRegisterPasswordAgain.setText("emir2002")
-        binding.editTextRegisterBirthdate.setText("25-01-2002")
+        binding.editTextRegisterBirthdate.setText("25/01/2002")
         binding.editTextRegisterBirthTime.setText("04:20")
     }
 
@@ -227,7 +227,7 @@ class RegisterFragment : Fragment() {
     private fun formatDate(year: Int, month: Int, day: Int): String {
         val calendar = Calendar.getInstance()
         calendar.set(year, month, day)
-        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return dateFormat.format(calendar.time)
     }
 
@@ -254,7 +254,7 @@ class RegisterFragment : Fragment() {
         val time = binding.editTextRegisterBirthTime.text.toString()
 
         if (date.isNotEmpty() && time.isNotEmpty()) {
-            val (day, month, year) = date.split("-").map { it.toInt() }
+            val (day, month, year) = date.split("/").map { it.toInt() }
             val (hour, minute) = time.split(":").map { it.toInt() }
 
             zodiacSign = calculateZodiacSign(day, month)
