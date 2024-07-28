@@ -1,12 +1,14 @@
 package com.emirpetek.mybirthdayreminder.ui.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.Post
@@ -56,15 +58,26 @@ class ProfileFragmentPostAdapter(
         /*
 
         answernum 0 ise butona tıklatma toast ile answer yok response döndür
-
          */
 
-        if (answerSize == 0){
+        val bundle : Bundle = Bundle().apply {
+            putParcelable("post",post)
+        }
+//        bundle.putSerializable("postID",post.postID)
+//        bundle.putSerializable("postOwnerName",post.userFullname)
+//        bundle.putSerializable("postShareTime",convertedTime)
+//        bundle.putSerializable("postID",post.postID)
+
+        holder.imageViewCardProfileQuestionSeeAnswers.setOnClickListener { it ->
+            Navigation.findNavController(it).navigate(R.id.action_profileFragment_to_questionAnswersFragment,bundle)
+        }
+
+       /* if (answerSize == 0){
             holder.imageViewCardProfileQuestionSeeAnswers.setOnClickListener { showToastMessage(mContext.getString(R.string.no_answer)) }
         }else{
             holder.imageViewCardProfileQuestionSeeAnswers.setOnClickListener { (showToastMessage((answerNum))) }
             // answers sayfasına git ve orada cevapları göster, bundle ile postID gönder
-        }
+        }*/
 
 
     }

@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_profileFragment_to_profileSettingsFragment"
             app:destination="@id/profileSettingsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_questionAnswersFragment"
+            app:destination="@id/questionAnswersFragment" />
     </fragment>
     <fragment
         android:id="@+id/socialFragment"
@@ -82,4 +85,9 @@
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.ProfileSettingsFragment"
         android:label="fragment_profile_settings"
         tools:layout="@layout/fragment_profile_settings" />
+    <fragment
+        android:id="@+id/questionAnswersFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.QuestionAnswersFragment"
+        android:label="fragment_question_answers"
+        tools:layout="@layout/fragment_question_answers" />
 </navigation>

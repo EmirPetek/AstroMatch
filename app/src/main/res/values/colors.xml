@@ -21,5 +21,6 @@
     <color name="green_positive">#4CAF50</color>
     <color name="survey_option_background">#A9ACB1</color>
     <color name="setting_item">#FCBEBA</color>
+    <color name="profile_posts_bg">#fcbeba</color>
 
 </resources>

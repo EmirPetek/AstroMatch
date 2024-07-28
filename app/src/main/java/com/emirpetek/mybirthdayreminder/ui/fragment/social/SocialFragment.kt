@@ -55,11 +55,17 @@ class SocialFragment : Fragment() {
         }
 
 
+        getPostData()
 
-            getPostData()
 
 
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+       // getPostData()
+
     }
 
 
@@ -70,23 +76,9 @@ class SocialFragment : Fragment() {
         binding.progressBarFragmentSocial.visibility = View.VISIBLE
         viewModelQuestion.getQuestionList()
         viewModelQuestion.questionList.observe(viewLifecycleOwner,Observer{ it ->
-            //post.question = it as ArrayList<Question>
-            if (it != null && it.isNotEmpty()) {
-                postList.clear()
-                postList = it as ArrayList<Post>
-               // Log.e("postlist size: ", postList.size.toString())
-                for (p in 0 until postList.size -1) {
-                    viewModelUser.getUserFromUserID(postList[p].userID)
-                    viewModelUser.userFullname.observe(viewLifecycleOwner, Observer { fullname ->
-                     //   Log.e("p num: ", "$p ve p elemanı $")
-                        postList[p].userFullname = fullname
-                    })
-                    viewModelUser.userImgURL.observe(viewLifecycleOwner, Observer { imgURI ->
-                        postList[p].userImg = imgURI
-                        setupPostItems(postList)
-                    })
-                }
-            }
+            postList = it as ArrayList<Post>
+            setupPostItems(postList)
+
             // bu kod dbye yeni veri geldi mi sayfanın yenilenmesini önler
             viewModelQuestion.questionList.removeObservers(viewLifecycleOwner)
 

@@ -1,10 +1,18 @@
 package com.emirpetek.mybirthdayreminder.data.repo.social
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.emirpetek.mybirthdayreminder.data.entity.Post
 import com.emirpetek.mybirthdayreminder.data.entity.QuestionAnswers
+import com.emirpetek.mybirthdayreminder.data.entity.User
+import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -13,9 +21,17 @@ class QuestionRepo {
 
     private val dbRefQuestions = Firebase.firestore.collection("posts").document("question").collection("questions")
     private val dbRefQuestionAnswer = Firebase.firestore.collection("posts").document("questionAnswers").collection("answers")
+    private val dbRefUsers = Firebase.firestore.collection("users")
+
+
 
     val questionList: MutableLiveData<List<Post>> = MutableLiveData()
     var answerSize: MutableLiveData<Pair<String, Int>> = MutableLiveData()
+    private var questionListener: ListenerRegistration? = null
+    private var answerListener: ListenerRegistration? = null
+
+    val answerList: MutableLiveData<List<QuestionAnswers>> = MutableLiveData()
+
 
     suspend fun insertQuestion(q: Post): Boolean {
         return try {
@@ -27,7 +43,8 @@ class QuestionRepo {
     }
 
     fun getQuestionList() {
-        dbRefQuestions.addSnapshotListener { snapshot, e ->
+        questionListener?.remove()
+        questionListener = dbRefQuestions.addSnapshotListener { snapshot, e ->
             if (e != null) {
                 // Handle error
                 return@addSnapshotListener
@@ -35,6 +52,8 @@ class QuestionRepo {
 
             if (snapshot != null) {
                 val questionl = ArrayList<Post>()
+                val usersMap = mutableMapOf<String, User>()
+
                 for (q in snapshot.documents) {
                     val questionModel = q.toObject(Post::class.java)!!
                     if (questionModel.deleteState == "0") {
@@ -42,9 +61,38 @@ class QuestionRepo {
                         questionl.add(questionModel)
                     }
                 }
-                questionList.value = questionl
+
+                // Kullanıcı bilgilerini güncelleme
+                val job = CoroutineScope(Dispatchers.IO).launch {
+                    questionl.forEach { post ->
+                        if (!usersMap.containsKey(post.userID)) {
+                            val userSnapshot = dbRefUsers.document(post.userID).get().await()
+                            val user = userSnapshot.toObject(User::class.java)
+                            if (user != null) {
+                                usersMap[post.userID] = user
+                            }
+                        }
+                    }
+
+                    questionl.forEach { post ->
+                        val user = usersMap[post.userID]
+                        if (user != null) {
+                            post.userFullname = user.fullname
+                            post.userImg = user.profile_img
+                        }
+                    }
+
+                    // Güncellenmiş veriyi ana iş parçacığında ayarlama
+                    withContext(Dispatchers.Main) {
+                        questionList.value = questionl
+                    }
+                }
             }
         }
+    }
+
+    fun removeListener() {
+        questionListener?.remove()
     }
 
     fun insertQuestionAnswer(q: QuestionAnswers): Boolean {
@@ -69,8 +117,57 @@ class QuestionRepo {
         }
     }
 
+    fun getQuestionAnswers(postID: String) {
+        answerListener?.remove()
+        answerListener = dbRefQuestionAnswer.document(postID).collection("answers")
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    // Handle error
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null) {
+                    val answersList = ArrayList<QuestionAnswers>()
+                    val usersMap = mutableMapOf<String, User>()
+
+                    for (a in snapshot.documents) {
+                        val answerModel = a.toObject(QuestionAnswers::class.java)!!
+                        answersList.add(answerModel)
+                    }
+
+                    // Kullanıcı bilgilerini güncelleme
+                    val job = CoroutineScope(Dispatchers.IO).launch {
+                        answersList.forEach { answer ->
+                            if (!usersMap.containsKey(answer.userID)) {
+                                val userSnapshot = dbRefUsers.document(answer.userID).get().await()
+                                val user = userSnapshot.toObject(User::class.java)
+                                if (user != null) {
+                                    usersMap[answer.userID] = user
+                                }
+                            }
+                        }
+
+                        answersList.forEach { answer ->
+                            val user = usersMap[answer.userID]
+                            if (user != null) {
+                                answer.userFullname = user.fullname
+                            }
+                        }
+
+                        // Güncellenmiş veriyi ana iş parçacığında ayarlama
+                        withContext(Dispatchers.Main) {
+                            answerList.value = answersList
+                        }
+                    }
+                }
+            }
+    }
+
+
+
     fun getUserQuestionList(userID: String) {
-        dbRefQuestions.addSnapshotListener { snapshot, e ->
+        questionListener?.remove()
+        questionListener = dbRefQuestions.addSnapshotListener { snapshot, e ->
             if (e != null) {
                 // Handle error
                 return@addSnapshotListener
@@ -78,6 +175,8 @@ class QuestionRepo {
 
             if (snapshot != null) {
                 val questionl = ArrayList<Post>()
+                val usersMap = mutableMapOf<String, User>()
+
                 for (q in snapshot.documents) {
                     val questionModel = q.toObject(Post::class.java)!!
                     if (questionModel.deleteState == "0" && questionModel.userID == userID) {
@@ -85,7 +184,32 @@ class QuestionRepo {
                         questionl.add(questionModel)
                     }
                 }
-                questionList.value = questionl
+
+                // Kullanıcı bilgilerini güncelleme
+                val job = CoroutineScope(Dispatchers.IO).launch {
+                    questionl.forEach { post ->
+                        if (!usersMap.containsKey(post.userID)) {
+                            val userSnapshot = dbRefUsers.document(post.userID).get().await()
+                            val user = userSnapshot.toObject(User::class.java)
+                            if (user != null) {
+                                usersMap[post.userID] = user
+                            }
+                        }
+                    }
+
+                    questionl.forEach { post ->
+                        val user = usersMap[post.userID]
+                        if (user != null) {
+                            post.userFullname = user.fullname
+                            post.userImg = user.profile_img
+                        }
+                    }
+
+                    // Güncellenmiş veriyi ana iş parçacığında ayarlama
+                    withContext(Dispatchers.Main) {
+                        questionList.value = questionl
+                    }
+                }
             }
         }
     }

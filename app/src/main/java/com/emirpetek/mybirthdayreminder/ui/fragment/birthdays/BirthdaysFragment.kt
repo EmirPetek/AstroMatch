@@ -60,7 +60,7 @@ class BirthdaysFragment : Fragment() {
         mAdView = binding.adView
         val adView = AdView(requireContext())
         adView.adUnitId = getString(R.string.ad_unit_id)
-        val adSize = AdSize(320,50)
+        val adSize = AdSize(400,50)
         adView.setAdSize(adSize)
         this.mAdView = adView
         binding.adView.removeAllViews()
