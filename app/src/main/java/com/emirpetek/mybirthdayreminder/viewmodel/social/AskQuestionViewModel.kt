@@ -20,6 +20,8 @@ class AskQuestionViewModel : ViewModel() {
     private val _questionAnswerAdded = MutableStateFlow(false)
     val questionAnswerAdded: StateFlow<Boolean> get() = _questionAnswerAdded
 
+    private var isDataLoaded = false
+    var isNewCome = false
 
     init {
         questionList = repo.questionList
@@ -36,6 +38,7 @@ class AskQuestionViewModel : ViewModel() {
       fun getQuestionList(){
          viewModelScope.launch {
              repo.getQuestionList()
+             isDataLoaded = true
 
          }
     }
@@ -45,5 +48,10 @@ class AskQuestionViewModel : ViewModel() {
             val result = repo.insertQuestionAnswer(q)
             _questionAnswerAdded.value = result
         }
+    }
+
+    fun refreshQuestionList() {
+        isDataLoaded = false
+        getQuestionList()
     }
 }

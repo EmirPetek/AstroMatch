@@ -41,6 +41,7 @@ class SocialFragment : Fragment() {
     private lateinit var postAdapter : SocialPostAdapter
     lateinit var adLoader: AdLoader
     lateinit var admobNativeAdAdapter: AdmobNativeAdAdapter
+    private var isNewCome: Boolean = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,12 +54,18 @@ class SocialFragment : Fragment() {
             //setupBottomSheetDialog()
         }
 
-        getPostData()
+
+
+            getPostData()
+
 
         return binding.root
     }
 
+
+
     private fun getPostData(){
+
 
         binding.progressBarFragmentSocial.visibility = View.VISIBLE
         viewModelQuestion.getQuestionList()
@@ -77,10 +84,12 @@ class SocialFragment : Fragment() {
                     viewModelUser.userImgURL.observe(viewLifecycleOwner, Observer { imgURI ->
                         postList[p].userImg = imgURI
                         setupPostItems(postList)
-
                     })
                 }
             }
+            // bu kod dbye yeni veri geldi mi sayfanın yenilenmesini önler
+            viewModelQuestion.questionList.removeObservers(viewLifecycleOwner)
+
         })
 
 

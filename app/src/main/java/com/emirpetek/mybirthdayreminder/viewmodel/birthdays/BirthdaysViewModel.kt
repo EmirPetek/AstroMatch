@@ -21,7 +21,7 @@ class BirthdaysViewModel : ViewModel() {
     }
 
     fun insertBirthday(birthdate: Birthdays) {
-        birthdaysDaoRepo.addBirthdays(birthdate)
+        birthdaysDaoRepo.insertBirthdayFS(birthdate)
     }
 
 

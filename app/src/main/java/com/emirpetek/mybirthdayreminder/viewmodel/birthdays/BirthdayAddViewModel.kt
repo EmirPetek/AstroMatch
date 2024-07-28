@@ -7,7 +7,8 @@ import com.emirpetek.mybirthdayreminder.data.repo.BirthdaysDaoRepo
 class BirthdayAddViewModel  : ViewModel() {
 
     val birthdaysDaoRepo = BirthdaysDaoRepo()
-    fun insertBirthday(birthdate: Birthdays) {
-        birthdaysDaoRepo.addBirthdays(birthdate)
+
+    fun insertBirthday(birthdays: Birthdays){
+        birthdaysDaoRepo.insertBirthdayFS(birthdays)
     }
 }
