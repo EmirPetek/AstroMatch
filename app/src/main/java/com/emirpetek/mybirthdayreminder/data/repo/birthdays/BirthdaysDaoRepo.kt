@@ -1,4 +1,4 @@
-package com.emirpetek.mybirthdayreminder.data.repo
+package com.emirpetek.mybirthdayreminder.data.repo.birthdays
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

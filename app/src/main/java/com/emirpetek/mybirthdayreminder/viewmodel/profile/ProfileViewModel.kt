@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.emirpetek.mybirthdayreminder.data.entity.Post
 import com.emirpetek.mybirthdayreminder.data.entity.User
-import com.emirpetek.mybirthdayreminder.data.repo.UserRepo
+import com.emirpetek.mybirthdayreminder.data.repo.user.UserRepo
 import com.emirpetek.mybirthdayreminder.data.repo.social.QuestionRepo
 import kotlinx.coroutines.launch
 
