@@ -165,14 +165,21 @@ class ProfileFragment : Fragment() {
 
                 binding.recyclerViewFragmentProfilePosts.adapter  = admobNativeAdAdapter
                 binding.progressBarFragmentProfilePost.visibility = View.GONE
-                viewModel.questionList.removeObservers(viewLifecycleOwner)
+
+                // alttaki kod aynı sayfa içerisinde yeni veri gelirse yenilenmemesini sağlar
+                //viewModel.questionList.removeObservers(viewLifecycleOwner)
 
             })
 
         })
+    }
 
 
+    override fun onResume() {
 
+        super.onResume()
 
-}
+        //bindUserPost()
+
+    }
 }

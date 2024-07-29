@@ -42,6 +42,16 @@ class QuestionRepo {
         }
     }
 
+    fun deletePost(postID: String){
+
+        val updated = hashMapOf(
+            "deleteState" to "1"
+        )
+
+        dbRefQuestions.document(postID).update(updated as Map<String, Any>)
+
+    }
+
     fun getQuestionList() {
         questionListener?.remove()
         questionListener = dbRefQuestions.addSnapshotListener { snapshot, e ->

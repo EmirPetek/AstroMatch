@@ -19,6 +19,10 @@ class QuestionAnswersViewModel : ViewModel() {
         questionRepo.getQuestionAnswers(postID)
     }
 
+    fun deletePost(postID: String){
+        questionRepo.deletePost(postID)
+    }
+
 
 
 }

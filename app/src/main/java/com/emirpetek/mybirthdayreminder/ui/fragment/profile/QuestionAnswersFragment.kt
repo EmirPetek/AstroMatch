@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.R
@@ -21,6 +22,7 @@ import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.rvadapter.AdmobNativeAdAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -51,6 +53,8 @@ class QuestionAnswersFragment : Fragment() {
         val post: Post? = arguments?.getParcelable("post")
         post?.let {
             bindPostData(post)
+            binding.imageViewQuestionAnswersDeletePost.setOnClickListener { deletePost(post.postID,it) }
+
         }
 
 
@@ -84,6 +88,16 @@ class QuestionAnswersFragment : Fragment() {
         bottomNav?.visibility = View.GONE
     }
 
+    private fun deletePost(postID: String, view: View){
+
+        Snackbar.make(view,getString(R.string.are_you_sure_to_delete), Snackbar.LENGTH_SHORT)
+            .setAction(getString(R.string.delete)){
+                viewModel.deletePost(postID)
+                findNavController().popBackStack()
+            }.show()
+    }
+
+
     private fun bindPostData(post: Post?){
         binding.textViewCardQuestionAnswersUserFullname.setText(post!!.userFullname)
         binding.textViewCardQuestionAnswersShareTime.setText(unixtsToDate(post.timestamp.toString()))
@@ -114,7 +128,7 @@ class QuestionAnswersFragment : Fragment() {
 
             binding.recyclerViewFragmentQuestionAnswerAnswersRecyclerView.setHasFixedSize(true)
             binding.recyclerViewFragmentQuestionAnswerAnswersRecyclerView.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-            val answerAdapter = (QuestionAnswersAnswerAdapter(requireContext(),answerList))
+            val answerAdapter = QuestionAnswersAnswerAdapter(requireContext(),answerList,viewModel)
 
             // NATIVE REKLAM İÇİN GEREKEN KODLAR. GITHUB FORKLADIM. ORADAN BAK. GEREKLI DEPENDENCIESLERI SYNC ETMEN LAZIM
             admobNativeAdAdapter = AdmobNativeAdAdapter.Builder.with(

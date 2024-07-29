@@ -4,10 +4,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.QuestionAnswers
+import com.emirpetek.mybirthdayreminder.viewmodel.profile.QuestionAnswersViewModel
+import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -15,7 +19,9 @@ import java.util.TimeZone
 
 class QuestionAnswersAnswerAdapter(
     val requireContext: Context,
-    val answerList: ArrayList<QuestionAnswers>)
+    val answerList: ArrayList<QuestionAnswers>,
+    val viewModel: QuestionAnswersViewModel
+)
     : RecyclerView.Adapter<QuestionAnswersAnswerAdapter.AnswerCardHolder>(){
 
 
@@ -40,8 +46,9 @@ class QuestionAnswersAnswerAdapter(
         val convertedTime = unixtsToDate(item.timestamp.toString())
         holder.textViewCardAnswerQuestionAnswerTime.setText(convertedTime)
 
-
     }
+
+
 
 
     private fun unixtsToDate(timestamp:String):String{
