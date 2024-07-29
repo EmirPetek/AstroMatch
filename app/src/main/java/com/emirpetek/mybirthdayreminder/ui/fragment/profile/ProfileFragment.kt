@@ -163,6 +163,7 @@ class ProfileFragment : Fragment() {
                     .build()
 
 
+
                 binding.recyclerViewFragmentProfilePosts.adapter  = admobNativeAdAdapter
                 binding.progressBarFragmentProfilePost.visibility = View.GONE
 
