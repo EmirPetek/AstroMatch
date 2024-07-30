@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.emirpetek.mybirthdayreminder.R
-import com.emirpetek.mybirthdayreminder.data.entity.Post
+import com.emirpetek.mybirthdayreminder.data.entity.question.Post
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

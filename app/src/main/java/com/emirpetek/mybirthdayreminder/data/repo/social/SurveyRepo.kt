@@ -2,9 +2,8 @@ package com.emirpetek.mybirthdayreminder.data.repo.social
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.emirpetek.mybirthdayreminder.data.entity.Post
-import com.emirpetek.mybirthdayreminder.data.entity.SelectedOptions
-import com.emirpetek.mybirthdayreminder.data.entity.Survey
+import com.emirpetek.mybirthdayreminder.data.entity.question.Post
+import com.emirpetek.mybirthdayreminder.data.entity.question.SelectedOptions
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

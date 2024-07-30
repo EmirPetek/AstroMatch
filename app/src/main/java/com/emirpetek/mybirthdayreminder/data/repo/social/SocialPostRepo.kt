@@ -2,10 +2,8 @@ package com.emirpetek.mybirthdayreminder.data.repo.social
 
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
-import com.emirpetek.mybirthdayreminder.data.entity.Post
-import com.emirpetek.mybirthdayreminder.data.entity.Question
-import com.emirpetek.mybirthdayreminder.data.entity.Survey
+import com.emirpetek.mybirthdayreminder.data.entity.question.Question
+import com.emirpetek.mybirthdayreminder.data.entity.question.Survey
 import com.emirpetek.mybirthdayreminder.viewmodel.social.AskQuestionViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.MakeSurveyViewModel
 

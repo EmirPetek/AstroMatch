@@ -7,12 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.R
-import com.emirpetek.mybirthdayreminder.data.entity.Post
-import com.emirpetek.mybirthdayreminder.data.entity.QuestionAnswers
+import com.emirpetek.mybirthdayreminder.data.entity.question.Post
+import com.emirpetek.mybirthdayreminder.data.entity.question.QuestionAnswers
 import com.emirpetek.mybirthdayreminder.databinding.FragmentQuestionAnswersBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.QuestionAnswersAnswerAdapter
 import com.emirpetek.mybirthdayreminder.ui.adapter.social.main.SocialPostImageAdapter

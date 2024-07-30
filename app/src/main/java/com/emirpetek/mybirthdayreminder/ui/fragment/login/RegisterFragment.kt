@@ -15,7 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.emirpetek.mybirthdayreminder.R
-import com.emirpetek.mybirthdayreminder.data.entity.User
+import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.emirpetek.mybirthdayreminder.databinding.FragmentRegisterBinding
 import com.emirpetek.mybirthdayreminder.viewmodel.login.RegisterViewModel
 import com.google.android.gms.ads.AdRequest

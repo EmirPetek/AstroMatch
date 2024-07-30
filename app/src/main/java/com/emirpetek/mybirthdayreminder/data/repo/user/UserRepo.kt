@@ -1,7 +1,7 @@
 package com.emirpetek.mybirthdayreminder.data.repo.user
 
 import androidx.lifecycle.MutableLiveData
-import com.emirpetek.mybirthdayreminder.data.entity.User
+import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 

@@ -3,9 +3,8 @@ package com.emirpetek.mybirthdayreminder.viewmodel.social
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.emirpetek.mybirthdayreminder.data.entity.Post
-import com.emirpetek.mybirthdayreminder.data.entity.Question
-import com.emirpetek.mybirthdayreminder.data.entity.QuestionAnswers
+import com.emirpetek.mybirthdayreminder.data.entity.question.Post
+import com.emirpetek.mybirthdayreminder.data.entity.question.QuestionAnswers
 import com.emirpetek.mybirthdayreminder.data.repo.social.QuestionRepo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -43,7 +42,7 @@ class AskQuestionViewModel : ViewModel() {
          }
     }
 
-    fun insertQuestionAnswer(q:QuestionAnswers){
+    fun insertQuestionAnswer(q: QuestionAnswers){
         viewModelScope.launch {
             val result = repo.insertQuestionAnswer(q)
             _questionAnswerAdded.value = result

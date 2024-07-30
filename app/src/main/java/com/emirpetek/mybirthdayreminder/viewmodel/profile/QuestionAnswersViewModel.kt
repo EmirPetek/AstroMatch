@@ -2,7 +2,7 @@ package com.emirpetek.mybirthdayreminder.viewmodel.profile
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.emirpetek.mybirthdayreminder.data.entity.QuestionAnswers
+import com.emirpetek.mybirthdayreminder.data.entity.question.QuestionAnswers
 import com.emirpetek.mybirthdayreminder.data.repo.social.QuestionRepo
 
 class QuestionAnswersViewModel : ViewModel() {

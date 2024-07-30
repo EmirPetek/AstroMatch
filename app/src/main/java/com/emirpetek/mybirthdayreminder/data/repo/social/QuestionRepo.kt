@@ -1,10 +1,9 @@
 package com.emirpetek.mybirthdayreminder.data.repo.social
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.emirpetek.mybirthdayreminder.data.entity.Post
-import com.emirpetek.mybirthdayreminder.data.entity.QuestionAnswers
-import com.emirpetek.mybirthdayreminder.data.entity.User
+import com.emirpetek.mybirthdayreminder.data.entity.question.Post
+import com.emirpetek.mybirthdayreminder.data.entity.question.QuestionAnswers
+import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
