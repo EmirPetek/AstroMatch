@@ -1,8 +1,7 @@
-package com.emirpetek.mybirthdayreminder.data.entity
+package com.emirpetek.mybirthdayreminder.data.entity.question
 
 import android.os.Parcel
 import android.os.Parcelable
-import java.io.Serializable
 
 class Post(
     var postID:String,

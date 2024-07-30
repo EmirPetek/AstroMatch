@@ -1,4 +1,4 @@
-package com.emirpetek.mybirthdayreminder.data.entity
+package com.emirpetek.mybirthdayreminder.data.entity.question
 
 import java.io.Serializable
 

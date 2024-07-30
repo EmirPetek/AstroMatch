@@ -1,6 +1,5 @@
-package com.emirpetek.mybirthdayreminder.data.entity
+package com.emirpetek.mybirthdayreminder.data.entity.question
 
-import com.google.firebase.Timestamp
 import java.io.Serializable
 
 data class Question(
