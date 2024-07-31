@@ -1,4 +1,4 @@
-package com.emirpetek.mybirthdayreminder.data.entity
+package com.emirpetek.mybirthdayreminder.data.entity.birthdays
 
 
 import com.google.firebase.database.IgnoreExtraProperties

@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.emirpetek.mybirthdayreminder.R
-import com.emirpetek.mybirthdayreminder.data.entity.Birthdays
+import com.emirpetek.mybirthdayreminder.data.entity.birthdays.Birthdays
 import com.emirpetek.mybirthdayreminder.databinding.FragmentBirthdayAddBinding
 import com.emirpetek.mybirthdayreminder.viewmodel.birthdays.BirthdayAddViewModel
 import com.google.android.gms.ads.AdRequest

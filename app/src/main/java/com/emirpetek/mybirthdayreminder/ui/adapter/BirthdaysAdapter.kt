@@ -12,7 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.emirpetek.mybirthdayreminder.data.entity.Birthdays
+import com.emirpetek.mybirthdayreminder.data.entity.birthdays.Birthdays
 import com.emirpetek.mybirthdayreminder.viewmodel.birthdays.BirthdaysViewModel
 import java.time.LocalDate
 import java.time.Period
