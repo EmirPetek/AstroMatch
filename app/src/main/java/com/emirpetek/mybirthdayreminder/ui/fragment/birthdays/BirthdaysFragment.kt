@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.databinding.FragmentBirthdaysBinding
-import com.emirpetek.mybirthdayreminder.ui.adapter.BirthdaysAdapter
+import com.emirpetek.mybirthdayreminder.ui.adapter.birthdays.BirthdaysAdapter
 import com.emirpetek.mybirthdayreminder.viewmodel.birthdays.BirthdaysViewModel
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize

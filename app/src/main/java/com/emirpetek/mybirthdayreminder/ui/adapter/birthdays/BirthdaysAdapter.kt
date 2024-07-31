@@ -1,4 +1,4 @@
-package com.emirpetek.mybirthdayreminder.ui.adapter
+package com.emirpetek.mybirthdayreminder.ui.adapter.birthdays
 
 import android.content.Context
 import android.os.Build

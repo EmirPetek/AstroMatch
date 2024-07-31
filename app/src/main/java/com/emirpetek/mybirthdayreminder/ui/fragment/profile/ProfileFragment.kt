@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
 import com.emirpetek.mybirthdayreminder.databinding.FragmentProfileBinding
-import com.emirpetek.mybirthdayreminder.ui.adapter.ProfileFragmentPostAdapter
+import com.emirpetek.mybirthdayreminder.ui.adapter.profile.ProfileFragmentPostAdapter
 import com.emirpetek.mybirthdayreminder.viewmodel.profile.ProfileViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth

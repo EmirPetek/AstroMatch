@@ -52,7 +52,7 @@
     </fragment>
     <fragment
         android:id="@+id/socialFragment"
-        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.social.SocialFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.social.main.SocialFragment"
         android:label="fragment_social"
         tools:layout="@layout/fragment_social" >
         <action

@@ -13,7 +13,7 @@ import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
 import com.emirpetek.mybirthdayreminder.data.entity.question.QuestionAnswers
 import com.emirpetek.mybirthdayreminder.databinding.FragmentQuestionAnswersBinding
-import com.emirpetek.mybirthdayreminder.ui.adapter.QuestionAnswersAnswerAdapter
+import com.emirpetek.mybirthdayreminder.ui.adapter.profile.QuestionAnswersAnswerAdapter
 import com.emirpetek.mybirthdayreminder.ui.adapter.social.main.SocialPostImageAdapter
 import com.emirpetek.mybirthdayreminder.viewmodel.profile.QuestionAnswersViewModel
 import com.google.android.gms.ads.AdRequest
