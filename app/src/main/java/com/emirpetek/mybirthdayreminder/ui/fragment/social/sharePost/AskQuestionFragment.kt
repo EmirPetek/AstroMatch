@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
 import com.emirpetek.mybirthdayreminder.databinding.FragmentAskQuestionBinding
-import com.emirpetek.mybirthdayreminder.ui.adapter.social.sharePost.AskQuestionFragmentImageAdapter
+import com.emirpetek.mybirthdayreminder.ui.adapter.social.sharePost.question.AskQuestionFragmentImageAdapter
 import com.emirpetek.mybirthdayreminder.viewmodel.social.AskQuestionViewModel
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
