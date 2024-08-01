@@ -37,6 +37,7 @@ class AskQuestionFragmentImageAdapter(
             .load(pos)
             .into(holder.imageViewPhoto)
 
+        // delete photo icon op.
         holder.imageViewDeletePhoto.setOnClickListener {
             imageUriList.removeAt(position)
             notifyDataSetChanged()
