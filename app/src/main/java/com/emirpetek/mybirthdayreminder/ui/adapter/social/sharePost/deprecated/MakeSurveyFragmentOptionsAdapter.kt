@@ -1,4 +1,4 @@
-package com.emirpetek.mybirthdayreminder.ui.adapter.social.sharePost
+package com.emirpetek.mybirthdayreminder.ui.adapter.social.sharePost.deprecated
 
 import android.content.Context
 import android.util.Log

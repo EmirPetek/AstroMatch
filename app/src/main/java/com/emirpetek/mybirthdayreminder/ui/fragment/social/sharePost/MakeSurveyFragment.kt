@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
 import com.emirpetek.mybirthdayreminder.databinding.FragmentMakeSurveyBinding
-import com.emirpetek.mybirthdayreminder.ui.adapter.social.sharePost.MakeSurveyFragmentOptionsAdapter
-import com.emirpetek.mybirthdayreminder.ui.adapter.social.sharePost.MakeSurveyFragmentImageAdapter
+import com.emirpetek.mybirthdayreminder.ui.adapter.social.sharePost.deprecated.MakeSurveyFragmentOptionsAdapter
+import com.emirpetek.mybirthdayreminder.ui.adapter.social.sharePost.deprecated.MakeSurveyFragmentImageAdapter
 import com.emirpetek.mybirthdayreminder.viewmodel.social.MakeSurveyViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.ktx.auth
