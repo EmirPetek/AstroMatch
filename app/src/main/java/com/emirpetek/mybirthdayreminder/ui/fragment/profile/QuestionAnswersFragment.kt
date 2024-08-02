@@ -46,6 +46,8 @@ class QuestionAnswersFragment : Fragment() {
         binding = FragmentQuestionAnswersBinding.inflate(inflater,container,false)
 
         hideBottomNav()
+        binding.textViewFragmentQuestionAnswerNoPostHere.visibility = View.VISIBLE
+
 
         binding.imageViewFragmentQuestionAnswersToolbar.setOnClickListener { findNavController().popBackStack() }
 
@@ -111,19 +113,18 @@ class QuestionAnswersFragment : Fragment() {
             val imgAdapter = SocialPostImageAdapter(requireContext(),imgList,"posts/askQuestionPhoto")
             binding.recyclerViewFragmentQuestionAnswerPostPhotoRecyclerView.adapter = imgAdapter
         }
+
     }
 
     private fun setAnswerAdapterClass(postID: String) {
-
-
-
-
 
         var answerList = ArrayList<QuestionAnswers>()
 
         viewModel.getAnswers(postID)
         viewModel.answerList.observe(viewLifecycleOwner, Observer { it ->
             answerList = it as ArrayList<QuestionAnswers>
+
+            if (answerList.size > 0) binding.textViewFragmentQuestionAnswerNoPostHere.visibility = View.GONE
 
             binding.recyclerViewFragmentQuestionAnswerAnswersRecyclerView.setHasFixedSize(true)
             binding.recyclerViewFragmentQuestionAnswerAnswersRecyclerView.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)

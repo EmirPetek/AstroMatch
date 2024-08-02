@@ -61,6 +61,7 @@
     <string name="your_post">Your Posts</string>
     <string name="user_posts">User Posts</string>
     <string name="no_post_here">There is no post here.</string>
+    <string name="no_answer_here">There is no answer here.</string>
     <string name="answer">answer</string>
     <string name="answers">answers</string>
     <string name="no_answer">There is no answer.</string>
