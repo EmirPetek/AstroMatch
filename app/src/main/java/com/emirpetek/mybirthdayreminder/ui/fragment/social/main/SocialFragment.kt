@@ -36,7 +36,7 @@ class SocialFragment : Fragment() {
     private val viewModelUser: ProfileViewModel by viewModels()
     private lateinit var binding: FragmentSocialBinding
    // private var post: Post = Post()
-    private var postList : ArrayList<Post> = arrayListOf()
+    private var postList = ArrayList<Post>()// = arrayListOf()
     private lateinit var postAdapter : SocialPostAdapter
     lateinit var adLoader: AdLoader
     lateinit var admobNativeAdAdapter: AdmobNativeAdAdapter
@@ -65,6 +65,11 @@ class SocialFragment : Fragment() {
         super.onStart()
        // getPostData()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getPostData()
     }
 
 
