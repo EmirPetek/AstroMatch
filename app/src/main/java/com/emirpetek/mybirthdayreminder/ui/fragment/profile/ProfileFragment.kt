@@ -30,6 +30,7 @@ class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var postAdapter: ProfileFragmentPostAdapter
+    var postList = ArrayList<Post>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -139,8 +140,7 @@ class ProfileFragment : Fragment() {
         binding.textViewFragmentProfilePostTitle.setText(getString(R.string.your_post))
         viewModel.getQuestions(ownUserID)
         viewModel.questionList.observe(viewLifecycleOwner, Observer { it ->
-            val postList = it as ArrayList<Post>
-
+            postList = it as ArrayList<Post>
             if (postList.isNotEmpty()) binding.textViewFragmentProfileNoPostHere.visibility = View.GONE
             postList.sortByDescending { it.timestamp }
             viewModel.getAllQuestionAnswerNumbers(postList)
