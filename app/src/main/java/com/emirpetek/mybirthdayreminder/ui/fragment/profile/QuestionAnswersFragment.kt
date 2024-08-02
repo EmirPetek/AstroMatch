@@ -38,7 +38,7 @@ class QuestionAnswersFragment : Fragment() {
     private lateinit var binding: FragmentQuestionAnswersBinding
     lateinit var admobNativeAdAdapter: AdmobNativeAdAdapter
     private lateinit var mAdView : AdView
-
+    lateinit var answerList: ArrayList<QuestionAnswers> //= ArrayList<QuestionAnswers>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -118,7 +118,7 @@ class QuestionAnswersFragment : Fragment() {
 
     private fun setAnswerAdapterClass(postID: String) {
 
-        var answerList = ArrayList<QuestionAnswers>()
+       // var answerList = ArrayList<QuestionAnswers>()
 
         viewModel.getAnswers(postID)
         viewModel.answerList.observe(viewLifecycleOwner, Observer { it ->
