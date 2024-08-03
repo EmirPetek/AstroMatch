@@ -88,6 +88,7 @@ class SettingsAccountFragment : Fragment() {
                 .into(binding.imageViewSettingsAccountPhoto)
 
         //uploadImageToFirebaseStorage(imageUri) <-- databaseye yükler
+            // TODO: foto dbye yüklenene kadar alert göster, yüklendikten sonra urisini userdaki img ile yer değiştir ve  userı update et
         }
     }
 
