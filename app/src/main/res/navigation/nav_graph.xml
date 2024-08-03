@@ -84,10 +84,18 @@
         android:id="@+id/profileSettingsFragment"
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.settings.ProfileSettingsFragment"
         android:label="fragment_profile_settings"
-        tools:layout="@layout/fragment_profile_settings" />
+        tools:layout="@layout/fragment_profile_settings" >
+        <action
+            android:id="@+id/action_profileSettingsFragment_to_settingsAccountFragment"
+            app:destination="@id/settingsAccountFragment" />
+    </fragment>
     <fragment
         android:id="@+id/questionAnswersFragment"
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.QuestionAnswersFragment"
         android:label="fragment_question_answers"
         tools:layout="@layout/fragment_question_answers" />
+    <fragment
+        android:id="@+id/settingsAccountFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.settings.SettingsAccountFragment"
+        android:label="SettingsAccountFragment" />
 </navigation>
