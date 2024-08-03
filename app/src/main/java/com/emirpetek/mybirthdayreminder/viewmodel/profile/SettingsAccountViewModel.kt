@@ -19,4 +19,8 @@ class SettingsAccountViewModel : ViewModel() {
         userRepo.getUserData(userID)
     }
 
+    fun updateUserData(user: User){
+        userRepo.updateUser(user)
+    }
+
 }

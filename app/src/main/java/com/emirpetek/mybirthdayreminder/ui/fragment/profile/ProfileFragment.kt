@@ -2,6 +2,7 @@ package com.emirpetek.mybirthdayreminder.ui.fragment.profile
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,10 +42,8 @@ class ProfileFragment : Fragment() {
         auth = Firebase.auth
         showBottomNav()
 
-        Glide.with(this)
-            .load("https://www.bio.purdue.edu/lab/deng/images/photo_not_yet_available.jpg")
-            .circleCrop()
-            .into(binding.imageViewProfilePhoto)
+
+
 
 
         bindUserPost()
@@ -57,6 +56,19 @@ class ProfileFragment : Fragment() {
             val birthdate = context?.getString(R.string.birthdate)  + " " + it.birthdate
             val zodiac = it.zodiac
             val ascendant = it.ascendant
+            var photoUri = it.profile_img
+            var loadUri = ""
+
+            if (photoUri.equals("no_photo")){
+                loadUri = "https://www.bio.purdue.edu/lab/deng/images/photo_not_yet_available.jpg"
+            }else{
+                loadUri = photoUri
+            }
+
+            Glide.with(this)
+                .load(loadUri)
+                .circleCrop()
+                .into(binding.imageViewProfilePhoto)
 
 
             binding.textViewProfileFullname.setText(fullname)

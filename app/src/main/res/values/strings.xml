@@ -70,6 +70,7 @@
     <string name="yes">YES</string>
     <string name="account_big">ACCOUNT</string>
     <string name="change_photo_big">CHANGE PHOTO</string>
+    <string name="data_updating">Your data is updating. \n Please wait.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

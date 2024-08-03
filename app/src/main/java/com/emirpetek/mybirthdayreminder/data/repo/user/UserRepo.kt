@@ -1,5 +1,6 @@
 package com.emirpetek.mybirthdayreminder.data.repo.user
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.google.firebase.firestore.ktx.firestore
@@ -64,13 +65,13 @@ class UserRepo {
         }
     }
 
-    fun updateUser(userID: String, userUpdates: Map<String, Any>) {
-        dbRef.document(userID).update(userUpdates)
+    fun updateUser(user:User) {
+        dbRef.document(user.userID).set(user)
             .addOnSuccessListener {
-                // Log success or handle accordingly
+                Log.e("updateUser: ", "Successfully updated!")
             }
             .addOnFailureListener { e ->
-                // Log error or handle accordingly
+                Log.e("updateUser: ", "Failed in updating!")
             }
     }
 

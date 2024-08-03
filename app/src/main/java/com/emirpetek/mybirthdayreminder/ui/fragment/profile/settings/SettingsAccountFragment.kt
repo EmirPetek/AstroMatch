@@ -1,6 +1,7 @@
 package com.emirpetek.mybirthdayreminder.ui.fragment.profile.settings
 
 import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.viewModels
@@ -10,6 +11,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -33,6 +36,8 @@ class SettingsAccountFragment : Fragment() {
     lateinit var user: User
     val userID = Firebase.auth.currentUser?.uid
     val PICK_IMAGE_REQUEST = 1
+    private var alertDialog: AlertDialog? = null
+
 
 
     override fun onCreateView(
@@ -87,20 +92,25 @@ class SettingsAccountFragment : Fragment() {
                 .circleCrop()
                 .into(binding.imageViewSettingsAccountPhoto)
 
+            binding.textViewSettingsAccountUpdateData.setOnClickListener {
+                uploadImageToFirebaseStorage(imageUri)
+            }
+
         //uploadImageToFirebaseStorage(imageUri) <-- databaseye yükler
-            // TODO: foto dbye yüklenene kadar alert göster, yüklendikten sonra urisini userdaki img ile yer değiştir ve  userı update et
         }
     }
 
     private fun uploadImageToFirebaseStorage(imageUri: Uri?) {
+        showLoadingAlert()
         if (imageUri != null) {
             val pathName = "${userID}_${System.currentTimeMillis()}_${UUID.randomUUID()}"
-            val storageReference = FirebaseStorage.getInstance().getReference("users/userImages/$pathName.jpg")
+            val storageReference = FirebaseStorage.getInstance().getReference("users/profileImages/$pathName.jpg")
             storageReference.putFile(imageUri)
                 .addOnSuccessListener { taskSnapshot ->
                     storageReference.downloadUrl.addOnSuccessListener { uri ->
                         val downloadUrl = uri.toString()
-                        // Yükleme başarılı, downloadUrl ile işlemlere devam edebilirsiniz.
+                        user.profile_img = downloadUrl
+                        updateUserData()
                     }
                 }
                 .addOnFailureListener { exception ->
@@ -108,6 +118,34 @@ class SettingsAccountFragment : Fragment() {
         }
     }
 
+    private fun updateUserData(){
+        viewModel.updateUserData(user)
+        Toast.makeText(requireContext(),getString(R.string.datas_updated),Toast.LENGTH_SHORT).show()
+        closeLoadingAlert()
+        goBack()
+    }
+
+
+    private fun showLoadingAlert() {
+        if (alertDialog == null) {
+            val dialogView = layoutInflater.inflate(R.layout.alert_wait_screen, null)
+            dialogView.findViewById<TextView>(R.id.textViewAlertWaitScreenPleaseWait).setText(getString(R.string.data_updating))
+            val alertDialogBuilder = AlertDialog.Builder(requireContext())
+            alertDialogBuilder.setView(dialogView)
+            alertDialog = alertDialogBuilder.create().apply {
+                setCancelable(false)
+                setCanceledOnTouchOutside(false)
+            }
+        }
+        alertDialog?.show()
+    }
+
+    private fun closeLoadingAlert() {
+        alertDialog?.let {
+            it.dismiss()
+            alertDialog = null
+        }
+    }
 
 
     private fun unixtsToDate(timestamp:String):String{
