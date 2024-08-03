@@ -68,6 +68,8 @@
     <string name="answers_big">ANSWERS</string>
     <string name="are_you_sure_to_delete">Are you sure to delete?</string>
     <string name="yes">YES</string>
+    <string name="account_big">ACCOUNT</string>
+    <string name="change_photo_big">CHANGE PHOTO</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
