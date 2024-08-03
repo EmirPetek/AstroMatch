@@ -26,6 +26,7 @@ class ProfileSettingsFragment : Fragment() {
         hideBottomNav()
 
         binding.imageViewFragmentSettingsToolbar.setOnClickListener { findNavController().popBackStack() }
+        binding.constraintLayoutSettingsAccount.setOnClickListener { findNavController().navigate(R.id.action_profileSettingsFragment_to_settingsAccountFragment) }
 
 
         return binding.root
