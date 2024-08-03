@@ -1,4 +1,4 @@
-package com.emirpetek.mybirthdayreminder.ui.fragment.profile
+package com.emirpetek.mybirthdayreminder.ui.fragment.profile.settings
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle

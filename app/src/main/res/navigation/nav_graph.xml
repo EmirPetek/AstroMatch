@@ -82,7 +82,7 @@
         tools:layout="@layout/fragment_make_survey" />
     <fragment
         android:id="@+id/profileSettingsFragment"
-        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.ProfileSettingsFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.settings.ProfileSettingsFragment"
         android:label="fragment_profile_settings"
         tools:layout="@layout/fragment_profile_settings" />
     <fragment
