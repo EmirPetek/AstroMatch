@@ -16,6 +16,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
 import com.emirpetek.mybirthdayreminder.data.entity.question.QuestionAnswers
@@ -161,23 +162,17 @@ class SocialPostAdapter(
 
 
                 val imageName = post.userImg
-                Log.e("imagename" , "$imageName ve post fdsfd ${post.postID}")
-              /*  if (imageName.equals("no_photo")){
-                    Glide
-                        .with(mContext)
-                        .load(R.drawable.baseline_person_24)
-                        .into(holder.imageViewProfileImg)
-
+                val userImageUri : Any
+                if (imageName.equals("no_photo")){
+                    userImageUri = R.drawable.baseline_person_24
                 }else{
-
-                    val storage = Firebase.storage.reference.child(imageName!!)
-                    storage.downloadUrl.addOnSuccessListener { uri ->
-                        Glide
-                            .with(mContext)
-                            .load(uri)
-                            .into(holder.imageViewProfileImg)
-                    }
-                }*/
+                    userImageUri = imageName.toString()
+                }
+                Glide
+                    .with(mContext)
+                    .load(userImageUri)
+                    .circleCrop()
+                    .into(holder.imageViewProfileImg)
 
             //    Glide.with(mContext).load(post.userImg).into(holder.imageViewProfileImg)
 
