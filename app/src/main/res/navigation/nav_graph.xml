@@ -49,6 +49,9 @@
         <action
             android:id="@+id/action_profileFragment_to_questionAnswersFragment"
             app:destination="@id/questionAnswersFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_showPhotosFragment"
+            app:destination="@id/showPhotosFragment" />
     </fragment>
     <fragment
         android:id="@+id/socialFragment"
@@ -61,6 +64,9 @@
         <action
             android:id="@+id/action_socialFragment_to_makeSurveyFragment"
             app:destination="@id/makeSurveyFragment" />
+        <action
+            android:id="@+id/action_socialFragment_to_showPhotosFragment"
+            app:destination="@id/showPhotosFragment" />
     </fragment>
     <fragment
         android:id="@+id/birthdayAddFragment"
@@ -93,9 +99,18 @@
         android:id="@+id/questionAnswersFragment"
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.QuestionAnswersFragment"
         android:label="fragment_question_answers"
-        tools:layout="@layout/fragment_question_answers" />
+        tools:layout="@layout/fragment_question_answers" >
+        <action
+            android:id="@+id/action_questionAnswersFragment_to_showPhotosFragment"
+            app:destination="@id/showPhotosFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsAccountFragment"
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.settings.SettingsAccountFragment"
         android:label="SettingsAccountFragment" />
+    <fragment
+        android:id="@+id/showPhotosFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.util.showPhotos.ShowPhotosFragment"
+        android:label="fragment_show_photos"
+        tools:layout="@layout/fragment_show_photos" />
 </navigation>
