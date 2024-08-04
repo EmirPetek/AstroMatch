@@ -1,12 +1,14 @@
 package com.emirpetek.mybirthdayreminder.ui.adapter.social.main
 
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
@@ -44,6 +46,13 @@ class SocialPostImageAdapter(
                 .load(uri)
                 .into(holder.imageView)
             holder.progressBar.visibility = View.GONE
+        }
+
+        val bundle = Bundle()
+        bundle.putStringArrayList("imageList",imgList)
+
+        holder.imageView.setOnClickListener { view ->
+            Navigation.findNavController(view).navigate(R.id.action_socialFragment_to_showPhotosFragment,bundle)
         }
 
 
