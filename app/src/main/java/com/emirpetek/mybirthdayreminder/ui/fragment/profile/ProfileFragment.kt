@@ -70,6 +70,14 @@ class ProfileFragment : Fragment() {
                 .circleCrop()
                 .into(binding.imageViewProfilePhoto)
 
+            binding.imageViewProfilePhoto.setOnClickListener {
+                val bundle = Bundle()
+                val imgList = ArrayList<String>()
+                imgList.add(loadUri)
+                bundle.putStringArrayList("imageList",imgList)
+                findNavController().navigate(R.id.action_profileFragment_to_showPhotosFragment,bundle)
+            }
+
 
             binding.textViewProfileFullname.setText(fullname)
             binding.textViewProfileBirthdate.setText(birthdate)
