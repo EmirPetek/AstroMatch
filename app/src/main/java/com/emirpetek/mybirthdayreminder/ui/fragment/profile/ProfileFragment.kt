@@ -56,13 +56,13 @@ class ProfileFragment : Fragment() {
             val birthdate = context?.getString(R.string.birthdate)  + " " + it.birthdate
             val zodiac = it.zodiac
             val ascendant = it.ascendant
-            var photoUri = it.profile_img
+            val photoUri = it.profile_img
             var loadUri = ""
 
-            if (photoUri.equals("no_photo")){
-                loadUri = "https://www.bio.purdue.edu/lab/deng/images/photo_not_yet_available.jpg"
+            loadUri = if(photoUri.equals("no_photo")){
+                "https://www.bio.purdue.edu/lab/deng/images/photo_not_yet_available.jpg"
             }else{
-                loadUri = photoUri
+                photoUri
             }
 
             Glide.with(this)
