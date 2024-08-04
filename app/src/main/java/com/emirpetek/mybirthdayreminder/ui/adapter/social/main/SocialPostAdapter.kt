@@ -141,7 +141,7 @@ class SocialPostAdapter(
 
                     holder.recyclerViewPhoto.setHasFixedSize(true)
                     holder.recyclerViewPhoto.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL,false)
-                    val imgAdapter = SocialPostImageAdapter(mContext,imgList,"posts/askQuestionPhoto")
+                    val imgAdapter = SocialPostImageAdapter(mContext,imgList,"posts/askQuestionPhoto","SocialPostAdapter")
                     holder.recyclerViewPhoto.adapter = imgAdapter
                 }
                 holder.buttonReply.setOnClickListener { showReplyAlertDialog(post) }
@@ -237,7 +237,7 @@ class SocialPostAdapter(
                     val imgList : ArrayList<String> = post.imageURL
                     holder.recyclerViewSurveyPhoto.setHasFixedSize(true)
                     holder.recyclerViewSurveyPhoto.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL,false)
-                    val imgAdapter = SocialPostImageAdapter(mContext,imgList,"posts/makeSurveyPhoto")
+                    val imgAdapter = SocialPostImageAdapter(mContext,imgList,"posts/makeSurveyPhoto","SocialPostAdapter")
                     holder.recyclerViewSurveyPhoto.adapter = imgAdapter
                 }
 
@@ -320,7 +320,7 @@ class SocialPostAdapter(
             val imgList : ArrayList<String> = post.imageURL
             recyclerViewAlertSocialReplyQuestion.setHasFixedSize(true)
             recyclerViewAlertSocialReplyQuestion.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL,false)
-            val imgAdapter = SocialPostImageAdapter(mContext,imgList,"posts/askQuestionPhoto")
+            val imgAdapter = SocialPostImageAdapter(mContext,imgList,"posts/askQuestionPhoto","SocialPostAdapter")
             recyclerViewAlertSocialReplyQuestion.adapter = imgAdapter
         }
 

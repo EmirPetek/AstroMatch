@@ -192,7 +192,7 @@ class AskQuestionFragment : Fragment() {
         imageReference.putFile(imageUri)
             .addOnSuccessListener {
                 imageReference.downloadUrl.addOnSuccessListener { uri ->
-                    imgUrlRefList.add(imgPathString)
+                    imgUrlRefList.add(uri.toString())
                     uploadedImages++
                     if (uploadedImages == imagesToUpload) {
                         // Tüm resimler yüklendiğinde yapılacak işlem

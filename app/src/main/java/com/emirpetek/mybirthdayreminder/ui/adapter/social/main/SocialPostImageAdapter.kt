@@ -22,7 +22,8 @@ import javax.security.auth.login.LoginException
 class SocialPostImageAdapter(
     val mContext: Context,
     val imgList: ArrayList<String>,
-    val imgPath: String
+    val imgPath: String,
+    val fragmentName:String
 ): RecyclerView.Adapter<SocialPostImageAdapter.ImageHolder>() {
 
         inner class ImageHolder(view:View) : RecyclerView.ViewHolder(view){
@@ -39,20 +40,31 @@ class SocialPostImageAdapter(
     override fun onBindViewHolder(holder: SocialPostImageAdapter.ImageHolder, position: Int) {
 
         holder.progressBar.visibility = View.VISIBLE
+        Glide
+            .with(mContext)
+            .load(imgList[position])
+            .into(holder.imageView)
+        holder.progressBar.visibility = View.GONE
+
+     /*   //holder.progressBar.visibility = View.GONE
         val storage = Firebase.storage.reference.child(imgList[position])
         storage.downloadUrl.addOnSuccessListener { uri ->
-            Glide
-                .with(mContext)
-                .load(uri)
-                .into(holder.imageView)
-            holder.progressBar.visibility = View.GONE
-        }
+
+            Log.e("imguri : ", uri.toString())
+        }*/
 
         val bundle = Bundle()
         bundle.putStringArrayList("imageList",imgList)
 
         holder.imageView.setOnClickListener { view ->
-            Navigation.findNavController(view).navigate(R.id.action_socialFragment_to_showPhotosFragment,bundle)
+
+            if (fragmentName.equals("QuestionAnswersFragment")){
+                Navigation.findNavController(view).navigate(R.id.action_questionAnswersFragment_to_showPhotosFragment,bundle)
+            }else if (fragmentName.equals("SocialPostAdapter")){
+                Navigation.findNavController(view).navigate(R.id.action_socialFragment_to_showPhotosFragment,bundle)
+            }
+
+
         }
 
 

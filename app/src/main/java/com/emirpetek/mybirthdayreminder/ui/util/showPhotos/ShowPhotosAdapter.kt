@@ -34,14 +34,19 @@ class ShowPhotosAdapter(
 
     override fun onBindViewHolder(holder: CardImage, position: Int) {
         val item = imageList[position]
-        val storage = Firebase.storage.reference.child(item)
+        Glide
+            .with(mContext)
+            .load(item)
+            .into(holder.imageView)
+        //holder.progressBar.visibility = View.GONE
+      /*  val storage = Firebase.storage.reference.child(item)
         storage.downloadUrl.addOnSuccessListener { uri ->
             Glide
                 .with(mContext)
                 .load(uri)
                 .into(holder.imageView)
             //holder.progressBar.visibility = View.GONE
-        }
+        }*/
 
         currentPosition = holder.absoluteAdapterPosition
 
