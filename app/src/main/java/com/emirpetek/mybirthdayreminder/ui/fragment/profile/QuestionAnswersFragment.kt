@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
 import com.emirpetek.mybirthdayreminder.data.entity.question.QuestionAnswers
@@ -103,6 +104,21 @@ class QuestionAnswersFragment : Fragment() {
         binding.textViewCardQuestionAnswersUserFullname.setText(post!!.userFullname)
         binding.textViewCardQuestionAnswersShareTime.setText(unixtsToDate(post.timestamp.toString()))
         binding.textViewQuestionAnswersQuestionText.setText(post.questionText)
+
+        val photoUri = post.userImg
+        var loadUri = ""
+
+        loadUri = if(photoUri.equals("no_photo")){
+            "https://www.bio.purdue.edu/lab/deng/images/photo_not_yet_available.jpg"
+        }else{
+            photoUri.toString()
+        }
+
+        Glide.with(this)
+            .load(loadUri)
+            .circleCrop()
+            .into(binding.imageViewCardQuestionAnswersProfileImg)
+
         if (post.imageURL[0].equals("null")){ binding.constraintLayoutQuestionAnswersPhoto.visibility = View.GONE }
         else{
             var imgList : ArrayList<String> = arrayListOf()
