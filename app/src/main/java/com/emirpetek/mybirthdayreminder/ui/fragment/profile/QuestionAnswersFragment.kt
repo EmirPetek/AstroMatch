@@ -126,7 +126,7 @@ class QuestionAnswersFragment : Fragment() {
 
             binding.recyclerViewFragmentQuestionAnswerPostPhotoRecyclerView.setHasFixedSize(true)
             binding.recyclerViewFragmentQuestionAnswerPostPhotoRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
-            val imgAdapter = SocialPostImageAdapter(requireContext(),imgList,"posts/askQuestionPhoto")
+            val imgAdapter = SocialPostImageAdapter(requireContext(),imgList,"posts/askQuestionPhoto","QuestionAnswersFragment")
             binding.recyclerViewFragmentQuestionAnswerPostPhotoRecyclerView.adapter = imgAdapter
         }
 
