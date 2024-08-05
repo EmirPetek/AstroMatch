@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -40,6 +41,7 @@ class RegisterFragment : Fragment() {
     private lateinit var zodiacSign:String
     private lateinit var ascendant:String
     private lateinit var mAdView : AdView
+    private var selectedGender = -1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,7 +70,11 @@ class RegisterFragment : Fragment() {
         }
 
 
-
+        binding.radioGroupSelectGender.setOnCheckedChangeListener { group, i ->
+            val selectedRadioButton = group.findViewById<RadioButton>(i)
+            val index = group.indexOfChild(selectedRadioButton)
+            selectedGender = index
+        }
 
         binding.buttonRegisterSignUp.setOnClickListener {
 
@@ -78,6 +84,7 @@ class RegisterFragment : Fragment() {
             val passwordEditAgain = binding.editTextRegisterPasswordAgain.text.toString()
             val birthdate = binding.editTextRegisterBirthdate.text.toString()
             val birthTime = binding.editTextRegisterBirthTime.text.toString()
+            val biography = binding.editTextFragmentRegisterBio.text.toString()
             var password = ""
 
 
@@ -97,6 +104,10 @@ class RegisterFragment : Fragment() {
                 toastShow(requireContext().getString(R.string.not_empty_fullname_field))
             }else if (birthTime.isEmpty()){
                 toastShow(requireContext().getString(R.string.not_empty_birthTime_field))
+            }else if (selectedGender == -1){
+                toastShow(requireContext().getString(R.string.not_empty_gender_field))
+            }else if (biography.isEmpty()){
+                toastShow(requireContext().getString(R.string.not_empty_biography_field))
             }
             else{
                 password = passwordEditAgain
@@ -151,7 +162,7 @@ class RegisterFragment : Fragment() {
         if (currentUser != null) {
             //reload()
 
-            Log.e("state: ", "register fragment onstart if içi")
+            //Log.e("state: ", "register fragment onstart if içi")
         }
     }
 
@@ -175,7 +186,9 @@ class RegisterFragment : Fragment() {
                             "0",
                             0,
                             zodiacSign,
-                            ascendant
+                            ascendant,
+                            selectedGender,
+                            binding.editTextFragmentRegisterBio.text.toString()
                                 )
                         viewModel.addUser(user)
 
