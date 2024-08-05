@@ -40,6 +40,8 @@
     <string name="not_empty_fullname_field">Please fill fullname field.</string>
     <string name="not_empty_birthday_field">Please fill birthday field.</string>
     <string name="not_empty_birthTime_field">Please fill birth time field.</string>
+    <string name="not_empty_biography_field">Please fill profile biography field.</string>
+    <string name="not_empty_gender_field">Please select your gender.</string>
     <string name="not_match_passwords">Passwords do not match.</string>
     <string name="password_charachters_at_least_six">Passwords should be at least 6 characters.</string>
     <string name="email_already_using">The email address is already in use by another account.</string>
