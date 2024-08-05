@@ -14,9 +14,11 @@ data class User(
     val accountDeleteState:String,
     val accountDeleteTime:Long,
     val zodiac:String,
-    val ascendant:String
+    val ascendant:String,
+    val gender: Int,
+    val biography:String
 ) : Serializable{
 
-    constructor(): this("","","","","","","",0,"",0,"","")
+    constructor(): this("","","","","","","",0,"",0,"","",0,"")
 
 }
