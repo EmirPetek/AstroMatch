@@ -71,6 +71,11 @@
     <string name="account_big">ACCOUNT</string>
     <string name="change_photo_big">CHANGE PHOTO</string>
     <string name="data_updating">Your data is updating. \n Please wait.</string>
+    <string name="select_gender">Select your gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="profile_bio">Profile Biography</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
