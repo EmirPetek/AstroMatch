@@ -67,6 +67,9 @@
         <action
             android:id="@+id/action_socialFragment_to_showPhotosFragment"
             app:destination="@id/showPhotosFragment" />
+        <action
+            android:id="@+id/action_socialFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/birthdayAddFragment"
