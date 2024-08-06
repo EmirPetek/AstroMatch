@@ -16,9 +16,10 @@ data class User(
     val zodiac:String,
     val ascendant:String,
     val gender: Int,
-    val biography:String
+    val biography:String,
+    var profileGalleryPhotos: ArrayList<String>? = null
 ) : Serializable{
 
-    constructor(): this("","","","","","","",0,"",0,"","",0,"")
+    constructor(): this("","","","","","","",0,"",0,"","",0,"", arrayListOf())
 
 }

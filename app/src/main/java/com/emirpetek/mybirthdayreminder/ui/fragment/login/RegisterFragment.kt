@@ -1,7 +1,12 @@
 package com.emirpetek.mybirthdayreminder.ui.fragment.login
 
+import android.app.Activity
+import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
+import android.net.Uri
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.util.Log
@@ -11,13 +16,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.RadioButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.emirpetek.mybirthdayreminder.databinding.FragmentRegisterBinding
+import com.emirpetek.mybirthdayreminder.ui.adapter.social.sharePost.question.AskQuestionFragmentImageAdapter
+import com.emirpetek.mybirthdayreminder.ui.fragment.social.sharePost.AskQuestionFragment.Companion.REQUEST_CODE_PICK_IMAGE
 import com.emirpetek.mybirthdayreminder.viewmodel.login.RegisterViewModel
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
@@ -27,9 +37,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import java.util.UUID
 
 class RegisterFragment : Fragment() {
 
@@ -42,6 +54,13 @@ class RegisterFragment : Fragment() {
     private lateinit var ascendant:String
     private lateinit var mAdView : AdView
     private var selectedGender = -1
+    private lateinit var profileImage : String
+    val PICK_IMAGE_REQUEST = 1
+    private var alertDialog: AlertDialog? = null
+    private lateinit var profilePhotoUri: Uri
+    private var isProfilePhotoUriExist = false
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,6 +95,10 @@ class RegisterFragment : Fragment() {
             selectedGender = index
         }
 
+        binding.imageViewCardSelectedPhoto.setOnClickListener {
+            selectProfilePhoto()
+        }
+
         binding.buttonRegisterSignUp.setOnClickListener {
 
             val fullname = binding.editTextRegisterNameSurname.text.toString()
@@ -108,11 +131,12 @@ class RegisterFragment : Fragment() {
                 toastShow(requireContext().getString(R.string.not_empty_gender_field))
             }else if (biography.isEmpty()){
                 toastShow(requireContext().getString(R.string.not_empty_biography_field))
+            }else if (!isProfilePhotoUriExist){
+                toastShow(requireContext().getString(R.string.not_empty_profile_photo_field))
             }
             else{
                 password = passwordEditAgain
                 registerUser(email, password)
-                calculateZodiacAndAscendant()
             }
         }
 
@@ -131,10 +155,6 @@ class RegisterFragment : Fragment() {
         binding.adViewFragmentRegister.addView(adView)
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun toastShow(text:String){
@@ -167,43 +187,19 @@ class RegisterFragment : Fragment() {
     }
 
     private fun registerUser(email: String, password: String){
-            auth.createUserWithEmailAndPassword(email, password)
+        calculateZodiacAndAscendant()
+        auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         var userAuth = auth.currentUser!!
-                        toastShow(requireContext().getString(R.string.register_successfull))
-
-                        var user = User(
-                                userAuth.uid,
-                                binding.editTextRegisterNameSurname.text.toString(),
-                                binding.editTextRegisterEmail.text.toString(),
-                                binding.editTextRegisterPassword.text.toString(),
-                                binding.editTextRegisterBirthdate.text.toString(),
-                                binding.editTextRegisterBirthTime.text.toString(),
-                            "no_photo",
-                                System.currentTimeMillis(),
-                            "0",
-                            0,
-                            zodiacSign,
-                            ascendant,
-                            selectedGender,
-                            binding.editTextFragmentRegisterBio.text.toString()
-                                )
-                        viewModel.addUser(user)
-
-                        lifecycleScope.launchWhenStarted {
-                            viewModel.userAdded.collect { isAdded ->
-                                if (isAdded) {
-                                    findNavController().popBackStack()
-                                }
-                            }
-                        }
+                        registerUserAndLoadImg(profilePhotoUri)
                     } else {
                         // If sign in fails, display a message to the user.
                         try {
                             throw task.exception!!
                         }catch (e : FirebaseAuthUserCollisionException){
+                            closeLoadingAlert()
                             toastShow(requireContext().getString(R.string.email_already_using))
                         }
                     }
@@ -311,4 +307,101 @@ class RegisterFragment : Fragment() {
             else -> getString(R.string.unknown)
         }
     }
+
+    private fun showLoadingAlert() {
+        if (alertDialog == null) {
+            val dialogView = layoutInflater.inflate(R.layout.alert_wait_screen, null)
+            dialogView.findViewById<TextView>(R.id.textViewAlertWaitScreenPleaseWait).setText(getString(R.string.your_account_registering))
+            val alertDialogBuilder = AlertDialog.Builder(requireContext())
+            alertDialogBuilder.setView(dialogView)
+            alertDialog = alertDialogBuilder.create().apply {
+                setCancelable(false)
+                setCanceledOnTouchOutside(false)
+            }
+        }
+        alertDialog?.show()
+    }
+
+    private fun closeLoadingAlert() {
+        alertDialog?.let {
+            it.dismiss()
+            alertDialog = null
+        }
+    }
+
+
+    private fun selectProfilePhoto(){
+        openSingleFileChooser()
+    }
+
+    fun openSingleFileChooser() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        // tekli foto seçimi
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.data != null) {
+            val imageUri: Uri? = data.data
+            Glide.with(requireContext())
+                .load(imageUri)
+                .into(binding.imageViewCardSelectedPhoto)
+
+            if (imageUri != null) {
+                profilePhotoUri = imageUri
+                isProfilePhotoUriExist = true
+            }
+        }
+    }
+
+    private fun registerUserAndLoadImg(imageUri: Uri?) { // pp yükleme işi tekli
+        showLoadingAlert()
+        if (imageUri != null) {
+            val pathName = "${System.currentTimeMillis()}_${UUID.randomUUID()}"
+            val storageReference = FirebaseStorage.getInstance().getReference("users/profileImages/$pathName.jpg")
+            storageReference.putFile(imageUri)
+                .addOnSuccessListener { taskSnapshot ->
+                    storageReference.downloadUrl.addOnSuccessListener { uri ->
+                        val downloadUrl = uri.toString()
+                        profileImage = downloadUrl
+
+                        toastShow(requireContext().getString(R.string.register_successfull))
+
+                        var user = User(
+                            auth.currentUser!!.uid,
+                            binding.editTextRegisterNameSurname.text.toString(),
+                            binding.editTextRegisterEmail.text.toString(),
+                            binding.editTextRegisterPassword.text.toString(),
+                            binding.editTextRegisterBirthdate.text.toString(),
+                            binding.editTextRegisterBirthTime.text.toString(),
+                            profileImage,
+                            System.currentTimeMillis(),
+                            "0",
+                            0,
+                            zodiacSign,
+                            ascendant,
+                            selectedGender,
+                            binding.editTextFragmentRegisterBio.text.toString(),
+                        )
+                        viewModel.addUser(user)
+
+                        lifecycleScope.launchWhenStarted {
+                            viewModel.userAdded.collect { isAdded ->
+                                if (isAdded) {
+                                    closeLoadingAlert()
+                                    findNavController().popBackStack()
+                                }
+                            }
+                        }
+                    }
+                }
+                .addOnFailureListener { exception ->
+                }
+        }
+    }
+
+
+
 }
