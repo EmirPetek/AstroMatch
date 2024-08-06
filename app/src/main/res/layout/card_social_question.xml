@@ -21,7 +21,7 @@
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout11"
+                android:id="@+id/constraintLayoutCardSocialQuestionSharerInfo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="4dp"
@@ -96,7 +96,7 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout11">
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutCardSocialQuestionSharerInfo">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewSocialQuestionPhoto"

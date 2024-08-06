@@ -2,6 +2,7 @@ package com.emirpetek.mybirthdayreminder.ui.adapter.social.main
 
 import android.app.AlertDialog
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -159,6 +161,14 @@ class SocialPostAdapter(
 
                 holder.textViewCardSocialQuestionUserFullname.text = post.userFullname
 
+
+                val bundle : Bundle = Bundle().apply {
+                    putString("userID", post.userID)
+                }
+
+                holder.constraintLayoutCardSocialQuestionProfileField.setOnClickListener { it ->
+                    Navigation.findNavController(it).navigate(R.id.action_socialFragment_to_profileFragment,bundle)
+                }
 
 
                 val imageName = post.userImg
