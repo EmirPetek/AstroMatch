@@ -78,6 +78,8 @@
     <string name="female">Female</string>
     <string name="other">Other</string>
     <string name="profile_bio">Profile Biography</string>
+    <string name="biography">Biography</string>
+    <string name="age">Age</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -126,6 +128,8 @@
     <string name="sagittarius">Sagittarius</string>
     <string name="unknown">Unknown</string>
     <string name="zodiac">ZODIAC</string>
+    <string name="zodiac_small">Zodiac</string>
     <string name="ascendant">ASCENDANT</string>
+    <string name="ascendant_small">Ascendant</string>
 
 </resources>

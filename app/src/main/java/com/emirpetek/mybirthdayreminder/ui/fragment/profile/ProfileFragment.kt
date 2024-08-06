@@ -22,6 +22,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.rvadapter.AdmobNativeAdAdapter
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -32,6 +33,7 @@ class ProfileFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var postAdapter: ProfileFragmentPostAdapter
     var postList = ArrayList<Post>()
+    var userID : String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,66 +42,55 @@ class ProfileFragment : Fragment() {
         binding = FragmentProfileBinding.inflate(inflater,container,false)
 
         auth = Firebase.auth
-        showBottomNav()
 
-
-
-
-
-        bindUserPost()
-
-
-        viewModel.getUser(auth.currentUser!!.uid)
-        viewModel.user.observe(viewLifecycleOwner, Observer { it ->
-            val joined_at = context?.getString(R.string.joined_at)  + " " + formatTimestampToDate(it.created_at)
-            val fullname = context?.getString(R.string.fullname)  + " " + it.fullname
-            val birthdate = context?.getString(R.string.birthdate)  + " " + it.birthdate
-            val zodiac = it.zodiac
-            val ascendant = it.ascendant
-            val photoUri = it.profile_img
-            var loadUri = ""
-
-            loadUri = if(photoUri.equals("no_photo")){
-                "https://www.bio.purdue.edu/lab/deng/images/photo_not_yet_available.jpg"
-            }else{
-                photoUri
-            }
-
-            Glide.with(this)
-                .load(loadUri)
-                .circleCrop()
-                .into(binding.imageViewProfilePhoto)
-
-            binding.imageViewProfilePhoto.setOnClickListener {
-                val bundle = Bundle()
-                val imgList = ArrayList<String>()
-                imgList.add(loadUri)
-                bundle.putStringArrayList("imageList",imgList)
-                findNavController().navigate(R.id.action_profileFragment_to_showPhotosFragment,bundle)
-            }
-
-
-            binding.textViewProfileFullname.setText(fullname)
-            binding.textViewProfileBirthdate.setText(birthdate)
-            binding.textViewProfileZodiac.setText(zodiac)
-            binding.textViewProfileAscendant.setText(ascendant)
-            binding.textViewProfileJoinedAt.setText(joined_at)
-
-
-            bindZodiacAscendantImage(zodiac,ascendant)
-        })
-
-        binding.imageViewProfileFragmentSettings.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_profileSettingsFragment)
+        userID = arguments?.getString("userID")
+        if(!userID.isNullOrEmpty() && userID != auth.currentUser?.uid){ // user is anyUser
+            bindAnyUser()
+        }else { // own user
+            bindOwnUser()
         }
-
-
         return binding.root
+    }
+
+    fun bindAnyUser(){
+        hideBottomNav()
+        toolbarAnyUser()
+        binding.constraintLayoutFragmentProfilePostLayout.visibility = View.GONE
+        bindUserData(userID.toString())
+    }
+
+    fun bindOwnUser(){
+        showBottomNav()
+        toolbarOwnUser()
+        bindUserData(auth.currentUser!!.uid)
+        bindUserPost()
     }
 
     private fun showBottomNav(){
         val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNav?.visibility = View.VISIBLE
+    }
+
+    private fun hideBottomNav(){
+        val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNav?.visibility = View.GONE
+    }
+
+    private fun toolbarAnyUser(){
+        Glide.with(this)
+            .load(R.drawable.baseline_arrow_back_ios_24)
+            .into(binding.imageViewFragmentProfileToolbar)
+        binding.imageViewFragmentProfileToolbar.setOnClickListener { findNavController().popBackStack() }
+        binding.imageViewProfileFragmentSettings.visibility = View.GONE
+
+    }
+
+    private fun toolbarOwnUser(){
+        Glide.with(this)
+            .load(R.drawable.baseline_person_24)
+            .into(binding.imageViewFragmentProfileToolbar)
+        binding.imageViewProfileFragmentSettings.setOnClickListener { findNavController().navigate(R.id.action_profileFragment_to_profileSettingsFragment) }
+        binding.imageViewProfileFragmentSettings.visibility = View.VISIBLE
     }
 
     private fun bindZodiacAscendantImage(zodiac:String,ascendant:String){
@@ -135,19 +126,80 @@ class ProfileFragment : Fragment() {
             else -> R.drawable.baseline_error_24 // Varsayılan resim
         }
 
-        Glide.with(this)
+        /*Glide.with(this)
             .load(zodiacDrawableResId)
             .into(binding.imageViewProfileZodiac)
 
         Glide.with(this)
             .load(ascendantDrawableResId)
-            .into(binding.imageViewProfileAscendant)
+            .into(binding.imageViewProfileAscendant)*/
     }
 
     fun formatTimestampToDate(timestamp: Long): String {
         val date = Date(timestamp)
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return dateFormat.format(date)
+    }
+
+    fun calculateAge(birthDateString: String): Int {
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+        val birthDate: Date = dateFormat.parse(birthDateString) ?: return -1
+        val birthCalendar = Calendar.getInstance().apply { time = birthDate }
+        val today = Calendar.getInstance()
+
+        var age = today.get(Calendar.YEAR) - birthCalendar.get(Calendar.YEAR)
+
+        if (today.get(Calendar.DAY_OF_YEAR) < birthCalendar.get(Calendar.DAY_OF_YEAR)) {
+            age--
+        }
+
+        return age
+    }
+
+
+
+    fun bindUserData(userID:String){
+        viewModel.getUser(userID)
+        viewModel.user.observe(viewLifecycleOwner, Observer { it ->
+            val joined_at = context?.getString(R.string.joined_at)  + " " + formatTimestampToDate(it.created_at)
+            val fullname = it.fullname
+            val birthdate = it.birthdate
+            val zodiac = it.zodiac
+            val ascendant = it.ascendant
+            val photoUri = it.profile_img
+            val biography = it.biography
+            var loadUri = ""
+
+            loadUri = if(photoUri.equals("no_photo")){
+                "https://www.bio.purdue.edu/lab/deng/images/photo_not_yet_available.jpg"
+            }else{
+                photoUri
+            }
+
+            Glide.with(this)
+                .load(loadUri)
+                .circleCrop()
+                .into(binding.imageViewProfilePhoto)
+
+            binding.imageViewProfilePhoto.setOnClickListener {
+                val bundle = Bundle()
+                val imgList = ArrayList<String>()
+                imgList.add(loadUri)
+                bundle.putStringArrayList("imageList",imgList)
+                findNavController().navigate(R.id.action_profileFragment_to_showPhotosFragment,bundle)
+            }
+
+
+            binding.textViewProfileFullname.setText(fullname)
+            binding.textViewProfileAge.setText(calculateAge(birthdate).toString())
+            binding.textViewProfileZodiac.setText(zodiac)
+            binding.textViewProfileAscendant.setText(ascendant)
+            binding.textViewProfileBiography.setText(biography)
+            //  binding.textViewProfileJoinedAt.setText(joined_at)
+
+
+            bindZodiacAscendantImage(zodiac,ascendant)
+        })
     }
 
     fun bindUserPost(){
@@ -178,11 +230,7 @@ class ProfileFragment : Fragment() {
                     "custom"
                 )
                     .adItemInterval(10)
-
                     .build()
-
-
-
                 binding.recyclerViewFragmentProfilePosts.adapter  = admobNativeAdAdapter
                 binding.progressBarFragmentProfilePost.visibility = View.GONE
 
@@ -194,11 +242,8 @@ class ProfileFragment : Fragment() {
         })
     }
 
-
     override fun onResume() {
-
         super.onResume()
-
         //bindUserPost()
 
     }
