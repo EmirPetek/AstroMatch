@@ -60,6 +60,8 @@ class ShareProfileGalleryPhotosFragment : Fragment() {
         pickImages()
         bindShareButton()
 
+        binding.buttonProfileGalleryCancel.setOnClickListener { findNavController().popBackStack() }
+
 
 
         return binding.root
