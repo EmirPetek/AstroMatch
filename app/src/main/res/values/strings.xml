@@ -42,6 +42,7 @@
     <string name="not_empty_birthTime_field">Please fill birth time field.</string>
     <string name="not_empty_biography_field">Please fill profile biography field.</string>
     <string name="not_empty_gender_field">Please select your gender.</string>
+    <string name="not_empty_profile_photo_field">Please select your profile photo.</string>
     <string name="not_match_passwords">Passwords do not match.</string>
     <string name="password_charachters_at_least_six">Passwords should be at least 6 characters.</string>
     <string name="email_already_using">The email address is already in use by another account.</string>
@@ -63,6 +64,7 @@
     <string name="your_post">Your Posts</string>
     <string name="user_posts">User Posts</string>
     <string name="no_post_here">There is no post here.</string>
+    <string name="no_photo_here">There is no photo here.</string>
     <string name="no_answer_here">There is no answer here.</string>
     <string name="answer">answer</string>
     <string name="answers">answers</string>
@@ -85,6 +87,7 @@
     <string name="select_profile_photo">Select Profile Photo</string>
     <string name="select_profile_gallery_photo">Select Profile Gallery Photos</string>
     <string name="your_account_registering">Your account is registering. \n Please wait.</string>
+    <string name="add_photo">Add Photo</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

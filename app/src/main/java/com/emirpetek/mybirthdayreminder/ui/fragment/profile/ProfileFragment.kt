@@ -12,9 +12,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.data.entity.UserGalleryPhoto
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
+import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.emirpetek.mybirthdayreminder.databinding.FragmentProfileBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.profile.ProfileFragmentPostAdapter
+import com.emirpetek.mybirthdayreminder.ui.adapter.profile.ProfileFragmentProfileGalleryPhotosAdapter
 import com.emirpetek.mybirthdayreminder.viewmodel.profile.ProfileViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -32,8 +35,11 @@ class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var postAdapter: ProfileFragmentPostAdapter
+    private lateinit var galleryPhotoAdapter: ProfileFragmentProfileGalleryPhotosAdapter
     var postList = ArrayList<Post>()
     var userID : String? = null
+    var galleryPhotos : ArrayList<UserGalleryPhoto>? = null
+    var userType: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,8 +52,10 @@ class ProfileFragment : Fragment() {
         userID = arguments?.getString("userID")
         if(!userID.isNullOrEmpty() && userID != auth.currentUser?.uid){ // user is anyUser
             bindAnyUser()
+            userType = "anyUser"
         }else { // own user
             bindOwnUser()
+            userType = "ownUser"
         }
         return binding.root
     }
@@ -169,6 +177,9 @@ class ProfileFragment : Fragment() {
             val photoUri = it.profile_img
             val biography = it.biography
             var loadUri = ""
+            galleryPhotos = it.profileGalleryPhotos //as ArrayList<String>
+
+            bindUserGalleryPhotos()
 
             loadUri = if(photoUri.equals("no_photo")){
                 "https://www.bio.purdue.edu/lab/deng/images/photo_not_yet_available.jpg"
@@ -240,6 +251,44 @@ class ProfileFragment : Fragment() {
             })
 
         })
+    }
+
+
+    fun bindUserGalleryPhotos(){
+
+        if (userType.equals("anyUser")){ // başkasının profiline girilmiş
+            binding.textViewProfilePhotosAddPhoto.visibility = View.GONE
+
+        }else{ // kendi profiline girmiş
+            binding.textViewProfilePhotosAddPhoto.setOnClickListener { addGalleryPhoto() }
+
+        }
+
+
+        if (galleryPhotos.isNullOrEmpty() || galleryPhotos!!.size == 0){
+            binding.textViewFragmentProfileNoPhotoHere.visibility = View.VISIBLE
+            binding.progressBarFragmentProfileGalleryPhoto.visibility = View.GONE
+            binding.constraintLayoutFragmentProfilePhotoLayout.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            binding.textViewProfilePhotosViewAll.visibility = View.GONE
+            Log.e("where","if içi")
+        }else{
+            Log.e("where","else içi")
+            binding.progressBarFragmentProfileGalleryPhoto.visibility = View.VISIBLE
+            binding.textViewFragmentProfileNoPhotoHere.visibility = View.GONE
+            binding.recyclerViewFragmentProfilePhotos.setHasFixedSize(true)
+            binding.recyclerViewFragmentProfilePhotos.layoutManager = LinearLayoutManager(requireContext(),
+                LinearLayoutManager.HORIZONTAL,false)
+            galleryPhotoAdapter = ProfileFragmentProfileGalleryPhotosAdapter(requireContext(),
+                galleryPhotos!!
+            )
+            binding.recyclerViewFragmentProfilePhotos.adapter = galleryPhotoAdapter
+            binding.progressBarFragmentProfileGalleryPhoto.visibility = View.GONE
+        }
+    }
+
+    fun addGalleryPhoto(){
+        findNavController().navigate(R.id.action_profileFragment_to_shareProfileGalleryPhotosFragment)
+        //ShareProfileGalleryPhotosFragment().pickImages()
     }
 
     override fun onResume() {
