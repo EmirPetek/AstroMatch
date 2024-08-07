@@ -1,4 +1,4 @@
-package com.emirpetek.mybirthdayreminder.ui.adapter.profile
+package com.emirpetek.mybirthdayreminder.ui.adapter.profile.userGalleryPhotos
 
 import android.content.Context
 import android.os.Bundle
@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
@@ -28,14 +27,14 @@ class ProfileFragmentProfileGalleryPhotosAdapter
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ProfileFragmentProfileGalleryPhotosAdapter.ImageHolder {
+    ): ImageHolder {
         val view =
             LayoutInflater.from(mContext).inflate(R.layout.card_profile_photos, parent, false)
         return ImageHolder(view)
     }
 
     override fun onBindViewHolder(
-        holder: ProfileFragmentProfileGalleryPhotosAdapter.ImageHolder,
+        holder: ImageHolder,
         position: Int
     ) {
 
@@ -60,7 +59,7 @@ class ProfileFragmentProfileGalleryPhotosAdapter
     }
 
     override fun getItemCount(): Int {
-        return imgList.size
+        return minOf(4,imgList.size)
     }
 
 }

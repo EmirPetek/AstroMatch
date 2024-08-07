@@ -1,4 +1,4 @@
-package com.emirpetek.mybirthdayreminder.ui.adapter.profile
+package com.emirpetek.mybirthdayreminder.ui.adapter.profile.userGalleryPhotos
 
 import android.content.Context
 import android.net.Uri

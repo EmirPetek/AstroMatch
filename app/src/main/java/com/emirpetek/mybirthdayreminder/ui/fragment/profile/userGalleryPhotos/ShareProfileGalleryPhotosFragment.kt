@@ -1,4 +1,4 @@
-package com.emirpetek.mybirthdayreminder.ui.fragment.profile
+package com.emirpetek.mybirthdayreminder.ui.fragment.profile.userGalleryPhotos
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -20,10 +20,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.UserGalleryPhoto
-import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.emirpetek.mybirthdayreminder.databinding.FragmentShareProfileGalleryPhotosBinding
-import com.emirpetek.mybirthdayreminder.ui.adapter.profile.ProfileFragmentProfileGalleryPhotosAdapter
-import com.emirpetek.mybirthdayreminder.ui.adapter.profile.ShareProfileGalleryPhotosFragmentAdapter
+import com.emirpetek.mybirthdayreminder.ui.adapter.profile.userGalleryPhotos.ShareProfileGalleryPhotosFragmentAdapter
 import com.emirpetek.mybirthdayreminder.ui.fragment.social.sharePost.AskQuestionFragment.Companion.REQUEST_CODE_PICK_IMAGE
 import com.emirpetek.mybirthdayreminder.viewmodel.profile.ShareProfileGalleryPhotosViewModel
 import com.google.android.gms.ads.AdRequest
