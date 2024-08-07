@@ -2,7 +2,9 @@ package com.emirpetek.mybirthdayreminder.data.repo.user
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.emirpetek.mybirthdayreminder.data.entity.UserGalleryPhoto
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -73,6 +75,28 @@ class UserRepo {
             .addOnFailureListener { e ->
                 Log.e("updateUser: ", "Failed in updating!")
             }
+    }
+
+    suspend fun insertProfileGalleryURLs(userID:String, imgList: ArrayList<UserGalleryPhoto>): Boolean{
+        //val data = hashMapOf("profileGalleryPhotos" to imgList)
+
+        return try {
+            val updates = hashMapOf<String, Any>(
+                "profileGalleryPhotos" to FieldValue.arrayUnion(*imgList.toTypedArray())
+            )
+
+            dbRef.document(userID).update(updates)
+                .addOnSuccessListener {
+                    Log.e("insertProfileGalleryURLs: ", "Successfully inserted!")
+                }
+                .addOnFailureListener { e ->
+                    Log.e("insertProfileGalleryURLs: ", "Failed in inserting!", e)
+                }
+            true
+        }catch (e : Exception){
+            Log.e("insertProfileGalleryURLs exception: ", e.toString())
+            false
+        }
     }
 
     fun deleteUser(userID: String) {
