@@ -1,5 +1,6 @@
 package com.emirpetek.mybirthdayreminder.data.entity.user
 
+import com.emirpetek.mybirthdayreminder.data.entity.UserGalleryPhoto
 import java.io.Serializable
 
 data class User(
@@ -17,7 +18,7 @@ data class User(
     val ascendant:String,
     val gender: Int,
     val biography:String,
-    var profileGalleryPhotos: ArrayList<String>? = null
+    var profileGalleryPhotos: ArrayList<UserGalleryPhoto>? = null
 ) : Serializable{
 
     constructor(): this("","","","","","","",0,"",0,"","",0,"", arrayListOf())

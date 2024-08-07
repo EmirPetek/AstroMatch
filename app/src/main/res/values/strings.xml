@@ -80,6 +80,8 @@
     <string name="profile_bio">Profile Biography</string>
     <string name="biography">Biography</string>
     <string name="age">Age</string>
+    <string name="photos">Photos</string>
+    <string name="view_all">View All</string>
     <string name="select_profile_photo">Select Profile Photo</string>
     <string name="select_profile_gallery_photo">Select Profile Gallery Photos</string>
     <string name="your_account_registering">Your account is registering. \n Please wait.</string>
