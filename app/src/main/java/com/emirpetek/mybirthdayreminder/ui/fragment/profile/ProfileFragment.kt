@@ -270,9 +270,7 @@ class ProfileFragment : Fragment() {
             binding.progressBarFragmentProfileGalleryPhoto.visibility = View.GONE
             binding.constraintLayoutFragmentProfilePhotoLayout.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
             binding.textViewProfilePhotosViewAll.visibility = View.GONE
-            Log.e("where","if içi")
         }else{
-            Log.e("where","else içi")
             binding.progressBarFragmentProfileGalleryPhoto.visibility = View.VISIBLE
             binding.textViewFragmentProfileNoPhotoHere.visibility = View.GONE
             binding.recyclerViewFragmentProfilePhotos.setHasFixedSize(true)

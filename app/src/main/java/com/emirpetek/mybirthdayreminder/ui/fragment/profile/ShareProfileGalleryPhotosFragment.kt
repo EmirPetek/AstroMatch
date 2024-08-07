@@ -173,12 +173,19 @@ class ShareProfileGalleryPhotosFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-       // eğer resim seçilmeden geri dönülürse profil ekranına geri dön
-        if (selectedImages.size == 0) findNavController().popBackStack()
 
+        if (data == null || (data.clipData == null && data.data == null)) {
+            findNavController().popBackStack()
+        }
         if (requestCode == REQUEST_CODE_PICK_IMAGE && resultCode == Activity.RESULT_OK) {
+
+
+
             data?.let { intentData ->
                 val clipData = intentData.clipData
+
+
+
                 if (clipData != null) {
                     // Birden fazla resim seçildi
                     for (i in 0 until clipData.itemCount) {
