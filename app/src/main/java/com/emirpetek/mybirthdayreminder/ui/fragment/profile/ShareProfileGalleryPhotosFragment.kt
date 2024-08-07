@@ -220,7 +220,7 @@ class ShareProfileGalleryPhotosFragment : Fragment() {
 
     private fun uploadImageToDatabase(imageUri: Uri) {
         val storageReference = FirebaseStorage.getInstance().reference
-        var imgPathString = "posts/askQuestionPhoto/${UUID.randomUUID()}.jpg"
+        var imgPathString = "users/profileGalleryPhotos/${UUID.randomUUID()}.jpg"
         val imageReference = storageReference.child(imgPathString)
 
         imageReference.putFile(imageUri)
