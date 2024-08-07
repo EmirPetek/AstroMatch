@@ -2,7 +2,6 @@ package com.emirpetek.mybirthdayreminder.ui.fragment.profile
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +13,10 @@ import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.UserGalleryPhoto
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
-import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.emirpetek.mybirthdayreminder.databinding.FragmentProfileBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.profile.ProfileFragmentPostAdapter
-import com.emirpetek.mybirthdayreminder.ui.adapter.profile.ProfileFragmentProfileGalleryPhotosAdapter
+import com.emirpetek.mybirthdayreminder.ui.adapter.profile.userGalleryPhotos.ProfileFragmentProfileGalleryPhotosAdapter
+import com.emirpetek.mybirthdayreminder.ui.util.bottomNavigation.ManageBottomNavigationVisibility
 import com.emirpetek.mybirthdayreminder.viewmodel.profile.ProfileViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -61,27 +60,17 @@ class ProfileFragment : Fragment() {
     }
 
     fun bindAnyUser(){
-        hideBottomNav()
+        ManageBottomNavigationVisibility(requireActivity()).hideBottomNav()
         toolbarAnyUser()
         binding.constraintLayoutFragmentProfilePostLayout.visibility = View.GONE
         bindUserData(userID.toString())
     }
 
     fun bindOwnUser(){
-        showBottomNav()
+        ManageBottomNavigationVisibility(requireActivity()).showBottomNav()
         toolbarOwnUser()
         bindUserData(auth.currentUser!!.uid)
         bindUserPost()
-    }
-
-    private fun showBottomNav(){
-        val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        bottomNav?.visibility = View.VISIBLE
-    }
-
-    private fun hideBottomNav(){
-        val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        bottomNav?.visibility = View.GONE
     }
 
     private fun toolbarAnyUser(){
@@ -271,6 +260,14 @@ class ProfileFragment : Fragment() {
             binding.constraintLayoutFragmentProfilePhotoLayout.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
             binding.textViewProfilePhotosViewAll.visibility = View.GONE
         }else{
+
+            binding.textViewFragmentProfilePhotoTitle.setText("${getString(R.string.photos)} (${galleryPhotos!!.size})")
+
+            val bundle = Bundle()
+            bundle.putParcelableArrayList("imageListProfileGallery",galleryPhotos)
+            binding.textViewProfilePhotosViewAll.setOnClickListener { findNavController().navigate(R.id.action_profileFragment_to_profileGalleryViewAllFragment,bundle) }
+
+
             binding.progressBarFragmentProfileGalleryPhoto.visibility = View.VISIBLE
             binding.textViewFragmentProfileNoPhotoHere.visibility = View.GONE
             binding.recyclerViewFragmentProfilePhotos.setHasFixedSize(true)

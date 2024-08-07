@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_profileFragment_to_shareProfileGalleryPhotosFragment"
             app:destination="@id/shareProfileGalleryPhotosFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_profileGalleryViewAllFragment"
+            app:destination="@id/profileGalleryViewAllFragment" />
     </fragment>
     <fragment
         android:id="@+id/socialFragment"
@@ -121,7 +124,12 @@
         tools:layout="@layout/fragment_show_photos" />
     <fragment
         android:id="@+id/shareProfileGalleryPhotosFragment"
-        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.ShareProfileGalleryPhotosFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.userGalleryPhotos.ShareProfileGalleryPhotosFragment"
         android:label="fragment_share_profile_gallery_photos"
         tools:layout="@layout/fragment_share_profile_gallery_photos" />
+    <fragment
+        android:id="@+id/profileGalleryViewAllFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.userGalleryPhotos.ProfileGalleryViewAllFragment"
+        android:label="fragment_profile_gallery_view_all"
+        tools:layout="@layout/fragment_profile_gallery_view_all" />
 </navigation>
