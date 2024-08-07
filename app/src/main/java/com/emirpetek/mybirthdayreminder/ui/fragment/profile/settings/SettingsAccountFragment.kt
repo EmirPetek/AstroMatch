@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.emirpetek.mybirthdayreminder.databinding.FragmentSettingsAccountBinding
+import com.emirpetek.mybirthdayreminder.ui.util.calculateTime.CalculateShareTime
 import com.emirpetek.mybirthdayreminder.viewmodel.profile.SettingsAccountViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -52,7 +53,7 @@ class SettingsAccountFragment : Fragment() {
         viewModel.getUserData(userID!!)
         viewModel.userData.observe(viewLifecycleOwner, Observer { it ->
             user = it
-            val createDate = unixtsToDate(user.created_at.toString())
+            val createDate = CalculateShareTime(requireContext()).unixtsToDate(user.created_at.toString())
             binding.editTextSettingsAccountJoinedAt.setText(createDate)
             bindUserImage(user.profile_img)
             binding.userObject = this
@@ -147,54 +148,5 @@ class SettingsAccountFragment : Fragment() {
         }
     }
 
-
-    private fun unixtsToDate(timestamp:String):String{
-        // post zamanını gösterme kodu
-        val unixTimestamp = timestamp
-        val formattedDateTime = getLocalizedDateTime(unixTimestamp)
-        var postTime = formattedDateTime.substring(11,16)
-        var yyyy = formattedDateTime.substring(0,4)
-        var mm = formattedDateTime.substring(5,7)
-        var dd = formattedDateTime.substring(8,10)
-        var postDate = "$dd/$mm/$yyyy"
-
-        val nowTimeStamp = System.currentTimeMillis().toString()
-
-        val timeDifference = (nowTimeStamp.substring(0, nowTimeStamp.length - 3).toLong() - unixTimestamp.substring(0, unixTimestamp.length - 3).toLong())
-        // timedifference saniye cinsinden gelir
-
-        val min = timeDifference/60 // üstünden kaç dakika geçmiş onu gösterir
-        val hour = timeDifference/3600 // üstünden kaç saat geçmiş onu gösterir
-        //Log.e("times: ", "min: $min hour: $hour")
-        var text: String = String()
-        if (min >= 0 && min < 60) {
-            text = "$min ${getString(R.string.minutes_ago)}"
-
-        } else if (hour >= 1 && hour < 24) {
-            text = "$hour ${getString(R.string.hours_ago)}"
-        } else {
-            text =  postTime + " - " + postDate
-        }
-
-        return text
-    }
-
-    private fun getLocalizedDateTime(unixTime: String): String {
-        // Unix zamanını milisaniye cinsine çevir
-        val date = Date(unixTime.toLong() * 1)
-
-        // Cihazın mevcut dil ve bölge ayarlarını al
-        val locale = Locale.getDefault()
-
-        // Tarih ve saat formatını belirle
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", locale)
-
-        // Cihazın zaman dilimini al
-        val timeZone = TimeZone.getDefault()
-        dateFormat.timeZone = timeZone
-
-        // Tarih ve saati formatla ve döndür
-        return dateFormat.format(date)
-    }
 
 }
