@@ -45,7 +45,7 @@ class SocialPostAdapter(
     val layoutInflater: LayoutInflater
 ): RecyclerView.Adapter<SocialPostAdapter.PostCardHolder>() {
 
-    private val VISIBLE_THRESHOLD = 8
+    private val VISIBLE_THRESHOLD = 15
     private var visibleItemCount = VISIBLE_THRESHOLD
     private lateinit var mAdView : AdView
     private var currentItemNum = 0
