@@ -11,6 +11,7 @@ import com.google.firebase.ktx.Firebase
 class UserRepo {
 
     private var user: MutableLiveData<User> = MutableLiveData()
+    private var userZodiac: MutableLiveData<Int> = MutableLiveData()
     private var userFullname: MutableLiveData<String> = MutableLiveData()
     private var userImageURL: MutableLiveData<String> = MutableLiveData()
     private val dbRef = Firebase.firestore.collection("users")
@@ -25,6 +26,10 @@ class UserRepo {
 
     fun getUserImage(): MutableLiveData<String> {
         return userImageURL
+    }
+
+    fun getUserZodiac() : MutableLiveData<Int>{
+        return userZodiac
     }
 
     suspend fun addUser(user: User): Boolean {
@@ -65,6 +70,22 @@ class UserRepo {
                 userImageURL.value = userImg
             }
         }
+    }
+
+    fun getUserZodiac(userID: String){
+        dbRef.document(userID).addSnapshotListener{ snapshot, e ->
+            if (e != null) {
+                // Handle error
+                return@addSnapshotListener
+            }
+
+            if (snapshot != null && snapshot.exists()) {
+                val userModel = snapshot.toObject(User::class.java)!!
+                val zodiac = userModel.zodiac
+                userZodiac.value = zodiac
+            }
+        }
+
     }
 
     fun updateUser(user:User) {

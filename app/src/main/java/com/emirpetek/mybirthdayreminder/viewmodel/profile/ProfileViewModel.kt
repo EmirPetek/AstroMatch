@@ -15,8 +15,10 @@ class ProfileViewModel : ViewModel() {
 
     private val repo = UserRepo()
     var user = MutableLiveData<User>()// = MutableLiveData()
+    var user2 = MutableLiveData<User>()// = MutableLiveData()
     var userFullname = MutableLiveData<String>()// = MutableLiveData()
     var userImgURL = MutableLiveData<String>()// = MutableLiveData()
+    var userZodiac = MutableLiveData<Int>()// = MutableLiveData()
 
     //  var answerSize: MutableLiveData<Pair<String,Int>>// = MutableLiveData()
     var questionList = MutableLiveData<List<Post>>()
@@ -26,8 +28,10 @@ class ProfileViewModel : ViewModel() {
 
     init {
         user = repo.getUser()
+        user2 = repo.getUser()
         userFullname = repo.getUserFullname()
         userImgURL = repo.getUserImage()
+        userZodiac = repo.getUserZodiac()
         answerSizeList = _answerSizeList
         questionList = postRepo.questionList
     }
@@ -51,6 +55,9 @@ class ProfileViewModel : ViewModel() {
             }
             _answerSizeList.value = answerSizes
         }
+    }
 
+    fun getUserZodiac(userID: String){
+        repo.getUserZodiac(userID)
     }
 }

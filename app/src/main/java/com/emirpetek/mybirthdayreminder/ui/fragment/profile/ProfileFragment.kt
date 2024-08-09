@@ -2,11 +2,13 @@ package com.emirpetek.mybirthdayreminder.ui.fragment.profile
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -25,6 +27,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.rvadapter.AdmobNativeAdAdapter
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -33,6 +37,7 @@ import java.util.Locale
 class ProfileFragment : Fragment() {
 
     private val viewModel: ProfileViewModel by viewModels()
+    private val viewModelForCompliance: ProfileViewModel by viewModels()
     private lateinit var binding: FragmentProfileBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var postAdapter: ProfileFragmentPostAdapter
@@ -41,6 +46,7 @@ class ProfileFragment : Fragment() {
     var userID : String? = null
     var galleryPhotos : ArrayList<UserGalleryPhoto>? = null
     var userType: String = ""
+    var isBindComplianceRate = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +58,7 @@ class ProfileFragment : Fragment() {
 
         userID = arguments?.getString("userID")
         if(!userID.isNullOrEmpty() && userID != auth.currentUser?.uid){ // user is anyUser
+
             bindAnyUser()
             userType = "anyUser"
         }else { // own user
@@ -65,11 +72,13 @@ class ProfileFragment : Fragment() {
         ManageBottomNavigationVisibility(requireActivity()).hideBottomNav()
         toolbarAnyUser()
         binding.constraintLayoutFragmentProfilePostLayout.visibility = View.GONE
+        //bindComplianceRate()
         bindUserData(userID.toString())
     }
 
     fun bindOwnUser(){
         ManageBottomNavigationVisibility(requireActivity()).showBottomNav()
+        binding.linearLayoutHoroscopeCompatibility.visibility = View.GONE
         toolbarOwnUser()
         bindUserData(auth.currentUser!!.uid)
         bindUserPost()
@@ -197,14 +206,21 @@ class ProfileFragment : Fragment() {
 
             binding.textViewProfileFullname.setText(fullname)
             binding.textViewProfileAge.setText(calculateAge(birthdate).toString())
-            binding.textViewProfileZodiac.setText(zodiac)
-            binding.textViewProfileAscendant.setText(ascendant)
+            binding.textViewProfileZodiac.setText(zodiacTextObj.getZodiacOrAscendantSignByIndex(zodiac))
+            binding.textViewProfileAscendant.setText(zodiacTextObj.getZodiacOrAscendantSignByIndex(ascendant))
             binding.textViewProfileBiography.setText(biography)
             //  binding.textViewProfileJoinedAt.setText(joined_at)
 
+            if (userID != Firebase.auth.currentUser!!.uid) {
+                bindComplianceRate(zodiac)
+            }
 
-            bindZodiacAscendantImage(zodiac,ascendant)
+           // bindZodiacAscendantImage(zodiac,ascendant)
+
+            viewModel.user.removeObserver{viewLifecycleOwner}
         })
+
+
     }
 
     fun bindUserPost(){
@@ -290,6 +306,80 @@ class ProfileFragment : Fragment() {
         findNavController().navigate(R.id.action_profileFragment_to_shareProfileGalleryPhotosFragment)
         //ShareProfileGalleryPhotosFragment().pickImages()
     }
+
+    fun bindComplianceRate(anotherUserZodiac:Int){
+        Log.e("current user id: ", Firebase.auth.currentUser!!.uid)
+        viewModelForCompliance.getUserZodiac(Firebase.auth.currentUser!!.uid)
+        viewModelForCompliance.userZodiac.observe(viewLifecycleOwner, Observer { ownUser ->
+            val ownUserHorosope = ownUser
+            val anotherUserHoroscope = anotherUserZodiac
+
+            val zodiacTextObj = GetZodiacAscendant(requireContext())
+            Log.e("ldskflşs", "own $ownUserHorosope ve ano $anotherUserHoroscope")
+            Log.e("erwrwerwe", "${ownUser.toString()}")
+
+            val ownZodiacText = zodiacTextObj.getZodiacOrAscendantSignByIndex(ownUserHorosope)
+            val anotherZodiacText = zodiacTextObj.getZodiacOrAscendantSignByIndex(anotherUserHoroscope)
+            Log.e("ldskflşs", "$ownZodiacText ve $anotherZodiacText")
+
+            binding.textViewProfileYourHoroscope.setText(ownZodiacText)
+            binding.textViewProfileAnotherHoroscope.setText(anotherZodiacText)
+
+            bindZodiacAscendantImage(ownUserHorosope, anotherUserHoroscope)
+            val rate = CalculateCompatibility().calculateCompatibility(ownUserHorosope,anotherUserHoroscope)
+            binding.textViewProfileFragmentComplianceRate.text = "% $rate"
+
+            // veriler 1 kez çekildikten sonra daha çekilmez
+
+            })
+
+       // viewModelForCompliance.user2.removeObservers(viewLifecycleOwner)
+
+    }
+
+    private fun bindZodiacAscendantImage(ownUserHorosope: Int, anotherUserHoroscope: Int) {
+        val ownUserHorosopeDrawableResId = when (ownUserHorosope) {
+            10 -> R.drawable.capricorn
+            11 -> R.drawable.aquarius
+            12 -> R.drawable.pisces
+            1 -> R.drawable.aries
+            2 -> R.drawable.taurus
+            3 -> R.drawable.gemini
+            4 -> R.drawable.cancer
+            5 -> R.drawable.leo
+            6 -> R.drawable.virgo
+            7 -> R.drawable.libra
+            8 -> R.drawable.scorpio
+            9 -> R.drawable.sagittarius
+            else -> R.drawable.baseline_error_24 // Varsayılan resim
+        }
+
+        val anotherUserHoroscopeDrawableResId = when (anotherUserHoroscope) {
+            10 -> R.drawable.capricorn
+            11 -> R.drawable.aquarius
+            12 -> R.drawable.pisces
+            1 -> R.drawable.aries
+            2 -> R.drawable.taurus
+            3 -> R.drawable.gemini
+            4 -> R.drawable.cancer
+            5 -> R.drawable.leo
+            6 -> R.drawable.virgo
+            7 -> R.drawable.libra
+            8 -> R.drawable.scorpio
+            9 -> R.drawable.sagittarius
+            else -> R.drawable.baseline_error_24 // Varsayılan resim
+        }
+
+
+        Glide.with(this)
+            .load(ownUserHorosopeDrawableResId)
+            .into(binding.imageViewProfileYourHoroscope)
+
+        Glide.with(this)
+            .load(anotherUserHoroscopeDrawableResId)
+            .into(binding.imageViewProfileAnotherHoroscope)
+    }
+
 
     override fun onResume() {
         super.onResume()
