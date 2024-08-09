@@ -1,6 +1,5 @@
 package com.emirpetek.mybirthdayreminder.ui.fragment.login
 
-import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -9,7 +8,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.viewModels
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,13 +19,11 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.emirpetek.mybirthdayreminder.databinding.FragmentRegisterBinding
-import com.emirpetek.mybirthdayreminder.ui.adapter.social.sharePost.question.AskQuestionFragmentImageAdapter
-import com.emirpetek.mybirthdayreminder.ui.fragment.social.sharePost.AskQuestionFragment.Companion.REQUEST_CODE_PICK_IMAGE
+import com.emirpetek.mybirthdayreminder.ui.util.zodiacAndAscendant.CalculateZodiacAscendant
 import com.emirpetek.mybirthdayreminder.viewmodel.login.RegisterViewModel
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
@@ -50,8 +46,8 @@ class RegisterFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private val TAG = "RegisterFragment Log"
     private var isFillAllPlace = false
-    private lateinit var zodiacSign:String
-    private lateinit var ascendant:String
+    private var zodiacSign:Int = -1
+    private var ascendant:Int = -1
     private lateinit var mAdView : AdView
     private var selectedGender = -1
     private lateinit var profileImage : String
@@ -266,45 +262,11 @@ class RegisterFragment : Fragment() {
             val (day, month, year) = date.split("/").map { it.toInt() }
             val (hour, minute) = time.split(":").map { it.toInt() }
 
-            zodiacSign = calculateZodiacSign(day, month)
-            ascendant = calculateAscendant(hour)
+            val zodiacAscendantObj = CalculateZodiacAscendant(date,time)
 
-        }
-    }
+            zodiacSign = zodiacAscendantObj.getZodiac()//calculateZodiacSign(day, month)
+            ascendant =  zodiacAscendantObj.getAscendant()//calculateAscendant(hour)
 
-    private fun calculateZodiacSign(day: Int, month: Int): String {
-        return when (month) {
-            1 -> if (day < 20) getString(R.string.capricorn) else getString(R.string.aquarius)
-            2 -> if (day < 19) getString(R.string.aquarius) else getString(R.string.pisces)
-            3 -> if (day < 21) getString(R.string.pisces) else getString(R.string.aries)
-            4 -> if (day < 20) getString(R.string.aries) else getString(R.string.taurus)
-            5 -> if (day < 21) getString(R.string.taurus) else getString(R.string.gemini)
-            6 -> if (day < 21) getString(R.string.gemini) else getString(R.string.cancer)
-            7 -> if (day < 23) getString(R.string.cancer) else getString(R.string.leo)
-            8 -> if (day < 23) getString(R.string.leo) else getString(R.string.virgo)
-            9 -> if (day < 23) getString(R.string.virgo) else getString(R.string.libra)
-            10 -> if (day < 23) getString(R.string.libra) else getString(R.string.scorpio)
-            11 -> if (day < 22) getString(R.string.scorpio) else getString(R.string.sagittarius)
-            12 -> if (day < 22) getString(R.string.sagittarius) else getString(R.string.capricorn)
-            else -> getString(R.string.unknown)
-        }
-    }
-
-    private fun calculateAscendant(hour: Int): String {
-        return when (hour) {
-            in 0..1 -> getString(R.string.aries)
-            in 2..3 -> getString(R.string.taurus)
-            in 4..5 -> getString(R.string.gemini)
-            in 6..7 -> getString(R.string.cancer)
-            in 8..9 -> getString(R.string.leo)
-            in 10..11 -> getString(R.string.virgo)
-            in 12..13 -> getString(R.string.libra)
-            in 14..15 -> getString(R.string.scorpio)
-            in 16..17 -> getString(R.string.sagittarius)
-            in 18..19 -> getString(R.string.capricorn)
-            in 20..21 -> getString(R.string.aquarius)
-            in 22..23 -> getString(R.string.pisces)
-            else -> getString(R.string.unknown)
         }
     }
 

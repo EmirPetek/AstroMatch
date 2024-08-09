@@ -17,6 +17,8 @@ import com.emirpetek.mybirthdayreminder.databinding.FragmentProfileBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.profile.ProfileFragmentPostAdapter
 import com.emirpetek.mybirthdayreminder.ui.adapter.profile.userGalleryPhotos.ProfileFragmentProfileGalleryPhotosAdapter
 import com.emirpetek.mybirthdayreminder.ui.util.bottomNavigation.ManageBottomNavigationVisibility
+import com.emirpetek.mybirthdayreminder.ui.util.zodiacAndAscendant.CalculateCompatibility
+import com.emirpetek.mybirthdayreminder.ui.util.zodiacAndAscendant.GetZodiacAscendant
 import com.emirpetek.mybirthdayreminder.viewmodel.profile.ProfileViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -170,6 +172,8 @@ class ProfileFragment : Fragment() {
 
             bindUserGalleryPhotos()
 
+
+
             loadUri = if(photoUri.equals("no_photo")){
                 "https://www.bio.purdue.edu/lab/deng/images/photo_not_yet_available.jpg"
             }else{
@@ -188,6 +192,7 @@ class ProfileFragment : Fragment() {
                 bundle.putStringArrayList("imageList",imgList)
                 findNavController().navigate(R.id.action_profileFragment_to_showPhotosFragment,bundle)
             }
+            val zodiacTextObj = GetZodiacAscendant(requireContext())
 
 
             binding.textViewProfileFullname.setText(fullname)
