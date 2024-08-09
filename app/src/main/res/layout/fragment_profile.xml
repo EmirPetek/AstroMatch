@@ -290,6 +290,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginTop="8dp"
                             android:layout_marginEnd="32dp"
                             android:gravity="center"
                             android:orientation="vertical">
@@ -311,6 +312,8 @@
                                 android:id="@+id/imageViewProfileYourHoroscope"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
                                 android:layout_weight="1"
                                 android:src="@drawable/baseline_image_24" />
 
@@ -331,6 +334,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginEnd="32dp"
+                            android:layout_marginTop="8dp"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -350,6 +354,8 @@
                                 android:id="@+id/imageViewProfileComplianceRate"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
                                 android:src="@drawable/heart_rate"
                                 tools:layout_editor_absoluteX="3dp"
                                 tools:layout_editor_absoluteY="155dp" />
@@ -361,8 +367,8 @@
                                 android:layout_marginBottom="5dp"
                                 android:fontFamily="@font/nunito"
                                 android:text="% 100"
-                                android:textColor="@color/text_black"
-                                android:textSize="14sp"
+                                android:textColor="@color/red_title"
+                                android:textSize="18sp"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -370,6 +376,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginTop="8dp"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -388,6 +395,8 @@
                                 android:id="@+id/imageViewProfileAnotherHoroscope"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
                                 android:src="@drawable/baseline_image_24" />
 
                             <TextView
