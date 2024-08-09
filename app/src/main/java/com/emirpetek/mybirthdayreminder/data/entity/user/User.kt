@@ -14,13 +14,13 @@ data class User(
     val created_at:Long,
     val accountDeleteState:String,
     val accountDeleteTime:Long,
-    val zodiac:String,
-    val ascendant:String,
+    val zodiac:Int,
+    val ascendant:Int,
     val gender: Int,
     val biography:String,
     var profileGalleryPhotos: ArrayList<UserGalleryPhoto>? = null
 ) : Serializable{
 
-    constructor(): this("","","","","","","",0,"",0,"","",0,"", arrayListOf())
+    constructor(): this("","","","","","","",0,"",0,-1,-1,0,"", arrayListOf())
 
 }
