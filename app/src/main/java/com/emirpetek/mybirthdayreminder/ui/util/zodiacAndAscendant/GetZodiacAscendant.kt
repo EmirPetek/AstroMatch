@@ -4,11 +4,11 @@ import android.content.Context
 import com.emirpetek.mybirthdayreminder.R
 
 class GetZodiacAscendant(
-    val mContext: Context,
-    val index: Int,
+    val mContext: Context
+
 ) {
 
-    fun getZodiacOrAscendantSignByIndex(): String {
+    fun getZodiacOrAscendantSignByIndex(index: Int): String {
         return when (index) {
             1 -> mContext.getString(R.string.aries)       // Koç
             2 -> mContext.getString(R.string.taurus)      // Boğa
