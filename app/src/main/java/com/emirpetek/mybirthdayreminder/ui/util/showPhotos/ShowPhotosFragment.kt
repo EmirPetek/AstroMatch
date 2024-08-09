@@ -31,6 +31,7 @@ class ShowPhotosFragment : Fragment() {
     private lateinit var binding: FragmentShowPhotosBinding
     private lateinit var adapter: ShowPhotosAdapter
     lateinit var imageList : ArrayList<String>
+    var imageIndex : Int = 0
     private lateinit var mAdView : AdView
 
 
@@ -42,6 +43,8 @@ class ShowPhotosFragment : Fragment() {
 
         imageList = arguments?.getStringArrayList("imageList")!!
         Log.e("imagelist: ", imageList.toString())
+
+        imageIndex = arguments?.getInt("imageIndex")!!
 
         hideBottomNav()
         setAdView()
@@ -88,6 +91,10 @@ class ShowPhotosFragment : Fragment() {
         binding.recyclerViewShowPhotos.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         adapter = ShowPhotosAdapter(requireContext(),imageList)
         val snapHelper: SnapHelper = LinearSnapHelper()
+
+        val layoutManager = binding.recyclerViewShowPhotos.layoutManager as LinearLayoutManager
+        layoutManager.scrollToPositionWithOffset(imageIndex, 0)
+
         binding.recyclerViewShowPhotos.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)

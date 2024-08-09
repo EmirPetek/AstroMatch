@@ -315,12 +315,12 @@ class ProfileFragment : Fragment() {
             val anotherUserHoroscope = anotherUserZodiac
 
             val zodiacTextObj = GetZodiacAscendant(requireContext())
-            Log.e("ldskflşs", "own $ownUserHorosope ve ano $anotherUserHoroscope")
-            Log.e("erwrwerwe", "${ownUser.toString()}")
+//            Log.e("ldskflşs", "own $ownUserHorosope ve ano $anotherUserHoroscope")
+//            Log.e("erwrwerwe", "${ownUser.toString()}")
 
             val ownZodiacText = zodiacTextObj.getZodiacOrAscendantSignByIndex(ownUserHorosope)
             val anotherZodiacText = zodiacTextObj.getZodiacOrAscendantSignByIndex(anotherUserHoroscope)
-            Log.e("ldskflşs", "$ownZodiacText ve $anotherZodiacText")
+            //Log.e("ldskflşs", "$ownZodiacText ve $anotherZodiacText")
 
             binding.textViewProfileYourHoroscope.setText(ownZodiacText)
             binding.textViewProfileAnotherHoroscope.setText(anotherZodiacText)

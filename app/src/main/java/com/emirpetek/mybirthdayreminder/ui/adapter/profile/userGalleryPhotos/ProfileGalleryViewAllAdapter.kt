@@ -1,11 +1,13 @@
 package com.emirpetek.mybirthdayreminder.ui.adapter.profile.userGalleryPhotos
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
@@ -40,6 +42,17 @@ class ProfileGalleryViewAllAdapter
             .load(item.imageURL)
             .into(holder.imageView)
         holder.progressBar.visibility = View.GONE
+
+
+        val bundle = Bundle()
+        bundle.putInt("imageIndex", position)
+        bundle.putStringArrayList("imageList",getImageUrlList())
+
+        holder.imageView.setOnClickListener { view ->
+            Navigation.findNavController(view).navigate(R.id.action_profileGalleryViewAllFragment_to_showPhotosFragment,bundle)
+        }
+
+
         //holder.progressBar.visibility = View.GONE
         /*  val storage = Firebase.storage.reference.child(item)
           storage.downloadUrl.addOnSuccessListener { uri ->
@@ -50,5 +63,11 @@ class ProfileGalleryViewAllAdapter
               //holder.progressBar.visibility = View.GONE
           }*/
 
+    }
+
+    fun getImageUrlList(): ArrayList<String> {
+        val urlList : ArrayList<String>  = arrayListOf()
+        for (i in imageList) urlList.add(i.imageURL)
+        return urlList
     }
 }

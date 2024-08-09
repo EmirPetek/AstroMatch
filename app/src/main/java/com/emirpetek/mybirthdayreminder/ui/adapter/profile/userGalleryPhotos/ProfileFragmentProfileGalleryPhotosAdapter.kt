@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
@@ -45,6 +46,7 @@ class ProfileFragmentProfileGalleryPhotosAdapter
             .into(holder.imageView)
         holder.progressBar.visibility = View.GONE
 
+
         /*   //holder.progressBar.visibility = View.GONE
            val storage = Firebase.storage.reference.child(imgList[position])
            storage.downloadUrl.addOnSuccessListener { uri ->
@@ -52,7 +54,16 @@ class ProfileFragmentProfileGalleryPhotosAdapter
                Log.e("imguri : ", uri.toString())
            }*/
 
+
+
         val bundle = Bundle()
+        bundle.putInt("imageIndex", position)
+        bundle.putStringArrayList("imageList",getImageUrlList())
+
+        holder.imageView.setOnClickListener { view ->
+            Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_showPhotosFragment,bundle)
+        }
+
         //bundle.putStringArrayList("imageList", imgList)
 
 
@@ -60,6 +71,12 @@ class ProfileFragmentProfileGalleryPhotosAdapter
 
     override fun getItemCount(): Int {
         return minOf(4,imgList.size)
+    }
+
+    fun getImageUrlList(): ArrayList<String> {
+        val urlList : ArrayList<String>  = arrayListOf()
+        for (i in imgList) urlList.add(i.imageURL)
+        return urlList
     }
 
 }

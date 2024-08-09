@@ -131,5 +131,9 @@
         android:id="@+id/profileGalleryViewAllFragment"
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.userGalleryPhotos.ProfileGalleryViewAllFragment"
         android:label="fragment_profile_gallery_view_all"
-        tools:layout="@layout/fragment_profile_gallery_view_all" />
+        tools:layout="@layout/fragment_profile_gallery_view_all" >
+        <action
+            android:id="@+id/action_profileGalleryViewAllFragment_to_showPhotosFragment"
+            app:destination="@id/showPhotosFragment" />
+    </fragment>
 </navigation>
