@@ -15,7 +15,7 @@ class ProfileViewModel : ViewModel() {
 
     private val repo = UserRepo()
     var user = MutableLiveData<User>()// = MutableLiveData()
-    var user2 = MutableLiveData<User>()// = MutableLiveData()
+    var userAsync = MutableLiveData<User>()// = MutableLiveData()
     var userFullname = MutableLiveData<String>()// = MutableLiveData()
     var userImgURL = MutableLiveData<String>()// = MutableLiveData()
     var userZodiac = MutableLiveData<Int>()// = MutableLiveData()
@@ -28,16 +28,19 @@ class ProfileViewModel : ViewModel() {
 
     init {
         user = repo.getUser()
-        user2 = repo.getUser()
+        userAsync = repo.getUserAsync()
         userFullname = repo.getUserFullname()
         userImgURL = repo.getUserImage()
-        userZodiac = repo.getUserZodiac()
         answerSizeList = _answerSizeList
         questionList = postRepo.questionList
     }
 
     fun getUser(userID: String) {
         repo.getUserData(userID)
+    }
+
+    fun getUserAsync(userID: String) {
+        repo.getUserDataAsync(userID)
     }
 
     fun getUserFromUserID(userID: String) {

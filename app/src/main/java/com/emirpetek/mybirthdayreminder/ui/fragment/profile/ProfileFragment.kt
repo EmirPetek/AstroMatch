@@ -309,9 +309,9 @@ class ProfileFragment : Fragment() {
 
     fun bindComplianceRate(anotherUserZodiac:Int){
         Log.e("current user id: ", Firebase.auth.currentUser!!.uid)
-        viewModelForCompliance.getUserZodiac(Firebase.auth.currentUser!!.uid)
-        viewModelForCompliance.userZodiac.observe(viewLifecycleOwner, Observer { ownUser ->
-            val ownUserHorosope = ownUser
+        viewModelForCompliance.getUserAsync(Firebase.auth.currentUser!!.uid)
+        viewModelForCompliance.userAsync.observe(viewLifecycleOwner, Observer { ownUser ->
+            val ownUserHorosope = ownUser.zodiac
             val anotherUserHoroscope = anotherUserZodiac
 
             val zodiacTextObj = GetZodiacAscendant(requireContext())

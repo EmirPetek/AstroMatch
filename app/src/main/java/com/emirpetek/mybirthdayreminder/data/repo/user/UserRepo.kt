@@ -11,6 +11,7 @@ import com.google.firebase.ktx.Firebase
 class UserRepo {
 
     private var user: MutableLiveData<User> = MutableLiveData()
+    private var userAsync: MutableLiveData<User> = MutableLiveData()
     private var userZodiac: MutableLiveData<Int> = MutableLiveData()
     private var userFullname: MutableLiveData<String> = MutableLiveData()
     private var userImageURL: MutableLiveData<String> = MutableLiveData()
@@ -28,8 +29,8 @@ class UserRepo {
         return userImageURL
     }
 
-    fun getUserZodiac() : MutableLiveData<Int>{
-        return userZodiac
+    fun getUserAsync() : MutableLiveData<User> {
+        return userAsync
     }
 
     suspend fun addUser(user: User): Boolean {
@@ -51,6 +52,20 @@ class UserRepo {
             if (snapshot != null && snapshot.exists()) {
                 val userModel = snapshot.toObject(User::class.java)!!
                 user.value = userModel
+            }
+        }
+    }
+
+    fun getUserDataAsync(userID: String) {
+        dbRef.document(userID).addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                // Handle error
+                return@addSnapshotListener
+            }
+
+            if (snapshot != null && snapshot.exists()) {
+                val userModel = snapshot.toObject(User::class.java)!!
+                userAsync.value = userModel
             }
         }
     }
