@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
@@ -39,7 +40,16 @@ val imageList: ArrayList<Uri>
             .load(item)
             .into(holder.imageView)
 
-        holder.imageViewDelete.setOnClickListener { imageList.removeAt(position) }
+
+
+        holder.imageViewDelete.visibility = View.VISIBLE
+        holder.imageViewDelete.setOnClickListener { view ->
+            if (itemCount == 1){
+                Navigation.findNavController(view).popBackStack()
+            }
+            imageList.remove(item)
+            notifyDataSetChanged()
+        }
         //holder.progressBar.visibility = View.GONE
         /*  val storage = Firebase.storage.reference.child(item)
           storage.downloadUrl.addOnSuccessListener { uri ->

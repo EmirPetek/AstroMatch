@@ -48,7 +48,7 @@ class ProfileGalleryViewAllFragment : Fragment() {
 
         setAdview()
         binding.recyclerViewProfileGallery.setHasFixedSize(true)
-        Log.e("imagelist: ", imageList.toString())
+      //  Log.e("imagelist: ", imageList.toString())
         binding.recyclerViewProfileGallery.layoutManager =
             //StaggeredGridLayoutManager(3,LinearLayoutManager.VERTICAL)
            GridLayoutManager(requireContext(),3)

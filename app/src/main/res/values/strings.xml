@@ -88,6 +88,7 @@
     <string name="select_profile_gallery_photo">Select Profile Gallery Photos</string>
     <string name="your_account_registering">Your account is registering. \n Please wait.</string>
     <string name="add_photo">Add Photo</string>
+    <string name="add_photo_big">ADD PHOTO</string>
     <string name="profile_gallery">Profile Gallery</string>
     <string name="profile_gallery_big">PROFILE GALLERY</string>
     <string name="your_horoscope">Your \n Horoscope</string>

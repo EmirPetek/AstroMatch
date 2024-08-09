@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/imageViewCardShowPhoto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
@@ -24,10 +24,8 @@
         android:id="@+id/imageViewCardShowPhotoDelete"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewCardShowPhoto"
+        app:layout_constraintTop_toTopOf="@+id/imageViewCardShowPhoto"
         app:srcCompat="@drawable/delete_img" />
 </androidx.constraintlayout.widget.ConstraintLayout>
