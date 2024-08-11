@@ -1,6 +1,5 @@
 package com.emirpetek.mybirthdayreminder.data.entity.user
 
-import com.emirpetek.mybirthdayreminder.data.entity.UserGalleryPhoto
 import java.io.Serializable
 
 data class User(

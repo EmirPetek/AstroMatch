@@ -2,7 +2,7 @@ package com.emirpetek.mybirthdayreminder.data.repo.user
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.emirpetek.mybirthdayreminder.data.entity.UserGalleryPhoto
+import com.emirpetek.mybirthdayreminder.data.entity.user.UserGalleryPhoto
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore

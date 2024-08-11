@@ -8,12 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
-import com.emirpetek.mybirthdayreminder.data.entity.UserGalleryPhoto
+import com.emirpetek.mybirthdayreminder.data.entity.user.UserGalleryPhoto
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
 import com.emirpetek.mybirthdayreminder.databinding.FragmentProfileBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.profile.ProfileFragmentPostAdapter
@@ -22,13 +21,10 @@ import com.emirpetek.mybirthdayreminder.ui.util.bottomNavigation.ManageBottomNav
 import com.emirpetek.mybirthdayreminder.ui.util.zodiacAndAscendant.CalculateCompatibility
 import com.emirpetek.mybirthdayreminder.ui.util.zodiacAndAscendant.GetZodiacAscendant
 import com.emirpetek.mybirthdayreminder.viewmodel.profile.ProfileViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.rvadapter.AdmobNativeAdAdapter
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date

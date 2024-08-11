@@ -1,8 +1,7 @@
-package com.emirpetek.mybirthdayreminder.data.entity
+package com.emirpetek.mybirthdayreminder.data.entity.user
 
 import android.os.Parcel
 import android.os.Parcelable
-import java.io.Serializable
 
 data class UserGalleryPhoto(
     val imageURL:String,

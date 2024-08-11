@@ -2,7 +2,7 @@ package com.emirpetek.mybirthdayreminder.viewmodel.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.emirpetek.mybirthdayreminder.data.entity.UserGalleryPhoto
+import com.emirpetek.mybirthdayreminder.data.entity.user.UserGalleryPhoto
 import com.emirpetek.mybirthdayreminder.data.repo.user.UserRepo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
