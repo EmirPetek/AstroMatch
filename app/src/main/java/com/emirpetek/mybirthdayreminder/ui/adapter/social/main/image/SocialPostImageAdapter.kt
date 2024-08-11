@@ -1,8 +1,7 @@
-package com.emirpetek.mybirthdayreminder.ui.adapter.social.main
+package com.emirpetek.mybirthdayreminder.ui.adapter.social.main.image
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +11,6 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.ktx.storage
-import kotlinx.coroutines.processNextEventInCurrentThread
-import javax.security.auth.login.LoginException
 
 class SocialPostImageAdapter(
     val mContext: Context,
@@ -32,12 +25,12 @@ class SocialPostImageAdapter(
         }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SocialPostImageAdapter.ImageHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
         val view = LayoutInflater.from(mContext).inflate(R.layout.card_social_post_photo,parent,false)
         return ImageHolder(view)
     }
 
-    override fun onBindViewHolder(holder: SocialPostImageAdapter.ImageHolder, position: Int) {
+    override fun onBindViewHolder(holder: ImageHolder, position: Int) {
 
         holder.progressBar.visibility = View.VISIBLE
         Glide

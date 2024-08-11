@@ -1,4 +1,4 @@
-package com.emirpetek.mybirthdayreminder.ui.adapter.social.main
+package com.emirpetek.mybirthdayreminder.ui.adapter.social.main.deprecated
 
 import android.content.Context
 import android.util.Log
@@ -37,13 +37,13 @@ class SocialPostSurveyOptionsAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): SocialPostSurveyOptionsAdapter.OptionViewHolder {
+    ): OptionViewHolder {
         val view = LayoutInflater.from(mContext).inflate(R.layout.card_social_survey_options,parent,false)
         return OptionViewHolder(view)
     }
 
     override fun onBindViewHolder(
-        holder: SocialPostSurveyOptionsAdapter.OptionViewHolder,
+        holder: OptionViewHolder,
         position: Int
     ) {
         val option = optionList[position]

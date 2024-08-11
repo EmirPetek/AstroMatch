@@ -11,7 +11,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
-import com.emirpetek.mybirthdayreminder.data.entity.UserGalleryPhoto
+import com.emirpetek.mybirthdayreminder.data.entity.user.UserGalleryPhoto
 
 class ProfileFragmentProfileGalleryPhotosAdapter
     (
@@ -43,6 +43,7 @@ class ProfileFragmentProfileGalleryPhotosAdapter
         Glide
             .with(mContext)
             .load(imgList[position].imageURL)
+            .centerCrop()
             .into(holder.imageView)
         holder.progressBar.visibility = View.GONE
 

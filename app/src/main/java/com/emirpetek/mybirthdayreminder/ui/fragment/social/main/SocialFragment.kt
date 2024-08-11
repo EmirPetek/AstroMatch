@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
 import com.emirpetek.mybirthdayreminder.databinding.FragmentSocialBinding
-import com.emirpetek.mybirthdayreminder.ui.adapter.social.main.SocialPostAdapter
+import com.emirpetek.mybirthdayreminder.ui.adapter.social.main.post.SocialPostAdapter
 import com.emirpetek.mybirthdayreminder.viewmodel.profile.ProfileViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.AskQuestionViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.MakeSurveyViewModel

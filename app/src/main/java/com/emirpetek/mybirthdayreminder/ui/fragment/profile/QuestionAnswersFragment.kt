@@ -15,7 +15,7 @@ import com.emirpetek.mybirthdayreminder.data.entity.question.Post
 import com.emirpetek.mybirthdayreminder.data.entity.question.QuestionAnswers
 import com.emirpetek.mybirthdayreminder.databinding.FragmentQuestionAnswersBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.profile.QuestionAnswersAnswerAdapter
-import com.emirpetek.mybirthdayreminder.ui.adapter.social.main.SocialPostImageAdapter
+import com.emirpetek.mybirthdayreminder.ui.adapter.social.main.image.SocialPostImageAdapter
 import com.emirpetek.mybirthdayreminder.ui.util.calculateTime.CalculateShareTime
 import com.emirpetek.mybirthdayreminder.viewmodel.profile.QuestionAnswersViewModel
 import com.google.android.gms.ads.AdRequest
@@ -28,10 +28,6 @@ import com.google.rvadapter.AdmobNativeAdAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
 
 class QuestionAnswersFragment : Fragment() {
 

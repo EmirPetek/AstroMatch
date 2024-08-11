@@ -1,4 +1,4 @@
-package com.emirpetek.mybirthdayreminder.ui.adapter.social.main
+package com.emirpetek.mybirthdayreminder.ui.adapter.social.main.post
 
 import android.app.AlertDialog
 import android.content.Context
@@ -23,6 +23,8 @@ import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
 import com.emirpetek.mybirthdayreminder.data.entity.question.QuestionAnswers
 import com.emirpetek.mybirthdayreminder.data.entity.question.SelectedOptions
+import com.emirpetek.mybirthdayreminder.ui.adapter.social.main.deprecated.SocialPostSurveyOptionsAdapter
+import com.emirpetek.mybirthdayreminder.ui.adapter.social.main.image.SocialPostImageAdapter
 import com.emirpetek.mybirthdayreminder.viewmodel.social.AskQuestionViewModel
 import com.emirpetek.mybirthdayreminder.viewmodel.social.MakeSurveyViewModel
 import com.google.android.gms.ads.AdView
