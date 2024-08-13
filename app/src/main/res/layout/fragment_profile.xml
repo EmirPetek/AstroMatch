@@ -530,7 +530,8 @@
                 android:id="@+id/constraintLayoutFragmentProfilePostLayout"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="50dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout10"
@@ -601,6 +602,13 @@
                         app:layout_constraintTop_toTopOf="@+id/recyclerViewFragmentProfilePosts" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingBottom="90dp" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
