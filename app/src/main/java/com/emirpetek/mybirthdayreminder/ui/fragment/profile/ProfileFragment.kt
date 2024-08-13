@@ -42,7 +42,6 @@ class ProfileFragment : Fragment() {
     var userID : String? = null
     var galleryPhotos : ArrayList<UserGalleryPhoto>? = null
     var userType: String = ""
-    var isBindComplianceRate = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
