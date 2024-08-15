@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.emirpetek.mybirthdayreminder.data.entity.user.UserGalleryPhoto
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
+import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -12,6 +13,7 @@ class UserRepo {
 
     private var user: MutableLiveData<User> = MutableLiveData()
     private var userAsync: MutableLiveData<User> = MutableLiveData()
+    private var compatibleUserList: MutableLiveData<ArrayList<User>> = MutableLiveData()
     private var userZodiac: MutableLiveData<Int> = MutableLiveData()
     private var userFullname: MutableLiveData<String> = MutableLiveData()
     private var userImageURL: MutableLiveData<String> = MutableLiveData()
@@ -31,6 +33,10 @@ class UserRepo {
 
     fun getUserAsync() : MutableLiveData<User> {
         return userAsync
+    }
+
+    fun getCompatibleUsers(): MutableLiveData<ArrayList<User>>{
+        return compatibleUserList
     }
 
     suspend fun addUser(user: User): Boolean {
@@ -54,6 +60,20 @@ class UserRepo {
                 user.value = userModel
             }
         }
+    }
+
+    fun getCompatibleUsersData(userID: String){
+        val userList = ArrayList<User>()
+        dbRef.whereNotEqualTo(FieldPath.documentId(),userID).get()
+            .addOnSuccessListener { document ->
+                for (u in document){
+                    val userModel = u.toObject(User::class.java)
+                    if (userModel.accountDeleteState.equals("0")){
+                        userList.add(userModel)
+                    }
+                }
+                compatibleUserList.value = userList
+            }
     }
 
     fun getUserDataAsync(userID: String) {
