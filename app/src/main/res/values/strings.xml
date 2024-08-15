@@ -2,6 +2,7 @@
     <string name="app_name">Birthday Reminder</string>
     <string name="birthdays">Birthdays</string>
     <string name="profile">Profile</string>
+    <string name="match">Match</string>
     <string name="settings_big">SETTINGS</string>
     <string name="add">Add</string>
     <string name="cancel">Cancel</string>
