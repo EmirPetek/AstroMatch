@@ -136,4 +136,9 @@
             android:id="@+id/action_profileGalleryViewAllFragment_to_showPhotosFragment"
             app:destination="@id/showPhotosFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/matchPersonFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.matchPerson.MatchPersonFragment"
+        android:label="fragment_match_person"
+        tools:layout="@layout/fragment_match_person" />
 </navigation>
