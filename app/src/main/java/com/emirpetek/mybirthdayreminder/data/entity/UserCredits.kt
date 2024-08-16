@@ -4,7 +4,8 @@ import java.io.Serializable
 
 data class UserCredits(
     val userID:String,
-    val amound: Int
+    val amount: Long
 ): Serializable{
 
+    constructor() : this("",0)
 }
