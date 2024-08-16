@@ -73,6 +73,9 @@ class MatchPersonFragment : Fragment() {
 
         }*/
 
+        viewModel.getUserCreditsAmount()
+        viewModel.credit.observe(viewLifecycleOwner, Observer { binding.textViewUserGold.text = it.toString() })
+
         binding.recyclerViewMatchPersonListUser.setHasFixedSize(true)
         binding.recyclerViewMatchPersonListUser.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
