@@ -77,7 +77,7 @@ class MatchPersonListUsersAdapter(
 
     }
 
-    fun bindHoroscopeImage(zodiac: Int, imageView: ImageView){
+    private fun bindHoroscopeImage(zodiac: Int, imageView: ImageView){
         val horoscopeDrawableId = when (zodiac) {
             10 -> R.drawable.capricorn
             11 -> R.drawable.aquarius
