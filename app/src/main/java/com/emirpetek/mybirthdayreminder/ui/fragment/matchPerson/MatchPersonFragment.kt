@@ -19,6 +19,7 @@ import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.emirpetek.mybirthdayreminder.databinding.FragmentMatchPersonBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.matchPerson.MatchPersonListUsersAdapter
+import com.emirpetek.mybirthdayreminder.ui.util.bottomNavigation.ManageBottomNavigationVisibility
 import com.emirpetek.mybirthdayreminder.ui.util.calculateTime.CalculateAge
 import com.emirpetek.mybirthdayreminder.ui.util.zodiacAndAscendant.GetZodiacAscendant
 import com.emirpetek.mybirthdayreminder.viewmodel.matchPerson.MatchPersonViewModel
@@ -39,6 +40,7 @@ class MatchPersonFragment : Fragment() {
     ): View {
         binding = FragmentMatchPersonBinding.inflate(inflater,container,false)
 
+        ManageBottomNavigationVisibility(requireActivity()).showBottomNav()
 
         viewModel.getCompatibleUsersData(userID)
         viewModel.user.observe(viewLifecycleOwner, Observer { it ->
