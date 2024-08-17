@@ -147,8 +147,8 @@
 
     <string name="gold_watch_ad_one">Watch ad and earn 1 Gold</string>
     <string name="gold_watch_ad_two">Watch ad and earn 5 Gold</string>
-    <string name="gold_watch_ad_one_button">Earn 1 Gold for free</string>
-    <string name="gold_watch_ad_two_button">Earn 5 Gold for free</string>
+    <string name="gold_watch_ad_one_button">Earn 1 Gold</string>
+    <string name="gold_watch_ad_two_button">Earn 5 Gold</string>
 
     <!-- 12 tane burç bilgisi-->
     <string name="aries">Aries</string> <!-- index 1 -->
