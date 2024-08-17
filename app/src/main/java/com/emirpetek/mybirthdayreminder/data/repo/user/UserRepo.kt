@@ -39,6 +39,10 @@ class UserRepo {
         return compatibleUserList
     }
 
+    fun getUserZodiac(): MutableLiveData<Int> {
+        return userZodiac
+    }
+
     suspend fun addUser(user: User): Boolean {
         return try {
             dbRef.document(user.userID).set(user)

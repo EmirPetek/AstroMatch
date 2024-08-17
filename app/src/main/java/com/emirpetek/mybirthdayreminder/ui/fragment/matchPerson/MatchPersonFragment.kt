@@ -76,6 +76,7 @@ class MatchPersonFragment : Fragment() {
         viewModel.getUserCreditsAmount()
         viewModel.credit.observe(viewLifecycleOwner, Observer { binding.textViewUserGold.text = it.toString() })
 
+
         binding.recyclerViewMatchPersonListUser.setHasFixedSize(true)
         binding.recyclerViewMatchPersonListUser.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -98,7 +99,6 @@ class MatchPersonFragment : Fragment() {
 
         val snapHelper: SnapHelper = LinearSnapHelper()
         if (userList.size > 0) snapHelper.attachToRecyclerView(binding.recyclerViewMatchPersonListUser)
-
 
         binding.recyclerViewMatchPersonListUser.adapter = adapter
 

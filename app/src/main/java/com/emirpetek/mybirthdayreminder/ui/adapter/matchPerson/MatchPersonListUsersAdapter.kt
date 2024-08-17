@@ -8,13 +8,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.emirpetek.mybirthdayreminder.ui.util.calculateTime.CalculateAge
+import com.emirpetek.mybirthdayreminder.ui.util.zodiacAndAscendant.CalculateCompatibility
 import com.emirpetek.mybirthdayreminder.ui.util.zodiacAndAscendant.GetZodiacAscendant
 import com.emirpetek.mybirthdayreminder.viewmodel.matchPerson.MatchPersonViewModel
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class MatchPersonListUsersAdapter(
     val mContext: Context,
@@ -27,6 +31,7 @@ class MatchPersonListUsersAdapter(
         val username: TextView = view.findViewById(R.id.textViewMatchPersonFullname)
         val age: TextView = view.findViewById(R.id.textViewMatchPersonAge)
         val horoscope: TextView = view.findViewById(R.id.textViewMatchPersonHoroscope)
+        val compatibility: TextView = view.findViewById(R.id.textViewMatchPersonCompitabilityRate)
         val userPhoto: ImageView = view.findViewById(R.id.imageViewMatchPersonImage)
         val horoscopePhoto: ImageView = view.findViewById(R.id.imageViewMatchPersonHoroscope)
         val cancelButton: ImageView = view.findViewById(R.id.imageViewMatchPersonCancel)
@@ -54,9 +59,11 @@ class MatchPersonListUsersAdapter(
         holder.age.text = age.toString()
         holder.horoscope.text = horoscope
         bindHoroscopeImage(userItem.zodiac,holder.horoscopePhoto)
+        bindCompitabilityRate(holder.compatibility,userItem.zodiac)
 
         Glide.with(mContext)
             .load(userImage)
+            .placeholder(android.R.drawable.screen_background_dark_transparent)
             .centerCrop()
             .into(holder.userPhoto)
 
@@ -98,6 +105,16 @@ class MatchPersonListUsersAdapter(
             .load(horoscopeDrawableId)
             .into(imageView)
 
+    }
+
+    fun bindCompitabilityRate(textView: TextView, anotherZodiac: Int){
+        viewModel.getOwnUserZodiac(Firebase.auth.currentUser!!.uid)
+        viewModel.userOwnZodiac.observe(viewLifecycleOwner, Observer { it ->
+            val ownUserZodiac = it
+            val anotherUserZodiac = anotherZodiac
+            val calculation = CalculateCompatibility().calculateCompatibility(ownUserZodiac,anotherUserZodiac)
+            textView.text = "% $calculation"
+        })
     }
 
 
