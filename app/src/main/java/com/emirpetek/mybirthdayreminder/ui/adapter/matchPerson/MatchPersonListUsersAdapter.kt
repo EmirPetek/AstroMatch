@@ -2,13 +2,16 @@ package com.emirpetek.mybirthdayreminder.ui.adapter.matchPerson
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
@@ -37,6 +40,7 @@ class MatchPersonListUsersAdapter(
         val cancelButton: ImageView = view.findViewById(R.id.imageViewMatchPersonCancel)
         val superLikeButton: ImageView = view.findViewById(R.id.imageViewMatchPersonSuperLike)
         val likeButton: ImageView = view.findViewById(R.id.imageViewMatchPersonLike)
+        val constraintLayoutTopSide: ConstraintLayout = view.findViewById(R.id.constraintLayoutCardMatchTopSide)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardUser {
@@ -58,6 +62,12 @@ class MatchPersonListUsersAdapter(
         holder.username.text = username
         holder.age.text = age.toString()
         holder.horoscope.text = horoscope
+        holder.constraintLayoutTopSide.setOnClickListener {
+            val bundle : Bundle = Bundle().apply {
+                putString("userID",userItem.userID)
+            }
+            Navigation.findNavController(it).navigate(R.id.action_matchPersonFragment_to_profileFragment,bundle)
+        }
         bindHoroscopeImage(userItem.zodiac,holder.horoscopePhoto)
         bindCompitabilityRate(holder.compatibility,userItem.zodiac)
 
