@@ -140,5 +140,14 @@
         android:id="@+id/matchPersonFragment"
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.matchPerson.MatchPersonFragment"
         android:label="fragment_match_person"
-        tools:layout="@layout/fragment_match_person" />
+        tools:layout="@layout/fragment_match_person" >
+        <action
+            android:id="@+id/action_matchPersonFragment_to_earnGoldFragment"
+            app:destination="@id/earnGoldFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/earnGoldFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.earnGold.EarnGoldFragment"
+        android:label="fragment_earn_gold"
+        tools:layout="@layout/fragment_earn_gold" />
 </navigation>

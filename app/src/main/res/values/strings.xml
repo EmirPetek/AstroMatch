@@ -128,6 +128,28 @@
     <string name="ad_native_id">ca-app-pub-3940256099942544/2247696110</string>
     <string name="ad_interstitial_id">ca-app-pub-3940256099942544/5224354917</string>
 
+
+    <string name="earn_or_buy_gold">BUY GOLD</string>
+
+    <string name="gold_amount_1">50 Gold</string>
+    <string name="gold_amount_2">100 Gold</string>
+    <string name="gold_amount_3">200 Gold</string>
+    <string name="gold_amount_4">500 Gold</string>
+    <string name="gold_amount_5">1000 Gold</string>
+    <string name="gold_amount_6">5000 Gold</string>
+
+    <string name="gold_price_1">₺29,99</string>
+    <string name="gold_price_2">₺54,99</string>
+    <string name="gold_price_3">₺89,99</string>
+    <string name="gold_price_4">₺219,99</string>
+    <string name="gold_price_5">₺399,99</string>
+    <string name="gold_price_6">₺1799,99</string>
+
+    <string name="gold_watch_ad_one">Watch ad and earn 1 Gold</string>
+    <string name="gold_watch_ad_two">Watch ad and earn 5 Gold</string>
+    <string name="gold_watch_ad_one_button">Earn 1 Gold for free</string>
+    <string name="gold_watch_ad_two_button">Earn 5 Gold for free</string>
+
     <!-- 12 tane burç bilgisi-->
     <string name="aries">Aries</string> <!-- index 1 -->
     <string name="taurus">Taurus</string> <!-- index 2 -->

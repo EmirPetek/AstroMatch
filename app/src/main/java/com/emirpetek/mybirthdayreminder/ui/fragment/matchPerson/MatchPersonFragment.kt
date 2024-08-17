@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -75,6 +76,7 @@ class MatchPersonFragment : Fragment() {
 
         viewModel.getUserCreditsAmount()
         viewModel.credit.observe(viewLifecycleOwner, Observer { binding.textViewUserGold.text = it.toString() })
+        binding.imageViewUserGold.setOnClickListener { findNavController().navigate(R.id.action_matchPersonFragment_to_earnGoldFragment) }
 
 
         binding.recyclerViewMatchPersonListUser.setHasFixedSize(true)
