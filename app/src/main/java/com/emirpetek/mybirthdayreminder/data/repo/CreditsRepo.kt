@@ -35,6 +35,10 @@ class CreditsRepo {
             }
     }
 
+    fun incrementUserCredit(amount: Long){
+        creditsRef.update("amount",FieldValue.increment(amount))
+    }
+
 
 
 

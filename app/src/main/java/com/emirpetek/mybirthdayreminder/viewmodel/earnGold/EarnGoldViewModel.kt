@@ -1,7 +1,14 @@
 package com.emirpetek.mybirthdayreminder.viewmodel.earnGold
 
 import androidx.lifecycle.ViewModel
+import com.emirpetek.mybirthdayreminder.data.repo.CreditsRepo
 
 class EarnGoldViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+
+    val creditRepo = CreditsRepo()
+
+    fun incrementUserCredit(amount: Long){
+        creditRepo.incrementUserCredit(amount)
+    }
+
 }

@@ -63,6 +63,7 @@
                     android:textSize="16sp" />
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardEarnGoldAdFirst"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -116,6 +117,7 @@
                     android:textSize="16sp" />
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardEarnGoldAdSecond"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -160,6 +162,7 @@
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardBuyGold1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -218,6 +221,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardBuyGold2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -276,6 +280,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardBuyGold3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -342,6 +347,7 @@
 
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardBuyGold4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -401,6 +407,7 @@
 
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardBuyGold5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -459,6 +466,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardBuyGold6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
