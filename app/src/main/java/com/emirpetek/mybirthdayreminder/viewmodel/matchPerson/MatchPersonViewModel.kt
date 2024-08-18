@@ -2,6 +2,7 @@ package com.emirpetek.mybirthdayreminder.viewmodel.matchPerson
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.emirpetek.mybirthdayreminder.data.entity.UserCredits
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.emirpetek.mybirthdayreminder.data.repo.CreditsRepo
 import com.emirpetek.mybirthdayreminder.data.repo.user.UserRepo
@@ -12,7 +13,7 @@ class MatchPersonViewModel : ViewModel() {
     private val creditRepo = CreditsRepo()
 
     var user = MutableLiveData<ArrayList<User>>()
-    var credit = MutableLiveData<Long>()
+    var credit = MutableLiveData<UserCredits>()
     var userOwnZodiac = MutableLiveData<Int>()
 
     init {
@@ -35,6 +36,14 @@ class MatchPersonViewModel : ViewModel() {
 
     fun decrementUserCredit(amount: Long){
         creditRepo.decrementUserCredit(amount)
+    }
+
+    fun decrementLikeRight(amount: Long){
+        creditRepo.decrementLikeRight(amount)
+    }
+
+    fun decrementMegaLikeRight(amount: Long){
+        creditRepo.decrementMegaLikeRight(amount)
     }
 
 

@@ -131,6 +131,8 @@
 
     <string name="earn_or_buy_gold">BUY GOLD</string>
     <string name="not_enough_gold">You do not have enough gold for this operation.</string>
+    <string name="not_enough_right">You do not have enough right for this operation.</string>
+    <string name="remaining_like_rights">Remaining Like Rights: </string>
 
     <string name="gold_amount_1">50 Gold</string>
     <string name="gold_amount_2">100 Gold</string>

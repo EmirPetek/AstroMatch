@@ -31,7 +31,11 @@ class MatchPersonListUsersAdapter(
     val viewLifecycleOwner: LifecycleOwner
 ) : RecyclerView.Adapter<MatchPersonListUsersAdapter.CardUser>(){
 
-    private val MEGA_LIKE_COST : Long = 5
+    companion object {
+        private val MEGA_LIKE_CREDIT_COST : Long = 5
+        private val LIKE_RIGHT_COST : Long = 1
+        private val MEGA_LIKE_RIGHT_COST : Long = 1
+    }
 
     inner class CardUser(view: View) : RecyclerView.ViewHolder(view){
         val username: TextView = view.findViewById(R.id.textViewMatchPersonFullname)
@@ -85,17 +89,25 @@ class MatchPersonListUsersAdapter(
         viewModel.credit.observe(viewLifecycleOwner, Observer { credit ->
 
             holder.likeButton.setOnClickListener {
-                userList.removeAt(position)
-                notifyItemRemoved(position)
+                if (credit.likeRights!! > 0){
+                    viewModel.decrementLikeRight(LIKE_RIGHT_COST)
+                    userList.removeAt(position)
+                    notifyItemRemoved(position)
+                }else{
+                    showToastMessage(mContext.getString(R.string.not_enough_right))
+                }
             }
 
             holder.superLikeButton.setOnClickListener {
-                if (credit < MEGA_LIKE_COST) showToastMessage(mContext.getString(R.string.not_enough_gold))
-                else{
-                    viewModel.decrementUserCredit(MEGA_LIKE_COST)
+                if (credit.megaLikeRights!! > 0){
+                    viewModel.decrementMegaLikeRight(MEGA_LIKE_RIGHT_COST)
                     userList.removeAt(position)
                     notifyItemRemoved(position)
+                }else{
+                    showToastMessage(mContext.getString(R.string.not_enough_right))
                 }
+
+
             }
 
             holder.cancelButton.setOnClickListener {

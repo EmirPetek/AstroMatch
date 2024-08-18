@@ -52,8 +52,10 @@ class MatchPersonFragment : Fragment() {
         })
 
         viewModel.getUserCreditsAmount()
-        viewModel.credit.observe(viewLifecycleOwner, Observer { it ->
-            binding.textViewUserGold.text = it.toString()
+        viewModel.credit.observe(viewLifecycleOwner, Observer { credit ->
+            binding.textViewUserGold.text = credit.amount.toString()
+            binding.textViewMatchPersonRemainLike.text = credit.likeRights.toString()
+            binding.textViewMatchPersonRemainMegaLike.text = credit.megaLikeRights.toString()
         })
         binding.imageViewUserGold.setOnClickListener { findNavController().navigate(R.id.action_matchPersonFragment_to_earnGoldFragment) }
 

@@ -17,15 +17,15 @@ class CreditsRepo {
         .collection(userID)
         .document(userID)
 
-    val credits: MutableLiveData<Long> = MutableLiveData()
+    val credits: MutableLiveData<UserCredits> = MutableLiveData()
 
-    fun getCreditAmount() : MutableLiveData<Long>{
+    fun getCreditAmount() : MutableLiveData<UserCredits>{
         return credits
     }
 
 
     fun createCreditWithRegister(amount: Long){
-        creditsRef.set(UserCredits(userID,amount))
+        creditsRef.set(UserCredits(userID,amount,30,10,System.currentTimeMillis()))
     }
 
     fun getUserCreditsAmountFun(){
@@ -36,7 +36,7 @@ class CreditsRepo {
             }
             if (snapshot != null && snapshot.exists()) {
                 val credit = snapshot.toObject(UserCredits::class.java)!!
-                credits.value = credit.amount
+                credits.value = credit
             }
         }
     }
@@ -46,7 +46,23 @@ class CreditsRepo {
     }
 
     fun decrementUserCredit(amount: Long){
-        creditsRef.update("amount",FieldValue.increment(-amount))
+        creditsRef.update("amount",FieldValue.increment(-1 * amount))
+    }
+
+    fun incrementLikeRight(amount: Long){
+        creditsRef.update("likeRights",FieldValue.increment(amount))
+    }
+
+    fun decrementLikeRight(amount: Long){
+        creditsRef.update("likeRights",FieldValue.increment(-1 * amount))
+    }
+
+    fun incrementMegaLikeRight(amount: Long){
+        creditsRef.update("megaLikeRights",FieldValue.increment(amount))
+    }
+
+    fun decrementMegaLikeRight(amount: Long){
+        creditsRef.update("megaLikeRights",FieldValue.increment(-1 * amount))
     }
 
 
