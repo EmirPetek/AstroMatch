@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -29,6 +30,8 @@ class MatchPersonListUsersAdapter(
     val viewModel: MatchPersonViewModel,
     val viewLifecycleOwner: LifecycleOwner
 ) : RecyclerView.Adapter<MatchPersonListUsersAdapter.CardUser>(){
+
+    private val MEGA_LIKE_COST : Long = 5
 
     inner class CardUser(view: View) : RecyclerView.ViewHolder(view){
         val username: TextView = view.findViewById(R.id.textViewMatchPersonFullname)
@@ -77,20 +80,33 @@ class MatchPersonListUsersAdapter(
             .centerCrop()
             .into(holder.userPhoto)
 
-        holder.likeButton.setOnClickListener {
-            userList.removeAt(position)
-            notifyItemRemoved(position)
-        }
 
-        holder.superLikeButton.setOnClickListener {
-            userList.removeAt(position)
-            notifyItemRemoved(position)
-        }
+        viewModel.getUserCreditsAmount()
+        viewModel.credit.observe(viewLifecycleOwner, Observer { credit ->
 
-        holder.cancelButton.setOnClickListener {
-            userList.removeAt(position)
-            notifyItemRemoved(position)
-        }
+            holder.likeButton.setOnClickListener {
+                userList.removeAt(position)
+                notifyItemRemoved(position)
+            }
+
+            holder.superLikeButton.setOnClickListener {
+                if (credit < MEGA_LIKE_COST) showToastMessage(mContext.getString(R.string.not_enough_gold))
+                else{
+                    viewModel.decrementUserCredit(MEGA_LIKE_COST)
+                    userList.removeAt(position)
+                    notifyItemRemoved(position)
+                }
+            }
+
+            holder.cancelButton.setOnClickListener {
+                userList.removeAt(position)
+                notifyItemRemoved(position)
+            }
+
+        })
+
+
+
 
     }
 
@@ -125,6 +141,10 @@ class MatchPersonListUsersAdapter(
             val calculation = CalculateCompatibility().calculateCompatibility(ownUserZodiac,anotherUserZodiac)
             textView.text = "% $calculation"
         })
+    }
+
+    fun showToastMessage(msg: String){
+        Toast.makeText(mContext,msg,Toast.LENGTH_SHORT).show()
     }
 
 

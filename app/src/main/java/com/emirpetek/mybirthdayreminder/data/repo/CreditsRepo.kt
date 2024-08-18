@@ -1,5 +1,6 @@
 package com.emirpetek.mybirthdayreminder.data.repo
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.emirpetek.mybirthdayreminder.data.entity.UserCredits
 import com.google.firebase.auth.ktx.auth
@@ -28,15 +29,24 @@ class CreditsRepo {
     }
 
     fun getUserCreditsAmountFun(){
-        creditsRef.get()
-            .addOnSuccessListener { node ->
-                val credit = node.toObject(UserCredits::class.java)!!
+        creditsRef.addSnapshotListener { snapshot, error ->
+            if (error != null) {
+                // Hata işleme
+                return@addSnapshotListener
+            }
+            if (snapshot != null && snapshot.exists()) {
+                val credit = snapshot.toObject(UserCredits::class.java)!!
                 credits.value = credit.amount
             }
+        }
     }
 
     fun incrementUserCredit(amount: Long){
         creditsRef.update("amount",FieldValue.increment(amount))
+    }
+
+    fun decrementUserCredit(amount: Long){
+        creditsRef.update("amount",FieldValue.increment(-amount))
     }
 
 

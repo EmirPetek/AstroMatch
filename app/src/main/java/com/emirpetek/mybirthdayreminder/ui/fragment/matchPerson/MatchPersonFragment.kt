@@ -42,12 +42,21 @@ class MatchPersonFragment : Fragment() {
 
         ManageBottomNavigationVisibility(requireActivity()).showBottomNav()
 
+
+
         viewModel.getCompatibleUsersData(userID)
         viewModel.user.observe(viewLifecycleOwner, Observer { it ->
             userListDB.clear()
             userListDB = it
             updateUI(userListDB)
         })
+
+        viewModel.getUserCreditsAmount()
+        viewModel.credit.observe(viewLifecycleOwner, Observer { it ->
+            binding.textViewUserGold.text = it.toString()
+        })
+        binding.imageViewUserGold.setOnClickListener { findNavController().navigate(R.id.action_matchPersonFragment_to_earnGoldFragment) }
+
 
         return binding.root
     }
@@ -76,9 +85,7 @@ class MatchPersonFragment : Fragment() {
 
         }*/
 
-        viewModel.getUserCreditsAmount()
-        viewModel.credit.observe(viewLifecycleOwner, Observer { binding.textViewUserGold.text = it.toString() })
-        binding.imageViewUserGold.setOnClickListener { findNavController().navigate(R.id.action_matchPersonFragment_to_earnGoldFragment) }
+
 
 
         binding.recyclerViewMatchPersonListUser.setHasFixedSize(true)

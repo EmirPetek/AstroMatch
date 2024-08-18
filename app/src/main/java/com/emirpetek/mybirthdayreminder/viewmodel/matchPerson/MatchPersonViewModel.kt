@@ -33,5 +33,9 @@ class MatchPersonViewModel : ViewModel() {
         userRepo.getUserZodiac(userID)
     }
 
+    fun decrementUserCredit(amount: Long){
+        creditRepo.decrementUserCredit(amount)
+    }
+
 
 }
