@@ -139,6 +139,7 @@
     <string name="daily_win">DAILY WIN</string>
     <string name="win_20_gold">You win 20 gold by coming today. \n Come here everyday and win 20 gold!</string>
     <string name="thanks">Thank You!</string>
+    <string name="time_left_for_gold_like">Next free gold and like in: </string>
 
     <string name="gold_amount_1">50 Gold</string>
     <string name="gold_amount_2">100 Gold</string>
