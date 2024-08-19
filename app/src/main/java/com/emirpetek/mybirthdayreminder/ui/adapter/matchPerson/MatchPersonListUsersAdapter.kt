@@ -33,6 +33,7 @@ class MatchPersonListUsersAdapter(
 
     companion object {
         private val MEGA_LIKE_CREDIT_COST : Long = 5
+        private val LIKE_CREDIT_COST : Long = 1
         private val LIKE_RIGHT_COST : Long = 1
         private val MEGA_LIKE_RIGHT_COST : Long = 1
     }
@@ -89,36 +90,52 @@ class MatchPersonListUsersAdapter(
         viewModel.credit.observe(viewLifecycleOwner, Observer { credit ->
 
             holder.likeButton.setOnClickListener {
-                if (credit.likeRights!! > 0){
+                if (credit.likeRights > 0){
+                    // hak var, haktan harcama yapar
                     viewModel.decrementLikeRight(LIKE_RIGHT_COST)
                     userList.removeAt(position)
                     notifyItemRemoved(position)
                 }else{
-                    showToastMessage(mContext.getString(R.string.not_enough_right))
+                    // hak yok, krediden harcama yapar
+                    if (credit.amount > 0){
+                        showToastMessage(mContext.getString(R.string.liked_for_one_gold))
+                        viewModel.decrementUserCredit(LIKE_CREDIT_COST)
+                        userList.removeAt(position)
+                        notifyItemRemoved(position)
+                    }else{
+                        showToastMessage(mContext.getString(R.string.not_enough_gold_and_right))
+                    }
+
+
                 }
             }
 
             holder.superLikeButton.setOnClickListener {
-                if (credit.megaLikeRights!! > 0){
+                if (credit.megaLikeRights > 0){
+                    // hak var, haktan harcama yapar
                     viewModel.decrementMegaLikeRight(MEGA_LIKE_RIGHT_COST)
                     userList.removeAt(position)
                     notifyItemRemoved(position)
                 }else{
-                    showToastMessage(mContext.getString(R.string.not_enough_right))
+                    // hak yok, krediden harcama yapar
+                    if (credit.amount > 5) {
+                        showToastMessage(mContext.getString(R.string.mega_like_for_five_gold))
+                        viewModel.decrementUserCredit(MEGA_LIKE_CREDIT_COST)
+                        userList.removeAt(position)
+                        notifyItemRemoved(position)
+                    }else{
+                        showToastMessage(mContext.getString(R.string.not_enough_gold_and_right))
+                    }
+
                 }
-
-
             }
-
-            holder.cancelButton.setOnClickListener {
-                userList.removeAt(position)
-                notifyItemRemoved(position)
-            }
-
         })
 
 
-
+        holder.cancelButton.setOnClickListener {
+            userList.removeAt(position)
+            notifyItemRemoved(position)
+        }
 
     }
 
