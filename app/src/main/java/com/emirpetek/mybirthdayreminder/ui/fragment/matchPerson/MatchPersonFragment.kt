@@ -3,11 +3,14 @@ package com.emirpetek.mybirthdayreminder.ui.fragment.matchPerson
 import android.graphics.Rect
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +36,8 @@ class MatchPersonFragment : Fragment() {
     private lateinit var adapter: MatchPersonListUsersAdapter
     private val userID: String = Firebase.auth.currentUser!!.uid
     var userListDB = ArrayList<User>()
+    private var isDailyWinChecked = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +61,7 @@ class MatchPersonFragment : Fragment() {
             binding.textViewUserGold.text = credit.amount.toString()
             binding.textViewMatchPersonRemainLike.text = credit.likeRights.toString()
             binding.textViewMatchPersonRemainMegaLike.text = credit.megaLikeRights.toString()
+            checkDailyWinGold(credit.lastCreditBalanceTimestamp)
         })
         binding.imageViewUserGold.setOnClickListener { findNavController().navigate(R.id.action_matchPersonFragment_to_earnGoldFragment) }
 
@@ -116,6 +122,34 @@ class MatchPersonFragment : Fragment() {
         binding.recyclerViewMatchPersonListUser.adapter = adapter
 
 
+    }
+
+    fun checkDailyWinGold(lastTime : Long){
+        if (isDailyWinChecked) return
+
+        val currentTimestamp = System.currentTimeMillis()
+        val lastTimestamp = lastTime
+        val winFrequency : Long = 86400000 // 1 day as millis
+
+        val intervalTime = currentTimestamp - lastTimestamp
+
+        if (intervalTime > winFrequency){
+            isDailyWinChecked = true
+
+            val inflater = LayoutInflater.from(requireContext())
+            val view = inflater.inflate(R.layout.alert_win_daily_gold, null)
+
+            val builder = android.app.AlertDialog.Builder(requireContext())
+                .setView(view)
+                .setCancelable(true)
+
+            val dialog = builder.create()
+
+            val button = view.findViewById<Button>(R.id.buttonAlertWinDailyGold)
+            button.setOnClickListener { dialog.dismiss() }
+            dialog.setOnDismissListener { viewModel.setDailyBonusValues() }
+            dialog.show()
+        }
     }
 
     fun bindHoroscopeImage(zodiac: Int, imageView: ImageView){

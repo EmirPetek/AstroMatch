@@ -46,5 +46,9 @@ class MatchPersonViewModel : ViewModel() {
         creditRepo.decrementMegaLikeRight(amount)
     }
 
+    fun setDailyBonusValues(){
+        creditRepo.setDailyBonusValues()
+    }
+
 
 }

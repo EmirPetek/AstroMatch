@@ -133,6 +133,9 @@
     <string name="not_enough_gold">You do not have enough gold for this operation.</string>
     <string name="not_enough_right">You do not have enough right for this operation.</string>
     <string name="remaining_like_rights">Remaining Like Rights: </string>
+    <string name="daily_win">DAILY WIN</string>
+    <string name="win_20_gold">You win 20 gold by coming today. \n Come here everyday and win 20 gold!</string>
+    <string name="thanks">Thank You!</string>
 
     <string name="gold_amount_1">50 Gold</string>
     <string name="gold_amount_2">100 Gold</string>
