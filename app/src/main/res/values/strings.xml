@@ -162,6 +162,7 @@
 
 
     <string name="chats">Chats</string>
+    <string name="chats_big">CHATS</string>
 
     <!-- 12 tane burç bilgisi-->
     <string name="aries">Aries</string> <!-- index 1 -->
