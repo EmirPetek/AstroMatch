@@ -160,6 +160,9 @@
     <string name="gold_watch_ad_one_button">Earn 1 Gold</string>
     <string name="gold_watch_ad_two_button">Earn 5 Gold</string>
 
+
+    <string name="chats">Chats</string>
+
     <!-- 12 tane burç bilgisi-->
     <string name="aries">Aries</string> <!-- index 1 -->
     <string name="taurus">Taurus</string> <!-- index 2 -->

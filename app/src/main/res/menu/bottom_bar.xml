@@ -6,6 +6,10 @@
         android:icon="@drawable/baseline_language_24"
         android:title="@string/match" />
     <item
+        android:id="@+id/chatListFragment"
+        android:icon="@drawable/bubble_chat"
+        android:title="@string/chats" />
+    <item
         android:id="@+id/birthdaysFragment"
         android:icon="@drawable/baseline_cake_24"
         android:title="@string/home" />

@@ -153,4 +153,10 @@
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.earnGold.EarnGoldFragment"
         android:label="fragment_earn_gold"
         tools:layout="@layout/fragment_earn_gold" />
+    <fragment android:id="@+id/placeholder" />
+    <fragment
+        android:id="@+id/chatListFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.chats.ChatListFragment"
+        android:label="fragment_chat_list"
+        tools:layout="@layout/fragment_chat_list" />
 </navigation>
