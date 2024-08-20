@@ -16,7 +16,7 @@ data class User(
     val zodiac:Int,
     val ascendant:Int,
     val gender: Int,
-    val biography:String,
+    var biography:String,
     var profileGalleryPhotos: ArrayList<UserGalleryPhoto>? = null
 ) : Serializable{
 

@@ -57,6 +57,14 @@ class SettingsAccountFragment : Fragment() {
             binding.editTextSettingsAccountJoinedAt.setText(createDate)
             bindUserImage(user.profile_img)
             binding.userObject = this
+
+
+            binding.textViewSettingsAccountUpdateData.setOnClickListener {
+                user.biography = binding.editTextSettingsAccountBiography.text.toString()
+                viewModel.updateUserData(user)
+                goBack()
+            }
+
         })
 
         return binding.root
@@ -111,6 +119,7 @@ class SettingsAccountFragment : Fragment() {
                     storageReference.downloadUrl.addOnSuccessListener { uri ->
                         val downloadUrl = uri.toString()
                         user.profile_img = downloadUrl
+                        user.biography = binding.editTextSettingsAccountBiography.text.toString()
                         updateUserData()
                     }
                 }
