@@ -55,6 +55,12 @@ class ProfileFragment : Fragment() {
         if(!userID.isNullOrEmpty() && userID != auth.currentUser?.uid){ // user is anyUser
 
             bindAnyUser()
+            binding.buttonProfileFragmentSendMessage.setOnClickListener {
+                val bundle : Bundle = Bundle().apply {
+                    putString("anotherUserID", userID)
+                }
+                findNavController().navigate(R.id.action_profileFragment_to_messagesFragment,bundle)
+            }
             userType = "anyUser"
         }else { // own user
             bindOwnUser()
