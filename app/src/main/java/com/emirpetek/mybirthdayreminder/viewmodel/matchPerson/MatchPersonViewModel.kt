@@ -3,14 +3,17 @@ package com.emirpetek.mybirthdayreminder.viewmodel.matchPerson
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.emirpetek.mybirthdayreminder.data.entity.UserCredits
+import com.emirpetek.mybirthdayreminder.data.entity.like.Like
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.emirpetek.mybirthdayreminder.data.repo.CreditsRepo
+import com.emirpetek.mybirthdayreminder.data.repo.like.LikeRepo
 import com.emirpetek.mybirthdayreminder.data.repo.user.UserRepo
 
 class MatchPersonViewModel : ViewModel() {
 
     private val userRepo = UserRepo()
     private val creditRepo = CreditsRepo()
+    private val likeRepo = LikeRepo()
 
     var user = MutableLiveData<ArrayList<User>>()
     var credit = MutableLiveData<UserCredits>()
@@ -48,6 +51,10 @@ class MatchPersonViewModel : ViewModel() {
 
     fun setDailyBonusValues(){
         creditRepo.setDailyBonusValues()
+    }
+
+    fun insertLikeUser(like: Like){
+        likeRepo.insertLikeUser(like)
     }
 
 
