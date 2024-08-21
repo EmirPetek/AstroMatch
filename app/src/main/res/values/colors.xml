@@ -25,5 +25,7 @@
     <color name="setting_item">#FCBEBA</color>
     <color name="profile_posts_bg">#FCBABA</color>
     <color name="red_title">#C70000</color>
-
+    <color name="message_field">#FFDFDF</color>
+    <color name="message_bg_left">#FFE1E1</color>
+    <color name="message_bg_right">#FFB3B3</color>
 </resources>

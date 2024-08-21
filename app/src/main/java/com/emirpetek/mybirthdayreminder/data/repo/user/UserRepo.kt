@@ -52,7 +52,7 @@ class UserRepo {
         }
     }
 
-    fun getUserData(userID: String) {
+    fun     getUserData(userID: String) {
         dbRef.document(userID).addSnapshotListener { snapshot, e ->
             if (e != null) {
                 // Handle error
