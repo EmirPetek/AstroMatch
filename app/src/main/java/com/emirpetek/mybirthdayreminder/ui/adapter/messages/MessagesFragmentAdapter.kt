@@ -38,6 +38,7 @@ class MessagesFragmentAdapter(
         val textViewCardMessageRightContent:TextView = view.findViewById(R.id.textViewCardMessageRightContent)
         val textViewCardMessageRightSendTime : TextView = view.findViewById(R.id.textViewCardMessageRightSendTime)
         val textViewCardMessageRightSeenState : TextView = view.findViewById(R.id.textViewCardMessageRightSeenState)
+        val imageViewReadState : ImageView = view.findViewById(R.id.imageViewCardMessageRightReadState)
 
     }
 
@@ -81,6 +82,8 @@ class MessagesFragmentAdapter(
                 holder.textViewCardMessageRightContent.text = msg.messageText
                 holder.textViewCardMessageRightSendTime.text = CalculateShareTime(mContext).unixtsToDate(msg.timestamp.toString())
                 holder.textViewCardMessageRightSeenState.text = msg.isRead.toString()
+                if (msg.isRead)Glide.with(mContext).load(R.drawable.seen_msg_eye).into(holder.imageViewReadState)
+                else Glide.with(mContext).load(R.drawable.not_seen_msg_eye).into(holder.imageViewReadState)
             }
         }
     }

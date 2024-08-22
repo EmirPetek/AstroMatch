@@ -55,6 +55,8 @@ class MessagesFragment : Fragment() {
                 viewModel.getMessages(chatID!!)
                 viewModel.messages.observe(viewLifecycleOwner, Observer { messages ->
 
+
+                    viewModel.markMessagesAsRead(chatID)
                     if (messages.isNullOrEmpty()) binding.textViewMessagesFragmentNoMessageText.visibility = View.VISIBLE
 
                     binding.recyclerViewMessageFragmentMessages.setHasFixedSize(true)

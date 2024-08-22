@@ -64,6 +64,13 @@
                         android:text="TextView"
                         android:textColor="@color/text_white" />
 
+                    <ImageView
+                        android:id="@+id/imageViewCardMessageRightReadState"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginRight="5dp"
+                        app:srcCompat="@drawable/not_seen_msg_eye" />
+
                     <TextView
                         android:id="@+id/textViewCardMessageRightSeenState"
                         android:layout_width="wrap_content"
@@ -72,7 +79,8 @@
                         android:layout_marginRight="5dp"
                         android:layout_marginBottom="4dp"
                         android:text="TextView"
-                        android:textColor="@color/text_white" />
+                        android:textColor="@color/text_white"
+                        android:visibility="gone" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

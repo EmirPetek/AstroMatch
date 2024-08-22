@@ -9,7 +9,7 @@ data class Message(
     val messageText: String,
     val timestamp: Long, // timestamp
     val messageType : MessageType,
-    val isRead: Boolean
+    var isRead: Boolean
 ) : Serializable{
-    constructor() : this("","","","",0,MessageType.TEXT,true)
+    constructor() : this("","","","",0,MessageType.TEXT,false)
 }

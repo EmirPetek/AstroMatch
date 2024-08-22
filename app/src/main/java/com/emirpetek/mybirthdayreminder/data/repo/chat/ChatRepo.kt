@@ -193,6 +193,20 @@ class ChatRepo {
         ))
     }
 
+    fun markMessagesAsRead(chatID: String) {
+        messagesRef.child(chatID).limitToLast(50).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (dataSnapshot in snapshot.children) {
+                    // readState'i true olarak güncelle
+                    dataSnapshot.ref.child("read").setValue(true)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Hata durumunda gerekli işlemleri yapabilirsiniz
+            }
+        })
+    }
 
 
 }

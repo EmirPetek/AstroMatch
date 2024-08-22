@@ -47,6 +47,10 @@ class MessagesViewModel : ViewModel() {
         Log.e("viewmodelde: ", messages.toString())
     }
 
+    fun markMessagesAsRead(chatID: String){
+        chatRepo.markMessagesAsRead(chatID)
+    }
+
     fun sendMessage(chatID: String, msg:String, type: MessageType, callback: (Boolean) -> Unit){
         val message = Message(
             "",
