@@ -122,7 +122,7 @@ class ChatRepo {
             deleteState = 0,
             deleteTime = 0,
             lastMessage = "",
-            lastMessageTimestamp = 0,
+            lastMessageTimestamp = System.currentTimeMillis(),
             unreadCount = mapOf(ownUserID to 0, anotherUserID to 0)
         )
 

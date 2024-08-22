@@ -35,15 +35,18 @@ class ChatListFragment : Fragment() {
         viewModel.chatIDList.observe(viewLifecycleOwner, Observer { chatIDList ->
             viewModel.getChats(chatIDList)
             viewModel.chatListLiveData.observe(viewLifecycleOwner, Observer { chatList ->
+                val newChatList = chatList.sortedByDescending { it.lastMessageTimestamp }
                 binding.recyclerViewChatList.setHasFixedSize(true)
                 binding.recyclerViewChatList.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-                adapter = ChatListFragmentAdapter(requireContext(),chatList,viewModel,viewLifecycleOwner,binding.progressBarChatListChats)
+                adapter = ChatListFragmentAdapter(requireContext(),newChatList,viewModel,viewLifecycleOwner,binding.progressBarChatListChats)
                 binding.recyclerViewChatList.adapter = adapter
 
                 if (chatList.isNullOrEmpty()){
                     binding.textViewChatListFragmentNoChatHere.visibility = View.VISIBLE
                     binding.progressBarChatListChats.visibility = View.GONE
-
+                }else{
+                    binding.textViewChatListFragmentNoChatHere.visibility = View.GONE
+                    binding.progressBarChatListChats.visibility = View.GONE
                 }
 
             })

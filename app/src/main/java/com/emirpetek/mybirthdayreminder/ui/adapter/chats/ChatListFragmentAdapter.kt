@@ -1,7 +1,6 @@
 package com.emirpetek.mybirthdayreminder.ui.adapter.chats
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.chat.Chat
-import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.emirpetek.mybirthdayreminder.ui.util.calculateTime.CalculateShareTime
 import com.emirpetek.mybirthdayreminder.viewmodel.chats.ChatListViewModel
 import com.google.firebase.auth.ktx.auth
@@ -22,7 +20,7 @@ import com.google.firebase.ktx.Firebase
 
 class ChatListFragmentAdapter(
     val mContext: Context,
-    val chatList: ArrayList<Chat>,
+    val chatList: List<Chat>,
     val viewModel: ChatListViewModel,
     val viewLifecycleOwner: LifecycleOwner,
     val progressBarChatListChats: ProgressBar,
