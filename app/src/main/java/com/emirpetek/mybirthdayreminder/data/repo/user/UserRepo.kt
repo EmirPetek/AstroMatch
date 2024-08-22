@@ -81,7 +81,11 @@ class UserRepo {
     }
 
     fun getUserDataAsync(userID: String) {
-        dbRef.document(userID).addSnapshotListener { snapshot, e ->
+        dbRef.document(userID).get().addOnSuccessListener { snapshot ->
+            val userModel = snapshot.toObject(User::class.java)!!
+            userAsync.value = userModel
+        }
+        /*dbRef.document(userID).addSnapshotListener { snapshot, e ->
             if (e != null) {
                 // Handle error
                 return@addSnapshotListener
@@ -91,7 +95,7 @@ class UserRepo {
                 val userModel = snapshot.toObject(User::class.java)!!
                 userAsync.value = userModel
             }
-        }
+        }*/
     }
 
     fun getUserFullnameFromUserID(userID: String) {

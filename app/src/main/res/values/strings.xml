@@ -165,6 +165,7 @@
     <string name="chats_big">CHATS</string>
     <string name="type_here_hint">Type here...</string>
     <string name="no_message_here">There is no message here. Send your first message!</string>
+    <string name="no_chat_here">There is no chat here.</string>
     <string name="sent">Sent</string>
     <string name="seen">Seen</string>
 

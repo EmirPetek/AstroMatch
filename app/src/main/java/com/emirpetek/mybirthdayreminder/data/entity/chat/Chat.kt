@@ -1,5 +1,6 @@
 package com.emirpetek.mybirthdayreminder.data.entity.chat
 
+import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import java.io.Serializable
 
 data class Chat(
@@ -10,7 +11,8 @@ data class Chat(
     val deleteTime: Long = 0L,
     val lastMessage: String = "",
     val lastMessageTimestamp: Long = 0L, // timestamp
-    val unreadCount: Map<String, Int> = emptyMap()
+    val unreadCount: Map<String, Int> = emptyMap(),
+    var user: User? = null
 ): Serializable{
     constructor() : this("", mapOf(),0,0,0,"",0, mapOf())
 }

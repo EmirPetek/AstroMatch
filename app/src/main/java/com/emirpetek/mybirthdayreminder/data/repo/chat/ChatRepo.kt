@@ -10,10 +10,13 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 
 class ChatRepo {
+
+    private val dbRefUser = Firebase.firestore.collection("users")
 
     val ownUserID = Firebase.auth.currentUser!!.uid
     val userChatsRef = FirebaseDatabase.getInstance().getReference("userChats")//.child(ownUserID)
@@ -21,6 +24,15 @@ class ChatRepo {
 
     private val messagesRef = FirebaseDatabase.getInstance().getReference("messages")
     private val messagesLiveData = MutableLiveData<List<Message>>()
+    val chatIDList = MutableLiveData<ArrayList<UserChats>>()
+    var chatListLiveData = MutableLiveData<ArrayList<Chat>>()
+
+    companion object {
+        val chatDataList : ArrayList<Chat> = arrayListOf()
+        var loadedChatCount = 0
+    }
+
+
 
 
     suspend fun checkExistingChat(anotherUserID:String) : String? {
@@ -29,6 +41,74 @@ class ChatRepo {
             snapshot.getValue(String::class.java)
         }catch (e: Exception){
             null
+        }
+    }
+
+    fun getChatIDs(userID:String){
+        userChatsRef.child(userID).addValueEventListener(object : ValueEventListener{
+            val chatList = ArrayList<UserChats>()
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (i in snapshot.children){
+                    val chatID = i.getValue(String::class.java)!!
+                    val chatObj = UserChats(i.key!!,chatID)
+                    chatList.add(chatObj)
+                }
+                chatIDList.value = chatList
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+    fun getChatData(chatList: ArrayList<UserChats>){
+        var loadedChatCount = 0
+        val chatCount = chatList.size
+
+        if (chatCount == 0) {
+            chatListLiveData.value = chatDataList
+            return
+        }
+
+        for (c in chatList){
+            chatsRef.child(c.chatID).addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val chat = snapshot.getValue(Chat::class.java)!!
+                    loadUsersForChat(chat,chatCount)
+                   /* chatDataList.add(chat)
+                    Companion.loadedChatCount++
+
+                    if (Companion.loadedChatCount == chatCount) {
+                        Log.e("chatlisfsd", chatDataList.toString())
+                        chatListLiveData.value = chatDataList
+                    }*/
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+
+    }
+
+    private fun loadUsersForChat(chat: Chat, chatCount: Int) {
+        val participants = chat.participants
+
+            val firstParticipant = participants.entries.toList()[0].key.toString()
+            val secondParticipant = participants.entries.toList()[1].key.toString()
+            var anotherUserID = if (firstParticipant.equals(ownUserID)) secondParticipant
+            else firstParticipant
+
+        dbRefUser.document(anotherUserID).get().addOnSuccessListener { snapshot ->
+            val userModel = snapshot.toObject(com.emirpetek.mybirthdayreminder.data.entity.user.User::class.java)!!
+            chat.user = userModel
+            chatDataList.add(chat)
+            loadedChatCount++
+
+            if (loadedChatCount == chatCount) {
+                Log.e("chatlisfsd", chatDataList.toString())
+                chatListLiveData.value = chatDataList
+            }
         }
     }
 
