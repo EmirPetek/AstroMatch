@@ -39,6 +39,14 @@ class ChatListFragment : Fragment() {
 
         binding.progressBarChatListChats.visibility = View.VISIBLE
 
+        viewModel.getLikes(ownUserID)
+        viewModel.likeList.observe(viewLifecycleOwner, Observer { it ->
+            val matchesNumber = it.size
+            if (matchesNumber > 99) binding.textViewChatListMatchesNumber.text = "+99"
+            else binding.textViewChatListMatchesNumber.text = matchesNumber.toString()
+        })
+
+
         newChatIDList.clear()
         viewModel.getChatIDs(ownUserID)
         viewModel.chatIDList.observe(viewLifecycleOwner, Observer { chatIDList ->
@@ -47,7 +55,7 @@ class ChatListFragment : Fragment() {
             viewModel.chatListLiveData.observe(viewLifecycleOwner, Observer { chatList ->
                 newChatList = listOf()
                 newChatList = chatList.sortedByDescending { it.lastMessageTimestamp }
-                Log.e("BOYUTU ", newChatList.size.toString())
+                //Log.e("BOYUTU ", newChatList.size.toString())
 
                 binding.recyclerViewChatList.setHasFixedSize(true)
                 binding.recyclerViewChatList.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)

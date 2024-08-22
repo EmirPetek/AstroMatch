@@ -18,11 +18,13 @@ class MatchPersonViewModel : ViewModel() {
     var user = MutableLiveData<ArrayList<User>>()
     var credit = MutableLiveData<UserCredits>()
     var userOwnZodiac = MutableLiveData<Int>()
+    var likeList = MutableLiveData<List<Like>>()
 
     init {
         user = userRepo.getCompatibleUsers()
         credit = creditRepo.getCreditAmount()
         userOwnZodiac = userRepo.getUserZodiac()
+        likeList = likeRepo.likeLiveData
     }
 
     fun getCompatibleUsersData(userID:String){
@@ -55,6 +57,10 @@ class MatchPersonViewModel : ViewModel() {
 
     fun insertLikeUser(like: Like){
         likeRepo.insertLikeUser(like)
+    }
+
+    fun getLikeUser(userID: String){
+        likeRepo.getLikes(userID)
     }
 
 

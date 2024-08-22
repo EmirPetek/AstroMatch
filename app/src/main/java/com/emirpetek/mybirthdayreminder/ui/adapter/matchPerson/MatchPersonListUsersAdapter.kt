@@ -92,7 +92,7 @@ class MatchPersonListUsersAdapter(
         viewModel.credit.observe(viewLifecycleOwner, Observer { credit ->
 
             holder.likeButton.setOnClickListener {
-                val like = Like(Firebase.auth.currentUser!!.uid,userItem.userID,System.currentTimeMillis(),LikeType.NORMAL,"")
+                val like = Like(Firebase.auth.currentUser!!.uid,userItem.userID,System.currentTimeMillis(),LikeType.NORMAL,"",0,0)
 
                 if (credit.likeRights > 0){
                     // hak var, haktan harcama yapar
@@ -117,7 +117,7 @@ class MatchPersonListUsersAdapter(
             }
 
             holder.superLikeButton.setOnClickListener {
-                val like = Like(Firebase.auth.currentUser!!.uid,userItem.userID,System.currentTimeMillis(),LikeType.MEGA,"")
+                val like = Like(Firebase.auth.currentUser!!.uid,userItem.userID,System.currentTimeMillis(),LikeType.MEGA,"",0,0)
                 if (credit.megaLikeRights > 0){
                     // hak var, haktan harcama yapar
                     viewModel.decrementMegaLikeRight(MEGA_LIKE_RIGHT_COST)
