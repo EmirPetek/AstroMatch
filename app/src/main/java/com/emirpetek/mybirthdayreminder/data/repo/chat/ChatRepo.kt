@@ -153,7 +153,7 @@ class ChatRepo {
 
 
     fun getMessagesForChat(chatID:String) : MutableLiveData<List<Message>> {
-        messagesRef.child(chatID).limitToLast(25).addValueEventListener(object : ValueEventListener {
+        messagesRef.child(chatID).limitToLast(50).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val messages = snapshot.children.mapNotNull {
                     it.getValue(Message::class.java)
