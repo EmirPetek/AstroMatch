@@ -161,7 +161,11 @@
         android:id="@+id/chatListFragment"
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.chats.ChatListFragment"
         android:label="fragment_chat_list"
-        tools:layout="@layout/fragment_chat_list" />
+        tools:layout="@layout/fragment_chat_list" >
+        <action
+            android:id="@+id/action_chatListFragment_to_messagesFragment"
+            app:destination="@id/messagesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/messagesFragment"
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.messages.MessagesFragment"

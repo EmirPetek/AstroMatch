@@ -1,6 +1,7 @@
 package com.emirpetek.mybirthdayreminder.ui.adapter.chats
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
@@ -20,7 +22,7 @@ import com.google.firebase.ktx.Firebase
 
 class ChatListFragmentAdapter(
     val mContext: Context,
-    val chatList: List<Chat>,
+    var chatList: List<Chat>,
     val viewModel: ChatListViewModel,
     val viewLifecycleOwner: LifecycleOwner,
     val progressBarChatListChats: ProgressBar,
@@ -62,6 +64,13 @@ class ChatListFragmentAdapter(
 
         holder.fullname.text = item.user?.fullname
         Glide.with(mContext).load(item.user?.profile_img).circleCrop().into(holder.userImg)
+
+        holder.cardView.setOnClickListener { it ->
+            val bundle : Bundle = Bundle().apply {
+                putString("anotherUserID",item.user?.userID)
+            }
+            Navigation.findNavController(it).navigate(R.id.action_chatListFragment_to_messagesFragment,bundle)
+        }
 
 
         itemCountBound++

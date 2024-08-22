@@ -26,13 +26,11 @@ class ChatRepo {
     private val messagesLiveData = MutableLiveData<List<Message>>()
     val chatIDList = MutableLiveData<ArrayList<UserChats>>()
     var chatListLiveData = MutableLiveData<ArrayList<Chat>>()
+   // val chatDataList : ArrayList<Chat> = arrayListOf()
 
     companion object {
-        val chatDataList : ArrayList<Chat> = arrayListOf()
         var loadedChatCount = 0
     }
-
-
 
 
     suspend fun checkExistingChat(anotherUserID:String) : String? {
@@ -45,8 +43,8 @@ class ChatRepo {
     }
 
     fun getChatIDs(userID:String){
-        userChatsRef.child(userID).addValueEventListener(object : ValueEventListener{
-            val chatList = ArrayList<UserChats>()
+        val chatList = ArrayList<UserChats>()
+        userChatsRef.child(userID).addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (i in snapshot.children){
                     val chatID = i.getValue(String::class.java)!!
@@ -62,19 +60,19 @@ class ChatRepo {
     }
 
     fun getChatData(chatList: ArrayList<UserChats>){
-        var loadedChatCount = 0
+       // chatDataList.clear()
+        val chatDataList = ArrayList<Chat>()
         val chatCount = chatList.size
 
         if (chatCount == 0) {
             chatListLiveData.value = chatDataList
             return
         }
-
         for (c in chatList){
-            chatsRef.child(c.chatID).addListenerForSingleValueEvent(object : ValueEventListener{
+            chatsRef.child(c.chatID).addValueEventListener(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val chat = snapshot.getValue(Chat::class.java)!!
-                    loadUsersForChat(chat,chatCount)
+                    loadUsersForChat(chat,chatCount,chatDataList)
                    /* chatDataList.add(chat)
                     Companion.loadedChatCount++
 
@@ -91,7 +89,7 @@ class ChatRepo {
 
     }
 
-    private fun loadUsersForChat(chat: Chat, chatCount: Int) {
+    private fun loadUsersForChat(chat: Chat, chatCount: Int,chatDataList: ArrayList<Chat>) {
         val participants = chat.participants
 
             val firstParticipant = participants.entries.toList()[0].key.toString()
@@ -106,7 +104,7 @@ class ChatRepo {
             loadedChatCount++
 
             if (loadedChatCount == chatCount) {
-                Log.e("chatlisfsd", chatDataList.toString())
+                loadedChatCount = 0
                 chatListLiveData.value = chatDataList
             }
         }
@@ -142,7 +140,6 @@ class ChatRepo {
                 val messages = snapshot.children.mapNotNull {
                     it.getValue(Message::class.java)
                 }
-                Log.e("repodaÇ ", messages.toString())
                 messagesLiveData.value = messages
             }
 
