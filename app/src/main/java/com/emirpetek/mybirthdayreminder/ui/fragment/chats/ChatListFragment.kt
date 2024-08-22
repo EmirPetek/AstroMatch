@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.data.entity.chat.Chat
+import com.emirpetek.mybirthdayreminder.data.entity.chat.UserChats
 import com.emirpetek.mybirthdayreminder.databinding.FragmentChatListBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.chats.ChatListFragmentAdapter
 import com.emirpetek.mybirthdayreminder.ui.util.bottomNavigation.ManageBottomNavigationVisibility
@@ -25,6 +26,7 @@ class ChatListFragment : Fragment() {
     private lateinit var adapter:ChatListFragmentAdapter
     private val ownUserID = Firebase.auth.currentUser!!.uid
     var newChatList : List<Chat> = listOf()
+    var newChatIDList : ArrayList<UserChats> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,10 +39,13 @@ class ChatListFragment : Fragment() {
 
         binding.progressBarChatListChats.visibility = View.VISIBLE
 
+        newChatIDList.clear()
         viewModel.getChatIDs(ownUserID)
         viewModel.chatIDList.observe(viewLifecycleOwner, Observer { chatIDList ->
-            viewModel.getChats(chatIDList)
+            newChatIDList = chatIDList
+            viewModel.getChats(newChatIDList)
             viewModel.chatListLiveData.observe(viewLifecycleOwner, Observer { chatList ->
+                newChatList = listOf()
                 newChatList = chatList.sortedByDescending { it.lastMessageTimestamp }
                 Log.e("BOYUTU ", newChatList.size.toString())
 

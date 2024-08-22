@@ -46,6 +46,7 @@ class ChatRepo {
         val chatList = ArrayList<UserChats>()
         userChatsRef.child(userID).addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
+                chatList.clear()
                 for (i in snapshot.children){
                     val chatID = i.getValue(String::class.java)!!
                     val chatObj = UserChats(i.key!!,chatID)
@@ -60,7 +61,6 @@ class ChatRepo {
     }
 
     fun getChatData(chatList: ArrayList<UserChats>){
-       // chatDataList.clear()
         val chatDataList = ArrayList<Chat>()
         val chatCount = chatList.size
 
@@ -69,9 +69,13 @@ class ChatRepo {
             return
         }
         for (c in chatList){
+            chatDataList.clear()
+
             chatsRef.child(c.chatID).addValueEventListener(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
+
                     val chat = snapshot.getValue(Chat::class.java)!!
+                    Log.e("chatttt", chat.toString())
                     loadUsersForChat(chat,chatCount,chatDataList)
                    /* chatDataList.add(chat)
                     Companion.loadedChatCount++
@@ -100,12 +104,26 @@ class ChatRepo {
         dbRefUser.document(anotherUserID).get().addOnSuccessListener { snapshot ->
             val userModel = snapshot.toObject(com.emirpetek.mybirthdayreminder.data.entity.user.User::class.java)!!
             chat.user = userModel
-            chatDataList.add(chat)
+
+
+            // Yeni gelen mesajlar için güncelleme kontrolü.
+
+            // Liste içinde aynı chatID'ye sahip bir nesne var mı diye kontrol et
+            val existingChatIndex = chatDataList.indexOfFirst { it.chatID == chat.chatID }
+            if (existingChatIndex != -1) {
+                // Eğer varsa, eski nesneyi güncellenmiş nesneyle değiştir
+                chatDataList[existingChatIndex] = chat
+            } else {
+                // Eğer yoksa, listeye yeni nesneyi ekle
+                chatDataList.add(chat)
+            }
+
+
             loadedChatCount++
+            chatListLiveData.value = chatDataList
 
             if (loadedChatCount == chatCount) {
                 loadedChatCount = 0
-                chatListLiveData.value = chatDataList
             }
         }
     }
