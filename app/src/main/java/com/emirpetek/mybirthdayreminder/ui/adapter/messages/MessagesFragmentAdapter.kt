@@ -1,11 +1,14 @@
 package com.emirpetek.mybirthdayreminder.ui.adapter.messages
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
@@ -32,6 +35,7 @@ class MessagesFragmentAdapter(
         val imageViewCardMessageLeftUserPhoto : ImageView = view.findViewById(R.id.imageViewCardMessageLeftUserPhoto)
         val textViewCardMessageLeftContent:TextView = view.findViewById(R.id.textViewCardMessageLeftContent)
         val textViewCardMessageLeftSendTime : TextView = view.findViewById(R.id.textViewCardMessageLeftSendTime)
+        val layoutProfileImage : LinearLayout = view.findViewById(R.id.layoutMessageLeftPersonImage)
     }
 
     inner class MessageViewRightHolder(view : View): MessageViewHolder(view){
@@ -76,6 +80,10 @@ class MessagesFragmentAdapter(
                 holder.textViewCardMessageLeftContent.text = msg.messageText
                 holder.textViewCardMessageLeftSendTime.text = CalculateShareTime(mContext).unixtsToDate(msg.timestamp.toString())
                 Glide.with(mContext).load(anotherUserImage).circleCrop().into(holder.imageViewCardMessageLeftUserPhoto)
+                holder.layoutProfileImage.setOnClickListener { it ->
+                    Navigation.findNavController(it)
+                        .navigate(R.id.action_messagesFragment_to_profileFragment, Bundle().apply { putString("userID",msg.senderID) })
+                }
             }
 
             is MessageViewRightHolder -> {

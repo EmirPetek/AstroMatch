@@ -170,5 +170,9 @@
         android:id="@+id/messagesFragment"
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.messages.MessagesFragment"
         android:label="fragment_messages"
-        tools:layout="@layout/fragment_messages" />
+        tools:layout="@layout/fragment_messages" >
+        <action
+            android:id="@+id/action_messagesFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
 </navigation>

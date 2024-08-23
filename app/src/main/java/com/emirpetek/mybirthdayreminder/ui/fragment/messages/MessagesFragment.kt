@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.chat.Message
 import com.emirpetek.mybirthdayreminder.data.entity.chat.MessageType
 import com.emirpetek.mybirthdayreminder.databinding.FragmentMessagesBinding
@@ -43,6 +44,13 @@ class MessagesFragment : Fragment() {
             binding.textViewMessagesFragmentToolbarTitle.text = anotherUserData.fullname
             Glide.with(this).load(anotherUserData.profile_img).circleCrop().into(binding.imageViewMessagesFragmentToolbarUserPhoto)
         })
+
+
+
+        binding.layoutMessagePersonDetailToolbar.setOnClickListener {
+            findNavController()
+                .navigate(R.id.action_messagesFragment_to_profileFragment
+                    ,Bundle().apply { putString("userID",anotherUserID) }) }
 
         binding.imageViewMessagesFragmentBackButton.setOnClickListener { findNavController().popBackStack() }
 
