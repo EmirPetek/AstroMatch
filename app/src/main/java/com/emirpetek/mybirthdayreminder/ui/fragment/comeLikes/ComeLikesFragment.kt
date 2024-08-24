@@ -39,17 +39,14 @@ class ComeLikesFragment : Fragment() {
             binding.recyclerViewComeLikes.setHasFixedSize(true)
             binding.recyclerViewComeLikes.layoutManager = GridLayoutManager(requireContext(),2)
 
-                    viewModel.getUser(list)
-                    viewModel.likeListWithUser.observe(viewLifecycleOwner, Observer { likeList ->
-
-                        viewModel.userData.observe(viewLifecycleOwner, Observer { ownUser ->
-                            adapter = ComeLikesAdapter(requireContext(), likeList,ownUser)
-                            binding.recyclerViewComeLikes.adapter = adapter
-                            binding.progressBarComeLikes.visibility = View.GONE
-                        })
-
-
-                    })
+            viewModel.getUser(list)
+            viewModel.likeListWithUser.observe(viewLifecycleOwner, Observer { likeList ->
+                viewModel.userData.observe(viewLifecycleOwner, Observer { ownUser ->
+                    adapter = ComeLikesAdapter(requireContext(), likeList,ownUser)
+                    binding.recyclerViewComeLikes.adapter = adapter
+                    binding.progressBarComeLikes.visibility = View.GONE
+                })
+            })
 
 
             if (list.isEmpty()){
