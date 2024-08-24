@@ -17,7 +17,7 @@ class UserRepo {
     private var userZodiac: MutableLiveData<Int> = MutableLiveData()
     private var userFullname: MutableLiveData<String> = MutableLiveData()
     private var userImageURL: MutableLiveData<String> = MutableLiveData()
-    private val dbRef = Firebase.firestore.collection("users")
+    private val     dbRef = Firebase.firestore.collection("users")
 
     fun getUser(): MutableLiveData<User> {
         return user

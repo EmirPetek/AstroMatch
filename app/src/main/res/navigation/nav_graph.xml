@@ -165,6 +165,9 @@
         <action
             android:id="@+id/action_chatListFragment_to_messagesFragment"
             app:destination="@id/messagesFragment" />
+        <action
+            android:id="@+id/action_chatListFragment_to_comeLikesFragment"
+            app:destination="@id/comeLikesFragment" />
     </fragment>
     <fragment
         android:id="@+id/messagesFragment"
@@ -175,4 +178,9 @@
             android:id="@+id/action_messagesFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/comeLikesFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.comeLikes.ComeLikesFragment"
+        android:label="fragment_come_likes"
+        tools:layout="@layout/fragment_come_likes" />
 </navigation>

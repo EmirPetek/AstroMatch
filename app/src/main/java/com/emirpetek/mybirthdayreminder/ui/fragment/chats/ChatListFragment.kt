@@ -8,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.chat.Chat
 import com.emirpetek.mybirthdayreminder.data.entity.chat.UserChats
 import com.emirpetek.mybirthdayreminder.databinding.FragmentChatListBinding
@@ -45,6 +47,8 @@ class ChatListFragment : Fragment() {
             if (matchesNumber > 99) binding.textViewChatListMatchesNumber.text = "+99"
             else binding.textViewChatListMatchesNumber.text = matchesNumber.toString()
         })
+
+        binding.layoutChatListMatches.setOnClickListener { findNavController().navigate(R.id.action_chatListFragment_to_comeLikesFragment) }
 
 
         newChatIDList.clear()

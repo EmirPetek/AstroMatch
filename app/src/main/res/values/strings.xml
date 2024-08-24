@@ -166,6 +166,7 @@
     <string name="type_here_hint">Type here...</string>
     <string name="no_message_here">There is no message here. \n Send your first message!</string>
     <string name="no_chat_here">There is no chat here.</string>
+    <string name="no_like_here">There is no like here.</string>
     <string name="sent">Sent</string>
     <string name="seen">Seen</string>
 

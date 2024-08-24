@@ -75,7 +75,7 @@ class ChatRepo {
                 override fun onDataChange(snapshot: DataSnapshot) {
 
                     val chat = snapshot.getValue(Chat::class.java)!!
-                    Log.e("chatttt", chat.toString())
+                    //Log.e("chatttt", chat.toString())
                     loadUsersForChat(chat,chatCount,chatDataList)
                    /* chatDataList.add(chat)
                     Companion.loadedChatCount++
