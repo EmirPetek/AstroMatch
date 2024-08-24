@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
@@ -91,7 +92,7 @@ class BirthdayAddFragment : Fragment() {
         mAdView = binding.adViewFragmentAddBirthday
         val adView = AdView(requireContext())
         adView.adUnitId = getString(R.string.ad_unit_id)
-        val adSize = AdSize(400,80)
+        val adSize = AdSize(LayoutParams.MATCH_PARENT,80)
         adView.setAdSize(adSize)
         this.mAdView = adView
         binding.adViewFragmentAddBirthday.removeAllViews()

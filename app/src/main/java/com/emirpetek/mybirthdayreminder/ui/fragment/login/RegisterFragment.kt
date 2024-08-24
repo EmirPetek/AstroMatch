@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams
 import android.widget.DatePicker
 import android.widget.RadioButton
 import android.widget.TextView
@@ -144,7 +145,7 @@ class RegisterFragment : Fragment() {
         mAdView = binding.adViewFragmentRegister
         val adView = AdView(requireContext())
         adView.adUnitId = getString(R.string.ad_unit_id)
-        val adSize = AdSize(380,50)
+        val adSize = AdSize(LayoutParams.MATCH_PARENT,50)
         adView.setAdSize(adSize)
         this.mAdView = adView
         binding.adViewFragmentRegister.removeAllViews()
