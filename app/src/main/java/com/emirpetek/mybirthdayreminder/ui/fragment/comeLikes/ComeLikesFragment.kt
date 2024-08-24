@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.emirpetek.mybirthdayreminder.data.entity.like.Like
 import com.emirpetek.mybirthdayreminder.databinding.FragmentComeLikesBinding
@@ -29,6 +30,7 @@ class ComeLikesFragment : Fragment() {
         binding = FragmentComeLikesBinding.inflate(inflater,container,false)
 
         ManageBottomNavigationVisibility(requireActivity()).hideBottomNav()
+        binding.imageViewComeLikesBackButton.setOnClickListener { findNavController().popBackStack() }
 
 
         binding.progressBarComeLikes.visibility = View.VISIBLE
