@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.user.UserGalleryPhoto
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
+import com.emirpetek.mybirthdayreminder.data.entity.user.ProfileView
 import com.emirpetek.mybirthdayreminder.databinding.FragmentProfileBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.profile.ProfileFragmentPostAdapter
 import com.emirpetek.mybirthdayreminder.ui.adapter.profile.userGalleryPhotos.ProfileFragmentProfileGalleryPhotosAdapter
@@ -40,6 +41,7 @@ class ProfileFragment : Fragment() {
     private lateinit var galleryPhotoAdapter: ProfileFragmentProfileGalleryPhotosAdapter
     var postList = ArrayList<Post>()
     var userID : String? = null
+    private val ownUserID = Firebase.auth.currentUser!!.uid
     var galleryPhotos : ArrayList<UserGalleryPhoto>? = null
     var userType: String = ""
 
@@ -70,11 +72,13 @@ class ProfileFragment : Fragment() {
     }
 
     fun bindAnyUser(){
+        binding.textViewProfileFragmentNumberOfVisitors.visibility = View.GONE
         ManageBottomNavigationVisibility(requireActivity()).hideBottomNav()
         toolbarAnyUser()
         binding.constraintLayoutFragmentProfilePostLayout.visibility = View.GONE
         //bindComplianceRate()
         bindUserData(userID.toString())
+        catchProfileVisit()
     }
 
     fun bindOwnUser(){
@@ -84,6 +88,7 @@ class ProfileFragment : Fragment() {
         toolbarOwnUser()
         bindUserData(auth.currentUser!!.uid)
         bindUserPost()
+        bindNumberOfVisitors()
     }
 
     private fun toolbarAnyUser(){
@@ -386,6 +391,17 @@ class ProfileFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         //bindUserPost()
+    }
 
+    fun bindNumberOfVisitors(){
+        viewModel.getProfileViewerSize()
+        viewModel.visitorQuerySize.observe(viewLifecycleOwner, Observer { size ->
+            binding.textViewProfileFragmentNumberOfVisitors.text = "$size \n ${getString(R.string.visitors)}"
+        })
+    }
+
+    fun catchProfileVisit(){
+        val visit = ProfileView("",ownUserID,userID!!)
+        viewModel.insertProfileView(visit)
     }
 }

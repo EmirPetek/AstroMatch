@@ -5,15 +5,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
+import com.emirpetek.mybirthdayreminder.data.entity.user.ProfileView
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.emirpetek.mybirthdayreminder.data.repo.user.UserRepo
 import com.emirpetek.mybirthdayreminder.data.repo.social.QuestionRepo
+import com.emirpetek.mybirthdayreminder.data.repo.user.ProfileViewRepo
 import kotlinx.coroutines.launch
 
 class ProfileViewModel : ViewModel() {
 
 
     private val repo = UserRepo()
+    private val profileViewRepo = ProfileViewRepo()
+
+
     var user = MutableLiveData<User>()// = MutableLiveData()
     var userAsync = MutableLiveData<User>()// = MutableLiveData()
     var userFullname = MutableLiveData<String>()// = MutableLiveData()
@@ -26,6 +31,9 @@ class ProfileViewModel : ViewModel() {
     var answerSizeList: LiveData<List<Int>> get() = _answerSizeList
     private val postRepo = QuestionRepo()
 
+
+    var visitorQuerySize = MutableLiveData<Int>()
+
     init {
         user = repo.getUser()
         userAsync = repo.getUserAsync()
@@ -33,6 +41,7 @@ class ProfileViewModel : ViewModel() {
         userImgURL = repo.getUserImage()
         answerSizeList = _answerSizeList
         questionList = postRepo.questionList
+        visitorQuerySize = profileViewRepo.querySize
     }
 
     fun getUser(userID: String) {
@@ -62,5 +71,13 @@ class ProfileViewModel : ViewModel() {
 
     fun getUserZodiac(userID: String){
         repo.getUserZodiac(userID)
+    }
+
+    fun insertProfileView(view:ProfileView){
+        profileViewRepo.insertProfileView(view)
+    }
+
+    fun getProfileViewerSize(){
+        profileViewRepo.getProfileViewerSize()
     }
 }
