@@ -197,8 +197,11 @@ class ChatRepo {
         messagesRef.child(chatID).limitToLast(50).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (dataSnapshot in snapshot.children) {
-                    // readState'i true olarak güncelle
-                    dataSnapshot.ref.child("read").setValue(true)
+                    val senderID = dataSnapshot.child("senderID").value as? String
+                    if (senderID != ownUserID) {
+                        // Okundu durumu alanını true olarak güncelle
+                        dataSnapshot.ref.child("read").setValue(true)
+                    }
                 }
             }
 
