@@ -78,6 +78,7 @@ class ProfileFragment : Fragment() {
     }
 
     fun bindOwnUser(){
+        binding.buttonProfileFragmentSendMessage.visibility = View.GONE
         ManageBottomNavigationVisibility(requireActivity()).showBottomNav()
         binding.linearLayoutHoroscopeCompatibility.visibility = View.GONE
         toolbarOwnUser()

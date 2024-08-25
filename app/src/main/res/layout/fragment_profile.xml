@@ -102,10 +102,14 @@
                     android:id="@+id/buttonProfileFragmentSendMessage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="38dp"
-                    android:layout_marginTop="48dp"
-                    android:text="mesaj gönder"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/light_blue"
+                    android:fontFamily="@font/nunito"
+                    android:text="@string/send_msg"
+                    android:textColor="@color/text_black"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
