@@ -43,6 +43,9 @@ class ComeLikesViewModel : ViewModel() {
     fun getUser(list: List<Like>){
             likeRepo.getUserDataFromLikeList(list)
             likeListWithUser = likeRepo.likeWithUserLiveData
+    }
 
+    fun deleteLike(likeID:String){
+        likeRepo.deleteLike(likeID)
     }
 }

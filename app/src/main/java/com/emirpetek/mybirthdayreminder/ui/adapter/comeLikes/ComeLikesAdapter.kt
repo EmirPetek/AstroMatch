@@ -16,18 +16,22 @@ import com.emirpetek.mybirthdayreminder.data.enum.LikeType
 import com.emirpetek.mybirthdayreminder.ui.util.zodiacAndAscendant.CalculateCompatibility
 import com.emirpetek.mybirthdayreminder.ui.util.zodiacAndAscendant.CalculateZodiacAscendant
 import com.emirpetek.mybirthdayreminder.ui.util.zodiacAndAscendant.GetZodiacAscendant
+import com.emirpetek.mybirthdayreminder.viewmodel.comeLikes.ComeLikesViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class ComeLikesAdapter(
     val mContext: Context,
     val likeList: List<Like>,
     val ownUser: User,
+    val viewModel: ComeLikesViewModel,
 ): RecyclerView.Adapter<ComeLikesAdapter.LikeViewHolder>() {
 
     inner class LikeViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val cardViewComeLikes : CardView = view.findViewById(R.id.cardViewComeLikes)
         val imageViewCardComeLikesUserImg: ImageView = view.findViewById(R.id.imageViewCardComeLikesUserImg)
-        val imageViewCardComeLikesLikeType: ImageView = view.findViewById(R.id.imageViewCardComeLikesLikeType)
+        val imageViewCardComeLikesDeleteLike: ImageView = view.findViewById(R.id.imageViewCardComeLikesDeleteLike)
         val imageViewCardComeLikesUserHoroscope: ImageView = view.findViewById(R.id.imageViewCardComeLikesUserHoroscope)
+        val imageViewCardComeLikesSendLike: ImageView = view.findViewById(R.id.imageViewCardComeLikesSendLike)
         val textViewCardComeLikesUsername: TextView = view.findViewById(R.id.textViewCardComeLikesUsername)
         val textViewCardComeLikesUserHoroscope: TextView = view.findViewById(R.id.textViewCardComeLikesUserHoroscope)
         val textViewCardComeLikesCompatibilityRate: TextView = view.findViewById(R.id.textViewCardComeLikesCompatibilityRate)
@@ -55,11 +59,11 @@ class ComeLikesAdapter(
 
         Glide.with(mContext).load(item.user?.profile_img).circleCrop().into(holder.imageViewCardComeLikesUserImg)
         if (item.type.equals(LikeType.NORMAL)) {
-            Glide.with(mContext).load(R.drawable.like_person).into(holder.imageViewCardComeLikesLikeType)
+            Glide.with(mContext).load(R.drawable.like_person).into(holder.imageViewCardComeLikesSendLike)
             holder.cardViewComeLikes.setCardBackgroundColor(mContext.getColor(R.color.card_normal_like))
 
         }else{
-            Glide.with(mContext).load(R.drawable.mega_like_person).into(holder.imageViewCardComeLikesLikeType)
+            Glide.with(mContext).load(R.drawable.mega_like_person).into(holder.imageViewCardComeLikesSendLike)
             holder.cardViewComeLikes.setCardBackgroundColor(mContext.getColor(R.color.card_mega_like))
         }
 
@@ -70,6 +74,16 @@ class ComeLikesAdapter(
             .into(holder.imageViewCardComeLikesUserHoroscope)
         holder.textViewCardComeLikesUserHoroscope.text =
                 GetZodiacAscendant(mContext).getZodiacOrAscendantSignByIndex(CalculateZodiacAscendant(itemUser.birthdate,itemUser.birthTime).getZodiac())
+
+
+        holder.imageViewCardComeLikesDeleteLike.setOnClickListener { it ->
+            Snackbar.make(it,mContext.getString(R.string.are_you_sure_to_delete),Snackbar.LENGTH_SHORT)
+                .setAction(mContext.getString(R.string.delete)){
+                    viewModel.deleteLike(item.likeID)
+                    notifyItemRemoved(position)
+                }.show()
+        }
+
 
 
 

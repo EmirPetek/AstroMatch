@@ -56,7 +56,7 @@ class ComeLikesFragment : Fragment() {
             viewModel.getUser(list)
             viewModel.likeListWithUser.observe(viewLifecycleOwner, Observer { likeList ->
                 viewModel.userData.observe(viewLifecycleOwner, Observer { ownUser ->
-                    adapter = ComeLikesAdapter(requireContext(), likeList,ownUser)
+                    adapter = ComeLikesAdapter(requireContext(), likeList,ownUser,viewModel)
                     binding.recyclerViewComeLikes.adapter = adapter
                     binding.progressBarComeLikes.visibility = View.GONE
                 })

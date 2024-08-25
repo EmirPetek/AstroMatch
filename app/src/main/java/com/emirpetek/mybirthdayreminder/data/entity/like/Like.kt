@@ -9,7 +9,7 @@ data class Like(
     val receiverUserId: String,
     val timestamp: Long,
     val type: LikeType,
-    val likeID:String,
+    var likeID:String,
     val deleteState: Int? = null,
     val deleteTime: Long? = null,
     var user: User? = null

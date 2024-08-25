@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.emirpetek.mybirthdayreminder.data.entity.like.Like
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -37,7 +38,13 @@ class LikeRepo {
             .collection(userID)
             .get()
             .addOnSuccessListener { querySnapshot ->
-                val likeModels = querySnapshot.documents.mapNotNull { it.toObject(Like::class.java) }
+                val likeModels = querySnapshot.documents.mapNotNull { it ->
+                    val like = it.toObject(Like::class.java)
+                    if (like?.deleteState?.equals(0) == true) {
+                        like.likeID = it.id
+                        like
+                    }else null
+                }
                 //Log.e("like models: ", likeModels.toString())
                 likeLiveData.value = likeModels
             }
@@ -58,6 +65,19 @@ class LikeRepo {
                     //Log.e("userrrr", "${user?.userID} ve like içindeki uid ${like.senderUserId}")
                 }
         }
+    }
+
+    fun deleteLike(likeID:String){
+        dbRef
+            .document("userList")
+            .collection(Firebase.auth.currentUser!!.uid)
+            .document(likeID)
+            .update(
+                mapOf(
+                    "deleteState" to 1,
+                    "deleteTime" to System.currentTimeMillis()
+                )
+            )
 
     }
 }

@@ -67,10 +67,10 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
-                        android:id="@+id/imageViewCardComeLikesLikeType"
+                        android:id="@+id/imageViewCardComeLikesDeleteLike"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        app:srcCompat="@android:drawable/screen_background_dark_transparent" />
+                        app:srcCompat="@android:drawable/ic_delete" />
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -156,7 +156,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="Mesaj gönder" />
+                    android:backgroundTint="@color/light_blue"
+                    android:fontFamily="@font/nunito"
+                    android:text="@string/send_msg"
+                    android:textColor="@color/text_black"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/imageViewCardComeLikesSendLike"
