@@ -61,6 +61,9 @@
         <action
             android:id="@+id/action_profileFragment_to_messagesFragment"
             app:destination="@id/messagesFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_profileVisitorsFragment"
+            app:destination="@id/profileVisitorsFragment" />
     </fragment>
     <fragment
         android:id="@+id/socialFragment"
@@ -183,4 +186,9 @@
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.comeLikes.ComeLikesFragment"
         android:label="fragment_come_likes"
         tools:layout="@layout/fragment_come_likes" />
+    <fragment
+        android:id="@+id/profileVisitorsFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.profileVisitors.ProfileVisitorsFragment"
+        android:label="fragment_profile_visitors"
+        tools:layout="@layout/fragment_profile_visitors" />
 </navigation>

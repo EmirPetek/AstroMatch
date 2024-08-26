@@ -5,18 +5,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
-import com.emirpetek.mybirthdayreminder.data.entity.user.ProfileView
+import com.emirpetek.mybirthdayreminder.data.entity.user.ProfileVisit
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.emirpetek.mybirthdayreminder.data.repo.user.UserRepo
 import com.emirpetek.mybirthdayreminder.data.repo.social.QuestionRepo
-import com.emirpetek.mybirthdayreminder.data.repo.user.ProfileViewRepo
+import com.emirpetek.mybirthdayreminder.data.repo.user.ProfileVisitRepo
 import kotlinx.coroutines.launch
 
 class ProfileViewModel : ViewModel() {
 
 
     private val repo = UserRepo()
-    private val profileViewRepo = ProfileViewRepo()
+    private val profileViewRepo = ProfileVisitRepo()
 
 
     var user = MutableLiveData<User>()// = MutableLiveData()
@@ -73,7 +73,7 @@ class ProfileViewModel : ViewModel() {
         repo.getUserZodiac(userID)
     }
 
-    fun insertProfileView(view:ProfileView){
+    fun insertProfileView(view:ProfileVisit){
         profileViewRepo.insertProfileView(view)
     }
 

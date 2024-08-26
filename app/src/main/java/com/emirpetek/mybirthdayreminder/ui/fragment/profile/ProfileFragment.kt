@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.user.UserGalleryPhoto
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
-import com.emirpetek.mybirthdayreminder.data.entity.user.ProfileView
+import com.emirpetek.mybirthdayreminder.data.entity.user.ProfileVisit
 import com.emirpetek.mybirthdayreminder.databinding.FragmentProfileBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.profile.ProfileFragmentPostAdapter
 import com.emirpetek.mybirthdayreminder.ui.adapter.profile.userGalleryPhotos.ProfileFragmentProfileGalleryPhotosAdapter
@@ -398,10 +398,14 @@ class ProfileFragment : Fragment() {
         viewModel.visitorQuerySize.observe(viewLifecycleOwner, Observer { size ->
             binding.textViewProfileFragmentNumberOfVisitors.text = "$size \n ${getString(R.string.visitors)}"
         })
+
+        binding.textViewProfileFragmentNumberOfVisitors.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_profileVisitorsFragment)
+        }
     }
 
     fun catchProfileVisit(){
-        val visit = ProfileView("",ownUserID,userID!!)
+        val visit = ProfileVisit("",ownUserID,userID!!)
         viewModel.insertProfileView(visit)
     }
 }
