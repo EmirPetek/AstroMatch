@@ -1,9 +1,12 @@
 package com.emirpetek.mybirthdayreminder.ui.fragment.messages
 
+import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.text.PrecomputedText.Params
@@ -14,7 +17,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBar.LayoutParams
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.marginBottom
 import androidx.core.view.marginTop
 import androidx.lifecycle.Observer
@@ -51,6 +57,11 @@ class MessagesFragment : Fragment() {
     private var alertDialog: AlertDialog? = null
 
 
+    companion object {
+        const val REQUEST_CODE_PICK_IMAGE = 1001
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -84,7 +95,7 @@ class MessagesFragment : Fragment() {
                 checkAndSendMessage(chatID!!)
             }
 
-            binding.buttonMessagesFragmentMedia.setOnClickListener { pickImages() }
+            binding.buttonMessagesFragmentMedia.setOnClickListener { checkGalleryPermission() }
 
                 viewModel.getMessages(chatID!!)
                 viewModel.messages.observe(viewLifecycleOwner, Observer { messages ->
@@ -144,6 +155,19 @@ class MessagesFragment : Fragment() {
         startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE)
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun checkGalleryPermission() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+            // Kamera izni verilmemiş, izin iste
+            Log.e("izin durumu:", "izin yok")
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.READ_MEDIA_IMAGES), REQUEST_CODE_PICK_IMAGE)
+        } else {
+            Log.e("izin durumu:", "izin var")
+            // İzin verilmiş, kamerayı başlat
+            pickImages()
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -189,7 +213,6 @@ class MessagesFragment : Fragment() {
             }
         }
     }
-
     private fun uploadImageToDatabase(imageUri: Uri,chatID: String) {
         val storageReference = FirebaseStorage.getInstance().reference
         var imgPathString = "chat/messages/$chatID/${UUID.randomUUID()}.jpg"
@@ -238,6 +261,5 @@ class MessagesFragment : Fragment() {
             alertDialog = null
         }
     }
-
 
 }
