@@ -51,7 +51,7 @@ class MessagesViewModel : ViewModel() {
         chatRepo.markMessagesAsRead(chatID)
     }
 
-    fun sendMessage(chatID: String, msg:String, type: MessageType, callback: (Boolean) -> Unit){
+    fun sendMessage(chatID: String, msg:Any, type: MessageType, callback: (Boolean) -> Unit){
         val message = Message(
             "",
             chatID,

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.emirpetek.mybirthdayreminder.data.entity.chat.Chat
 import com.emirpetek.mybirthdayreminder.data.entity.chat.Message
+import com.emirpetek.mybirthdayreminder.data.entity.chat.MessageType
 import com.emirpetek.mybirthdayreminder.data.entity.chat.UserChats
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -176,7 +177,7 @@ class ChatRepo {
 
         messagesRef.child(message.chatID).child(messageID).setValue(messageWithId)
             .addOnSuccessListener {
-                updateLastMessage(messageWithId.chatID,messageWithId)
+                updateLastMessage(messageWithId.chatID, messageWithId)
                 callback(true)
             }
             .addOnFailureListener {
@@ -186,11 +187,22 @@ class ChatRepo {
     }
 
     private fun updateLastMessage(chatId: String, message: Message) {
-        chatsRef.child(chatId).updateChildren(mapOf(
-            "lastMessage" to message.messageText,
-            "lastMessageTimestamp" to message.timestamp,
-            "unreadCount/${message.senderID}" to 0 // Gönderen için okunmamış mesaj sayısını sıfırlar
-        ))
+
+        if (message.messageType == MessageType.TEXT){
+            chatsRef.child(chatId).updateChildren(mapOf(
+                "lastMessage" to message.messageText,
+                "lastMessageTimestamp" to message.timestamp,
+                "unreadCount/${message.senderID}" to 0 // Gönderen için okunmamış mesaj sayısını sıfırlar
+            ))
+        }else if (message.messageType == MessageType.IMAGE){
+            chatsRef.child(chatId).updateChildren(mapOf(
+                "lastMessage" to "Image File",
+                "lastMessageTimestamp" to message.timestamp,
+                "unreadCount/${message.senderID}" to 0 // Gönderen için okunmamış mesaj sayısını sıfırlar
+            ))
+        }
+
+
     }
 
     fun markMessagesAsRead(chatID: String) {

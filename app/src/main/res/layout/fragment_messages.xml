@@ -129,15 +129,33 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="5dp"
                         android:orientation="horizontal">
 
                         <LinearLayout
+                            android:id="@+id/layoutMessageMedia"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerViewMessagesMedia"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layoutMessageText"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:visibility="visible">
 
                             <EditText
                                 android:id="@+id/editTextMessagesFragmentMessage"
@@ -172,9 +190,10 @@
 
                                 <ImageView
                                     android:id="@+id/buttonMessagesFragmentSendMessage"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:layout_margin="8dp"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:padding="10dp"
                                     android:src="@drawable/send" />
                             </LinearLayout>
                         </LinearLayout>

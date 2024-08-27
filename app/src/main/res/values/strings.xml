@@ -127,6 +127,7 @@
     <string name="visitors">Visitors</string>
     <string name="visitors_mock">0 \n Visitors</string>
     <string name="profile_visitors_big">PROFILE VISITORS</string>
+    <string name="image_file">Image File</string>
     <string name="ad_unit_id">ca-app-pub-3940256099942544/9214589741</string>
     <string name="ad_native_id">ca-app-pub-3940256099942544/2247696110</string>
     <string name="ad_interstitial_id">ca-app-pub-3940256099942544/5224354917</string>

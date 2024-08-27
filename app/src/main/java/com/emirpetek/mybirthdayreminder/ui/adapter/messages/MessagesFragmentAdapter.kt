@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.chat.Message
+import com.emirpetek.mybirthdayreminder.data.entity.chat.MessageType
 import com.emirpetek.mybirthdayreminder.ui.util.calculateTime.CalculateShareTime
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -77,7 +78,8 @@ class MessagesFragmentAdapter(
         when(holder){
 
             is MessageViewLeftHolder -> {
-                holder.textViewCardMessageLeftContent.text = msg.messageText
+                if (msg.messageType == MessageType.TEXT) holder.textViewCardMessageLeftContent.text = msg.messageText.toString()
+
                 holder.textViewCardMessageLeftSendTime.text = CalculateShareTime(mContext).unixtsToDate(msg.timestamp.toString())
                 Glide.with(mContext).load(anotherUserImage).circleCrop().into(holder.imageViewCardMessageLeftUserPhoto)
                 holder.layoutProfileImage.setOnClickListener { it ->
@@ -87,7 +89,7 @@ class MessagesFragmentAdapter(
             }
 
             is MessageViewRightHolder -> {
-                holder.textViewCardMessageRightContent.text = msg.messageText
+                if (msg.messageType == MessageType.TEXT) holder.textViewCardMessageRightContent.text = msg.messageText.toString()
                 holder.textViewCardMessageRightSendTime.text = CalculateShareTime(mContext).unixtsToDate(msg.timestamp.toString())
                 holder.textViewCardMessageRightSeenState.text = msg.isRead.toString()
                 if (msg.isRead)Glide.with(mContext).load(R.drawable.seen_msg_eye).into(holder.imageViewReadState)

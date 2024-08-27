@@ -1,5 +1,9 @@
 package com.emirpetek.mybirthdayreminder.ui.fragment.messages
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Intent
+import android.net.Uri
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.util.Log
@@ -17,10 +21,14 @@ import com.emirpetek.mybirthdayreminder.data.entity.chat.Message
 import com.emirpetek.mybirthdayreminder.data.entity.chat.MessageType
 import com.emirpetek.mybirthdayreminder.databinding.FragmentMessagesBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.messages.MessagesFragmentAdapter
+import com.emirpetek.mybirthdayreminder.ui.adapter.social.sharePost.question.AskQuestionFragmentImageAdapter
+import com.emirpetek.mybirthdayreminder.ui.fragment.social.sharePost.AskQuestionFragment.Companion.REQUEST_CODE_PICK_IMAGE
 import com.emirpetek.mybirthdayreminder.ui.util.bottomNavigation.ManageBottomNavigationVisibility
 import com.emirpetek.mybirthdayreminder.viewmodel.messages.MessagesViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import java.util.UUID
 
 class MessagesFragment : Fragment() {
 
@@ -29,6 +37,14 @@ class MessagesFragment : Fragment() {
     private lateinit var messageAdapter:MessagesFragmentAdapter
     private var messageList = ArrayList<Message>()
     private val ownUserID = Firebase.auth.currentUser!!.uid
+
+    private var selectedImages = ArrayList<Uri>()
+    private lateinit var selectedImagesAdapter: AskQuestionFragmentImageAdapter
+    private var imagesToUpload = 0
+    private var uploadedImages = 0
+    private var imgUrlRefList = ArrayList<String>()
+    private var alertDialog: AlertDialog? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,7 +74,12 @@ class MessagesFragment : Fragment() {
         viewModel.startChat(ownUserID,anotherUserID)
         viewModel.currentChatID.observe(viewLifecycleOwner, Observer { chatID ->
 
-            binding.buttonMessagesFragmentSendMessage.setOnClickListener { sendMessage(chatID!!,binding.editTextMessagesFragmentMessage.text.toString()) }
+            binding.buttonMessagesFragmentSendMessage.setOnClickListener {
+                //sendMessage(chatID!!,binding.editTextMessagesFragmentMessage.text.toString())
+                checkAndSendMessage(chatID!!)
+            }
+
+            binding.buttonMessagesFragmentMedia.setOnClickListener { pickImages() }
 
                 viewModel.getMessages(chatID!!)
                 viewModel.messages.observe(viewLifecycleOwner, Observer { messages ->
@@ -85,14 +106,130 @@ class MessagesFragment : Fragment() {
         return binding.root
     }
 
-    private fun sendMessage(chatID: String, msg:String){
-        val type = MessageType.TEXT // eğer resim seçilmişse image, yazı yazılmışsa text olacak, mixleme ileride düşünülebilir
-        viewModel.sendMessage(chatID,msg, type){ success ->
-            if (success){
-                binding.editTextMessagesFragmentMessage.text.clear()
-            }else{
-                Toast.makeText(requireContext(),"mesaj gönderilmeedi", Toast.LENGTH_SHORT).show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.recyclerViewMessagesMedia.setHasFixedSize(true)
+        binding.recyclerViewMessagesMedia.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        selectedImagesAdapter = AskQuestionFragmentImageAdapter(requireContext(),selectedImages)
+        binding.recyclerViewMessagesMedia.adapter = selectedImagesAdapter
+    }
+
+    private fun sendMessage(chatID: String, messageType: MessageType, msg:Any){
+            val type = MessageType.TEXT // eğer resim seçilmişse image, yazı yazılmışsa text olacak, mixleme ileride düşünülebilir
+
+            viewModel.sendMessage(chatID,msg, messageType){ success ->
+                if (success){
+                    binding.editTextMessagesFragmentMessage.text.clear()
+                }else{
+                    Toast.makeText(requireContext(),"Mesaj Gönderilemedi!", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+
+
+    }
+
+    private fun pickImages() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            type = "image/*"
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            addCategory(Intent.CATEGORY_OPENABLE)
+        }
+        startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (data == null || (data.clipData == null && data.data == null)) {
+            binding.layoutMessageMedia.visibility = View.GONE
+        }else{
+            binding.layoutMessageText.visibility = View.GONE
+            binding.layoutMessageMedia.visibility = View.VISIBLE
+        }
+
+        if (requestCode == REQUEST_CODE_PICK_IMAGE && resultCode == Activity.RESULT_OK) {
+            data?.let { intentData ->
+                val clipData = intentData.clipData
+                if (clipData != null) {
+                    // Birden fazla resim seçildi
+                    for (i in 0 until clipData.itemCount) {
+                        val uri = clipData.getItemAt(i).uri
+                        selectedImages.add(uri)
+                    }
+                } else {
+                    // Tek bir resim seçildi
+                    val uri = intentData.data
+                    uri?.let {
+                        selectedImages.add(it)
+                    }
+                }
+                selectedImagesAdapter.notifyDataSetChanged()
             }
         }
     }
+
+    private fun checkAndSendMessage(chatID: String) {
+        imagesToUpload = selectedImages.size
+        if (imagesToUpload == 0){
+            imgUrlRefList.add("null")
+            sendMessage(chatID!!, MessageType.TEXT,binding.editTextMessagesFragmentMessage.text.toString())
+        }else {
+            showLoadingAlert()
+            uploadedImages = 0
+            for (uri in selectedImages) {
+                uploadImageToDatabase(uri,chatID)
+            }
+        }
+    }
+
+    private fun uploadImageToDatabase(imageUri: Uri,chatID: String) {
+        val storageReference = FirebaseStorage.getInstance().reference
+        var imgPathString = "chat/messages/$chatID/${UUID.randomUUID()}.jpg"
+        val imageReference = storageReference.child(imgPathString)
+
+        imageReference.putFile(imageUri)
+            .addOnSuccessListener {
+                imageReference.downloadUrl.addOnSuccessListener { uri ->
+                    imgUrlRefList.add(uri.toString())
+                    uploadedImages++
+                    if (uploadedImages == imagesToUpload) {
+                        // Tüm resimler yüklendiğinde yapılacak işlem
+                        binding.layoutMessageMedia.visibility = View.GONE
+                        binding.layoutMessageText.visibility = View.VISIBLE
+                        closeLoadingAlert()
+                        sendMessage(chatID!!, MessageType.IMAGE,imgUrlRefList)
+                    }
+                    // Resmin URL'sini veritabanına kaydedebilirsin
+                    // saveImageUrlToDatabase(uri.toString())
+                }
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(requireContext(),getString(R.string.something_wrong),Toast.LENGTH_SHORT).show()
+                // Yükleme başarısız olduysa hata işlemlerini burada yapabilirsin
+            }
+    }
+
+    private fun showLoadingAlert() {
+        if (alertDialog == null) {
+            val dialogView = layoutInflater.inflate(R.layout.alert_wait_screen, null)
+            val alertDialogBuilder = AlertDialog.Builder(requireContext())
+            alertDialogBuilder.setView(dialogView)
+            alertDialog = alertDialogBuilder.create().apply {
+                setCancelable(false)
+                setCanceledOnTouchOutside(false)
+            }
+        }
+        alertDialog?.show()
+    }
+
+    private fun closeLoadingAlert() {
+        alertDialog?.let {
+            it.dismiss()
+            alertDialog = null
+        }
+    }
+
+
 }
