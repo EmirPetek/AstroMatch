@@ -125,6 +125,8 @@
     <string name="hours_ago">hours ago</string>
     <string name="minutes_ago">minutes ago</string>
     <string name="visitors">Visitors</string>
+    <string name="visitors_mock">0 \n Visitors</string>
+    <string name="profile_visitors_big">PROFILE VISITORS</string>
     <string name="ad_unit_id">ca-app-pub-3940256099942544/9214589741</string>
     <string name="ad_native_id">ca-app-pub-3940256099942544/2247696110</string>
     <string name="ad_interstitial_id">ca-app-pub-3940256099942544/5224354917</string>
@@ -168,6 +170,7 @@
     <string name="no_message_here">There is no message here. \n Send your first message!</string>
     <string name="no_chat_here">There is no chat here.</string>
     <string name="no_like_here">There is no like here.</string>
+    <string name="no_profile_visitor_here">There is profile visitor here.</string>
     <string name="sent">Sent</string>
     <string name="seen">Seen</string>
     <string name="send_msg">Send \n Message</string>

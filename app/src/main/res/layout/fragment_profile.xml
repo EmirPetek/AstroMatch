@@ -118,12 +118,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="34 \n Visitors"
+                    android:fontFamily="@font/nunito"
+                    android:text="@string/visitors_mock"
+                    android:textAlignment="center"
                     android:textColor="@color/text_gray"
                     android:textSize="14sp"
                     android:textStyle="normal"
-                    android:fontFamily="@font/nunito"
-                    android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

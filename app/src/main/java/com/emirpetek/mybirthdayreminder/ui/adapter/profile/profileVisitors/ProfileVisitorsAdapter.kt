@@ -1,24 +1,23 @@
 package com.emirpetek.mybirthdayreminder.ui.adapter.profile.profileVisitors
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.user.ProfileVisit
-import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.emirpetek.mybirthdayreminder.ui.util.calculateTime.CalculateShareTime
-import com.emirpetek.mybirthdayreminder.ui.util.zodiacAndAscendant.CalculateZodiacAscendant
 import com.emirpetek.mybirthdayreminder.ui.util.zodiacAndAscendant.GetZodiacAscendant
 
 class ProfileVisitorsAdapter(
     val mContext: Context,
-    val visitorList: List<ProfileVisit>
+    val visitorList: List<ProfileVisit>,
+    val progressBarProfileVisitors: ProgressBar
 ): RecyclerView.Adapter<ProfileVisitorsAdapter.CardViewHolder>(){
 
     inner class CardViewHolder(view: View) : RecyclerView.ViewHolder(view){
@@ -49,6 +48,10 @@ class ProfileVisitorsAdapter(
             GetZodiacAscendant(mContext).getZodiacOrAscendantSignByIndex(item.user?.zodiac!!)
         Glide.with(mContext).load(zodiacDrawable).into(holder.imageViewCardProfileVisitorUserZodiac)
         Glide.with(mContext).load(item.user?.profile_img).circleCrop().into(holder.imageViewCardProfileVisitorUserProfile)
+
+        if (position == itemCount-1){
+            progressBarProfileVisitors.visibility = View.GONE
+        }
 
     }
 
