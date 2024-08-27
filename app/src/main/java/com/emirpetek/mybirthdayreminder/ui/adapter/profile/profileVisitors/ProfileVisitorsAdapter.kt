@@ -1,6 +1,7 @@
 package com.emirpetek.mybirthdayreminder.ui.adapter.profile.profileVisitors
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,7 +48,7 @@ class ProfileVisitorsAdapter(
         holder.textViewCardProfileVisitorUserZodiac.text =
             GetZodiacAscendant(mContext).getZodiacOrAscendantSignByIndex(item.user?.zodiac!!)
         Glide.with(mContext).load(zodiacDrawable).into(holder.imageViewCardProfileVisitorUserZodiac)
-        Glide.with(mContext).load(item.user?.profile_img).into(holder.imageViewCardProfileVisitorUserProfile)
+        Glide.with(mContext).load(item.user?.profile_img).circleCrop().into(holder.imageViewCardProfileVisitorUserProfile)
 
     }
 

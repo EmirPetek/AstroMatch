@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
     android:background="@color/message_field"
     android:orientation="horizontal">
 
@@ -28,33 +29,41 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="3dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textViewCardProfileUserFullname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:fontFamily="@font/nunito"
+                android:text="TextView"
+                android:textColor="@color/text_black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="3dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textViewCardProfileVisitorVisitingTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:fontFamily="@font/nunito"
+                android:text="TextView"
+                android:textColor="@color/text_black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="3dp"
             android:gravity="center|right"
             android:orientation="horizontal">
 
@@ -62,13 +71,19 @@
                 android:id="@+id/imageViewCardProfileVisitorUserZodiac"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
+                android:layout_marginEnd="5dp"
                 app:srcCompat="@android:drawable/screen_background_dark_transparent" />
 
             <TextView
                 android:id="@+id/textViewCardProfileVisitorUserZodiac"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginRight="5dp"
+                android:fontFamily="@font/nunito"
+                android:text="TextView"
+                android:textColor="@color/text_black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </LinearLayout>

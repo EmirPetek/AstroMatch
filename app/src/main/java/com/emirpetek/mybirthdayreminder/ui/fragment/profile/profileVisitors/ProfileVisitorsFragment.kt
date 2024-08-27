@@ -14,6 +14,9 @@ import com.emirpetek.mybirthdayreminder.databinding.FragmentProfileVisitorsBindi
 import com.emirpetek.mybirthdayreminder.ui.adapter.profile.profileVisitors.ProfileVisitorsAdapter
 import com.emirpetek.mybirthdayreminder.ui.util.bottomNavigation.ManageBottomNavigationVisibility
 import com.emirpetek.mybirthdayreminder.viewmodel.profile.ProfileVisitorsViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ProfileVisitorsFragment : Fragment() {
 
@@ -30,25 +33,34 @@ class ProfileVisitorsFragment : Fragment() {
         ManageBottomNavigationVisibility(requireActivity()).hideBottomNav()
 
         binding.recyclerViewVisitors.setHasFixedSize(true)
-        binding.recyclerViewVisitors.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        binding.recyclerViewVisitors.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+
+        // comelikedeki gibi bi sistem uygula. repoya bak
+
+
 
         viewModel.getVisitorList()
         viewModel.visitList.observe(viewLifecycleOwner, Observer { visitList ->
             var userCounter = 0
-
-            for (visitor in visitList){
+            adapter = ProfileVisitorsAdapter(requireContext(),visitList)
+            binding.recyclerViewVisitors.adapter = adapter
+            /*for (visitor in visitList){
                 viewModel.getUser(visitor.visitorID)
                 viewModel.user.observe(viewLifecycleOwner, Observer { user ->
                     visitor.user = user
                     userCounter++
-                })
-            }
 
-            if (userCounter == visitList.size){
-                adapter = ProfileVisitorsAdapter(requireContext(),visitList)
-                binding.recyclerViewVisitors.adapter = adapter
-                Log.e("vewrikf",visitList.toString())
-            }
+                    if (userCounter == visitList.size){
+                        adapter = ProfileVisitorsAdapter(requireContext(),visitList)
+                        binding.recyclerViewVisitors.adapter = adapter
+                    }
+
+                })
+
+
+            }*/
+
+
         })
 
 
