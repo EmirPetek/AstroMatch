@@ -6,12 +6,17 @@ import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.text.PrecomputedText.Params
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar.LayoutParams
+import androidx.core.view.marginBottom
+import androidx.core.view.marginTop
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -142,11 +147,12 @@ class MessagesFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (data == null || (data.clipData == null && data.data == null)) {
+        if (data == null || (data.clipData == null && data.data == null)) { // resim seçilmeden geri gelindi
             binding.layoutMessageMedia.visibility = View.GONE
         }else{
             binding.layoutMessageText.visibility = View.GONE
             binding.layoutMessageMedia.visibility = View.VISIBLE
+            binding.layoutMessageView.layoutParams.height = -120
         }
 
         if (requestCode == REQUEST_CODE_PICK_IMAGE && resultCode == Activity.RESULT_OK) {
@@ -200,6 +206,8 @@ class MessagesFragment : Fragment() {
                         binding.layoutMessageText.visibility = View.VISIBLE
                         closeLoadingAlert()
                         sendMessage(chatID!!, MessageType.IMAGE,imgUrlRefList)
+                        imgUrlRefList.clear()
+                        selectedImages.clear()
                     }
                     // Resmin URL'sini veritabanına kaydedebilirsin
                     // saveImageUrlToDatabase(uri.toString())
