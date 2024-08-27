@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
@@ -28,6 +29,8 @@ class MessagesFragmentAdapter(
         private var VIEW_TYPE_SENDER_RIGHT = 1
         private var VIEW_TYPE_RECEIVER_LEFT = 2
     }
+    private lateinit var imageAdapter : MessagesFragmentImageAdapter
+
 
     abstract class MessageViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
@@ -37,6 +40,8 @@ class MessagesFragmentAdapter(
         val textViewCardMessageLeftContent:TextView = view.findViewById(R.id.textViewCardMessageLeftContent)
         val textViewCardMessageLeftSendTime : TextView = view.findViewById(R.id.textViewCardMessageLeftSendTime)
         val layoutProfileImage : LinearLayout = view.findViewById(R.id.layoutMessageLeftPersonImage)
+        val layoutMedia : LinearLayout = view.findViewById(R.id.layoutMessageLeftMedia)
+        val recyclerViewMedia : RecyclerView = view.findViewById(R.id.recyclerViewMessageLeftMedia)
     }
 
     inner class MessageViewRightHolder(view : View): MessageViewHolder(view){
@@ -44,6 +49,9 @@ class MessagesFragmentAdapter(
         val textViewCardMessageRightSendTime : TextView = view.findViewById(R.id.textViewCardMessageRightSendTime)
         val textViewCardMessageRightSeenState : TextView = view.findViewById(R.id.textViewCardMessageRightSeenState)
         val imageViewReadState : ImageView = view.findViewById(R.id.imageViewCardMessageRightReadState)
+        val layoutMedia : LinearLayout = view.findViewById(R.id.layoutMessageMediaRight)
+        val recyclerViewMedia : RecyclerView = view.findViewById(R.id.recyclerViewMessageRightMedia)
+
 
     }
 
@@ -79,6 +87,16 @@ class MessagesFragmentAdapter(
 
             is MessageViewLeftHolder -> {
                 if (msg.messageType == MessageType.TEXT) holder.textViewCardMessageLeftContent.text = msg.messageText.toString()
+                else if (msg.messageType == MessageType.IMAGE){
+                    holder.layoutMedia.visibility = View.VISIBLE
+                    holder.textViewCardMessageLeftContent.visibility = View.GONE
+                    holder.recyclerViewMedia.setHasFixedSize(true)
+                    holder.recyclerViewMedia.layoutManager = LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false)
+                    val msgImageUris = msg.messageText as ArrayList<*>
+                    imageAdapter = MessagesFragmentImageAdapter(mContext,msgImageUris)
+                    holder.recyclerViewMedia.adapter = imageAdapter
+
+                }
 
                 holder.textViewCardMessageLeftSendTime.text = CalculateShareTime(mContext).unixtsToDate(msg.timestamp.toString())
                 Glide.with(mContext).load(anotherUserImage).circleCrop().into(holder.imageViewCardMessageLeftUserPhoto)
@@ -90,6 +108,15 @@ class MessagesFragmentAdapter(
 
             is MessageViewRightHolder -> {
                 if (msg.messageType == MessageType.TEXT) holder.textViewCardMessageRightContent.text = msg.messageText.toString()
+                else if (msg.messageType == MessageType.IMAGE){
+                    holder.layoutMedia.visibility = View.VISIBLE
+                    holder.textViewCardMessageRightContent.visibility = View.GONE
+                    holder.recyclerViewMedia.setHasFixedSize(true)
+                    holder.recyclerViewMedia.layoutManager = LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false)
+                    val msgImageUris = msg.messageText as ArrayList<*>
+                    imageAdapter = MessagesFragmentImageAdapter(mContext,msgImageUris)
+                    holder.recyclerViewMedia.adapter = imageAdapter
+                }
                 holder.textViewCardMessageRightSendTime.text = CalculateShareTime(mContext).unixtsToDate(msg.timestamp.toString())
                 holder.textViewCardMessageRightSeenState.text = msg.isRead.toString()
                 if (msg.isRead)Glide.with(mContext).load(R.drawable.seen_msg_eye).into(holder.imageViewReadState)
