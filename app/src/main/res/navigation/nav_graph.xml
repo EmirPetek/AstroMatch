@@ -180,6 +180,9 @@
         <action
             android:id="@+id/action_messagesFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_messagesFragment_to_showPhotosFragment"
+            app:destination="@id/showPhotosFragment" />
     </fragment>
     <fragment
         android:id="@+id/comeLikesFragment"
