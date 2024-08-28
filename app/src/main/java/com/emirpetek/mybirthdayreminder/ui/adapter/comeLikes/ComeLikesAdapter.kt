@@ -1,12 +1,16 @@
 package com.emirpetek.mybirthdayreminder.ui.adapter.comeLikes
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
@@ -35,6 +39,8 @@ class ComeLikesAdapter(
         val textViewCardComeLikesUsername: TextView = view.findViewById(R.id.textViewCardComeLikesUsername)
         val textViewCardComeLikesUserHoroscope: TextView = view.findViewById(R.id.textViewCardComeLikesUserHoroscope)
         val textViewCardComeLikesCompatibilityRate: TextView = view.findViewById(R.id.textViewCardComeLikesCompatibilityRate)
+        val layoutUserDetail: ConstraintLayout = view.findViewById(R.id.layoutCardComeLikesUserDetail)
+        val buttonSendMessage: Button = view.findViewById(R.id.buttonCardComeLikesSendMessage)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LikeViewHolder {
@@ -82,6 +88,20 @@ class ComeLikesAdapter(
                     viewModel.deleteLike(item.likeID)
                     notifyItemRemoved(position)
                 }.show()
+        }
+
+        holder.layoutUserDetail.setOnClickListener { it ->
+            val bundle : Bundle = Bundle().apply {
+                putString("userID", itemUser.userID)
+            }
+            Navigation.findNavController(it).navigate(R.id.action_comeLikesFragment_to_profileFragment,bundle)
+        }
+
+        holder.buttonSendMessage.setOnClickListener { it ->
+            val bundle : Bundle = Bundle().apply {
+                putString("anotherUserID", itemUser.userID)
+            }
+            Navigation.findNavController(it).navigate(R.id.action_comeLikesFragment_to_messagesFragment,bundle)
         }
 
 

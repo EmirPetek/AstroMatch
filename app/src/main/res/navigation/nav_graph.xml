@@ -188,7 +188,14 @@
         android:id="@+id/comeLikesFragment"
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.comeLikes.ComeLikesFragment"
         android:label="fragment_come_likes"
-        tools:layout="@layout/fragment_come_likes" />
+        tools:layout="@layout/fragment_come_likes" >
+        <action
+            android:id="@+id/action_comeLikesFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_comeLikesFragment_to_messagesFragment"
+            app:destination="@id/messagesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileVisitorsFragment"
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.profileVisitors.ProfileVisitorsFragment"
