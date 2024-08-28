@@ -20,10 +20,10 @@ class ComeLikesViewModel : ViewModel() {
     private val userRepo = UserRepo()
 
     var likeList = MutableLiveData<List<Like>>()
-    var likeListWithUser = MutableLiveData<List<Like>>()
     var userData = MutableLiveData<User>()
 
     init {
+        likeList = likeRepo.getLikeList()
 
        // userData = userRepo.getUserAsync()
     }
@@ -36,13 +36,10 @@ class ComeLikesViewModel : ViewModel() {
 
 
     fun getLikes(userID:String){
-        likeRepo.getLikes(userID)
-        likeList = likeRepo.getLikeList()
-    }
+        viewModelScope.launch {
+            likeRepo.getLikes(userID)
+        }
 
-    fun getUser(list: List<Like>){
-            likeRepo.getUserDataFromLikeList(list)
-            likeListWithUser = likeRepo.likeWithUserLiveData
     }
 
     fun deleteLike(likeID:String){

@@ -2,6 +2,7 @@ package com.emirpetek.mybirthdayreminder.ui.fragment.comeLikes
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -52,14 +53,10 @@ class ComeLikesFragment : Fragment() {
             val adapterList : List<Like> = listOf()
             binding.recyclerViewComeLikes.setHasFixedSize(true)
             binding.recyclerViewComeLikes.layoutManager = GridLayoutManager(requireContext(),2)
-
-            viewModel.getUser(list)
-            viewModel.likeListWithUser.observe(viewLifecycleOwner, Observer { likeList ->
-                viewModel.userData.observe(viewLifecycleOwner, Observer { ownUser ->
-                    adapter = ComeLikesAdapter(requireContext(), likeList,ownUser,viewModel)
-                    binding.recyclerViewComeLikes.adapter = adapter
-                    binding.progressBarComeLikes.visibility = View.GONE
-                })
+            viewModel.userData.observe(viewLifecycleOwner, Observer { ownUser ->
+                adapter = ComeLikesAdapter(requireContext(), list,ownUser,viewModel)
+                binding.recyclerViewComeLikes.adapter = adapter
+                binding.progressBarComeLikes.visibility = View.GONE
             })
 
 

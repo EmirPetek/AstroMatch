@@ -59,9 +59,4 @@ class MatchPersonViewModel : ViewModel() {
         likeRepo.insertLikeUser(like)
     }
 
-    fun getLikeUser(userID: String){
-        likeRepo.getLikes(userID)
-    }
-
-
 }

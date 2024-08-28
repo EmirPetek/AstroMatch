@@ -7,6 +7,9 @@ import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class LikeRepo {
 
@@ -14,7 +17,6 @@ class LikeRepo {
         .collection("likes")
         //.collection(ilgili userID)
     val likeLiveData = MutableLiveData<List<Like>>()
-    val likeWithUserLiveData = MutableLiveData<List<Like>>()
 
     val dbUserRef = Firebase.firestore
         .collection("users")
@@ -31,41 +33,40 @@ class LikeRepo {
             .set(like)
     }
 
-    fun getLikes(userID: String) {
-        val listLike = ArrayList<Like>()
-        dbRef
-            .document("userList")
-            .collection(userID)
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                val likeModels = querySnapshot.documents.mapNotNull { it ->
-                    val like = it.toObject(Like::class.java)
-                    if (like?.deleteState?.equals(0) == true) {
-                        like.likeID = it.id
-                        like
-                    }else null
-                }
-                //Log.e("like models: ", likeModels.toString())
-                likeLiveData.value = likeModels
+    suspend fun getLikes(userID: String) {
+            val querySnapshot = dbRef
+                .document("userList")
+                .collection(userID)
+                .get()
+                .await()
+
+            val likeModels = querySnapshot.documents.mapNotNull { document ->
+                val like = document.toObject(Like::class.java)
+                if (like?.deleteState == 0) {
+                    like.likeID = document.id
+                    like
+                } else null
             }
-            .addOnFailureListener { exception ->
-                Log.e("Error getting likes", exception.toString())
-            }
-           // likeLiveData.value = listLike
+            // Kullanıcı verilerini getir
+            getUserDataFromLikeList(likeModels)
     }
 
-    fun getUserDataFromLikeList(list : List<Like>){
-        val likeList = list
-        for (like in likeList){
-            dbUserRef.document(like.senderUserId).get()
-                .addOnSuccessListener { snapshot ->
-                    val user = snapshot.toObject(User::class.java)
+    private suspend fun getUserDataFromLikeList(likes: List<Like>) {
+        val likeListWithUsers = likes
+            for (like in likes) {
+                val userSnapshot = dbUserRef.document(like.senderUserId).get().await()
+                val user = userSnapshot.toObject(User::class.java)
+                if (user != null) {
                     like.user = user
-                    likeWithUserLiveData.value = likeList
-                    //Log.e("userrrr", "${user?.userID} ve like içindeki uid ${like.senderUserId}")
+                    likeListWithUsers.plus(like)  // Beğeniye ait kullanıcı verisini ekle
                 }
-        }
+            }
+
+            withContext(Dispatchers.Main) {
+                likeLiveData.value = likeListWithUsers
+            }
     }
+
 
     fun deleteLike(likeID:String){
         dbRef
