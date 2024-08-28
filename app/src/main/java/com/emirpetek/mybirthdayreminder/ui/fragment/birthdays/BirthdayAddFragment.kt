@@ -47,7 +47,7 @@ class BirthdayAddFragment : Fragment() {
     private lateinit var bdDate:String
     private lateinit var userkey:String
     private lateinit var gift_idea:String
-    private var userDegree:String = ""
+    private var userDegree:Int = 0
     private lateinit var auth: FirebaseAuth
     private lateinit var mAdView : AdView
 
@@ -170,9 +170,12 @@ class BirthdayAddFragment : Fragment() {
     private fun setUserDegreeSpinner(spinner: Spinner) : String{
         val family = getString(R.string.family)
         val friend = getString(R.string.friends)
-        val work = getString(R.string.work)
         val bros = getString(R.string.bros)
-        userDegrees = arrayListOf(family,bros,friend,work)
+        val colleagues = getString(R.string.colleagues)
+        val acquaintances = getString(R.string.acquaintances)
+        val partner = getString(R.string.partner)
+        val vip = getString(R.string.vip)
+        userDegrees = arrayListOf(family,friend,bros,colleagues,acquaintances,partner,vip)
         var getUserDegree = ""
 
         val spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, userDegrees)
@@ -183,7 +186,7 @@ class BirthdayAddFragment : Fragment() {
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                userDegree = p0!!.getItemAtPosition(p2).toString()
+                userDegree = p2
 
             }
 

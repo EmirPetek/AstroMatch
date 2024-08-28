@@ -187,29 +187,32 @@ class BirthdayUpdateFragment : Fragment() {
         transaction.commit()*/
     }
 
-    private fun setUserDegreeSpinner(spinner: Spinner, userDegreeStr: String): String {
+    private fun setUserDegreeSpinner(spinner: Spinner, userDegreeInt: Int): Int {
         val family = getString(R.string.family)
         val friend = getString(R.string.friends)
-        val work = getString(R.string.work)
         val bros = getString(R.string.bros)
-        userDegrees = arrayListOf(family, bros, friend, work)
+        val colleagues = getString(R.string.colleagues)
+        val acquaintances = getString(R.string.acquaintances)
+        val partner = getString(R.string.partner)
+        val vip = getString(R.string.vip)
+        userDegrees = arrayListOf(family,friend,bros,colleagues,acquaintances,partner,vip)
 
         val spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, userDegrees)
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = spinnerAdapter
 
         // Spinner'da userDegreeStr'ye göre öğeyi seçili hale getir
-        val position = userDegrees.indexOf(userDegreeStr)
+        val position = userDegreeInt
         if (position >= 0) {
             spinner.setSelection(position)
         }
 
         // Seçilen öğeyi saklamak için bir değişken
-        var selectedDegree = userDegreeStr
+        var selectedDegree = 0//userDegreeStr
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                selectedDegree = parent?.getItemAtPosition(position).toString()
+                selectedDegree = position
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

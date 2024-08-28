@@ -20,6 +20,10 @@
     <string name="family">Family</string>
     <string name="work">Work</string>
     <string name="friends">Friends</string>
+    <string name="colleagues">Colleagues</string>
+    <string name="acquaintances">Acquaintances</string>
+    <string name="partner">Partner</string>
+    <string name="vip">VIP</string>
     <string name="bros">Bros</string>
     <string name="date_format">DD/MM/YYYY</string>
     <string name="select_birthday">Please select birthdate.</string>
