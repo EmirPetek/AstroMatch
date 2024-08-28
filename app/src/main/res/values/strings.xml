@@ -174,6 +174,7 @@
     <string name="no_chat_here">There is no chat here.</string>
     <string name="no_like_here">There is no like here.</string>
     <string name="no_profile_visitor_here">There is profile visitor here.</string>
+    <string name="no_send_empty_text">You should write anything to send message.</string>
     <string name="sent">Sent</string>
     <string name="seen">Seen</string>
     <string name="send_msg">Send \n Message</string>

@@ -91,8 +91,9 @@ class MessagesFragment : Fragment() {
         viewModel.currentChatID.observe(viewLifecycleOwner, Observer { chatID ->
 
             binding.buttonMessagesFragmentSendMessage.setOnClickListener {
-                //sendMessage(chatID!!,binding.editTextMessagesFragmentMessage.text.toString())
-                checkAndSendMessage(chatID!!)
+                if (binding.editTextMessagesFragmentMessage.text.toString().isEmpty()){
+                    Toast.makeText(requireContext(),getString(R.string.no_send_empty_text),Toast.LENGTH_SHORT).show()
+                }else checkAndSendMessage(chatID!!)
             }
 
             binding.buttonMessagesFragmentMedia.setOnClickListener { checkGalleryPermission() }
@@ -204,7 +205,7 @@ class MessagesFragment : Fragment() {
         imagesToUpload = selectedImages.size
         if (imagesToUpload == 0){
             imgUrlRefList.add("null")
-            sendMessage(chatID!!, MessageType.TEXT,binding.editTextMessagesFragmentMessage.text.toString())
+            sendMessage(chatID!!, MessageType.TEXT,binding.editTextMessagesFragmentMessage.text.toString().trim())
         }else {
             showLoadingAlert()
             uploadedImages = 0
