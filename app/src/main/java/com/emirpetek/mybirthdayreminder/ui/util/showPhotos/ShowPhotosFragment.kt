@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.databinding.FragmentShowPhotosBinding
+import com.emirpetek.mybirthdayreminder.ui.util.bottomNavigation.ManageBottomNavigationVisibility
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
@@ -46,7 +47,7 @@ class ShowPhotosFragment : Fragment() {
 
         imageIndex = arguments?.getInt("imageIndex")!!
 
-        hideBottomNav()
+        ManageBottomNavigationVisibility(requireActivity()).hideBottomNav()
         setAdView()
         binding.imageViewShowPhotosGoBack.setOnClickListener { goBack() }
 
@@ -59,11 +60,6 @@ class ShowPhotosFragment : Fragment() {
 
     fun goBack(){
         findNavController().popBackStack()
-    }
-
-    private fun hideBottomNav(){
-        val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        bottomNav?.visibility = View.GONE
     }
 
     fun setAdView(){
