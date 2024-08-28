@@ -16,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBar.LayoutParams
@@ -229,6 +230,7 @@ class MessagesFragment : Fragment() {
                         binding.layoutMessageMedia.visibility = View.GONE
                         binding.layoutMessageText.visibility = View.VISIBLE
                         closeLoadingAlert()
+                        Toast.makeText(requireContext(),getString(R.string.photo_message_sent),Toast.LENGTH_SHORT).show()
                         sendMessage(chatID!!, MessageType.IMAGE,imgUrlRefList)
                         imgUrlRefList.clear()
                         selectedImages.clear()
@@ -246,6 +248,7 @@ class MessagesFragment : Fragment() {
     private fun showLoadingAlert() {
         if (alertDialog == null) {
             val dialogView = layoutInflater.inflate(R.layout.alert_wait_screen, null)
+            dialogView.findViewById<TextView>(R.id.textViewAlertWaitScreenPleaseWait).text = getString(R.string.photo_message_send_waiting)
             val alertDialogBuilder = AlertDialog.Builder(requireContext())
             alertDialogBuilder.setView(dialogView)
             alertDialog = alertDialogBuilder.create().apply {

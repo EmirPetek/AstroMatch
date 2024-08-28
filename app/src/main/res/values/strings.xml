@@ -54,6 +54,8 @@
     <string name="something_wrong">Something went wrong. PLease try again.</string>
     <string name="post_sharing_waiting">Your post is sharing. \n Please wait.</string>
     <string name="post_shared">Your post was shared successfully.</string>
+    <string name="photo_message_send_waiting">Your image message is sending. \n Please wait.</string>
+    <string name="photo_message_sent">Your image message was sent successfully.</string>
     <string name="options_at_least_two_item">You should add at least 2 options item.</string>
     <string name="your_message_sended">Your message has sent.</string>
     <string name="account">Account</string>
