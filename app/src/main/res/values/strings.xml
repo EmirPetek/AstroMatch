@@ -16,15 +16,16 @@
     <string name="gift_idea_details">Clothes,Watch,Toy etc.</string>
     <string name="user_degree">User Degree</string>
     <string name="birthdays_uppercase">BIRTHDAYS</string>
+    <string name="birthdays_gift_ideas">GIFT IDEAS</string>
     <string name="everyone">Everyone</string>
     <string name="family">Family</string>
-    <string name="work">Work</string>
     <string name="friends">Friends</string>
+    <string name="bros">Bros</string>
+    <string name="work">Work</string>
     <string name="colleagues">Colleagues</string>
     <string name="acquaintances">Acquaintances</string>
     <string name="partner">Partner</string>
     <string name="vip">VIP</string>
-    <string name="bros">Bros</string>
     <string name="date_format">DD/MM/YYYY</string>
     <string name="select_birthday">Please select birthdate.</string>
     <string name="text_name_surname">Please text name and surname</string>
@@ -38,6 +39,7 @@
     <string name="delete_birthday_ask">Are you sure to delete the birthday?</string>
     <string name="dd_mm_yyyy">DD/MM/YYYY</string>
     <string name="birthdate">Birthdate</string>
+    <string name="birthday_gift_idea_description">You can view the other users saved gift idea.</string>
     <string name="dont_have_account">Do not you have account?</string>
     <string name="continue_without_account_big">CONTINUE WITHOUT ACCOUNT</string>
     <string name="not_empty_password_fields">Please fill password fields.</string>

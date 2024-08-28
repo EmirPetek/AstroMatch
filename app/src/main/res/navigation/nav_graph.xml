@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_birthdaysFragment_to_birthdayUpdateFragment"
             app:destination="@id/birthdayUpdateFragment" />
+        <action
+            android:id="@+id/action_birthdaysFragment_to_birthdaysAnotherUserGiftIdeasFragment"
+            app:destination="@id/birthdaysAnotherUserGiftIdeasFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -201,4 +204,9 @@
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.profileVisitors.ProfileVisitorsFragment"
         android:label="fragment_profile_visitors"
         tools:layout="@layout/fragment_profile_visitors" />
+    <fragment
+        android:id="@+id/birthdaysAnotherUserGiftIdeasFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.birthdays.giftIdeas.BirthdaysAnotherUserGiftIdeasFragment"
+        android:label="fragment_birthdays_another_user_gift_ideas"
+        tools:layout="@layout/fragment_birthdays_another_user_gift_ideas" />
 </navigation>

@@ -19,7 +19,7 @@ class BirthdayUpdateViewModel : ViewModel() {
         birthdaysDaoRepo.getSpecialBirthdayData(userID,birthdayKey)
     }
 
-    fun updateBirthday(userID: String, birthdayKey: String, birthday: Map<String, String>){
+    fun updateBirthday(userID: String, birthdayKey: String, birthday: Map<String, Any>){
         birthdaysDaoRepo.updateBirthday(userID, birthdayKey, birthday)
     }
 

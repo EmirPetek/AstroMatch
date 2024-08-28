@@ -2,21 +2,30 @@ package com.emirpetek.mybirthdayreminder.data.repo.birthdays
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.emirpetek.mybirthdayreminder.data.entity.birthdays.BirthdayGiftIdea
 import com.emirpetek.mybirthdayreminder.data.entity.birthdays.Birthdays
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.tasks.await
 
 class BirthdaysDaoRepo {
 
     val birthdayList: MutableLiveData<List<Birthdays>> = MutableLiveData()
+    val giftIdeaList = MutableLiveData<List<BirthdayGiftIdea>>()
+
+
     private val dbFirestoreRef = Firebase.firestore.collection("birthdays")
+    private val giftIdeaRef = Firebase.firestore.collection("birthdays").document("giftIdeas").collection("ideas")
 
     fun insertBirthdayFS(birthday: Birthdays) {
         dbFirestoreRef
-            .document(birthday.saverID)
-            .collection("savedBirthdays")
+            .document("savedBirthdays")
+            .collection(birthday.saverID)
             .add(birthday)
             .addOnSuccessListener { documentReference ->
+
+                val idea = BirthdayGiftIdea(birthday.saverID,birthday.userDegree,birthday.giftIdea,documentReference.id)
+                insertBirthdayGiftIdea(idea)
                 // Log.e("birthdaysdaorepo: ", "DocumentSnapshot added with ID: ${documentReference.id}")
             }
             .addOnFailureListener { e ->
@@ -29,7 +38,7 @@ class BirthdaysDaoRepo {
     }
 
     fun getBirthdaysData(userID: String) {
-        dbFirestoreRef.document(userID).collection("savedBirthdays")
+        dbFirestoreRef.document("savedBirthdays").collection(userID)
             .whereEqualTo("saverID", userID)
             .whereEqualTo("deletedState", "0")
             .addSnapshotListener { snapshot, e ->
@@ -54,7 +63,7 @@ class BirthdaysDaoRepo {
     }
 
     fun getSpecialBirthdayData(userID: String, birthdayKey: String) {
-        dbFirestoreRef.document(userID).collection("savedBirthdays").document(birthdayKey)
+        dbFirestoreRef.document("savedBirthdays").collection(userID).document(birthdayKey)
             .addSnapshotListener { snapshot, e ->
                 if (e != null) {
                     Log.w("BirthdaysDaoRepo", "Listen failed.", e)
@@ -76,11 +85,22 @@ class BirthdaysDaoRepo {
             }
     }
 
-    fun updateBirthday(userID: String, birthdayKey: String, birthday: Map<String, String>) {
-        dbFirestoreRef.document(userID).collection("savedBirthdays").document(birthdayKey).update(birthday)
+    fun updateBirthday(userID: String, birthdayKey: String, birthday: Map<String, Any>) {
+        dbFirestoreRef.document("savedBirthdays").collection(userID).document(birthdayKey).update(birthday)
     }
 
     fun deleteBirthday(userID: String, birthdayKey: String, delete: Map<String, Any>) {
-        dbFirestoreRef.document(userID).collection("savedBirthdays").document(birthdayKey).update(delete)
+        dbFirestoreRef.document("savedBirthdays").collection(userID).document(birthdayKey).update(delete)
+    }
+
+    fun insertBirthdayGiftIdea(idea: BirthdayGiftIdea){
+        val doc_id = "${System.currentTimeMillis()}_${idea.birthdayKey}"
+        giftIdeaRef.document(doc_id).set(idea)
+    }
+
+    suspend fun getBirthdayGiftIdeas(){
+
+        val list = giftIdeaRef.get().await().toObjects(BirthdayGiftIdea::class.java)
+        giftIdeaList.value = list
     }
 }

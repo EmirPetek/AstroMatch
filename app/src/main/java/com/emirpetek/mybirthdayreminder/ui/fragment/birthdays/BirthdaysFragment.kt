@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.data.repo.birthdays.BirthdaysDaoRepo
 import com.emirpetek.mybirthdayreminder.databinding.FragmentBirthdaysBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.birthdays.BirthdaysAdapter
 import com.emirpetek.mybirthdayreminder.viewmodel.birthdays.BirthdaysViewModel
@@ -76,6 +77,10 @@ class BirthdaysFragment : Fragment() {
         bindFABbtn()
         hideNoBirthdayText()
         getBirthdayList()
+
+        binding.imageViewBirthdaysGiftIdeas.setOnClickListener {
+            findNavController().navigate(R.id.action_birthdaysFragment_to_birthdaysAnotherUserGiftIdeasFragment)
+        }
 
         return binding.root
 

@@ -133,7 +133,7 @@ class BirthdayUpdateFragment : Fragment() {
            val update = mapOf(
                "name" to binding.editTextBDUpdateNameSurname.text.toString(),
                "date" to binding.editTextBDUpdateDate.text.toString(),
-               "giftIdea" to binding.editTextBDUpdateGiftIdea.text.toString(),
+               "giftIdea" to binding.editTextBDUpdateGiftIdea.text.toString().toInt(),
                "userDegree" to userDegree
            )
 
