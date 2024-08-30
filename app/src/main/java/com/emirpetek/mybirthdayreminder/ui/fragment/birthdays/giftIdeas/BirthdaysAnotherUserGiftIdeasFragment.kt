@@ -2,7 +2,6 @@ package com.emirpetek.mybirthdayreminder.ui.fragment.birthdays.giftIdeas
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +10,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.data.entity.birthdays.BirthdayGiftIdea
 import com.emirpetek.mybirthdayreminder.databinding.FragmentBirthdaysAnotherUserGiftIdeasBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.birthdays.giftIdeas.BirthdaysAnotherUserGiftIdeaBottomBarAdapter
 import com.emirpetek.mybirthdayreminder.ui.adapter.birthdays.giftIdeas.BirthdaysAnotherUserGiftIdeasAdapter
@@ -33,6 +32,7 @@ class BirthdaysAnotherUserGiftIdeasFragment : Fragment() {
     private lateinit var bottomBarAdapter : BirthdaysAnotherUserGiftIdeaBottomBarAdapter
     lateinit var admobNativeAdAdapter: AdmobNativeAdAdapter
     private var filteredItems : List<Int> = arrayListOf()
+    private var newIdea: List<BirthdayGiftIdea> = listOf()
 
 
     override fun onCreateView(

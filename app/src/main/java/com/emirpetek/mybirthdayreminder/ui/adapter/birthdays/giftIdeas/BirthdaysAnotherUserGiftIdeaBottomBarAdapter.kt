@@ -46,9 +46,6 @@ class BirthdaysAnotherUserGiftIdeaBottomBarAdapter(
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val item = itemList[position]
         holder.textViewCardSelectedItem.text = item
-
-
-
         holder.cardSelectedItem.setOnClickListener {
             if (!clickedState[position]){
                 holder.cardSelectedItemInside.setCardBackgroundColor(mContext.getColor(R.color.light_blue))
