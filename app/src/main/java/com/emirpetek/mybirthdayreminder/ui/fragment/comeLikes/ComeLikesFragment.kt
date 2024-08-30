@@ -54,7 +54,8 @@ class ComeLikesFragment : Fragment() {
             binding.recyclerViewComeLikes.setHasFixedSize(true)
             binding.recyclerViewComeLikes.layoutManager = GridLayoutManager(requireContext(),2)
             viewModel.userData.observe(viewLifecycleOwner, Observer { ownUser ->
-                adapter = ComeLikesAdapter(requireContext(), list,ownUser,viewModel)
+                val sortedList = list.sortedByDescending { it.type }
+                adapter = ComeLikesAdapter(requireContext(), sortedList,ownUser,viewModel)
                 binding.recyclerViewComeLikes.adapter = adapter
                 binding.progressBarComeLikes.visibility = View.GONE
             })
