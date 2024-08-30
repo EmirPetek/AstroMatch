@@ -81,14 +81,14 @@ class BirthdaysAnotherUserGiftIdeasFragment : Fragment() {
 
 
 
-            bottomBarAdapter.setOnItemClickListener(object : BirthdaysAnotherUserGiftIdeaBottomBarAdapter.OnItemClickListener{
-                override fun onItemClicked(selectedItems: List<Int>) {
-                    textViewApply.setOnClickListener { it ->
-                        filterItems(selectedItems)
-                        dialog.dismiss()
-                    }
+        bottomBarAdapter.setOnItemClickListener(object : BirthdaysAnotherUserGiftIdeaBottomBarAdapter.OnItemClickListener{
+            override fun onItemClicked(selectedItems: List<Int>) {
+                textViewApply.setOnClickListener { it ->
+                    filterItems(selectedItems)
+                    dialog.dismiss()
                 }
-            })
+            }
+        })
 
 
         dialog.setCancelable(true)
@@ -102,10 +102,14 @@ class BirthdaysAnotherUserGiftIdeasFragment : Fragment() {
             binding.recyclerViewAnotherUserGiftIdeas.setHasFixedSize(true)
             binding.recyclerViewAnotherUserGiftIdeas.layoutManager = LinearLayoutManager(requireContext())
 
-            if (list.isEmpty()) adapter = BirthdaysAnotherUserGiftIdeasAdapter(requireContext(),idea,binding.progressBarAnotherUserGiftIdea)
-            else{
+            if (list.isEmpty()){
+                adapter = BirthdaysAnotherUserGiftIdeasAdapter(requireContext(),idea,binding.progressBarAnotherUserGiftIdea)
+                binding.textViewBirthdaysAnotherUserGiftIdeaNoIdea.visibility = View.GONE
 
-                val newIdea = idea.filter { it.userDegree in list }
+            }
+            else{
+                filteredItems = list.sortedBy { it }
+                newIdea = idea.filter { it.userDegree in list }
                 if (newIdea.isEmpty()) binding.textViewBirthdaysAnotherUserGiftIdeaNoIdea.visibility = View.VISIBLE
                 else binding.textViewBirthdaysAnotherUserGiftIdeaNoIdea.visibility = View.GONE
                 adapter = BirthdaysAnotherUserGiftIdeasAdapter(requireContext(),newIdea,binding.progressBarAnotherUserGiftIdea)
