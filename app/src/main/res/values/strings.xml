@@ -13,6 +13,7 @@
     <string name="fullname">Fullname</string>
     <string name="date">Date</string>
     <string name="gift_idea">Gift Idea</string>
+    <string name="apply">Apply</string>
     <string name="gift_idea_details">Clothes,Watch,Toy etc.</string>
     <string name="user_degree">User Degree</string>
     <string name="birthdays_uppercase">BIRTHDAYS</string>
@@ -182,6 +183,7 @@
     <string name="no_chat_here">There is no chat here.</string>
     <string name="no_like_here">There is no like here.</string>
     <string name="no_profile_visitor_here">There is profile visitor here.</string>
+    <string name="no_gift_idea_here">There is no gift idea here.</string>
     <string name="no_send_empty_text">You should write anything to send message.</string>
     <string name="sent">Sent</string>
     <string name="seen">Seen</string>

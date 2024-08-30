@@ -1,4 +1,4 @@
-package com.emirpetek.mybirthdayreminder.ui.fragment.birthdays.giftIdeas
+package com.emirpetek.mybirthdayreminder.viewmodel.birthdays
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
