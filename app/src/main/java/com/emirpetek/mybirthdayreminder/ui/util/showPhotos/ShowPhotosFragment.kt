@@ -95,9 +95,9 @@ class ShowPhotosFragment : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                    val snapView = snapHelper.findSnapView(layoutManager)
-                    val snapPosition = layoutManager.getPosition(snapView!!)
+                    val rvLayoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val snapView = snapHelper.findSnapView(rvLayoutManager)
+                    val snapPosition = rvLayoutManager.getPosition(snapView!!)
 
                     // Pozisyonu güncelle
                     val adapterPosition = snapPosition + 1
