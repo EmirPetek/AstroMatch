@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
@@ -20,8 +21,15 @@ import com.emirpetek.mybirthdayreminder.ui.adapter.birthdays.giftIdeas.Birthdays
 import com.emirpetek.mybirthdayreminder.ui.adapter.birthdays.giftIdeas.BirthdaysAnotherUserGiftIdeasAdapter
 import com.emirpetek.mybirthdayreminder.ui.util.bottomNavigation.ManageBottomNavigationVisibility
 import com.emirpetek.mybirthdayreminder.viewmodel.birthdays.BirthdaysAnotherUserGiftIdeasViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.rvadapter.AdmobNativeAdAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class BirthdaysAnotherUserGiftIdeasFragment : Fragment() {
 
@@ -33,7 +41,7 @@ class BirthdaysAnotherUserGiftIdeasFragment : Fragment() {
     lateinit var admobNativeAdAdapter: AdmobNativeAdAdapter
     private var filteredItems : List<Int> = arrayListOf()
     private var newIdea: List<BirthdayGiftIdea> = listOf()
-
+    private lateinit var mAdView : AdView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +54,9 @@ class BirthdaysAnotherUserGiftIdeasFragment : Fragment() {
         binding.progressBarAnotherUserGiftIdea.visibility = View.VISIBLE
 
         binding.imageViewAnotherUserGiftIdeasBackButton.setOnClickListener { findNavController().popBackStack() }
+
+        bindAdMob()
+
 
         viewModel.getGiftIdeas()
         filterItems(filteredItems)
@@ -76,7 +87,7 @@ class BirthdaysAnotherUserGiftIdeasFragment : Fragment() {
         val partner = getString(R.string.partner)
         val vip = getString(R.string.vip)
         val userDegrees  = arrayListOf(family,friend,bros,colleagues,acquaintances,partner,vip)
-        bottomBarAdapter = BirthdaysAnotherUserGiftIdeaBottomBarAdapter(requireContext(),userDegrees)
+        bottomBarAdapter = BirthdaysAnotherUserGiftIdeaBottomBarAdapter(requireContext(),userDegrees,filteredItems)
         rv.adapter = bottomBarAdapter
 
 
@@ -126,6 +137,25 @@ class BirthdaysAnotherUserGiftIdeasFragment : Fragment() {
             binding.recyclerViewAnotherUserGiftIdeas.adapter = admobNativeAdAdapter
 
         })
+    }
+
+    fun bindAdMob(){
+        // comelikes sayfası reklam gösterme kısmı
+        val backgroundScope = CoroutineScope(Dispatchers.IO)
+        backgroundScope.launch {
+            // Initialize the Google Mobile Ads SDK on a background thread.
+            MobileAds.initialize(requireContext()) {}
+        }
+        mAdView = binding.adViewGiftIdeasFragment
+        val adView = AdView(requireContext())
+        adView.adUnitId = getString(R.string.ad_unit_id)
+        val adSize = AdSize(LayoutParams.MATCH_PARENT, 60)
+        adView.setAdSize(adSize)
+        this.mAdView = adView
+        binding.adViewGiftIdeasFragment.removeAllViews()
+        binding.adViewGiftIdeasFragment.addView(adView)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 
 }

@@ -11,7 +11,8 @@ import com.emirpetek.mybirthdayreminder.R
 
 class BirthdaysAnotherUserGiftIdeaBottomBarAdapter(
     val mContext: Context,
-    val itemList: ArrayList<String>
+    val itemList: ArrayList<String>,
+    val filteredItems: List<Int>
 ): RecyclerView.Adapter<BirthdaysAnotherUserGiftIdeaBottomBarAdapter.ItemHolder>() {
 
     val clickedState : ArrayList<Boolean> = arrayListOf(false,false,false,false,false,false,false)
@@ -46,6 +47,23 @@ class BirthdaysAnotherUserGiftIdeaBottomBarAdapter(
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val item = itemList[position]
         holder.textViewCardSelectedItem.text = item
+
+
+        /*if (filteredItems.isNotEmpty()){
+                if (position == filteredItems[position]){
+                    if (!clickedState[position]){
+                        holder.cardSelectedItemInside.setCardBackgroundColor(mContext.getColor(R.color.light_blue))
+                        clickedState[position] = true
+                        selectedItems.add(position+1)
+                    }else{
+                        holder.cardSelectedItemInside.setCardBackgroundColor(mContext.getColor(R.color.text_white))
+                        clickedState[position] = false
+                        selectedItems.remove(position+1)
+                    }
+                }
+
+        }*/
+
         holder.cardSelectedItem.setOnClickListener {
             if (!clickedState[position]){
                 holder.cardSelectedItemInside.setCardBackgroundColor(mContext.getColor(R.color.light_blue))
@@ -58,8 +76,9 @@ class BirthdaysAnotherUserGiftIdeaBottomBarAdapter(
             }
 
             listener?.onItemClicked(selectedItems)
-
         }
+
+
 
 
 
