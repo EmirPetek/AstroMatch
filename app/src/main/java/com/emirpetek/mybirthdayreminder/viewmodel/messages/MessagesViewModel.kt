@@ -20,6 +20,7 @@ class MessagesViewModel : ViewModel() {
     private val userRepo = UserRepo()
 
     var currentChatID: MutableLiveData<String?> = MutableLiveData()
+    var isChatBefore: MutableLiveData<Boolean> = MutableLiveData()
     var ownUserID = Firebase.auth.currentUser!!.uid
     private val _messages = MutableLiveData<List<Message>>()
     var messages = MutableLiveData<List<Message>>()
@@ -32,10 +33,12 @@ class MessagesViewModel : ViewModel() {
             val existingChatID = chatRepo.checkExistingChat(user2ID)
             if (existingChatID != null){
                 currentChatID.value = existingChatID
+                isChatBefore.value = true
                 getMessages(existingChatID)
             }else{
                 val newChatID = chatRepo.createNewChat(user2ID)
                 currentChatID.value = newChatID
+                isChatBefore.value = false
                 getMessages(newChatID)
 
             }

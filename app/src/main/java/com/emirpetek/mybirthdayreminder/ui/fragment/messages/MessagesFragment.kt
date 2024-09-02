@@ -91,6 +91,10 @@ class MessagesFragment : Fragment() {
         viewModel.startChat(ownUserID,anotherUserID)
         viewModel.currentChatID.observe(viewLifecycleOwner, Observer { chatID ->
 
+            viewModel.isChatBefore.observe(viewLifecycleOwner, Observer { isChatBefore ->
+                if (!isChatBefore) sendMessage(chatID!!,MessageType.TEXT,"Hello!")
+            })
+
             binding.buttonMessagesFragmentSendMessage.setOnClickListener {
                 if (binding.editTextMessagesFragmentMessage.text.toString().isEmpty()){
                     Toast.makeText(requireContext(),getString(R.string.no_send_empty_text),Toast.LENGTH_SHORT).show()
