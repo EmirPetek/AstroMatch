@@ -1,6 +1,7 @@
 package com.emirpetek.mybirthdayreminder.ui.adapter.birthdays.giftIdeas
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,7 @@ class BirthdaysAnotherUserGiftIdeaBottomBarAdapter(
 ): RecyclerView.Adapter<BirthdaysAnotherUserGiftIdeaBottomBarAdapter.ItemHolder>() {
 
     val clickedState : ArrayList<Boolean> = arrayListOf(false,false,false,false,false,false,false)
-    val selectedItems: ArrayList<Int> = arrayListOf()
+    var selectedItems: ArrayList<Int> = arrayListOf()
 
     interface OnItemClickListener {
         fun onItemClicked(selectedItems: List<Int>)
@@ -47,6 +48,22 @@ class BirthdaysAnotherUserGiftIdeaBottomBarAdapter(
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val item = itemList[position]
         holder.textViewCardSelectedItem.text = item
+
+
+
+        for (p in filteredItems.indices){
+            Log.e("for içi", "filt item $p ${filteredItems[p]} ve pos $position")
+
+            if (filteredItems[p]-1 == position){
+                Log.e("if içi", "filt item $p ${filteredItems[p]} ve pos $position")
+                holder.cardSelectedItemInside.setCardBackgroundColor(mContext.getColor(R.color.light_blue))
+                clickedState[position] = true
+                selectedItems.add(position+1)
+            }
+        }
+
+       // Log.e("position ve eleman text: ", "$position ve ${holder.textViewCardSelectedItem.text}")
+
 
 
         /*if (filteredItems.isNotEmpty()){

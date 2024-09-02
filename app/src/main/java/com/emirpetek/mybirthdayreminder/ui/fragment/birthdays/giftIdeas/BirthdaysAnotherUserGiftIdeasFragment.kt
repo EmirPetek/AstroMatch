@@ -118,8 +118,8 @@ class BirthdaysAnotherUserGiftIdeasFragment : Fragment() {
                 binding.textViewBirthdaysAnotherUserGiftIdeaNoIdea.visibility = View.GONE
 
             }
-            else{
-                filteredItems = list.sortedBy { it }
+            else{ // bottom sheet dialogdan herhangi bir item seçilmemişse
+                filteredItems = list//.sortedBy { it }
                 newIdea = idea.filter { it.userDegree in list }
                 if (newIdea.isEmpty()) binding.textViewBirthdaysAnotherUserGiftIdeaNoIdea.visibility = View.VISIBLE
                 else binding.textViewBirthdaysAnotherUserGiftIdeaNoIdea.visibility = View.GONE
