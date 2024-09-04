@@ -2,10 +2,14 @@ package com.emirpetek.mybirthdayreminder.data.repo.horoscopeCompatibility
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.emirpetek.mybirthdayreminder.data.entity.horoscopeCompatibility.CompatibilityAnalysis
 import com.emirpetek.mybirthdayreminder.network.OpenAIMessage
 import com.emirpetek.mybirthdayreminder.network.OpenAIRequest
 import com.emirpetek.mybirthdayreminder.network.OpenAIResponse
 import com.emirpetek.mybirthdayreminder.network.RetrofitInstance
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,10 +18,16 @@ class HoroscopeCompatibilityRepo {
 
     private val api = RetrofitInstance.api
     val data = MutableLiveData<String>()
+    val compatibilityList = MutableLiveData<List<CompatibilityAnalysis>>()
 
+    val reportRef = Firebase.firestore.collection("horoscopeCompatibilityResults").document("userList").collection(Firebase.auth.currentUser!!.uid)
 
     fun getAIResponse() : MutableLiveData<String>{
         return data
+    }
+
+    fun getCompatibilityResultList() : MutableLiveData<List<CompatibilityAnalysis>>{
+        return compatibilityList
     }
 
 
@@ -56,6 +66,17 @@ class HoroscopeCompatibilityRepo {
                 data.value = "Error: ${t.message}"
             }
         })
+    }
+
+    fun saveCompatibilityReport(analysis: CompatibilityAnalysis){
+        reportRef.document().set(analysis)
+    }
+
+    fun getCompatibilityReportList(){
+        reportRef.get().addOnSuccessListener { it ->
+            val model = it.toObjects(CompatibilityAnalysis::class.java)
+            compatibilityList.value = model
+        }
     }
 
 

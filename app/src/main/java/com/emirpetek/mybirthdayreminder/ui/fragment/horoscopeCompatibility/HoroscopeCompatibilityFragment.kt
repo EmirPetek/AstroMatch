@@ -17,14 +17,19 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.data.entity.horoscopeCompatibility.CompatibilityAnalysis
 import com.emirpetek.mybirthdayreminder.databinding.FragmentHoroscopeCompatibilityBinding
+import com.emirpetek.mybirthdayreminder.ui.adapter.horoscopeCompatibility.HoroscopeCompatibilityAdapter
 import com.emirpetek.mybirthdayreminder.ui.util.bottomNavigation.ManageBottomNavigationVisibility
 import com.emirpetek.mybirthdayreminder.viewmodel.horoscopeCompatibility.HoroscopeCompatibilityViewModel
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,6 +43,7 @@ class HoroscopeCompatibilityFragment : Fragment() {
     private lateinit var binding: FragmentHoroscopeCompatibilityBinding
     private lateinit var mAdView : AdView
     private var alertDialog: AlertDialog? = null
+    private lateinit var adapter : HoroscopeCompatibilityAdapter
 
 
 
@@ -53,19 +59,18 @@ class HoroscopeCompatibilityFragment : Fragment() {
 
         viewModel.getCredit()
 
+        viewModel.getCompatibilityReportList()
+        viewModel.compatibilityList.observe(viewLifecycleOwner, Observer { list ->
+            binding.recyclerViewHoroscopeCompatibility.setHasFixedSize(true)
+            binding.recyclerViewHoroscopeCompatibility.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+            adapter = HoroscopeCompatibilityAdapter(requireContext(),list)
+            binding.recyclerViewHoroscopeCompatibility.adapter = adapter
+        })
+
+
 
         binding.layoutCalculateCompatibility.setOnClickListener {
             showAlertDialog()
-
-           /* Log.e("time: ", System.currentTimeMillis().toString())
-            viewModel.getCompatibility(input)
-            viewModel.compatibilityResponse.observe(viewLifecycleOwner, Observer { response ->
-                Log.e("ai cevabı: ", response)
-                Log.e("time 2: ", System.currentTimeMillis().toString())
-
-            })
-            Log.e("time 3: ", System.currentTimeMillis().toString())*/
-
         }
 
         return binding.root
@@ -129,7 +134,8 @@ class HoroscopeCompatibilityFragment : Fragment() {
                         val input = getAiPrompt(editTextYourName.text.toString(),editTextYourBirthdate.text.toString(),editTextAnotherName.text.toString(),editTextAnotherBirthdate.text.toString())
                         showLoadingAlert()
                         dialog.dismiss()
-                        getAiResponse(input,600,5)
+                        val analysis = CompatibilityAnalysis("",System.currentTimeMillis(),null,Firebase.auth.currentUser!!.uid,editTextYourName.text.toString(),editTextYourBirthdate.text.toString(),editTextAnotherName.text.toString(),editTextAnotherBirthdate.text.toString(),"short")
+                        getAiResponse(input,600,5,analysis)
                     }
                 }
             }
@@ -149,7 +155,8 @@ class HoroscopeCompatibilityFragment : Fragment() {
                         val input = getAiPrompt(editTextYourName.text.toString(),editTextYourBirthdate.text.toString(),editTextAnotherName.text.toString(),editTextAnotherBirthdate.text.toString())
                         showLoadingAlert()
                         dialog.dismiss()
-                        getAiResponse(input,1000,10)
+                        val analysis = CompatibilityAnalysis("",System.currentTimeMillis(),null,Firebase.auth.currentUser!!.uid,editTextYourName.text.toString(),editTextYourBirthdate.text.toString(),editTextAnotherName.text.toString(),editTextAnotherBirthdate.text.toString(),"detail")
+                        getAiResponse(input,1000,10,analysis)
                     }
                 }
             }
@@ -236,12 +243,14 @@ class HoroscopeCompatibilityFragment : Fragment() {
         }
     }
 
-    fun getAiResponse(input:String, tokenNumber: Int,decrementCreditAmount: Long){
+    fun getAiResponse(input:String, tokenNumber: Int,decrementCreditAmount: Long, analysis: CompatibilityAnalysis){
 
         viewModel.getCompatibility(input,tokenNumber)
         viewModel.compatibilityResponse.observe(viewLifecycleOwner, Observer { response ->
             Log.e("ai cevabı: ", response)
             viewModel.decrementUserCredit(decrementCreditAmount)
+            analysis.compatibilityDescription = response
+            viewModel.saveCompatibilityResult(analysis)
             closeLoadingAlert()
             findNavController().popBackStack()
         })
