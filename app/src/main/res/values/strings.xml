@@ -152,6 +152,9 @@
     <string name="another_person_name">Another Person Name</string>
     <string name="another_person_birthdate_label">Another Person \n Birthdate:</string>
     <string name="another_person_birthdate">Another Person Birthdate</string>
+    <string name="short_analysis">Short Analysis</string>
+    <string name="detailed_analysis">Detailed Analysis</string>
+    <string name="analyse_data_sending">Analysing data\'s are sending. \n Please wait</string>
 
 
     <string name="earn_or_buy_gold">BUY GOLD</string>

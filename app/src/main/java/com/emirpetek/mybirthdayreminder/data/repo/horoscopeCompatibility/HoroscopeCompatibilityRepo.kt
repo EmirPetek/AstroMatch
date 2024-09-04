@@ -1,17 +1,11 @@
 package com.emirpetek.mybirthdayreminder.data.repo.horoscopeCompatibility
 
-import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.aallam.openai.api.core.Role
-import com.android.volley.RequestQueue
-import com.android.volley.toolbox.Volley
 import com.emirpetek.mybirthdayreminder.network.OpenAIMessage
 import com.emirpetek.mybirthdayreminder.network.OpenAIRequest
 import com.emirpetek.mybirthdayreminder.network.OpenAIResponse
 import com.emirpetek.mybirthdayreminder.network.RetrofitInstance
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,7 +21,7 @@ class HoroscopeCompatibilityRepo {
     }
 
 
-    fun getOpenAIResponse(prompt: String) {
+    fun getOpenAIResponse(prompt: String, tokenNumber: Int) {
 
       /*  val request = OpenAIRequest(
             "gpt-4o-mini",
@@ -41,7 +35,7 @@ class HoroscopeCompatibilityRepo {
                 OpenAIMessage(role = "system", content = "You are a helpful assistant."),
                 OpenAIMessage(role = "user", content = prompt)
             ),
-            max_tokens = 1000,
+            max_tokens = tokenNumber,
         )
 
         val call = api.getCompletion(request)
