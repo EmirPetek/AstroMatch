@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_birthdaysFragment_to_birthdaysAnotherUserGiftIdeasFragment"
             app:destination="@id/birthdaysAnotherUserGiftIdeasFragment" />
+        <action
+            android:id="@+id/action_birthdaysFragment_to_horoscopeCompatibilityFragment"
+            app:destination="@id/horoscopeCompatibilityFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -209,4 +212,9 @@
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.birthdays.giftIdeas.BirthdaysAnotherUserGiftIdeasFragment"
         android:label="fragment_birthdays_another_user_gift_ideas"
         tools:layout="@layout/fragment_birthdays_another_user_gift_ideas" />
+    <fragment
+        android:id="@+id/horoscopeCompatibilityFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.horoscopeCompatibility.HoroscopeCompatibilityFragment"
+        android:label="fragment_horoscope_compatibility"
+        tools:layout="@layout/fragment_horoscope_compatibility" />
 </navigation>

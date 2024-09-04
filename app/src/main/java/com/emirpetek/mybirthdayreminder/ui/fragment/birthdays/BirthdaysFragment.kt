@@ -81,6 +81,9 @@ class BirthdaysFragment : Fragment() {
         binding.imageViewBirthdaysGiftIdeas.setOnClickListener {
             findNavController().navigate(R.id.action_birthdaysFragment_to_birthdaysAnotherUserGiftIdeasFragment)
         }
+        binding.imageViewBirthdaysHoroscopeCompatibility.setOnClickListener {
+            findNavController().navigate(R.id.action_birthdaysFragment_to_horoscopeCompatibilityFragment)
+        }
 
         return binding.root
 
