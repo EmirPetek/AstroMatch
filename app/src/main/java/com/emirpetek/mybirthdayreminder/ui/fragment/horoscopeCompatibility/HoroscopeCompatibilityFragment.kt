@@ -2,11 +2,13 @@ package com.emirpetek.mybirthdayreminder.ui.fragment.horoscopeCompatibility
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.databinding.FragmentHoroscopeCompatibilityBinding
@@ -36,6 +38,21 @@ class HoroscopeCompatibilityFragment : Fragment() {
         ManageBottomNavigationVisibility(requireActivity()).hideBottomNav()
         binding.imageViewHoroscopeCompatibilityBackButton.setOnClickListener { findNavController().popBackStack() }
         bindAdMob()
+
+
+        val input = "You are a helpful assistant, Role: System. Role: User. Make a detailed analysis of the horoscope compatibility of Ahmet, born on March 19, 1998, and Fatma, born on September 21, 2000. Analyze people according to their birth dates and personality according to birth dates. Let your comments be in your own language. The analysis should be at least 5-6 paragraphs. Give me analysis as Turkish language"
+
+        binding.layoutCalculateCompatibility.setOnClickListener {
+            Log.e("time: ", System.currentTimeMillis().toString())
+            viewModel.getCompatibility(input)
+            viewModel.compatibilityResponse.observe(viewLifecycleOwner, Observer { response ->
+                Log.e("ai cevabı: ", response)
+                Log.e("time 2: ", System.currentTimeMillis().toString())
+
+            })
+            Log.e("time 3: ", System.currentTimeMillis().toString())
+
+        }
 
         return binding.root
     }

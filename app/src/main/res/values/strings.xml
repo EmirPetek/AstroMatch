@@ -144,6 +144,14 @@
     <string name="ad_interstitial_id">ca-app-pub-3940256099942544/5224354917</string>
     <string name="horoscope_compatibility_title">HOROSCOPE COMPATIBILITY</string>
     <string name="calculate_compatibility">Calculate Compatibility</string>
+    <string name="your_name_label">Your name:</string>
+    <string name="your_name">Your name</string>
+    <string name="your_birthdate_label">Your Birthdate:</string>
+    <string name="your_birthdate">Your Birthdate</string>
+    <string name="another_person_name_label">Another Person \n Name:</string>
+    <string name="another_person_name">Another Person Name</string>
+    <string name="another_person_birthdate_label">Another Person \n Birthdate:</string>
+    <string name="another_person_birthdate">Another Person Birthdate</string>
 
 
     <string name="earn_or_buy_gold">BUY GOLD</string>

@@ -71,7 +71,11 @@ dependencies {
     implementation("com.google.android.gms:play-services-ads:23.2.0")
     implementation ("com.github.saitawngpha:NativeAds-RecyclerView:1.0.2")
     implementation("com.google.firebase:firebase-firestore")
-
+    implementation ("com.aallam.openai:openai-client:3.8.2")
+    implementation("com.android.volley:volley:1.2.1")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
 
 }
