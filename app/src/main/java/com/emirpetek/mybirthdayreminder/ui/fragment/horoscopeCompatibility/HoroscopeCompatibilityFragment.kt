@@ -61,9 +61,10 @@ class HoroscopeCompatibilityFragment : Fragment() {
 
         viewModel.getCompatibilityReportList()
         viewModel.compatibilityList.observe(viewLifecycleOwner, Observer { list ->
+            val newList = list.sortedByDescending { it.timestamp }
             binding.recyclerViewHoroscopeCompatibility.setHasFixedSize(true)
             binding.recyclerViewHoroscopeCompatibility.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-            adapter = HoroscopeCompatibilityAdapter(requireContext(),list,binding.progressBarHoroscopeCompatibility)
+            adapter = HoroscopeCompatibilityAdapter(requireContext(),newList,binding.progressBarHoroscopeCompatibility)
             binding.recyclerViewHoroscopeCompatibility.adapter = adapter
 
             if (list.isNullOrEmpty()){
