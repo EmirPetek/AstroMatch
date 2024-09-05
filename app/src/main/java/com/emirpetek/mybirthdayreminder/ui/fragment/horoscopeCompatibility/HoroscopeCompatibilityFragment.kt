@@ -63,8 +63,15 @@ class HoroscopeCompatibilityFragment : Fragment() {
         viewModel.compatibilityList.observe(viewLifecycleOwner, Observer { list ->
             binding.recyclerViewHoroscopeCompatibility.setHasFixedSize(true)
             binding.recyclerViewHoroscopeCompatibility.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-            adapter = HoroscopeCompatibilityAdapter(requireContext(),list)
+            adapter = HoroscopeCompatibilityAdapter(requireContext(),list,binding.progressBarHoroscopeCompatibility)
             binding.recyclerViewHoroscopeCompatibility.adapter = adapter
+
+            if (list.isNullOrEmpty()){
+                binding.textViewHoroscopeCompatibilityNoReportHere.visibility = View.VISIBLE
+                binding.progressBarHoroscopeCompatibility.visibility = View.GONE
+            }else binding.textViewHoroscopeCompatibilityNoReportHere.visibility = View.GONE
+
+
         })
 
 

@@ -3,12 +3,12 @@ package com.emirpetek.mybirthdayreminder.ui.adapter.horoscopeCompatibility
 import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +18,8 @@ import com.emirpetek.mybirthdayreminder.ui.util.calculateTime.CalculateShareTime
 
 class HoroscopeCompatibilityAdapter(
     val mContext: Context,
-    val list: List<CompatibilityAnalysis>
+    val list: List<CompatibilityAnalysis>,
+    val progressBarHoroscopeCompatibility: ProgressBar
 ): RecyclerView.Adapter<HoroscopeCompatibilityAdapter.CardHolder>() {
 
     var timeLeft : Long = 0
@@ -65,6 +66,11 @@ class HoroscopeCompatibilityAdapter(
                     holder.textViewTime.text = CalculateShareTime(mContext).unixtsToDate(item.timestamp.toString())
                 }
             )
+        }
+
+
+        if (position+1 == list.size){
+            progressBarHoroscopeCompatibility.visibility = View.GONE
         }
 
     }

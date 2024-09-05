@@ -52,14 +52,14 @@ class HoroscopeCompatibilityDetailFragment : Fragment() {
             // Initialize the Google Mobile Ads SDK on a background thread.
             MobileAds.initialize(requireContext()) {}
         }
-        mAdView = binding.adViewFragmentHoroscopeCompatibilityDetail
+        mAdView = binding.adViewHoroscopeCompatibiiltyDetail
         val adView = AdView(requireContext())
         adView.adUnitId = getString(R.string.ad_unit_id)
         val adSize = AdSize(LayoutParams.MATCH_PARENT,80)
         adView.setAdSize(adSize)
         this.mAdView = adView
-        binding.adViewFragmentHoroscopeCompatibilityDetail.removeAllViews()
-        binding.adViewFragmentHoroscopeCompatibilityDetail.addView(adView)
+        binding.adViewHoroscopeCompatibiiltyDetail.removeAllViews()
+        binding.adViewHoroscopeCompatibiiltyDetail.addView(adView)
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
     }

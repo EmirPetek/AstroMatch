@@ -199,6 +199,7 @@
     <string name="no_profile_visitor_here">There is profile visitor here.</string>
     <string name="no_gift_idea_here">There is no gift idea here.</string>
     <string name="no_send_empty_text">You should write anything to send message.</string>
+    <string name="no_compatibility_detail_here">There is no horoscope compatibility report here.</string>
     <string name="sent">Sent</string>
     <string name="seen">Seen</string>
     <string name="send_msg">Send \n Message</string>

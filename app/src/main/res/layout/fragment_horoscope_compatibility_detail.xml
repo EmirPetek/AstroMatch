@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
-            app:layout_constraintBottom_toTopOf="@id/adViewFragmentHoroscopeCompatibilityDetail"
+            app:layout_constraintBottom_toTopOf="@id/adViewHoroscopeCompatibiiltyDetail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -66,12 +66,13 @@
         </androidx.core.widget.NestedScrollView>
 
         <com.google.android.gms.ads.AdView
-            android:id="@+id/adViewFragmentHoroscopeCompatibilityDetail"
+            android:id="@+id/adViewHoroscopeCompatibiiltyDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nestedScrollView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
