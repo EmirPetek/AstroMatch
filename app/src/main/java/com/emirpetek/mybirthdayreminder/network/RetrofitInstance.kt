@@ -14,9 +14,9 @@ object RetrofitInstance {
     private val client =
         OkHttpClient
             .Builder()
-            .connectTimeout(30, TimeUnit.SECONDS)  // Bağlantı süresi aşımı
-            .readTimeout(30, TimeUnit.SECONDS)     // Okuma süresi aşımı
-            .writeTimeout(30, TimeUnit.SECONDS)    // Yazma süresi aşımı
+            .connectTimeout(100, TimeUnit.SECONDS)  // Bağlantı süresi aşımı
+            .readTimeout(100, TimeUnit.SECONDS)     // Okuma süresi aşımı
+            .writeTimeout(100, TimeUnit.SECONDS)    // Yazma süresi aşımı
             .addInterceptor(Interceptor { chain ->
         val request: Request = chain.request().newBuilder()
             .addHeader("Authorization", "Bearer $apiKey")
