@@ -1,6 +1,7 @@
 package com.emirpetek.mybirthdayreminder.ui.adapter.horoscopeCompatibility
 
 import android.content.Context
+import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.horoscopeCompatibility.CompatibilityAnalysis
@@ -47,7 +49,10 @@ class HoroscopeCompatibilityAdapter(
 
         if (timeLeft < 0){
             holder.textViewTime.text = CalculateShareTime(mContext).unixtsToDate(item.timestamp.toString())
-
+            holder.layoutNames.setOnClickListener { it ->
+                val bundle : Bundle = Bundle().apply { putString("analysisDetail",item.compatibilityDescription) }
+                Navigation.findNavController(it).navigate(R.id.action_horoscopeCompatibilityFragment_to_horoscopeCompatibilityDetailFragment,bundle)
+            }
         }else{
             holder.imageViewAd.visibility = View.VISIBLE
             startCountdownTimer(timeLeft,
@@ -56,7 +61,8 @@ class HoroscopeCompatibilityAdapter(
                     // Her saniye kalan zamanı günceller
                 },
                 onFinish = {
-                    holder.textViewTime.text = "00:00" // Geri sayım bittiğinde çalışacak kod
+                    //holder.textViewTime.text = "00:00" // Geri sayım bittiğinde çalışacak kod
+                    holder.textViewTime.text = CalculateShareTime(mContext).unixtsToDate(item.timestamp.toString())
                 }
             )
         }

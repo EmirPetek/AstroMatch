@@ -216,5 +216,14 @@
         android:id="@+id/horoscopeCompatibilityFragment"
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.horoscopeCompatibility.HoroscopeCompatibilityFragment"
         android:label="fragment_horoscope_compatibility"
-        tools:layout="@layout/fragment_horoscope_compatibility" />
+        tools:layout="@layout/fragment_horoscope_compatibility" >
+        <action
+            android:id="@+id/action_horoscopeCompatibilityFragment_to_horoscopeCompatibilityDetailFragment"
+            app:destination="@id/horoscopeCompatibilityDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/horoscopeCompatibilityDetailFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.horoscopeCompatibility.HoroscopeCompatibilityDetailFragment"
+        android:label="fragment_horoscope_compatibility_detail"
+        tools:layout="@layout/fragment_horoscope_compatibility_detail" />
 </navigation>

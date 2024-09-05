@@ -155,6 +155,7 @@
     <string name="short_analysis">Short Analysis</string>
     <string name="detailed_analysis">Detailed Analysis</string>
     <string name="analyse_data_sending">Analysing data\'s are sending. \n Please wait</string>
+    <string name="analysis_detail">ANALYSIS DETAIL</string>
 
 
     <string name="earn_or_buy_gold">BUY GOLD</string>
