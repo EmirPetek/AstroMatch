@@ -138,8 +138,6 @@ class MessagesFragment : Fragment() {
     }
 
     private fun sendMessage(chatID: String, messageType: MessageType, msg:Any){
-            val type = MessageType.TEXT // eğer resim seçilmişse image, yazı yazılmışsa text olacak, mixleme ileride düşünülebilir
-
             viewModel.sendMessage(chatID,msg, messageType){ success ->
                 if (success){
                     binding.editTextMessagesFragmentMessage.text.clear()
@@ -147,9 +145,6 @@ class MessagesFragment : Fragment() {
                     Toast.makeText(requireContext(),"Mesaj Gönderilemedi!", Toast.LENGTH_SHORT).show()
                 }
             }
-
-
-
     }
 
     private fun pickImages() {
