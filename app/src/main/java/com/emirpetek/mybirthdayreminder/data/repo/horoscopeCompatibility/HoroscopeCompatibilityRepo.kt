@@ -33,12 +33,6 @@ class HoroscopeCompatibilityRepo {
 
     fun getOpenAIResponse(prompt: String, tokenNumber: Int) {
 
-      /*  val request = OpenAIRequest(
-            "gpt-4o-mini",
-            prompt,
-            1000,
-        )*/
-
         val request = OpenAIRequest(
             model = "gpt-3.5-turbo",
             listOf(
