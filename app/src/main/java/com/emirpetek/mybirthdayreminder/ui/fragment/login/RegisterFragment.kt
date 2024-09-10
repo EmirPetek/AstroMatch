@@ -213,7 +213,8 @@ class RegisterFragment : Fragment() {
         calendar.set(1900, 0, 1)
         val minDate = calendar.timeInMillis
 
-        val maxDate = System.currentTimeMillis()
+        calendar.set(currentYear - 14, currentMonth, currentDay)
+        val maxDate = calendar.timeInMillis
 
         val datePickerDialog = DatePickerDialog(
             requireContext(),
