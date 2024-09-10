@@ -10,24 +10,36 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import androidx.appcompat.app.AlertDialog
+import android.widget.SeekBar
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
+import com.emirpetek.mybirthdayreminder.data.entity.user.userFilter.UserAgeFilter
+import com.emirpetek.mybirthdayreminder.data.entity.user.userFilter.UserFilter
+import com.emirpetek.mybirthdayreminder.data.entity.user.userFilter.UserGenderFilter
 import com.emirpetek.mybirthdayreminder.databinding.FragmentMatchPersonBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.matchPerson.MatchPersonListUsersAdapter
+import com.emirpetek.mybirthdayreminder.ui.adapter.matchPerson.filter.MatchPersonFilterGenderAdapter
+import com.emirpetek.mybirthdayreminder.ui.adapter.matchPerson.filter.MatchPersonFilterHoroscopeAdapter
 import com.emirpetek.mybirthdayreminder.ui.util.bottomNavigation.ManageBottomNavigationVisibility
-import com.emirpetek.mybirthdayreminder.ui.util.calculateTime.CalculateAge
-import com.emirpetek.mybirthdayreminder.ui.util.zodiacAndAscendant.GetZodiacAscendant
 import com.emirpetek.mybirthdayreminder.viewmodel.matchPerson.MatchPersonViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.slider.RangeSlider
+import com.google.android.material.slider.Slider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.Collections
 
 class MatchPersonFragment : Fragment() {
 
@@ -37,7 +49,12 @@ class MatchPersonFragment : Fragment() {
     private val userID: String = Firebase.auth.currentUser!!.uid
     var userListDB = ArrayList<User>()
     private var isDailyWinChecked = false
-
+    private lateinit var horoscopeAdapter: MatchPersonFilterHoroscopeAdapter
+    private lateinit var genderAdapter: MatchPersonFilterGenderAdapter
+    private val filterItems = UserFilter()
+    private var ageRanges: MutableList<Float> = mutableListOf(0f, 0f)
+    var selectedHoroscopeItems: List<Int>? = null
+    var selectedGenderItems: List<Int>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +64,7 @@ class MatchPersonFragment : Fragment() {
 
         ManageBottomNavigationVisibility(requireActivity()).showBottomNav()
 
+        binding.imageViewMatchPersonUserFilter.setOnClickListener { setupBottomSheetDialog() }
 
 
         viewModel.getCompatibleUsersData(userID)
@@ -70,31 +88,6 @@ class MatchPersonFragment : Fragment() {
     }
 
     fun updateUI(userList: ArrayList<User>){
-        //userList.shuffle()
-
-        /*for (position in 0..<userList.size){
-            val userItem = userList[position]
-            val username = userItem.fullname
-            val age = CalculateAge().calculateAge(userItem.birthdate)
-            val horoscope = GetZodiacAscendant(requireContext()).getZodiacOrAscendantSignByIndex(userItem.zodiac)
-            val userImage = userItem.profile_img
-
-            binding.textViewMatchPersonFullname.text = username
-            binding.textViewMatchPersonAge.text = age.toString()
-            binding.textViewMatchPersonHoroscope.text = horoscope
-            bindHoroscopeImage(userItem.zodiac,binding.imageViewMatchPersonHoroscope)
-
-            Glide.with(requireContext())
-                .load(userImage)
-                .centerCrop()
-                .into(binding.imageViewMatchPersonImage)
-
-
-
-        }*/
-
-
-
 
         binding.recyclerViewMatchPersonListUser.setHasFixedSize(true)
         binding.recyclerViewMatchPersonListUser.layoutManager =
@@ -151,6 +144,159 @@ class MatchPersonFragment : Fragment() {
             dialog.show()
         }
     }
+
+    private fun setupBottomSheetDialog(){
+        val dialog = BottomSheetDialog(requireContext())
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_user_filter,null)
+        val rvGender : RecyclerView = view.findViewById(R.id.recyclerViewBottomSheetUserFilterGender)
+        val rvHoroscope : RecyclerView = view.findViewById(R.id.recyclerViewBottomSheetUserFilterHoroscope)
+        val textViewApply : TextView = view.findViewById(R.id.textViewBottomSheetUserFilterApply)
+        val rangeSliderAge : RangeSlider = view.findViewById(R.id.rangeSliderBottomSheetUserFilterAge)
+        val btnClose = view.findViewById<ImageView>(R.id.imageViewBottomSheetUserFilterCloseButton)
+        btnClose.setOnClickListener { dialog.dismiss() }
+
+        rvGender.setHasFixedSize(true)
+        rvGender.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+
+        rvHoroscope.setHasFixedSize(true)
+        rvHoroscope.layoutManager = StaggeredGridLayoutManager(3,LinearLayoutManager.VERTICAL)
+
+        viewModel.getUserFilterItems()
+        viewModel.userFilters.observe(viewLifecycleOwner, Observer { userFilters ->
+
+            val horoscopeList = arrayListOf(1,2,3,4,5,6,7,8,9,10,11,12)
+            val horoscopeClickedState =  ArrayList<Boolean>(Collections.nCopies(12, false))
+            if (userFilters?.horoscope != null) {
+                horoscopeAdapter = MatchPersonFilterHoroscopeAdapter(requireContext(),horoscopeList,userFilters.horoscope,horoscopeClickedState,)
+                selectedHoroscopeItems = userFilters.horoscope!!.horoscopeList
+            }else {
+                horoscopeAdapter = MatchPersonFilterHoroscopeAdapter(requireContext(),horoscopeList,null,horoscopeClickedState,)
+            }
+            rvHoroscope.adapter = horoscopeAdapter
+
+            val genderList = arrayListOf(0,1,2)
+            val genderClickedState =  ArrayList<Boolean>(Collections.nCopies(3, false))
+            if (userFilters?.gender != null) {
+                genderAdapter = MatchPersonFilterGenderAdapter(requireContext(),genderList,userFilters.gender,genderClickedState,)
+                selectedGenderItems = userFilters.gender.userGender
+            }else{
+                genderAdapter = MatchPersonFilterGenderAdapter(requireContext(),genderList,null,genderClickedState,)
+            }
+            rvGender.adapter = genderAdapter
+
+
+
+            horoscopeAdapter.setOnItemClickListener(object : MatchPersonFilterHoroscopeAdapter.OnItemClickListener {
+                override fun onItemClicked(selectedItems: List<Int>) {
+                    selectedHoroscopeItems = selectedItems // Seçilen burçlar burada tutuluyor
+                    //Log.e("horoscopeItems: ", selectedItems.toString())
+                }
+            })
+
+            genderAdapter.setOnItemClickListener(object : MatchPersonFilterGenderAdapter.OnItemClickListener {
+                override fun onItemClicked(selectedItems: List<Int>) {
+                    selectedGenderItems = selectedItems // Seçilen cinsiyet burada tutuluyor
+                    //Log.e("genderItems: ", selectedItems.toString())
+                }
+            })
+
+
+            if (userFilters?.age != null){
+                rangeSliderAge.values = listOf(userFilters.age.min,userFilters.age.max)
+                ageRanges[0] = userFilters.age.min
+                ageRanges[1] = userFilters.age.max
+            }
+
+            rangeSliderAge.addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener{
+                override fun onStartTrackingTouch(slider: RangeSlider) {
+                    ageRanges = rangeSliderAge.values
+                }
+
+                override fun onStopTrackingTouch(slider: RangeSlider) {
+                    ageRanges = rangeSliderAge.values
+                }
+            })
+
+
+
+
+
+
+            textViewApply.setOnClickListener {
+
+                val filterObject = UserFilter()
+
+                // Burç filtreleme seçildi mi?
+                selectedHoroscopeItems?.let {
+                    filterItems.horoscope!!.horoscopeList = it as ArrayList<Int>
+                    filterObject.horoscope!!.horoscopeList = it
+                    Log.e("horoscopeItems: ", it.toString())
+                }
+
+                // Cinsiyet filtreleme seçildi mi?
+                selectedGenderItems?.let {
+                    filterItems.gender!!.userGender = it as ArrayList<Int>
+                    filterObject.gender!!.userGender = it
+                    Log.e("genderItems: ", it.toString())
+                }
+
+
+                filterObject.age!!.min = ageRanges[0]
+                filterObject.age.max = ageRanges[1]
+
+                Log.e("yaş aralığı", ageRanges.toString())
+
+
+               // UserAgeFilter(ageRanges[0],ageRanges[1])
+                viewModel.setUserFilterItems(filterObject)
+
+                dialog.dismiss()
+                }
+
+            })
+
+
+
+
+
+
+
+        setFilterItems(textViewApply)
+
+        dialog.setCancelable(true)
+        dialog.setContentView(view)
+        dialog.show()
+    }
+
+    fun setFilterItems(tv: TextView){
+
+
+        tv.setOnClickListener {
+            Log.e("tıklanan itemler: ", filterItems.toString())
+        }
+       // viewModel.setUserFilterItems()
+
+
+    }
+
+    fun filterItems(filteredItems: UserFilter){
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     fun bindHoroscopeImage(zodiac: Int, imageView: ImageView){
         val horoscopeDrawableId = when (zodiac) {

@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModel
 import com.emirpetek.mybirthdayreminder.data.entity.UserCredits
 import com.emirpetek.mybirthdayreminder.data.entity.like.Like
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
+import com.emirpetek.mybirthdayreminder.data.entity.user.userFilter.UserFilter
 import com.emirpetek.mybirthdayreminder.data.repo.CreditsRepo
 import com.emirpetek.mybirthdayreminder.data.repo.like.LikeRepo
+import com.emirpetek.mybirthdayreminder.data.repo.user.UserFilterRepo
 import com.emirpetek.mybirthdayreminder.data.repo.user.UserRepo
 
 class MatchPersonViewModel : ViewModel() {
@@ -14,17 +16,20 @@ class MatchPersonViewModel : ViewModel() {
     private val userRepo = UserRepo()
     private val creditRepo = CreditsRepo()
     private val likeRepo = LikeRepo()
+    private val filterRepo = UserFilterRepo()
 
     var user = MutableLiveData<ArrayList<User>>()
     var credit = MutableLiveData<UserCredits>()
     var userOwnZodiac = MutableLiveData<Int>()
     var likeList = MutableLiveData<List<Like>>()
+    var userFilters : MutableLiveData<UserFilter?>
 
     init {
         user = userRepo.getCompatibleUsers()
         credit = creditRepo.getCreditAmount()
         userOwnZodiac = userRepo.getUserZodiac()
         likeList = likeRepo.likeLiveData
+        userFilters = filterRepo.getFilterItems()
     }
 
     fun getCompatibleUsersData(userID:String){
@@ -57,6 +62,18 @@ class MatchPersonViewModel : ViewModel() {
 
     fun insertLikeUser(like: Like){
         likeRepo.insertLikeUser(like)
+    }
+
+    fun getUserFilterItems(){
+        filterRepo.getUserFilterItems()
+    }
+
+    fun setUserFilterItems(filter: UserFilter){
+        filterRepo.setUserFilterItems(filter)
+    }
+
+    fun getFilteredUsers(filter: UserFilter){
+        filterRepo.getFilteredUser(filter)
     }
 
 }

@@ -62,24 +62,6 @@ class BirthdaysAnotherUserGiftIdeaBottomBarAdapter(
             }
         }
 
-       // Log.e("position ve eleman text: ", "$position ve ${holder.textViewCardSelectedItem.text}")
-
-
-
-        /*if (filteredItems.isNotEmpty()){
-                if (position == filteredItems[position]){
-                    if (!clickedState[position]){
-                        holder.cardSelectedItemInside.setCardBackgroundColor(mContext.getColor(R.color.light_blue))
-                        clickedState[position] = true
-                        selectedItems.add(position+1)
-                    }else{
-                        holder.cardSelectedItemInside.setCardBackgroundColor(mContext.getColor(R.color.text_white))
-                        clickedState[position] = false
-                        selectedItems.remove(position+1)
-                    }
-                }
-
-        }*/
 
         holder.cardSelectedItem.setOnClickListener {
             if (!clickedState[position]){
@@ -98,6 +80,24 @@ class BirthdaysAnotherUserGiftIdeaBottomBarAdapter(
 
 
 
+        // Log.e("position ve eleman text: ", "$position ve ${holder.textViewCardSelectedItem.text}")
+
+
+
+        /*if (filteredItems.isNotEmpty()){
+                if (position == filteredItems[position]){
+                    if (!clickedState[position]){
+                        holder.cardSelectedItemInside.setCardBackgroundColor(mContext.getColor(R.color.light_blue))
+                        clickedState[position] = true
+                        selectedItems.add(position+1)
+                    }else{
+                        holder.cardSelectedItemInside.setCardBackgroundColor(mContext.getColor(R.color.text_white))
+                        clickedState[position] = false
+                        selectedItems.remove(position+1)
+                    }
+                }
+
+        }*/
 
     }
 

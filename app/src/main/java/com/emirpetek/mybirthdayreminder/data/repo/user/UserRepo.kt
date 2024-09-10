@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.emirpetek.mybirthdayreminder.data.entity.user.UserGalleryPhoto
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
+import com.emirpetek.mybirthdayreminder.data.entity.user.userFilter.UserFilter
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
@@ -17,7 +18,8 @@ class UserRepo {
     private var userZodiac: MutableLiveData<Int> = MutableLiveData()
     private var userFullname: MutableLiveData<String> = MutableLiveData()
     private var userImageURL: MutableLiveData<String> = MutableLiveData()
-    private val     dbRef = Firebase.firestore.collection("users")
+    private val dbRef = Firebase.firestore.collection("users")
+
 
     fun getUser(): MutableLiveData<User> {
         return user
@@ -172,4 +174,6 @@ class UserRepo {
                 // Log error or handle accordingly
             }
     }
+
+
 }

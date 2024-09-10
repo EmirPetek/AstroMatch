@@ -157,7 +157,10 @@
     <string name="detailed_analysis">Detailed Analysis</string>
     <string name="analyse_data_sending">Analysing data\'s are sending. \n Please wait</string>
     <string name="analysis_detail">ANALYSIS DETAIL</string>
-
+    <string name="user_filter">User Filter</string>
+    <string name="user_horoscope">User Horoscope</string>
+    <string name="user_gender">User Gender</string>
+    <string name="user_age">User Age</string>
 
     <string name="earn_or_buy_gold">BUY GOLD</string>
     <string name="not_enough_gold">You do not have enough gold for this operation.</string>
