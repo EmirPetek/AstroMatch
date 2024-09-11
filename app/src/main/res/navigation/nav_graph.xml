@@ -209,7 +209,11 @@
         android:id="@+id/profileVisitorsFragment"
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.profile.profileVisitors.ProfileVisitorsFragment"
         android:label="fragment_profile_visitors"
-        tools:layout="@layout/fragment_profile_visitors" />
+        tools:layout="@layout/fragment_profile_visitors" >
+        <action
+            android:id="@+id/action_profileVisitorsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/birthdaysAnotherUserGiftIdeasFragment"
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.birthdays.giftIdeas.BirthdaysAnotherUserGiftIdeasFragment"

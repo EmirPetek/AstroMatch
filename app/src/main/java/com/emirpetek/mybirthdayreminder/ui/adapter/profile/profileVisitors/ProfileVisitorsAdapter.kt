@@ -1,12 +1,15 @@
 package com.emirpetek.mybirthdayreminder.ui.adapter.profile.profileVisitors
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
@@ -26,6 +29,7 @@ class ProfileVisitorsAdapter(
         val textViewCardProfileUserFullname: TextView = view.findViewById(R.id.textViewCardProfileUserFullname)
         val textViewCardProfileVisitorVisitingTime: TextView = view.findViewById(R.id.textViewCardProfileVisitorVisitingTime)
         val textViewCardProfileVisitorUserZodiac: TextView = view.findViewById(R.id.textViewCardProfileVisitorUserZodiac)
+        val layoutProfileImg: LinearLayout = view.findViewById(R.id.layoutProfileVisitorUserImg)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
@@ -48,6 +52,11 @@ class ProfileVisitorsAdapter(
             GetZodiacAscendant(mContext).getZodiacOrAscendantSignByIndex(item.user?.zodiac!!)
         Glide.with(mContext).load(zodiacDrawable).into(holder.imageViewCardProfileVisitorUserZodiac)
         Glide.with(mContext).load(item.user?.profile_img).circleCrop().into(holder.imageViewCardProfileVisitorUserProfile)
+
+        holder.layoutProfileImg.setOnClickListener { it ->
+            val bundle : Bundle = Bundle().apply { putString("userID",item.visitorID) }
+            Navigation.findNavController(it).navigate(R.id.action_profileVisitorsFragment_to_profileFragment,bundle)
+        }
 
         if (position == itemCount-1){
             progressBarProfileVisitors.visibility = View.GONE

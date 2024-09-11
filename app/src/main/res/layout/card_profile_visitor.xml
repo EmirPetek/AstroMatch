@@ -8,6 +8,7 @@
     android:orientation="horizontal">
 
     <LinearLayout
+        android:id="@+id/layoutProfileVisitorUserImg"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center"
