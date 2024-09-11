@@ -61,11 +61,11 @@ class MatchPersonFilterGenderAdapter(
             for (p in filteredItemsDB.userGender.indices) {
                 // Log.e("for içi", "filt item $p ${filteredItemsDB[p]} ve pos $position")
 
-                if (filteredItemsDB.userGender[p] - 1 == position) {
+                if (filteredItemsDB.userGender[p] == position) {
                     //   Log.e("if içi", "filt item $p ${filteredItemsDB[p]} ve pos $position")
                     holder.cardSelectedItemInside.setCardBackgroundColor(mContext.getColor(R.color.light_blue))
                     clickedState[position] = true
-                    selectedItems.add(position + 1)
+                    selectedItems.add(position)
                 }
             }
         }
@@ -76,11 +76,11 @@ class MatchPersonFilterGenderAdapter(
             if (!clickedState[position]) {
                 holder.cardSelectedItemInside.setCardBackgroundColor(mContext.getColor(R.color.light_blue))
                 clickedState[position] = true
-                selectedItems.add(position + 1)
+                selectedItems.add(position)
             } else {
                 holder.cardSelectedItemInside.setCardBackgroundColor(mContext.getColor(R.color.text_white))
                 clickedState[position] = false
-                selectedItems.remove(position + 1)
+                selectedItems.remove(position)
             }
 
             listener?.onItemClicked(selectedItems)
