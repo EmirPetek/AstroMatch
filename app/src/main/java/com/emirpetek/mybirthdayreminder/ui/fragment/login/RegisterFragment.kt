@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.emirpetek.mybirthdayreminder.databinding.FragmentRegisterBinding
+import com.emirpetek.mybirthdayreminder.ui.util.calculateTime.CalculateAge
 import com.emirpetek.mybirthdayreminder.ui.util.zodiacAndAscendant.CalculateZodiacAscendant
 import com.emirpetek.mybirthdayreminder.viewmodel.login.RegisterViewModel
 import com.google.android.gms.ads.AdRequest
@@ -348,6 +349,8 @@ class RegisterFragment : Fragment() {
                             ascendant,
                             selectedGender,
                             binding.editTextFragmentRegisterBio.text.toString(),
+                            arrayListOf(),
+                            CalculateAge().convertDateStringToMillis(binding.editTextRegisterBirthdate.text.toString())
                         )
                         viewModel.addUser(user)
 

@@ -3,6 +3,7 @@ package com.emirpetek.mybirthdayreminder.ui.util.calculateTime
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 class CalculateAge {
 
@@ -19,5 +20,17 @@ class CalculateAge {
         }
 
         return age
+    }
+
+    fun convertDateStringToMillis(dateString: String): Long {
+        // Tarih formatını belirleyin
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
+            // Tarih string'ini Date objesine dönüştür
+            val date: Date = dateFormat.parse(dateString)
+
+            // Date objesinin zamanını milisaniye cinsinden döndür
+            return date.time
+
     }
 }
