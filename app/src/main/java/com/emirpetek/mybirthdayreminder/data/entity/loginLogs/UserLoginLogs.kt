@@ -4,7 +4,7 @@ import java.io.Serializable
 
 data class UserLoginLogs(
     val logID:String,
-    val userID: String,
+    var userID: String,
     val lastLoginTime: Long,
 ) : Serializable{
     constructor() : this("","",0)

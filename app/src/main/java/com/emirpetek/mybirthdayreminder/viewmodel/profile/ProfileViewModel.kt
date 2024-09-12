@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.emirpetek.mybirthdayreminder.data.entity.loginLogs.UserLoginLogs
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
 import com.emirpetek.mybirthdayreminder.data.entity.user.ProfileVisit
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
+import com.emirpetek.mybirthdayreminder.data.repo.loginLogs.LoginLogRepo
 import com.emirpetek.mybirthdayreminder.data.repo.user.UserRepo
 import com.emirpetek.mybirthdayreminder.data.repo.social.QuestionRepo
 import com.emirpetek.mybirthdayreminder.data.repo.user.ProfileVisitRepo
@@ -17,6 +19,7 @@ class ProfileViewModel : ViewModel() {
 
     private val repo = UserRepo()
     private val profileViewRepo = ProfileVisitRepo()
+    private val loginLogRepo = LoginLogRepo()
 
 
     var user = MutableLiveData<User>()// = MutableLiveData()
@@ -24,7 +27,7 @@ class ProfileViewModel : ViewModel() {
     var userFullname = MutableLiveData<String>()// = MutableLiveData()
     var userImgURL = MutableLiveData<String>()// = MutableLiveData()
     var userZodiac = MutableLiveData<Int>()// = MutableLiveData()
-
+    var loginLog = MutableLiveData<UserLoginLogs>()// = MutableLiveData()
     //  var answerSize: MutableLiveData<Pair<String,Int>>// = MutableLiveData()
     var questionList = MutableLiveData<List<Post>>()
     private val _answerSizeList = MutableLiveData<List<Int>>()
@@ -42,6 +45,7 @@ class ProfileViewModel : ViewModel() {
         answerSizeList = _answerSizeList
         questionList = postRepo.questionList
         visitorQuerySize = profileViewRepo.querySize
+        loginLog = loginLogRepo.getLogLiveData()
     }
 
     fun getUser(userID: String) {
@@ -79,5 +83,9 @@ class ProfileViewModel : ViewModel() {
 
     fun getProfileViewerSize(){
         profileViewRepo.getProfileViewerSize()
+    }
+
+    fun getLoginLogData(userID:String){
+        loginLogRepo.getLoginLog(userID)
     }
 }

@@ -19,6 +19,7 @@ import com.emirpetek.mybirthdayreminder.databinding.FragmentProfileBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.profile.ProfileFragmentPostAdapter
 import com.emirpetek.mybirthdayreminder.ui.adapter.profile.userGalleryPhotos.ProfileFragmentProfileGalleryPhotosAdapter
 import com.emirpetek.mybirthdayreminder.ui.util.bottomNavigation.ManageBottomNavigationVisibility
+import com.emirpetek.mybirthdayreminder.ui.util.calculateTime.CalculateShareTime
 import com.emirpetek.mybirthdayreminder.ui.util.zodiacAndAscendant.CalculateCompatibility
 import com.emirpetek.mybirthdayreminder.ui.util.zodiacAndAscendant.GetZodiacAscendant
 import com.emirpetek.mybirthdayreminder.viewmodel.profile.ProfileViewModel
@@ -78,6 +79,7 @@ class ProfileFragment : Fragment() {
         binding.constraintLayoutFragmentProfilePostLayout.visibility = View.GONE
         //bindComplianceRate()
         bindUserData(userID.toString())
+        bindLastSeenTime(userID.toString())
         catchProfileVisit()
     }
 
@@ -87,6 +89,7 @@ class ProfileFragment : Fragment() {
         binding.linearLayoutHoroscopeCompatibility.visibility = View.GONE
         toolbarOwnUser()
         bindUserData(auth.currentUser!!.uid)
+        bindLastSeenTime(auth.currentUser!!.uid)
         bindUserPost()
         bindNumberOfVisitors()
     }
@@ -148,6 +151,13 @@ class ProfileFragment : Fragment() {
         Glide.with(this)
             .load(ascendantDrawableResId)
             .into(binding.imageViewProfileAscendant)*/
+    }
+
+    fun bindLastSeenTime(userID: String){
+        viewModel.getLoginLogData(userID)
+        viewModel.loginLog.observe(viewLifecycleOwner, Observer { data ->
+            binding.textViewFragmentProfileLastLoginTime.text = getString(R.string.last_login_time_title) + " " + CalculateShareTime(requireContext()).unixtsToDate(data.lastLoginTime.toString())
+        })
     }
 
     fun formatTimestampToDate(timestamp: Long): String {

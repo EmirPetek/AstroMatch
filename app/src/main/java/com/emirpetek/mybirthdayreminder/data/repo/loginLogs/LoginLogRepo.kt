@@ -1,5 +1,6 @@
 package com.emirpetek.mybirthdayreminder.data.repo.loginLogs
 
+import androidx.lifecycle.MutableLiveData
 import com.emirpetek.mybirthdayreminder.data.entity.loginLogs.LogDetails
 import com.emirpetek.mybirthdayreminder.data.entity.loginLogs.UserLoginLogs
 import com.google.firebase.auth.ktx.auth
@@ -11,26 +12,46 @@ class LoginLogRepo {
     val logDataRepo = Firebase.firestore
         .collection("loginLogs")
         .document("logs")
-        .collection(Firebase.auth.currentUser!!.uid)
-        .document("logData")
+
 
     val logDataListRepo = Firebase.firestore
         .collection("loginLogs")
         .document("logs")
-        .collection(Firebase.auth.currentUser!!.uid)
-        .document("logDataList")
-        .collection("logDataList")
+
+
+
+    private val loginLogLiveData : MutableLiveData<UserLoginLogs> = MutableLiveData()
+
+    fun getLogLiveData() : MutableLiveData<UserLoginLogs>{
+        return loginLogLiveData
+    }
+
+    fun getLoginLog(userID:String){
+        Firebase.firestore
+            .collection("loginLogs").document("logs")
+            .collection(userID).document("logData")
+            .get().addOnSuccessListener { it ->
+                val logModel = it.toObject(UserLoginLogs::class.java)!!
+                    logModel.userID = it.id
+                    loginLogLiveData.value = logModel
+            }
+    }
+
+
 
     fun setLoginLog(log: UserLoginLogs){
         val map = mapOf(
             "lastLoginTime" to System.currentTimeMillis(),
             "userID" to log.userID
         )
-        logDataRepo.set(log)
+        logDataRepo.collection(log.userID)
+            .document("logData").set(log)
     }
 
     fun addLogDataToList(logLong: LogDetails){
-        logDataListRepo.add(logLong)
+        logDataListRepo.collection(logLong.userID)
+            .document("logDataList")
+            .collection("logDataList").add(logLong)
     }
 
 }

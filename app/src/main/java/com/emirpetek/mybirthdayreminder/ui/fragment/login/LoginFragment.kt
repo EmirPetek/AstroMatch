@@ -133,6 +133,7 @@ class LoginFragment : Fragment() {
             val logLong = LogDetails(
                 System.currentTimeMillis(),
                 ipAddress,
+                auth.currentUser!!.uid
             )
 
             viewModel.addLogDataToList(logLong)

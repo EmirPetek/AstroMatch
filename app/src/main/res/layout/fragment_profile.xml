@@ -98,20 +98,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageViewProfilePhoto" />
 
-                <Button
-                    android:id="@+id/buttonProfileFragmentSendMessage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="@color/light_blue"
-                    android:fontFamily="@font/nunito"
-                    android:text="@string/send_msg"
-                    android:textColor="@color/text_black"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <TextView
                     android:id="@+id/textViewProfileFragmentNumberOfVisitors"
                     android:layout_width="wrap_content"
@@ -238,6 +224,46 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/buttonProfileFragmentSendMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/light_blue"
+                    android:fontFamily="@font/nunito"
+                    android:text="@string/send_msg"
+                    android:textColor="@color/text_black"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/textViewFragmentProfileLastLoginTime"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewFragmentProfileLastLoginTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/nunito"
+                    android:text="Last seen:"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/text_gray"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonProfileFragmentSendMessage" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
