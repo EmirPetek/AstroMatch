@@ -18,7 +18,7 @@ data class User(
     val gender: Int,
     var biography:String,
     var profileGalleryPhotos: ArrayList<UserGalleryPhoto>? = null,
-    val birthdayTimestamp: Long
+    val birthdateTimestamp: Long
 ) : Serializable{
 
     constructor(): this("","","","","","","",0,"",0,-1,-1,0,"", arrayListOf(),0)
