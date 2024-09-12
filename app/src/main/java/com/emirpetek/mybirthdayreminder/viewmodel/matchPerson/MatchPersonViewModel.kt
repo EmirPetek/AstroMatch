@@ -23,6 +23,8 @@ class MatchPersonViewModel : ViewModel() {
     var userOwnZodiac = MutableLiveData<Int>()
     var likeList = MutableLiveData<List<Like>>()
     var userFilters : MutableLiveData<UserFilter?>
+    var filteredUsers: MutableLiveData<List<User>?> = MutableLiveData()
+
 
     init {
         user = userRepo.getCompatibleUsers()
@@ -30,6 +32,7 @@ class MatchPersonViewModel : ViewModel() {
         userOwnZodiac = userRepo.getUserZodiac()
         likeList = likeRepo.likeLiveData
         userFilters = filterRepo.getFilterItems()
+        filteredUsers = filterRepo.getFilteredUsers()
     }
 
     fun getCompatibleUsersData(userID:String){

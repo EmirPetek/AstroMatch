@@ -120,10 +120,25 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewMatchPersonNoUserText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito"
+                android:text="@string/no_filtered_users"
+                android:textAlignment="center"
+                android:textColor="@color/text_black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/recyclerViewMatchPersonListUser"
+                app:layout_constraintEnd_toEndOf="@+id/recyclerViewMatchPersonListUser"
+                app:layout_constraintStart_toStartOf="@id/recyclerViewMatchPersonListUser"
+                app:layout_constraintTop_toTopOf="@+id/recyclerViewMatchPersonListUser" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewMatchPersonListUser"
@@ -134,7 +149,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 

@@ -48,6 +48,7 @@ class MatchPersonFragment : Fragment() {
     private lateinit var adapter: MatchPersonListUsersAdapter
     private val userID: String = Firebase.auth.currentUser!!.uid
     var userListDB = ArrayList<User>()
+    var emptyUserList = ArrayList<User>()
     private var isDailyWinChecked = false
     private lateinit var horoscopeAdapter: MatchPersonFilterHoroscopeAdapter
     private lateinit var genderAdapter: MatchPersonFilterGenderAdapter
@@ -55,6 +56,7 @@ class MatchPersonFragment : Fragment() {
     private var ageRanges: MutableList<Float> = mutableListOf(0f, 0f)
     var selectedHoroscopeItems: List<Int>? = null
     var selectedGenderItems: List<Int>? = null
+    private var isUserFilterBefore = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,12 +69,9 @@ class MatchPersonFragment : Fragment() {
         binding.imageViewMatchPersonUserFilter.setOnClickListener { setupBottomSheetDialog() }
 
 
-        viewModel.getCompatibleUsersData(userID)
-        viewModel.user.observe(viewLifecycleOwner, Observer { it ->
-            userListDB.clear()
-            userListDB = it
-            updateUI(userListDB)
-        })
+        getUserList()
+
+
 
         viewModel.getUserCreditsAmount()
         viewModel.credit.observe(viewLifecycleOwner, Observer { credit ->
@@ -87,14 +86,51 @@ class MatchPersonFragment : Fragment() {
         return binding.root
     }
 
+    private fun getUserList(){
+
+        viewModel.getUserFilterItems()
+        viewModel.userFilters.observe(viewLifecycleOwner, Observer { userFilters ->
+
+            if (userFilters == null) {
+                viewModel.getCompatibleUsersData(userID)
+                viewModel.user.observe(viewLifecycleOwner, Observer { it ->
+                    userListDB.clear()
+                    userListDB = it
+                    updateUI(userListDB)
+                    //Log.e("MatchPersonFragment", "getUserList if içi")
+                })
+            }else{
+                viewModel.getFilteredUsers(userFilters)
+                viewModel.filteredUsers.observe(viewLifecycleOwner, Observer { it ->
+                    if (it != null) {
+                        if (it.isNotEmpty()){
+                            binding.textViewMatchPersonNoUserText.visibility = View.GONE
+                            userListDB.clear()
+                            userListDB = ArrayList(it)
+
+                            updateUI(userListDB)
+                            //Log.e("MatchPersonFragment", "getUserList else içi if ve dblistsize: ${userListDB.size} dblist: $userListDB")
+
+                        }else {
+                            updateUI(emptyUserList)
+                            //Log.e("MatchPersonFragment", "getUserList else içi else ve dblistsize: ${userListDB.size} dblist: $userListDB")
+                            binding.textViewMatchPersonNoUserText.visibility = View.VISIBLE
+                        }
+                    }
+                 })
+            }
+
+        })
+    }
+
     fun updateUI(userList: ArrayList<User>){
 
         binding.recyclerViewMatchPersonListUser.setHasFixedSize(true)
         binding.recyclerViewMatchPersonListUser.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         adapter = MatchPersonListUsersAdapter(requireContext(),userList,viewModel,viewLifecycleOwner)
-
-        binding.recyclerViewMatchPersonListUser.addItemDecoration(object : RecyclerView.ItemDecoration() {
+        adapter.notifyDataSetChanged()
+        /*binding.recyclerViewMatchPersonListUser.addItemDecoration(object : RecyclerView.ItemDecoration() {
             override fun getItemOffsets(
                 outRect: Rect,
                 view: View,
@@ -107,10 +143,10 @@ class MatchPersonFragment : Fragment() {
                     outRect.left = 20 // Kartların arasında 16dp boşluk bırakır
                 }
             }
-        })
+        })*/
 
-        val snapHelper: SnapHelper = LinearSnapHelper()
-        if (userList.size > 0) snapHelper.attachToRecyclerView(binding.recyclerViewMatchPersonListUser)
+        //val snapHelper: SnapHelper = LinearSnapHelper()
+        //if (userList.size > 0) snapHelper.attachToRecyclerView(binding.recyclerViewMatchPersonListUser)
 
         binding.recyclerViewMatchPersonListUser.adapter = adapter
 
@@ -230,25 +266,27 @@ class MatchPersonFragment : Fragment() {
                 selectedHoroscopeItems?.let {
                     filterItems.horoscope!!.horoscopeList = it as ArrayList<Int>
                     filterObject.horoscope!!.horoscopeList = it
-                    Log.e("horoscopeItems: ", it.toString())
+                   // Log.e("horoscopeItems: ", it.toString())
                 }
 
                 // Cinsiyet filtreleme seçildi mi?
                 selectedGenderItems?.let {
                     filterItems.gender!!.userGender = it as ArrayList<Int>
                     filterObject.gender!!.userGender = it
-                    Log.e("genderItems: ", it.toString())
+                    //Log.e("genderItems: ", it.toString())
                 }
 
 
                 filterObject.age!!.min = ageRanges[0]
                 filterObject.age.max = ageRanges[1]
 
-                Log.e("yaş aralığı", ageRanges.toString())
+               // Log.e("yaş aralığı", ageRanges.toString())
 
 
                // UserAgeFilter(ageRanges[0],ageRanges[1])
                 viewModel.setUserFilterItems(filterObject)
+                getUserList()
+
 
                 dialog.dismiss()
                 }
