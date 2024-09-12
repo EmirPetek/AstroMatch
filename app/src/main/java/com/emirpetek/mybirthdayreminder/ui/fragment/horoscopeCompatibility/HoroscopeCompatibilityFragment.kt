@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
 import android.widget.DatePicker
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
@@ -124,8 +125,14 @@ class HoroscopeCompatibilityFragment : Fragment() {
             val editTextAnotherName = view.findViewById<EditText>(R.id.editTextHoroscopeCompatibilityAlertAnotherPersonName)
             val editTextAnotherBirthdate = view.findViewById<EditText>(R.id.editTextHoroscopeCompatibilityAlertAnotherPersonBirthdate)
             val creditText = view.findViewById<TextView>(R.id.textViewHoroscopeCompatibilityAlertCredit)
+            val layoutGoldFrame = view.findViewById<LinearLayout>(R.id.layoutAlertHoroscopeCompatibilityGold)
 
             creditText.text = credit.amount.toString()
+
+            layoutGoldFrame.setOnClickListener {
+                findNavController().navigate(R.id.action_horoscopeCompatibilityFragment_to_earnGoldFragment)
+                dialog.dismiss()
+            }
 
             buttonShortAnalysis.setOnClickListener {
                 if (

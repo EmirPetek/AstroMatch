@@ -227,6 +227,9 @@
         <action
             android:id="@+id/action_horoscopeCompatibilityFragment_to_horoscopeCompatibilityDetailFragment"
             app:destination="@id/horoscopeCompatibilityDetailFragment" />
+        <action
+            android:id="@+id/action_horoscopeCompatibilityFragment_to_earnGoldFragment"
+            app:destination="@id/earnGoldFragment" />
     </fragment>
     <fragment
         android:id="@+id/horoscopeCompatibilityDetailFragment"

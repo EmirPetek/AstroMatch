@@ -35,23 +35,32 @@
                 android:gravity="center|right"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textViewHoroscopeCompatibilityAlertCredit"
+                <LinearLayout
+                    android:id="@+id/layoutAlertHoroscopeCompatibilityGold"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="@font/nunito"
-                    android:text="0"
-                    android:textColor="@color/text_black"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingLeft="25dp">
 
-                <ImageView
-                    android:id="@+id/imageViewHoroscopeCompatibilityGold3"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginRight="20dp"
-                    app:srcCompat="@drawable/gold" />
+                    <TextView
+                        android:id="@+id/textViewHoroscopeCompatibilityAlertCredit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="0"
+                        android:textColor="@color/text_black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageViewHoroscopeCompatibilityGold3"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="20dp"
+                        app:srcCompat="@drawable/gold" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
