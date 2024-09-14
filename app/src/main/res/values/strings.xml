@@ -71,6 +71,7 @@
     <string name="notification">Notification</string>
     <string name="privacy">Privacy</string>
     <string name="logout">Log Out</string>
+    <string name="delete_account">Delete Account</string>
     <string name="contact">Contact</string>
     <string name="your_post">Your Posts</string>
     <string name="user_posts">User Posts</string>
