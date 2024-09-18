@@ -461,7 +461,7 @@ class ProfileFragment : Fragment() {
         val adapter : ProfileNotifyUserAlertAdapter
         recyclerViewNotifyPerson.setHasFixedSize(true)
         recyclerViewNotifyPerson.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-        adapter = ProfileNotifyUserAlertAdapter(requireContext(),categoryList)
+        adapter = ProfileNotifyUserAlertAdapter(requireContext(),categoryList,btnNotify,viewModel,userID!!,dialog)
         recyclerViewNotifyPerson.adapter = adapter
 
         dialog.show()

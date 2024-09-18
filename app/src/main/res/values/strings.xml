@@ -179,6 +179,8 @@
     <string name="notify_person">Notify Person</string>
     <string name="notify">Notify</string>
     <string name="enter_notify_message">Enter Notify Message</string>
+    <string name="should_select_notify_to_notify">You should select any notify to report the user.</string>
+    <string name="notify_success">Your report has been submitted. Thank you for helping us maintain a safe community.</string>
 
     <string name="earn_or_buy_gold">BUY GOLD</string>
     <string name="not_enough_gold">You do not have enough gold for this operation.</string>

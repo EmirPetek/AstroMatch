@@ -5,10 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.emirpetek.mybirthdayreminder.data.entity.loginLogs.UserLoginLogs
+import com.emirpetek.mybirthdayreminder.data.entity.notify.NotifyPerson
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
 import com.emirpetek.mybirthdayreminder.data.entity.user.ProfileVisit
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.emirpetek.mybirthdayreminder.data.repo.loginLogs.LoginLogRepo
+import com.emirpetek.mybirthdayreminder.data.repo.notify.NotifyPersonRepo
 import com.emirpetek.mybirthdayreminder.data.repo.user.UserRepo
 import com.emirpetek.mybirthdayreminder.data.repo.social.QuestionRepo
 import com.emirpetek.mybirthdayreminder.data.repo.user.ProfileVisitRepo
@@ -20,6 +22,7 @@ class ProfileViewModel : ViewModel() {
     private val repo = UserRepo()
     private val profileViewRepo = ProfileVisitRepo()
     private val loginLogRepo = LoginLogRepo()
+    private val notifyRepo = NotifyPersonRepo()
 
 
     var user = MutableLiveData<User>()// = MutableLiveData()
@@ -87,5 +90,9 @@ class ProfileViewModel : ViewModel() {
 
     fun getLoginLogData(userID:String){
         loginLogRepo.getLoginLog(userID)
+    }
+
+    fun insertNotify(notify: NotifyPerson){
+        notifyRepo.insertNotify(notify)
     }
 }
