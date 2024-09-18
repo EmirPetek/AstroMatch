@@ -1,6 +1,5 @@
 package com.emirpetek.mybirthdayreminder.ui.fragment.earnGold
 
-import android.R
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -10,15 +9,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.ui.util.bottomNavigation.ManageBottomNavigationVisibility
 import com.emirpetek.mybirthdayreminder.databinding.FragmentEarnGoldBinding
 import com.emirpetek.mybirthdayreminder.viewmodel.earnGold.EarnGoldViewModel
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.admanager.AdManagerAdRequest
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd
+import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAdLoadCallback
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class EarnGoldFragment : Fragment() {
 
     private val viewModel: EarnGoldViewModel by viewModels()
     private lateinit var binding: FragmentEarnGoldBinding
     private var timeLeft : Long = 0
+    private var rewardedInterstitialAd : RewardedInterstitialAd? = null
+    private var mInterstitialAd: InterstitialAd? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +43,12 @@ class EarnGoldFragment : Fragment() {
 
         ManageBottomNavigationVisibility(requireActivity()).hideBottomNav()
 
-        binding.cardEarnGoldAdFirst.setOnClickListener { viewModel.incrementUserCredit(1) }
+        //loadAds()
+
+
+        binding.cardEarnGoldAdFirst.setOnClickListener {
+            loadAds()
+        }
         binding.cardEarnGoldAdSecond.setOnClickListener { viewModel.incrementUserCredit(5) }
 
         binding.cardBuyGold1.setOnClickListener { viewModel.incrementUserCredit(50) }
@@ -77,6 +97,49 @@ class EarnGoldFragment : Fragment() {
             }
         }
         countDownTimer.start()
+    }
+
+    private fun loadAds(){
+
+
+
+        var adRequest = AdRequest.Builder().build()
+
+        InterstitialAd.load(requireContext(),getString(R.string.ad_interstitial_id), adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                mInterstitialAd = interstitialAd
+                showAd()
+            }
+        })
+
+
+    }
+
+    fun loadEarnAd(){
+        mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+            override fun onAdClicked() {
+                // Called when a click is recorded for an ad.
+            }
+
+            override fun onAdDismissedFullScreenContent() {
+                // Called when ad is dismissed.
+                mInterstitialAd = null
+                viewModel.incrementUserCredit(1)
+            }
+        }
+    }
+    fun showAd(){
+        if (mInterstitialAd != null) {
+            loadEarnAd()
+            mInterstitialAd?.show(requireActivity())
+
+        } else {
+            Log.e("earngoldfragment", "reklam gösterilirken hata oluştu")
+        }
     }
 
 }
