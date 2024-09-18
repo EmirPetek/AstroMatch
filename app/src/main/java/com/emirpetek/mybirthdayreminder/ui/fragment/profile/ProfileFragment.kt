@@ -1,5 +1,6 @@
 package com.emirpetek.mybirthdayreminder.ui.fragment.profile
 
+import android.app.AlertDialog
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.util.Log
@@ -7,9 +8,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.user.UserGalleryPhoto
@@ -17,6 +20,7 @@ import com.emirpetek.mybirthdayreminder.data.entity.question.Post
 import com.emirpetek.mybirthdayreminder.data.entity.user.ProfileVisit
 import com.emirpetek.mybirthdayreminder.databinding.FragmentProfileBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.profile.ProfileFragmentPostAdapter
+import com.emirpetek.mybirthdayreminder.ui.adapter.profile.ProfileNotifyUserAlertAdapter
 import com.emirpetek.mybirthdayreminder.ui.adapter.profile.userGalleryPhotos.ProfileFragmentProfileGalleryPhotosAdapter
 import com.emirpetek.mybirthdayreminder.ui.util.bottomNavigation.ManageBottomNavigationVisibility
 import com.emirpetek.mybirthdayreminder.ui.util.calculateTime.CalculateShareTime
@@ -74,6 +78,7 @@ class ProfileFragment : Fragment() {
 
     fun bindAnyUser(){
         binding.textViewProfileFragmentNumberOfVisitors.visibility = View.GONE
+        binding.imageViewProfileFragmentNotifyPerson.visibility = View.VISIBLE
         ManageBottomNavigationVisibility(requireActivity()).hideBottomNav()
         toolbarAnyUser()
         binding.constraintLayoutFragmentProfilePostLayout.visibility = View.GONE
@@ -81,6 +86,7 @@ class ProfileFragment : Fragment() {
         bindUserData(userID.toString())
         bindLastSeenTime(userID.toString())
         catchProfileVisit()
+        binding.imageViewProfileFragmentNotifyPerson.setOnClickListener { initNotifyPerson() }
     }
 
     fun bindOwnUser(){
@@ -417,5 +423,50 @@ class ProfileFragment : Fragment() {
     fun catchProfileVisit(){
         val visit = ProfileVisit("",ownUserID,userID!!)
         viewModel.insertProfileView(visit)
+    }
+
+    fun initNotifyPerson(){
+
+        val inflater = LayoutInflater.from(requireContext())
+        val view = inflater.inflate(R.layout.alert_notify_person, null)
+
+        val recyclerViewNotifyPerson : RecyclerView = view.findViewById(R.id.recyclerViewNotifyPersonAlert)
+        val btnCancel : Button = view.findViewById(R.id.buttonNotifyPersonCancel)
+        val btnNotify : Button = view.findViewById(R.id.buttonNotifyPersonNotify)
+
+        // AlertDialog.Builder oluştur
+        val builder = AlertDialog.Builder(requireContext())
+            .setView(view)
+            .setCancelable(true)
+
+        // Dialog'u oluştur ve göster
+        val dialog = builder.create()
+
+        val categoryList = arrayListOf(
+            getString(R.string.notify_category_spam),
+            getString(R.string.notify_category_harassment),
+            getString(R.string.notify_category_hate_speech),
+            getString(R.string.notify_category_misinformation),
+            getString(R.string.notify_category_nudity),
+            getString(R.string.notify_category_fake_profile),
+            getString(R.string.notify_category_privacy_violation),
+            getString(R.string.notify_category_violence),
+            getString(R.string.notify_category_illegal_activity),
+            getString(R.string.notify_category_fake_interaction),
+            getString(R.string.notify_category_another)
+        )
+
+        btnCancel.setOnClickListener { dialog.dismiss() }
+
+        val adapter : ProfileNotifyUserAlertAdapter
+        recyclerViewNotifyPerson.setHasFixedSize(true)
+        recyclerViewNotifyPerson.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+        adapter = ProfileNotifyUserAlertAdapter(requireContext(),categoryList)
+        recyclerViewNotifyPerson.adapter = adapter
+
+        dialog.show()
+
+
+
     }
 }

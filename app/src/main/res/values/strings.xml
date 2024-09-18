@@ -164,6 +164,22 @@
     <string name="user_age">User Age</string>
     <string name="last_login_time_title">Last Login Time: </string>
 
+
+    <string name="notify_category_spam">Spam and Advertising</string>
+    <string name="notify_category_harassment">Harassment and Bullying</string>
+    <string name="notify_category_hate_speech">Hate Speech and Discrimination</string>
+    <string name="notify_category_misinformation">Misinformation and Fraud</string>
+    <string name="notify_category_nudity">Nudity and Sexual Content</string>
+    <string name="notify_category_fake_profile">Fake Profile and Impersonation</string>
+    <string name="notify_category_privacy_violation">Privacy Violation and Data Sharing</string>
+    <string name="notify_category_violence">Violence and Threats</string>
+    <string name="notify_category_illegal_activity">Illegal Activity and Inappropriate Content</string>
+    <string name="notify_category_fake_interaction">Bots and Fake Engagement</string>
+    <string name="notify_category_another">Another</string>
+    <string name="notify_person">Notify Person</string>
+    <string name="notify">Notify</string>
+    <string name="enter_notify_message">Enter Notify Message</string>
+
     <string name="earn_or_buy_gold">BUY GOLD</string>
     <string name="not_enough_gold">You do not have enough gold for this operation.</string>
     <string name="not_enough_right">You do not have enough right for this operation.</string>
