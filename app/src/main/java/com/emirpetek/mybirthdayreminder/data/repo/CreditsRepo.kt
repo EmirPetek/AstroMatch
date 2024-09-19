@@ -66,10 +66,10 @@ class CreditsRepo {
     }
 
     fun setDailyBonusValues(){
-        creditsRef.update("likeRights",30)
-        creditsRef.update("megaLikeRights",10)
+        creditsRef.update("likeRights",20)
+        creditsRef.update("megaLikeRights",5)
         creditsRef.update("lastCreditBalanceTimestamp",System.currentTimeMillis())
-        creditsRef.update("amount",FieldValue.increment(20))
+        creditsRef.update("amount",FieldValue.increment(10))
     }
 
 
