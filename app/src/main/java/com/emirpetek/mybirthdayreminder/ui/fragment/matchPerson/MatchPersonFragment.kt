@@ -95,7 +95,8 @@ class MatchPersonFragment : Fragment() {
                 viewModel.getCompatibleUsersData(userID)
                 viewModel.user.observe(viewLifecycleOwner, Observer { it ->
                     userListDB.clear()
-                    userListDB = it
+                    var itTemp = it.shuffled()
+                    userListDB.addAll(itTemp)// = itTemp
                     updateUI(userListDB)
                     //Log.e("MatchPersonFragment", "getUserList if içi")
                 })
@@ -106,7 +107,10 @@ class MatchPersonFragment : Fragment() {
                         if (it.isNotEmpty()){
                             binding.textViewMatchPersonNoUserText.visibility = View.GONE
                             userListDB.clear()
-                            userListDB = ArrayList(it)
+                            //userListDB = ArrayList(it)
+
+                            var itTemp = it.shuffled()
+                            userListDB.addAll(itTemp)// = itTemp
 
                             updateUI(userListDB)
                             //Log.e("MatchPersonFragment", "getUserList else içi if ve dblistsize: ${userListDB.size} dblist: $userListDB")
