@@ -68,6 +68,8 @@ class LoginFragment : Fragment() {
             loginUser()
         }
 
+        binding.textViewLoginFragmentForgotPassword.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment) }
+
 
         return binding.root
     }

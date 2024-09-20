@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_loginFragment_to_birthdaysFragment"
             app:destination="@id/birthdaysFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -236,4 +239,9 @@
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.horoscopeCompatibility.HoroscopeCompatibilityDetailFragment"
         android:label="fragment_horoscope_compatibility_detail"
         tools:layout="@layout/fragment_horoscope_compatibility_detail" />
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.login.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" />
 </navigation>

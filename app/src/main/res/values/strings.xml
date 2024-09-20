@@ -164,6 +164,12 @@
     <string name="user_gender">User Gender</string>
     <string name="user_age">User Age</string>
     <string name="last_login_time_title">Last Login Time: </string>
+    <string name="forgot_password_title">FORGOT PASSWORD</string>
+    <string name="enter_email_to_reset">Enter your email address to send reset email.</string>
+    <string name="enter_email_to_reset_edittext">Enter your email address.</string>
+    <string name="reset_mail_sent">Your password reset mail has sent. Check your email.</string>
+    <string name="email_wrong">Email address is wrong. Please check it.</string>
+    <string name="send_big">SEND</string>
 
 
     <string name="notify_category_spam">Spam and Advertising</string>
