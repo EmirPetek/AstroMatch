@@ -259,7 +259,7 @@
                                 android:id="@+id/textViewHoroscopeCompatibilityShortAnalysisPrice"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="5"
+                                android:text="10"
                                 android:textColor="@color/text_black"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
@@ -309,7 +309,7 @@
                                 android:id="@+id/textViewHoroscopeCompatibilityDetailedAnalysisPrice"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="10"
+                                android:text="20"
                                 android:textColor="@color/text_black"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />

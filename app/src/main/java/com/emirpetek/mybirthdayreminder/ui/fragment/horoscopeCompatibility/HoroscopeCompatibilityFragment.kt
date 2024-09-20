@@ -45,6 +45,8 @@ class HoroscopeCompatibilityFragment : Fragment() {
     private lateinit var mAdView : AdView
     private var alertDialog: AlertDialog? = null
     private lateinit var adapter : HoroscopeCompatibilityAdapter
+    val CREDIT_SHORT_ANALYSIS: Long = 10
+    val CREDIT_DETAILED_ANALYSIS: Long = 20
 
 
 
@@ -143,14 +145,14 @@ class HoroscopeCompatibilityFragment : Fragment() {
                 ){
                     Toast.makeText(requireContext(),getString(R.string.fill_all_place),Toast.LENGTH_SHORT).show()
                 }else{
-                    if (credit.amount < 5){
+                    if (credit.amount < CREDIT_SHORT_ANALYSIS){
                         Toast.makeText(requireContext(),getString(R.string.not_enough_gold),Toast.LENGTH_SHORT).show()
                     }else{
                         val input = getAiPrompt(editTextYourName.text.toString(),editTextYourBirthdate.text.toString(),editTextAnotherName.text.toString(),editTextAnotherBirthdate.text.toString())
                         showLoadingAlert()
                         dialog.dismiss()
                         val analysis = CompatibilityAnalysis("",System.currentTimeMillis(),null,Firebase.auth.currentUser!!.uid,editTextYourName.text.toString(),editTextYourBirthdate.text.toString(),editTextAnotherName.text.toString(),editTextAnotherBirthdate.text.toString(),"short")
-                        getAiResponse(input,600,5,analysis)
+                        getAiResponse(input,600,CREDIT_SHORT_ANALYSIS,analysis)
                     }
                 }
             }
@@ -164,14 +166,14 @@ class HoroscopeCompatibilityFragment : Fragment() {
                 ){
                     Toast.makeText(requireContext(),getString(R.string.fill_all_place),Toast.LENGTH_SHORT).show()
                 }else{
-                    if (credit.amount < 10){
+                    if (credit.amount < CREDIT_DETAILED_ANALYSIS){
                         Toast.makeText(requireContext(),getString(R.string.not_enough_gold),Toast.LENGTH_SHORT).show()
                     }else{
                         val input = getAiPrompt(editTextYourName.text.toString(),editTextYourBirthdate.text.toString(),editTextAnotherName.text.toString(),editTextAnotherBirthdate.text.toString())
                         showLoadingAlert()
                         dialog.dismiss()
                         val analysis = CompatibilityAnalysis("",System.currentTimeMillis(),null,Firebase.auth.currentUser!!.uid,editTextYourName.text.toString(),editTextYourBirthdate.text.toString(),editTextAnotherName.text.toString(),editTextAnotherBirthdate.text.toString(),"detail")
-                        getAiResponse(input,1000,10,analysis)
+                        getAiResponse(input,1000,CREDIT_DETAILED_ANALYSIS,analysis)
                     }
                 }
             }
