@@ -67,7 +67,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/oleo_script"
-                    android:text="@string/birthdays_uppercase"
+                    android:text="@string/login_app_title_big"
                     android:textColor="@color/black"
                     android:textSize="48sp"
                     app:layout_constraintBottom_toBottomOf="parent"
