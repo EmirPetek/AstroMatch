@@ -48,6 +48,7 @@ class EarnGoldFragment : Fragment() {
 
         binding.cardEarnGoldAdFirst.setOnClickListener {
             loadAds()
+            binding.cardEarnGoldAdFirst.isClickable = false
         }
         binding.cardEarnGoldAdSecond.setOnClickListener { viewModel.incrementUserCredit(5) }
 
@@ -101,13 +102,19 @@ class EarnGoldFragment : Fragment() {
 
     private fun loadAds(){
 
-
+        binding.progressBarEarnGoldWatchAd.visibility = View.VISIBLE
+        binding.layoutGoldPrices1.visibility = View.GONE
+        binding.layoutGoldPrices2.visibility = View.GONE
 
         var adRequest = AdRequest.Builder().build()
 
         InterstitialAd.load(requireContext(),getString(R.string.ad_interstitial_id), adRequest, object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 mInterstitialAd = null
+                binding.progressBarEarnGoldWatchAd.visibility = View.GONE
+                binding.layoutGoldPrices1.visibility = View.VISIBLE
+                binding.layoutGoldPrices2.visibility = View.VISIBLE
+                binding.cardEarnGoldAdFirst.isClickable = false
             }
 
             override fun onAdLoaded(interstitialAd: InterstitialAd) {
@@ -129,6 +136,10 @@ class EarnGoldFragment : Fragment() {
                 // Called when ad is dismissed.
                 mInterstitialAd = null
                 viewModel.incrementUserCredit(1)
+                binding.progressBarEarnGoldWatchAd.visibility = View.GONE
+                binding.layoutGoldPrices1.visibility = View.VISIBLE
+                binding.layoutGoldPrices2.visibility = View.VISIBLE
+                binding.cardEarnGoldAdFirst.isClickable = true
             }
         }
     }

@@ -2,13 +2,27 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pe"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/birthdays_background"
     android:textAlignment="center"
     tools:context=".ui.fragment.earnGold.EarnGoldFragment">
 
+    <ProgressBar
+        android:id="@+id/progressBarEarnGoldWatchAd"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foregroundGravity="top"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -191,6 +205,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layoutGoldPrices1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -464,6 +479,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layoutGoldPrices2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
