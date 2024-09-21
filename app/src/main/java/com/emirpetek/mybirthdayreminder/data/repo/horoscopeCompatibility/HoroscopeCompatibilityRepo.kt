@@ -8,6 +8,7 @@ import com.emirpetek.mybirthdayreminder.network.OpenAIRequest
 import com.emirpetek.mybirthdayreminder.network.OpenAIResponse
 import com.emirpetek.mybirthdayreminder.network.RetrofitInstance
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import retrofit2.Call
@@ -63,7 +64,13 @@ class HoroscopeCompatibilityRepo {
     }
 
     fun saveCompatibilityReport(analysis: CompatibilityAnalysis){
-        reportRef.document().set(analysis)
+        val newDocRef = reportRef.document()
+
+        // Belge ID'sini al ve analysis objesine ata
+        analysis.id = newDocRef.id
+
+
+        reportRef.document(newDocRef.id).set(analysis)
     }
 
     fun getCompatibilityReportList(){
@@ -71,6 +78,10 @@ class HoroscopeCompatibilityRepo {
             val model = it.toObjects(CompatibilityAnalysis::class.java)
             compatibilityList.value = model
         }
+    }
+
+    fun decrementCompatibilityTime(analysis: CompatibilityAnalysis){
+        reportRef.document(analysis.id).update("timestamp",FieldValue.increment(-1 * 50000))
     }
 
 

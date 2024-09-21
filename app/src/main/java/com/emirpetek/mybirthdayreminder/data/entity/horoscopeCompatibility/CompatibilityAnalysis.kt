@@ -3,7 +3,7 @@ package com.emirpetek.mybirthdayreminder.data.entity.horoscopeCompatibility
 import java.io.Serializable
 
 data class CompatibilityAnalysis(
-    val id:String,
+    var id:String,
     val timestamp: Long = System.currentTimeMillis(),
     var compatibilityDescription: String? = null,
     val senderID: String,

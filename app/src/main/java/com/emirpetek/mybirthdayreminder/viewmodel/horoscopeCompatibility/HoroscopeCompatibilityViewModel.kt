@@ -42,4 +42,8 @@ class HoroscopeCompatibilityViewModel : ViewModel() {
     fun getCompatibilityReportList(){
         horoscopeRepo.getCompatibilityReportList()
     }
+
+    fun decrementCompatibilityTime(analysis: CompatibilityAnalysis){
+        horoscopeRepo.decrementCompatibilityTime(analysis)
+    }
 }

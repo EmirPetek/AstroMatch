@@ -67,7 +67,7 @@ class HoroscopeCompatibilityFragment : Fragment() {
             val newList = list.sortedByDescending { it.timestamp }
             binding.recyclerViewHoroscopeCompatibility.setHasFixedSize(true)
             binding.recyclerViewHoroscopeCompatibility.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-            adapter = HoroscopeCompatibilityAdapter(requireContext(),newList,binding.progressBarHoroscopeCompatibility)
+            adapter = HoroscopeCompatibilityAdapter(requireContext(),newList,binding.progressBarHoroscopeCompatibility,viewModel,requireActivity())
             binding.recyclerViewHoroscopeCompatibility.adapter = adapter
 
             if (list.isNullOrEmpty()){
@@ -272,4 +272,6 @@ class HoroscopeCompatibilityFragment : Fragment() {
             findNavController().popBackStack()
         })
     }
+
+
 }
