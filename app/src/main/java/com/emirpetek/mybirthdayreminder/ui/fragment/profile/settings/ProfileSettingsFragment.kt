@@ -1,15 +1,21 @@
 package com.emirpetek.mybirthdayreminder.ui.fragment.profile.settings
 
+import android.content.Intent
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.data.entity.ContactFeedback
 import com.emirpetek.mybirthdayreminder.databinding.FragmentProfileSettingsBinding
 import com.emirpetek.mybirthdayreminder.viewmodel.profile.ProfileSettingsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -42,6 +48,7 @@ class ProfileSettingsFragment : Fragment() {
         }
 
         binding.constraintLayoutSettingsPrivacy.setOnClickListener { showPrivacyDialog() }
+        binding.constraintLayoutSettingsContact.setOnClickListener { showContactDialog() }
 
         return binding.root
     }
@@ -59,6 +66,67 @@ class ProfileSettingsFragment : Fragment() {
             dialog.dismiss()
         }
         ad.create().show()
+    }
+
+    fun showContactDialog(){
+        val inflater = LayoutInflater.from(requireContext())
+        val view = inflater.inflate(R.layout.alert_contact_us, null)
+
+        val builder = android.app.AlertDialog.Builder(requireContext())
+            .setView(view)
+            .setCancelable(true)
+
+        val dialog = builder.create()
+
+        val layoutEmail = view.findViewById<LinearLayout>(R.id.layoutContactEmail)
+        val layoutLinkedin = view.findViewById<LinearLayout>(R.id.layoutContactLinkedin)
+        val layoutWebsite = view.findViewById<LinearLayout>(R.id.layoutContactWebsite)
+        val editTextFeedback = view.findViewById<EditText>(R.id.editTextAlertContactUsFeedback)
+        val btnSendFeedback = view.findViewById<Button>(R.id.buttonAlertContactUsSendFeedback)
+
+        layoutEmail.setOnClickListener {
+            val recipient = "emirpetek2002@gmail.com"  // Alıcı e-posta adresi
+            val subject = "About AstroMatch"  // E-posta konusu
+            val message = "Hi! \n I wanna ask something to you about AstroMatch."  // E-posta içeriği
+
+            val emailIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "message/rfc822"
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))  // Alıcı
+                putExtra(Intent.EXTRA_SUBJECT, subject)  // Konu
+                putExtra(Intent.EXTRA_TEXT, message)  // Mesaj içeriği
+            }
+
+            startActivity(Intent.createChooser(emailIntent,requireContext().getString(R.string.choose_email_client)))
+            dialog.dismiss()
+        }
+
+        layoutLinkedin.setOnClickListener {
+            val bundle : Bundle = Bundle().apply { putString("URL","https://www.linkedin.com/in/emir-petek-6889411b5/") }
+            findNavController().navigate(R.id.action_profileSettingsFragment_to_webviewFragment,bundle)
+            dialog.dismiss()
+        }
+
+        layoutWebsite.setOnClickListener {
+            val bundle : Bundle = Bundle().apply { putString("URL","https://www.emirpetek.com/en/index.php") }
+            findNavController().navigate(R.id.action_profileSettingsFragment_to_webviewFragment,bundle)
+            dialog.dismiss()
+        }
+
+        btnSendFeedback.setOnClickListener {
+            val feedBackText = editTextFeedback.text.toString()
+            if (feedBackText.isEmpty()) Toast.makeText(requireContext(),getString(R.string.enter_feedback),Toast.LENGTH_SHORT).show()
+            else{
+                val nesne = ContactFeedback("",feedBackText,System.currentTimeMillis(),Firebase.auth.currentUser!!.uid)
+                viewModel.addFeedback(nesne)
+                Toast.makeText(requireContext(),getString(R.string.thanks_for_feedback),Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+        }
+
+
+
+        dialog.show()
+
     }
 
 

@@ -121,6 +121,9 @@
         <action
             android:id="@+id/action_profileSettingsFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_profileSettingsFragment_to_webviewFragment"
+            app:destination="@id/webviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/questionAnswersFragment"
@@ -244,4 +247,9 @@
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.login.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
+    <fragment
+        android:id="@+id/webviewFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.webview.WebviewFragment"
+        android:label="fragment_webview"
+        tools:layout="@layout/fragment_webview" />
 </navigation>

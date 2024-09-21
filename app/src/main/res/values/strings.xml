@@ -260,6 +260,16 @@
     <string name="ascendant_small">Ascendant</string>
     <string name="horoscope_compatibility">Horoscope Compatibility</string>
 
+    <string name="contact_us_title">CONTACT US</string>
+    <string name="contact_us_detail_text">We are here to help you with any questions or issues you may have regarding our application. Please feel free to reach out to us through the following channels:</string>
+    <string name="contact_email">emirpetek2002@gmail.com</string>
+    <string name="contact_website">Click here to see developer website.</string>
+    <string name="contact_linkedin">Click here to see developer LinkedIn account.</string>
+    <string name="contact_idea">You can give us feedback.</string>
+    <string name="choose_email_client">Choose an Email client:</string>
+    <string name="enter_feedback">Please enter feedback to send feedback.</string>
+    <string name="thanks_for_feedback">Thank you for your message, it helps us improve!</string>
+
     <string name="privacy_policy_text">
         1. Introduction \n
 We respect your privacy and are committed to protecting your personal information. This Privacy Policy explains what data we collect, how we use it, and the steps we take to safeguard it. By using our mobile application, you agree to the terms of this policy.
@@ -305,5 +315,6 @@ This Privacy Policy may be updated periodically. Any significant changes to the 
 \n\n 10. Contact Us \n
 If you have any questions or concerns regarding this Privacy Policy, please feel free to contact us at emirpetek2002@gmail.com
     </string>
+
 
 </resources>
