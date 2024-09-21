@@ -260,4 +260,50 @@
     <string name="ascendant_small">Ascendant</string>
     <string name="horoscope_compatibility">Horoscope Compatibility</string>
 
+    <string name="privacy_policy_text">
+        1. Introduction \n
+We respect your privacy and are committed to protecting your personal information. This Privacy Policy explains what data we collect, how we use it, and the steps we take to safeguard it. By using our mobile application, you agree to the terms of this policy.
+
+\n\n 2. Information We Collect \n
+To provide you with the best experience, we collect the following personal information:
+
+\n Full Name: Used to personalize your profile and enhance the compatibility analysis.
+\n Birth Date and Time: Essential for providing astrological insights and compatibility features.
+\n Email and Password: Required for account creation and secure login.
+\n User Photos: Used in your profile, match features, and question-answer sections.
+\n Messages: Stored to allow communication between users.
+\n Match Page Data: Includes details of your interactions on the match page.
+\n Question-Answer Section Data: If you participate in the Q&amp;A section, we collect the text and media you provide.
+\n\n 3. How We Use Your Information \n
+We use the information we collect to:
+
+Generate personalized compatibility results based on your birth details.
+\n Facilitate messaging and interaction between users.
+\n Allow users to save and view birthdays and gift ideas.
+\n Enable users to participate in question-answer sections and share posts.
+\n\n 4. Data Retention \n
+Your data will be retained for as long as your account is active and the application remains in operation. We ensure that your personal information is securely stored and only used for the purposes described in this policy.
+
+\n\n 5. User Rights \n
+As a user, you have the right to:
+
+\n Add Data: You can add new information to your profile and features.
+\n Update Data: You can modify or update your personal information at any time.
+\n Delete Data: You can request the deletion of your account and personal data from our system.
+\n\n 6. Data Security \n
+We take the protection of your data seriously. Our systems are designed to safeguard your information against unauthorized access, alteration, and deletion, using industry-standard security measures.
+
+\n\n 7. Cookies \n
+We do not use cookies in our mobile application.
+
+\n\n 8. Sharing of Information \n
+We do not share your personal information with third parties unless it is required by law or necessary to provide certain core features of the app (such as AI-based compatibility analysis).
+
+\n\n 9. Policy Updates \n
+This Privacy Policy may be updated periodically. Any significant changes to the way we handle your personal information will be communicated to you through the app or via email.
+
+\n\n 10. Contact Us \n
+If you have any questions or concerns regarding this Privacy Policy, please feel free to contact us at emirpetek2002@gmail.com
+    </string>
+
 </resources>

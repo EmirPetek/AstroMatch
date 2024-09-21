@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.emirpetek.mybirthdayreminder.R
@@ -40,12 +41,24 @@ class ProfileSettingsFragment : Fragment() {
                     .build())//navigate(R.id.action_profileSettingsFragment_to_loginFragment,)
         }
 
+        binding.constraintLayoutSettingsPrivacy.setOnClickListener { showPrivacyDialog() }
+
         return binding.root
     }
 
     private fun hideBottomNav(){
         val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNav?.visibility = View.GONE
+    }
+
+    fun showPrivacyDialog(){
+        val ad = AlertDialog.Builder(requireContext())
+        ad.setTitle(getString(R.string.privacy))
+        ad.setMessage(getString(R.string.privacy_policy_text))
+        ad.setPositiveButton("OK"){ dialog, it ->
+            dialog.dismiss()
+        }
+        ad.create().show()
     }
 
 
