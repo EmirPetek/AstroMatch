@@ -49,9 +49,10 @@ class LoginLogRepo {
     }
 
     fun addLogDataToList(logLong: LogDetails){
+        val docID = "${logLong.timestamp}_${logLong.userID}"
         logDataListRepo.collection(logLong.userID)
             .document("logDataList")
-            .collection("logDataList").add(logLong)
+            .collection("logDataList").document(docID).set(logLong)
     }
 
 }
