@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.data.entity.loginLogs.LogDetails
@@ -60,7 +61,12 @@ class LoginCheckFragment : Fragment() {
                         if (task.isSuccessful) {
                             toastShow(requireContext().getString(R.string.login_successfull))
                             userLoginLogSave()
-                            findNavController().navigate(R.id.action_loginCheckFragment_to_birthdaysFragment)
+                            findNavController().navigate(
+                                R.id.action_loginCheckFragment_to_birthdaysFragment,
+                                null,
+                                NavOptions.Builder().setPopUpTo(R.id.loginCheckFragment,true)
+                                    .build())
+                            //findNavController().navigate(R.id.action_loginCheckFragment_to_birthdaysFragment)
                         }else{
                             findNavController().navigate(R.id.action_loginCheckFragment_to_loginFragment)
                             toastShow(requireContext().getString(R.string.something_wrong_email_pw))

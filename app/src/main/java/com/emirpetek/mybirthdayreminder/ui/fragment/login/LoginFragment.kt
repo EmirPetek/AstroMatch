@@ -29,6 +29,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import android.Manifest
 import android.content.pm.PackageManager
+import androidx.navigation.NavOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -135,7 +136,12 @@ class LoginFragment : Fragment() {
                         toastShow(requireContext().getString(R.string.login_successfull))
                         userLoginLogSave()
                         if (binding.checkBoxLoginFragmentRememberMe.isChecked) setRememberMe(email,password)
-                        findNavController().navigate(R.id.action_loginFragment_to_birthdaysFragment)
+                        findNavController().navigate(
+                            R.id.action_loginFragment_to_birthdaysFragment,
+                            null,
+                            NavOptions.Builder().setPopUpTo(R.id.loginFragment,true)
+                                .build())
+                        //findNavController().navigate(R.id.action_loginFragment_to_birthdaysFragment)
                         val bottomNav =
                             activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
                         bottomNav?.visibility = View.VISIBLE
