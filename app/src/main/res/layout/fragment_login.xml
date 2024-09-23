@@ -110,18 +110,6 @@
             android:textSize="19sp"
             android:textStyle="bold|italic" />
 
-        <Button
-            android:id="@+id/buttonLoginRegister"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_margin="12dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/muli_semibold"
-            android:text="@string/register"
-            android:textColor="@color/text_white"
-            android:textSize="19sp"
-            android:textStyle="bold|italic" />
-
         <TextView
             android:id="@+id/textViewDontYouHaveAccount"
             android:layout_width="wrap_content"
@@ -133,6 +121,18 @@
             android:textColor="#3C3535"
             android:textSize="14sp"
             android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/buttonLoginRegister"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_margin="12dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/muli_semibold"
+            android:text="@string/register"
+            android:textColor="@color/text_white"
+            android:textSize="19sp"
+            android:textStyle="bold|italic" />
 
         <Button
             android:id="@+id/buttonHesapsizDevamet"
