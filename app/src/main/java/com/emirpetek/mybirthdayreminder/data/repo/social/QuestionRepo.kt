@@ -33,8 +33,9 @@ class QuestionRepo {
 
 
     suspend fun insertQuestion(q: Post): Boolean {
+        val docID = "${q.timestamp}_${q.userID}"
         return try {
-            dbRefQuestions.add(q)
+            dbRefQuestions.document(docID).set(q)
             true
         } catch (e: Exception) {
             false
