@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/loginCheckFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -252,4 +252,16 @@
         android:name="com.emirpetek.mybirthdayreminder.ui.fragment.webview.WebviewFragment"
         android:label="fragment_webview"
         tools:layout="@layout/fragment_webview" />
+    <fragment
+        android:id="@+id/loginCheckFragment"
+        android:name="com.emirpetek.mybirthdayreminder.ui.fragment.login.LoginCheckFragment"
+        android:label="fragment_login_check"
+        tools:layout="@layout/fragment_login_check" >
+        <action
+            android:id="@+id/action_loginCheckFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_loginCheckFragment_to_birthdaysFragment"
+            app:destination="@id/birthdaysFragment" />
+    </fragment>
 </navigation>

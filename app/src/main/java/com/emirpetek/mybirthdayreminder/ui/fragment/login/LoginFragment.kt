@@ -64,6 +64,8 @@ class LoginFragment : Fragment() {
 
         mockEditText()
 
+        checkRememberMe()
+
         binding.buttonLoginSignIn.setOnClickListener {
             loginUser()
         }
@@ -88,12 +90,38 @@ class LoginFragment : Fragment() {
         binding.editTextLoginPassword.setText("emir2002")
     }
 
-    private fun setRememberMe() {
+    private fun setRememberMe(email: String, password: String) {
         sharedPreferences =
             requireContext().getSharedPreferences("userAuthentication", MODE_PRIVATE)
         editor = sharedPreferences.edit()
         editor.putBoolean("rememberMe", true)
+        editor.putString("email", email)
+        editor.putString("password", password)
         editor.commit()
+        editor.apply()
+    }
+
+    private fun checkRememberMe(){
+        sharedPreferences = requireContext().getSharedPreferences("userAuthentication", MODE_PRIVATE)
+
+        val email = sharedPreferences.getString("email", null)  // E-posta
+        val password = sharedPreferences.getString("password", null)  // Şifre
+
+        if (email != null && password != null){
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(requireActivity()) { task ->
+                        if (task.isSuccessful) {
+                            toastShow(requireContext().getString(R.string.login_successfull))
+                            userLoginLogSave()
+                            findNavController().navigate(R.id.action_loginFragment_to_birthdaysFragment)
+                            val bottomNav =
+                                activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+                            bottomNav?.visibility = View.VISIBLE
+                        }
+                    }
+            }
+        }
     }
 
     private fun loginUser() {
@@ -106,6 +134,7 @@ class LoginFragment : Fragment() {
                     if (task.isSuccessful) {
                         toastShow(requireContext().getString(R.string.login_successfull))
                         userLoginLogSave()
+                        if (binding.checkBoxLoginFragmentRememberMe.isChecked) setRememberMe(email,password)
                         findNavController().navigate(R.id.action_loginFragment_to_birthdaysFragment)
                         val bottomNav =
                             activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)

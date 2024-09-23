@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
 
         createBottomNavigation()
 
-        checkOrSaveUser()
       //  loadFragment(LoginFragment())
 
         /*binding.bottomNavigationBar.setOnItemSelectedListener {
@@ -55,26 +54,7 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    private fun checkOrSaveUser(){
-        sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE)
-        editor = sharedPreferences.edit()
 
-        val registerState: String = sharedPreferences.getString("registerState", "0")!!
-        val userKeyData: String = sharedPreferences.getString("userKey", "0")!!
-
-        if (registerState == "0") {
-            registerUser()
-        }
-    }
-
-    fun registerUser() {
-        val sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-        editor = sharedPreferences.edit()
-        val userKey = generateRandomKey()
-        editor.putString("userKey", userKey)
-        editor.putString("registerState", "1")
-        editor.commit()
-    }
 
     fun generateRandomKey(): String {
         val characterSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

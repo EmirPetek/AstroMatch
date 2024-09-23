@@ -1,6 +1,8 @@
 package com.emirpetek.mybirthdayreminder.ui.fragment.profile.settings
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -27,6 +29,8 @@ class ProfileSettingsFragment : Fragment() {
 
     private val viewModel: ProfileSettingsViewModel by viewModels()
     private lateinit var binding: FragmentProfileSettingsBinding
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +44,7 @@ class ProfileSettingsFragment : Fragment() {
         binding.constraintLayoutSettingsAccount.setOnClickListener { findNavController().navigate(R.id.action_profileSettingsFragment_to_settingsAccountFragment) }
         binding.constraintLayoutSettingsLogout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
+            logout()
             findNavController().navigate(
                 R.id.action_profileSettingsFragment_to_loginFragment,
                 null,
@@ -57,6 +62,16 @@ class ProfileSettingsFragment : Fragment() {
         val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNav?.visibility = View.GONE
     }
+
+    private fun logout() {
+        sharedPreferences = requireContext().getSharedPreferences("userAuthentication", MODE_PRIVATE)
+        editor = sharedPreferences.edit()
+        editor.remove("email")
+        editor.remove("password")
+        editor.putBoolean("rememberMe", false)
+        editor.apply()
+    }
+
 
     fun showPrivacyDialog(){
         val ad = AlertDialog.Builder(requireContext())

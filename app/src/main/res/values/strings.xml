@@ -14,6 +14,7 @@
     <string name="date">Date</string>
     <string name="gift_idea">Gift Idea</string>
     <string name="apply">Apply</string>
+    <string name="remember_me">Remember Me</string>
     <string name="login_app_title_normal">AstroMatch</string>
     <string name="login_app_title_big">ASTROMATCH</string>
     <string name="forgot_password">Forgot Password?</string>
@@ -62,6 +63,7 @@
     <string name="fill_option_place">Please fill option place.</string>
     <string name="login_successfull">Login Successful!</string>
     <string name="something_wrong">Something went wrong. PLease try again.</string>
+    <string name="something_wrong_email_pw">Something went wrong. Please login with email and password.</string>
     <string name="post_sharing_waiting">Your post is sharing. \n Please wait.</string>
     <string name="post_shared">Your post was shared successfully.</string>
     <string name="photo_message_send_waiting">Your image message is sending. \n Please wait.</string>
@@ -260,6 +262,7 @@
     <string name="ascendant_small">Ascendant</string>
     <string name="horoscope_compatibility">Horoscope Compatibility</string>
 
+    <string name="slogan">Discover Your Perfect Match Through the Stars!</string>
     <string name="contact_us_title">CONTACT US</string>
     <string name="contact_us_detail_text">We are here to help you with any questions or issues you may have regarding our application. Please feel free to reach out to us through the following channels:</string>
     <string name="contact_email">emirpetek2002@gmail.com</string>
