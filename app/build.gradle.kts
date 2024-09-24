@@ -79,6 +79,9 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.0")
 
+    // onboarding dots
+    implementation("com.tbuonomo:dotsindicator:5.0")
+
 
 
 }

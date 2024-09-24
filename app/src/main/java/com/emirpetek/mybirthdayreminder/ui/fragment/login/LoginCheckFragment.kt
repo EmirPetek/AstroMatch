@@ -1,5 +1,6 @@
 package com.emirpetek.mybirthdayreminder.ui.fragment.login
 
+import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -42,7 +43,14 @@ class LoginCheckFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         auth = Firebase.auth
-        checkRememberMe()
+
+        if (onBoardingIsFinished()){
+            checkRememberMe()
+        }else{
+            findNavController().navigate(R.id.action_loginCheckFragment_to_onBoardingFragment)
+        }
+
+        //checkRememberMe()
         ManageBottomNavigationVisibility(requireActivity()).hideBottomNav()
 
         return inflater.inflate(R.layout.fragment_login_check, container, false)
@@ -119,6 +127,12 @@ class LoginCheckFragment : Fragment() {
                 null
             }
         }
+    }
+
+    private fun onBoardingIsFinished() : Boolean{
+        val sp = requireActivity().getSharedPreferences("onBoarding",Context.MODE_PRIVATE)
+        return sp.getBoolean("finished",false)
+
     }
 
 }

@@ -262,6 +262,11 @@
     <string name="ascendant_small">Ascendant</string>
     <string name="horoscope_compatibility">Horoscope Compatibility</string>
 
+    <string name="next">Next</string>
+    <string name="back">Back</string>
+    <string name="start">Start</string>
+
+
     <string name="slogan">Discover Your Perfect Match Through the Stars!</string>
     <string name="contact_us_title">CONTACT US</string>
     <string name="contact_us_detail_text">We are here to help you with any questions or issues you may have regarding our application. Please feel free to reach out to us through the following channels:</string>

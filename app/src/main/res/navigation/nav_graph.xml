@@ -263,5 +263,17 @@
         <action
             android:id="@+id/action_loginCheckFragment_to_birthdaysFragment"
             app:destination="@id/birthdaysFragment" />
+        <action
+            android:id="@+id/action_loginCheckFragment_to_onBoardingFragment"
+            app:destination="@id/onBoardingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.emirpetek.mybirthdayreminder.onBoarding.OnBoardingFragment"
+        android:label="fragment_on_boarding"
+        tools:layout="@layout/fragment_on_boarding" >
+        <action
+            android:id="@+id/action_onBoardingFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 </navigation>

@@ -1,5 +1,6 @@
 package com.emirpetek.mybirthdayreminder.ui.fragment.profile.settings
 
+import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.SharedPreferences
@@ -54,6 +55,7 @@ class ProfileSettingsFragment : Fragment() {
 
         binding.constraintLayoutSettingsPrivacy.setOnClickListener { showPrivacyDialog() }
         binding.constraintLayoutSettingsContact.setOnClickListener { showContactDialog() }
+        binding.buttonOnBoardingZero.setOnClickListener { onBoardingFinish() }
 
         return binding.root
     }
@@ -72,6 +74,12 @@ class ProfileSettingsFragment : Fragment() {
         editor.apply()
     }
 
+    private fun onBoardingFinish(){
+        val sp = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
+        val editor = sp.edit()
+        editor.putBoolean("finished",false)
+        editor.apply()
+    }
 
     fun showPrivacyDialog(){
         val ad = AlertDialog.Builder(requireContext())
