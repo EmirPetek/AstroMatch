@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -9,7 +11,6 @@ plugins {
 android {
     namespace = "com.emirpetek.mybirthdayreminder"
     compileSdk = 34
-
 
 
     defaultConfig {
