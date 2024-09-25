@@ -23,21 +23,40 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textViewOnBoardingTextTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
+            android:fontFamily="@font/nunito"
+            android:text="@string/onboarding_title_second"
+            android:textAlignment="center"
+            android:textColor="@color/text_black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewOnBoardingTextFirst"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/nunito"
+            android:text="@string/onboarding_text_second"
+            android:textAlignment="center"
+            android:textColor="@color/text_black"
+            android:textSize="17sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="32dp"
         android:layout_weight="1"
         android:gravity="bottom|end"

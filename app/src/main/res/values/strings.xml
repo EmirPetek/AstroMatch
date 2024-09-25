@@ -265,6 +265,16 @@
     <string name="next">Next</string>
     <string name="back">Back</string>
     <string name="start">Start</string>
+    <string name="onboarding_title_first">Discover Your Astrological Matches</string>
+    <string name="onboarding_title_second">Save Birthdays &amp; Get Gift Ideas</string>
+    <string name="onboarding_title_third">Message &amp; Connect Socially</string>
+    <string name="onboarding_title_fourth">Astrology Insights &amp; Earn Gold</string>
+    <string name="onboarding_title_fifth">Get Ready for the Full Experience!</string>
+    <string name="onboarding_text_first">Filter potential matches based on zodiac compatibility and send likes to those who catch your eye!</string>
+    <string name="onboarding_text_second">Never forget a birthday! Save special dates and explore unique gift ideas for your loved ones.</string>
+    <string name="onboarding_text_third">Stay connected with your matches. Send messages and create meaningful social connections.</string>
+    <string name="onboarding_text_fourth">Use your astrological data for compatibility analysis.</string>
+    <string name="onboarding_text_fifth">Enjoy everything our app has to offer!</string>
 
 
     <string name="slogan">Discover Your Perfect Match Through the Stars!</string>
