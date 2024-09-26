@@ -173,6 +173,7 @@
     <string name="enter_email_to_reset_edittext">Enter your email address.</string>
     <string name="reset_mail_sent">Your password reset mail has sent. Check your email.</string>
     <string name="email_wrong">Email address is wrong. Please check it.</string>
+    <string name="check_email_password">Error in login. Check your email or password.</string>
     <string name="send_big">SEND</string>
 
 

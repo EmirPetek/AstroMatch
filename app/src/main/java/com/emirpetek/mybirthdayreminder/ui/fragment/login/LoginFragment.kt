@@ -147,6 +147,9 @@ class LoginFragment : Fragment() {
                         bottomNav?.visibility = View.VISIBLE
                     }
                 }
+                .addOnFailureListener {
+                    toastShow(requireContext().getString(R.string.check_email_password))
+                }
         } else {
             toastShow(requireContext().getString(R.string.fill_all_place))
         }
