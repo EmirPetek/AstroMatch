@@ -1,0 +1,336 @@
+<resources>
+    <string name="app_name">AstroMatch</string>
+    <string name="birthdays">Doğum Günleri</string>
+    <string name="profile">Profil</string>
+    <string name="match">Eşleşme</string>
+    <string name="settings_big">AYARLAR</string>
+    <string name="add">Ekle</string>
+    <string name="cancel">İptal</string>
+    <string name="cancel_big">İPTAL</string>
+    <string name="share">Paylaş</string>
+    <string name="share_big">PAYLAŞ</string>
+    <string name="name_surname">Ad soyad</string>
+    <string name="fullname">Tam ad</string>
+    <string name="date">Tarih</string>
+    <string name="gift_idea">Hediye Fikri</string>
+    <string name="apply">Uygula</string>
+    <string name="remember_me">Beni Hatırla</string>
+    <string name="login_app_title_normal">AstroMatch</string>
+    <string name="login_app_title_big">ASTROMATCH</string>
+    <string name="forgot_password">Şifrenizi mi unuttunuz?</string>
+    <string name="gift_idea_details">Kıyafet, Saat, Oyuncak vb.</string>
+    <string name="user_degree">Kullanıcı Derecesi</string>
+    <string name="birthdays_uppercase">DOGUM GÜNLERI</string>
+    <string name="birthdays_gift_ideas">HEDIYE FIKIRLERI</string>
+    <string name="everyone">Herkes</string>
+    <string name="family">Aile</string>
+    <string name="friends">Arkadaşlar</string>
+    <string name="bros">Agalar</string>
+    <string name="work">İş</string>
+    <string name="colleagues">Meslektaşlar</string>
+    <string name="acquaintances">Tanıdıklar</string>
+    <string name="partner">Partner</string>
+    <string name="vip">VIP</string>
+    <string name="date_format">GG/AA/YYYY</string>
+    <string name="select_birthday">Lütfen doğum tarihini seçin.</string>
+    <string name="text_name_surname">Lütfen ad ve soyadı yazın</string>
+    <string name="add_birthday">Doğum Günü Ekle</string>
+    <string name="update">Güncelle</string>
+    <string name="delete">Sil</string>
+    <string name="update_birthday">Doğum Gününü Güncelle</string>
+    <string name="no_added_birthday">Eklenmiş doğum günü yok. \n + butonuna basarak yeni doğum günü ekleyin.</string>
+    <string name="datas_updated">Bilgiler güncellendi.</string>
+    <string name="delete_birthday">Doğum Gününü Sil</string>
+    <string name="delete_birthday_ask">Doğum gününü silmek istediğinizden emin misiniz?</string>
+    <string name="dd_mm_yyyy">GG/AA/YYYY</string>
+    <string name="birthdate">Doğum Tarihi</string>
+    <string name="birthday_gift_idea_description">Diğer kullanıcıların kaydettiği hediye fikirlerini görüntüleyebilirsiniz.</string>
+    <string name="dont_have_account">Hesabınız yok mu?</string>
+    <string name="continue_without_account_big">HESAP OLMADAN DEVAM ET</string>
+    <string name="not_empty_password_fields">Lütfen şifre alanlarını doldurun.</string>
+    <string name="not_empty_email_field">Lütfen e-posta alanını doldurun.</string>
+    <string name="not_empty_fullname_field">Lütfen tam ad alanını doldurun.</string>
+    <string name="not_empty_birthday_field">Lütfen doğum günü alanını doldurun.</string>
+    <string name="not_empty_birthTime_field">Lütfen doğum saati alanını doldurun.</string>
+    <string name="not_empty_biography_field">Lütfen profil biyografi alanını doldurun.</string>
+    <string name="not_empty_gender_field">Lütfen cinsiyetinizi seçin.</string>
+    <string name="not_empty_profile_photo_field">Lütfen profil fotoğrafınızı seçin.</string>
+    <string name="not_match_passwords">Şifreler eşleşmiyor.</string>
+    <string name="password_charachters_at_least_six">Şifreler en az 6 karakter olmalıdır.</string>
+    <string name="email_already_using">Bu e-posta adresi başka bir hesap tarafından kullanılıyor.</string>
+    <string name="register_successfull">Kayıt işlemi başarıyla tamamlandı.</string>
+    <string name="fill_all_place">Lütfen tüm alanları doldurun.</string>
+    <string name="fill_option_place">Lütfen seçenek alanını doldurun.</string>
+    <string name="login_successfull">Giriş Başarılı!</string>
+    <string name="something_wrong">Bir şeyler ters gitti. Lütfen tekrar deneyin.</string>
+    <string name="something_wrong_email_pw">Bir şeyler ters gitti. Lütfen e-posta ve şifrenizle giriş yapın.</string>
+    <string name="post_sharing_waiting">Gönderiniz paylaşılıyor. \n Lütfen bekleyin.</string>
+    <string name="post_shared">Gönderiniz başarıyla paylaşıldı.</string>
+    <string name="photo_message_send_waiting">Fotoğraf mesajınız gönderiliyor. \n Lütfen bekleyin.</string>
+    <string name="photo_message_sent">Fotoğraf mesajınız başarıyla gönderildi.</string>
+    <string name="options_at_least_two_item">En az 2 seçenek eklemelisiniz.</string>
+    <string name="your_message_sended">Mesajınız gönderildi.</string>
+    <string name="account">Hesap</string>
+    <string name="theme">Tema</string>
+    <string name="notification">Bildirim</string>
+    <string name="privacy">Gizlilik</string>
+    <string name="logout">Çıkış Yap</string>
+    <string name="delete_account">Hesabı Sil</string>
+    <string name="contact">İletişim</string>
+    <string name="your_post">Gönderileriniz</string>
+    <string name="user_posts">Kullanıcı Gönderileri</string>
+    <string name="no_post_here">Burada gönderi yok.</string>
+    <string name="no_photo_here">Burada fotoğraf yok.</string>
+    <string name="no_answer_here">Burada cevap yok.</string>
+    <string name="answer">cevap</string>
+    <string name="answers">cevaplar</string>
+    <string name="no_answer">Cevap yok.</string>
+    <string name="answers_big">CEVAPLAR</string>
+    <string name="are_you_sure_to_delete">Silmek istediğinizden emin misiniz?</string>
+    <string name="yes">EVET</string>
+    <string name="account_big">HESAP</string>
+    <string name="change_photo_big">FOTOGRAF DEGISTIR</string>
+    <string name="data_updating">Verileriniz güncelleniyor. \n Lütfen bekleyin.</string>
+    <string name="select_gender">Cinsiyetinizi seçin</string>
+    <string name="male">Erkek</string>
+    <string name="female">Kadın</string>
+    <string name="other">Diğer</string>
+    <string name="profile_bio">Profil Biyografisi</string>
+    <string name="biography">Biyografi</string>
+    <string name="age">Yaş</string>
+    <string name="photos">Fotoğraflar</string>
+    <string name="view_all">Tümünü Gör</string>
+    <string name="select_profile_photo">Profil Fotoğrafı Seç</string>
+    <string name="select_profile_gallery_photo">Profil Galeri Fotoğrafları Seç</string>
+    <string name="your_account_registering">Hesabınız kaydediliyor. \n Lütfen bekleyin.</string>
+    <string name="add_photo">Fotoğraf Ekle</string>
+    <string name="add_photo_big">FOTOGRAF EKLE</string>
+    <string name="profile_gallery">Profil Galerisi</string>
+    <string name="profile_gallery_big">PROFIL GALERISI</string>
+    <string name="your_horoscope">Burcunuz</string>
+    <string name="another_horoscope">Diğer Burç</string>
+    <string name="compliance_rate">Uyum Oranı</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Strings related to login -->
+    <string name="email">E-posta</string>
+    <string name="password">Şifre</string>
+    <string name="password_again">Şifre Tekrar</string>
+    <string name="sign_in_or_register">Giriş yap veya kayıt ol</string>
+    <string name="sign_in">GIRIS YAP</string>
+    <string name="register">KAYIT OL</string>
+    <string name="home">Ana Sayfa</string>
+    <string name="social">Sosyal</string>
+    <string name="social_gift_ideas">SOSYAL HEDIYE FIKIRLERI</string>
+    <string name="profile_toolbar">PROFIL</string>
+    <string name="birth_time">Doğum Zamanı</string>
+    <string name="joined_at">Katılma Tarihi</string>
+    <string name="make_survey">Anket Yap</string>
+    <string name="make_survey_big">ANKET YAP</string>
+    <string name="ask_question">Soru Sor</string>
+    <string name="ask_question_big">SORU SOR</string>
+    <string name="select_image_optional">Resim Seç (İsteğe Bağlı)</string>
+    <string name="write_message">Mesaj Yaz</string>
+    <string name="add_option_at_least_two_options">Seçenek Ekle (En az 2 seçenek)</string>
+    <string name="option_colon">Seçenek:</string>
+    <string name="option">Seçenek</string>
+    <string name="reply_big">CEVAPLA</string>
+    <string name="more_big">DAHA FAZLA</string>
+    <string name="hours_ago">saat önce</string>
+    <string name="minutes_ago">dakika önce</string>
+    <string name="visitors">Ziyaretçiler</string>
+    <string name="visitors_mock">0 \n Ziyaretçi</string>
+    <string name="profile_visitors_big">PROFIL ZIYARETÇILERI</string>
+    <string name="image_file">Resim Dosyası</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
+    <string name="ad_unit_id">ca-app-pub-3940256099942544/9214589741</string>
+    <string name="ad_native_id">ca-app-pub-3940256099942544/2247696110</string>
+    <string name="ad_interstitial_id">ca-app-pub-3940256099942544/5224354917</string>
+    <string name="ad_rewarded_id">ca-app-pub-3940256099942544/5354046379</string>
+    <string name="horoscope_compatibility_title">BURÇ UYUMLULUGU</string>
+    <string name="calculate_compatibility">Uyumluluğu Hesapla</string>
+    <string name="your_name_label">Adınız:</string>
+    <string name="your_name">Adınız</string>
+    <string name="your_birthdate_label">Doğum Tarihiniz:</string>
+    <string name="your_birthdate">Doğum Tarihiniz</string>
+    <string name="another_person_name_label">Başka Bir Kişi \n Adı:</string>
+    <string name="another_person_name">Başka Bir Kişinin Adı</string>
+    <string name="another_person_birthdate_label">Başka Bir Kişi \n Doğum Tarihi:</string>
+    <string name="another_person_birthdate">Başka Bir Kişinin Doğum Tarihi</string>
+    <string name="short_analysis">Kısa Analiz</string>
+    <string name="detailed_analysis">Detaylı Analiz</string>
+    <string name="analyse_data_sending">Analiz verileri gönderiliyor. \n Lütfen bekleyin</string>
+    <string name="analysis_detail">ANALİZ DETAYI</string>
+    <string name="user_filter">Kullanıcı Filtresi</string>
+    <string name="user_horoscope">Kullanıcı Burcu</string>
+    <string name="user_gender">Kullanıcı Cinsiyeti</string>
+    <string name="user_age">Kullanıcı Yaşı</string>
+    <string name="last_login_time_title">Son Giriş Zamanı: </string>
+    <string name="forgot_password_title">SIFREMI UNUTTUM</string>
+    <string name="enter_email_to_reset">Şifrenizi sıfırlamak için e-posta adresinizi girin.</string>
+    <string name="enter_email_to_reset_edittext">E-posta adresinizi girin.</string>
+    <string name="reset_mail_sent">Şifre sıfırlama e-postanız gönderildi. E-postanızı kontrol edin.</string>
+    <string name="email_wrong">E-posta adresi yanlış. Lütfen kontrol edin.</string>
+    <string name="send_big">GÖNDER</string>
+
+    <string name="notify_category_spam">Spam ve Reklam</string>
+    <string name="notify_category_harassment">Taciz ve Zorbalık</string>
+    <string name="notify_category_hate_speech">Nefret Söylemi ve Ayrımcılık</string>
+    <string name="notify_category_misinformation">Yanlış Bilgilendirme ve Dolandırıcılık</string>
+    <string name="notify_category_nudity">Müstehcenlik ve Cinsel İçerik</string>
+    <string name="notify_category_fake_profile">Sahte Profil ve Taklit</string>
+    <string name="notify_category_privacy_violation">Gizlilik İhlali ve Veri Paylaşımı</string>
+    <string name="notify_category_violence">Şiddet ve Tehditler</string>
+    <string name="notify_category_illegal_activity">Yasadışı Faaliyet ve Uygunsuz İçerik</string>
+    <string name="notify_category_fake_interaction">Botlar ve Sahte Etkileşim</string>
+    <string name="notify_category_another">Diğer</string>
+    <string name="notify_person">Kişiyi Bildir</string>
+    <string name="notify">Bildir</string>
+    <string name="enter_notify_message">Bildirim Mesajını Girin</string>
+    <string name="should_select_notify_to_notify">Kullanıcıyı bildirmek için bir neden seçmelisiniz.</string>
+    <string name="notify_success">Raporunuz gönderildi. Güvenli bir topluluk oluşturmamıza yardım ettiğiniz için teşekkür ederiz.</string>
+
+    <string name="earn_or_buy_gold">ALTIN SATIN AL</string>
+    <string name="not_enough_gold">Bu işlem için yeterli altınınız yok.</string>
+    <string name="not_enough_right">Bu işlem için yeterli hakkınız yok.</string>
+    <string name="not_enough_gold_and_right">Bu işlem için yeterli altın veya hakkınız yok.</string>
+    <string name="liked_for_one_gold">1 altın karşılığında beğenildi. Bu işlem için yeterli hakkınız olmadığı için altın kullanıldı.</string>
+    <string name="mega_like_for_five_gold">5 altın karşılığında mega beğenildi. Bu işlem için yeterli hakkınız olmadığı için altın kullanıldı.</string>
+    <string name="remaining_like_rights">Kalan Beğeni Hakları: </string>
+    <string name="daily_win">GÜNLÜK ÖDÜL</string>
+    <string name="win_20_gold">Bugün giriş yaparak 10 altın kazandınız. \n Her gün gelin, 10 altın kazanın!</string>
+    <string name="thanks">Teşekkürler!</string>
+    <string name="time_left_for_gold_like">Bir sonraki ücretsiz altın \n ve beğeniye kalan süre: </string>
+
+    <string name="gold_amount_1">50 Altın</string>
+    <string name="gold_amount_2">100 Altın</string>
+    <string name="gold_amount_3">200 Altın</string>
+    <string name="gold_amount_4">500 Altın</string>
+    <string name="gold_amount_5">1000 Altın</string>
+    <string name="gold_amount_6">5000 Altın</string>
+
+    <string name="gold_price_1">₺29,99</string>
+    <string name="gold_price_2">₺54,99</string>
+    <string name="gold_price_3">₺89,99</string>
+    <string name="gold_price_4">₺219,99</string>
+    <string name="gold_price_5">₺399,99</string>
+    <string name="gold_price_6">₺1799,99</string>
+
+    <string name="gold_watch_ad_one">Reklam izle ve 1 Altın kazan</string>
+    <string name="gold_watch_ad_two">Reklam izle ve 5 Altın kazan</string>
+    <string name="gold_watch_ad_one_button">1 Altın Kazan</string>
+    <string name="gold_watch_ad_two_button">5 Altın Kazan</string>
+
+    <string name="chats">Sohbetler</string>
+    <string name="chats_big">SOHBETLER</string>
+    <string name="type_here_hint">Buraya yazın...</string>
+    <string name="no_message_here">Burada hiç mesaj yok. \n İlk mesajınızı gönderin!</string>
+    <string name="no_chat_here">Burada sohbet yok.</string>
+    <string name="no_like_here">Burada beğeni yok.</string>
+    <string name="no_profile_visitor_here">Burada profil ziyaretçisi yok.</string>
+    <string name="no_gift_idea_here">Burada hediye fikri yok.</string>
+    <string name="no_send_empty_text">Mesaj göndermek için bir şey yazmalısınız.</string>
+    <string name="no_compatibility_detail_here">Burada burç uyumluluk raporu yok.</string>
+    <string name="no_filtered_users">Bu filtreli detaya sahip kullanıcı yok.</string>
+    <string name="sent">Gönderildi</string>
+    <string name="seen">Görüldü</string>
+    <string name="send_msg">Mesaj\nGönder</string>
+    <string name="coming_likes_big">GELEN BEGENI</string>
+
+    <!-- 12 tane burç bilgisi -->
+    <string name="aries">Koç</string> <!-- index 1 -->
+    <string name="taurus">Boğa</string> <!-- index 2 -->
+    <string name="gemini">İkizler</string> <!-- index 3 -->
+    <string name="cancer">Yengeç</string> <!-- index 4 -->
+    <string name="leo">Aslan</string> <!-- index 5 -->
+    <string name="virgo">Başak</string> <!-- index 6 -->
+    <string name="libra">Terazi</string> <!-- index 7 -->
+    <string name="scorpio">Akrep</string> <!-- index 8 -->
+    <string name="sagittarius">Yay</string> <!-- index 9 -->
+    <string name="capricorn">Oğlak</string> <!-- index 10 -->
+    <string name="aquarius">Kova</string> <!-- index 11 -->
+    <string name="pisces">Balık</string> <!-- index 12 -->
+
+    <string name="unknown">Bilinmiyor</string> <!-- index -1 -->
+    <string name="zodiac">BURÇ</string>
+    <string name="zodiac_small">Burç</string>
+    <string name="ascendant">YÜKSELEN</string>
+    <string name="ascendant_small">Yükselen</string>
+    <string name="horoscope_compatibility">Burç Uyumu</string>
+
+    <string name="next">İleri</string>
+    <string name="back">Geri</string>
+    <string name="start">Başla</string>
+    <string name="onboarding_title_first">Astrolojik Eşleşmelerini Keşfet</string>
+    <string name="onboarding_title_second">Doğum Günlerini Kaydet &amp; Hediye Fikirleri Al</string>
+    <string name="onboarding_title_third">Mesajlaş &amp; Sosyal Bağlantılar Kur</string>
+    <string name="onboarding_title_fourth">Astroloji Bilgileri &amp; Altın Kazan</string>
+    <string name="onboarding_title_fifth">Tam Deneyime Hazır Ol!</string>
+    <string name="onboarding_text_first">Burç uyumuna göre potansiyel eşleşmeleri filtrele ve dikkatini çekenlere beğeni gönder!</string>
+    <string name="onboarding_text_second">Doğum günlerini asla unutma! Özel tarihler kaydet ve sevdiklerin için eşsiz hediye fikirleri keşfet.</string>
+    <string name="onboarding_text_third">Eşleşmelerinle bağlantıda kal. Mesaj gönder ve anlamlı sosyal bağlantılar kur.</string>
+    <string name="onboarding_text_fourth">Astroloji verilerini uyum analizi için kullan.</string>
+    <string name="onboarding_text_fifth">Uygulamamızın sunduğu her şeyin tadını çıkar!</string>
+
+    <string name="slogan">Yıldızlar Arasındaki Mükemmel Eşleşmeni Keşfet!</string>
+    <string name="contact_us_title">BİZE ULAŞIN</string>
+    <string name="contact_us_detail_text">Uygulamamızla ilgili sorularınız veya sorunlarınız için size yardımcı olmaya buradayız. Lütfen aşağıdaki kanallar aracılığıyla bize ulaşmaktan çekinmeyin:</string>
+    <string name="contact_email">emirpetek2002@gmail.com</string>
+    <string name="contact_website">Geliştirici web sitesini görmek için buraya tıklayın.</string>
+    <string name="contact_linkedin">Geliştiricinin LinkedIn hesabını görmek için buraya tıklayın.</string>
+    <string name="contact_idea">Bize geri bildirimde bulunabilirsiniz.</string>
+    <string name="choose_email_client">Bir E-posta uygulaması seçin:</string>
+    <string name="enter_feedback">Geri bildirim göndermek için lütfen geri bildirim girin.</string>
+    <string name="thanks_for_feedback">Mesajınız için teşekkür ederiz. Bu, bize gelişmemiz için yardımcı olacak!</string>
+
+    <string name="privacy_policy_text">
+        1. Introduction \n
+We respect your privacy and are committed to protecting your personal information. This Privacy Policy explains what data we collect, how we use it, and the steps we take to safeguard it. By using our mobile application, you agree to the terms of this policy.
+
+\n\n 2. Information We Collect \n
+To provide you with the best experience, we collect the following personal information:
+
+\n Full Name: Used to personalize your profile and enhance the compatibility analysis.
+\n Birth Date and Time: Essential for providing astrological insights and compatibility features.
+\n Email and Password: Required for account creation and secure login.
+\n User Photos: Used in your profile, match features, and question-answer sections.
+\n Messages: Stored to allow communication between users.
+\n Match Page Data: Includes details of your interactions on the match page.
+\n Question-Answer Section Data: If you participate in the Q&amp;A section, we collect the text and media you provide.
+\n\n 3. How We Use Your Information \n
+We use the information we collect to:
+
+Generate personalized compatibility results based on your birth details.
+\n Facilitate messaging and interaction between users.
+\n Allow users to save and view birthdays and gift ideas.
+\n Enable users to participate in question-answer sections and share posts.
+\n\n 4. Data Retention \n
+Your data will be retained for as long as your account is active and the application remains in operation. We ensure that your personal information is securely stored and only used for the purposes described in this policy.
+
+\n\n 5. User Rights \n
+As a user, you have the right to:
+
+\n Add Data: You can add new information to your profile and features.
+\n Update Data: You can modify or update your personal information at any time.
+\n Delete Data: You can request the deletion of your account and personal data from our system.
+\n\n 6. Data Security \n
+We take the protection of your data seriously. Our systems are designed to safeguard your information against unauthorized access, alteration, and deletion, using industry-standard security measures.
+
+\n\n 7. Cookies \n
+We do not use cookies in our mobile application.
+
+\n\n 8. Sharing of Information \n
+We do not share your personal information with third parties unless it is required by law or necessary to provide certain core features of the app (such as AI-based compatibility analysis).
+
+\n\n 9. Policy Updates \n
+This Privacy Policy may be updated periodically. Any significant changes to the way we handle your personal information will be communicated to you through the app or via email.
+
+\n\n 10. Contact Us \n
+If you have any questions or concerns regarding this Privacy Policy, please feel free to contact us at emirpetek2002@gmail.com
+    </string>
+
+
+</resources>
