@@ -176,6 +176,12 @@
     <string name="check_email_password">Error in login. Check your email or password.</string>
     <string name="send_big">SEND</string>
 
+    <string name="delete_account_title">Are you sure to delete account?</string>
+    <string name="delete_account_text">Do you really delete your account? \n This process cannot be undone.</string>
+    <string name="delete_account_btn_delete">Yes, Delete</string>
+    <string name="delete_account_btn_keep">Keep Account</string>
+    <string name="account_deleted">Your account is deleted.</string>
+
 
     <string name="notify_category_spam">Spam and Advertising</string>
     <string name="notify_category_harassment">Harassment and Bullying</string>

@@ -177,6 +177,13 @@
     <string name="check_email_password">Lütfen emailinizi veya şifrenizi kontrol edin.</string>
     <string name="send_big">GÖNDER</string>
 
+    <string name="delete_account_title">Hesabını silmek istediğinden emin misin?</string>
+    <string name="delete_account_text">Hesabını gerçekten silmek istediğinden emin misin? \n Bu işlem geri alınamaz.</string>
+    <string name="delete_account_btn_delete">Evet, Sil</string>
+    <string name="delete_account_btn_keep">Hesabımı Tut</string>
+    <string name="account_deleted">Hesabınız silinmiştir.</string>
+
+
     <string name="notify_category_spam">Spam ve Reklam</string>
     <string name="notify_category_harassment">Taciz ve Zorbalık</string>
     <string name="notify_category_hate_speech">Nefret Söylemi ve Ayrımcılık</string>

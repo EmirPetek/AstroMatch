@@ -25,7 +25,7 @@ class CreditsRepo {
 
 
     fun createCreditWithRegister(amount: Long){
-        creditsRef.set(UserCredits(userID,amount,30,10,System.currentTimeMillis()))
+        creditsRef.set(UserCredits(userID,amount,20,5,System.currentTimeMillis()))
     }
 
     fun getUserCreditsAmountFun(){

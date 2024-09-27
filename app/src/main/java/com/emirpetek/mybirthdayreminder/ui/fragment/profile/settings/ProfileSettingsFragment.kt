@@ -56,6 +56,7 @@ class ProfileSettingsFragment : Fragment() {
         binding.constraintLayoutSettingsPrivacy.setOnClickListener { showPrivacyDialog() }
         binding.constraintLayoutSettingsContact.setOnClickListener { showContactDialog() }
         binding.buttonOnBoardingZero.setOnClickListener { onBoardingFinish() }
+        binding.constraintLayoutSettingsDeleteAccount.setOnClickListener { deleteAccountDialog() }
 
         return binding.root
     }
@@ -89,6 +90,31 @@ class ProfileSettingsFragment : Fragment() {
             dialog.dismiss()
         }
         ad.create().show()
+    }
+
+    fun deleteAccountDialog(){
+
+        val inflater = LayoutInflater.from(requireContext())
+        val view = inflater.inflate(R.layout.alert_delete_account,null)
+        val builder = AlertDialog.Builder(requireContext()).setView(view).setCancelable(true)
+
+        val dialog = builder.create()
+
+        val btnDelete = view.findViewById<Button>(R.id.btnDeleteAccountDelete)
+        val btnKeep = view.findViewById<Button>(R.id.btnDeleteAccountKeep)
+
+        btnKeep.setOnClickListener { dialog.dismiss() }
+        btnDelete.setOnClickListener {
+            viewModel.deleteUser()
+            Firebase.auth.currentUser!!.delete().addOnCompleteListener { task ->
+                if (task.isSuccessful){
+                    Toast.makeText(requireContext(), getString(R.string.account_deleted), Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+
+        dialog.show()
     }
 
     fun showContactDialog(){

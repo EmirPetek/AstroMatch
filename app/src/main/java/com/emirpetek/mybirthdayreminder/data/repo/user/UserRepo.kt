@@ -166,9 +166,12 @@ class UserRepo {
     }
 
     fun deleteUser(userID: String) {
-        dbRef.document(userID).delete()
+        val deleteMap = mapOf(
+            "accountDeleteState" to "1"
+        )
+        dbRef.document(userID).update(deleteMap)
             .addOnSuccessListener {
-                // Log success or handle accordingly
+
             }
             .addOnFailureListener { e ->
                 // Log error or handle accordingly
