@@ -46,7 +46,7 @@ class UserFilterRepo {
 
     fun getFilteredUser(filter: UserFilter) {
         var queryRef =
-            userRef.whereNotEqualTo(FieldPath.documentId(),Firebase.auth.currentUser!!.uid) // Başlangıç referansı olarak userRef
+            userRef.whereNotEqualTo(FieldPath.documentId(),Firebase.auth.currentUser!!.uid).whereEqualTo("accountDeleteState","0") // Başlangıç referansı olarak userRef
 
         // Sorguyu çalıştırma
         queryRef.addSnapshotListener { value, error ->

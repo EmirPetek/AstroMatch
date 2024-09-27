@@ -78,7 +78,7 @@ class QuestionRepo {
                         if (!usersMap.containsKey(post.userID)) {
                             val userSnapshot = dbRefUsers.document(post.userID).get().await()
                             val user = userSnapshot.toObject(User::class.java)
-                            if (user != null) {
+                            if (user != null && user.accountDeleteState.equals("0")) {
                                 usersMap[post.userID] = user
                             }
                         }

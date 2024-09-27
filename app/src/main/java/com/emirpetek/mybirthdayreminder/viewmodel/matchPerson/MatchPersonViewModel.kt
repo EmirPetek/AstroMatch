@@ -39,6 +39,17 @@ class MatchPersonViewModel : ViewModel() {
         userRepo.getCompatibleUsersData(userID)
     }
 
+    /*fun getFilteredUserList(): MutableLiveData<List<User>>{
+        val list = filterRepo.getFilteredUsers().value!!
+        val list2 : List<User> = listOf()
+        for (u in list){
+            if (u.accountDeleteState.equals("0")) list2.plus(u)
+        }
+        filteredUsers.value = lis
+        return MutableLiveData<>
+
+    }*/
+
     fun getUserCreditsAmount(){
         creditRepo.getUserCreditsAmountFun()
     }
