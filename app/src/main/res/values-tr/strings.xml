@@ -211,7 +211,7 @@
     <string name="daily_win">GÜNLÜK ÖDÜL</string>
     <string name="win_20_gold">Bugün giriş yaparak 10 altın kazandınız. \n Her gün gelin, 10 altın kazanın!</string>
     <string name="thanks">Teşekkürler!</string>
-    <string name="time_left_for_gold_like">Bir sonraki ücretsiz altın \n ve beğeniye kalan süre: </string>
+    <string name="time_left_for_gold_like">Ücretsiz altın ve beğeniye kalan süre: </string>
 
     <string name="gold_amount_1">50 Altın</string>
     <string name="gold_amount_2">100 Altın</string>
