@@ -7,12 +7,15 @@ import okhttp3.OkHttpClient
 import okhttp3.Interceptor
 import okhttp3.Request
 import java.util.concurrent.TimeUnit
+import java.util.Properties
+import java.io.FileInputStream
 
 object RetrofitInstance {
 
    // private val apiKey = "sk-UQNHcQpPEX8-ATmbWcJfnjAL_PDxTdxaQYpGuGnt0oT3BlbkFJpV3LwHGGk-Fg6j5MP_bfcVFpMZMZavELQDB4WvmEoA"
-    private val apiKey = "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"
+    private val apiKey = getOpenAiApiKey().getApiKey()//"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"
     //private val apiKey = BuildConfig.userCompatibilityApiKey
+
     private val client =
         OkHttpClient
             .Builder()

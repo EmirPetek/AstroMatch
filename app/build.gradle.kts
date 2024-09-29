@@ -6,6 +6,15 @@ plugins {
     id("com.google.gms.google-services")
 }
 
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.inputStream().use { inputStream ->
+        localProperties.load(inputStream)
+    }
+}
+val openAiApiKey: String = localProperties.getProperty("OPENAI_API_KEY")
+
 
 
 android {
@@ -19,6 +28,8 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
+        buildConfigField("String", "OPENAI_API_KEY", "\"$openAiApiKey\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -41,6 +52,7 @@ android {
     }
 
     buildFeatures{
+        buildConfig = true
         viewBinding = true
         dataBinding = true
     }

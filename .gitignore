@@ -13,3 +13,4 @@
 .externalNativeBuild
 .cxx
 local.properties
+/app/src/main/java/com/emirpetek/mybirthdayreminder/network/getOpenAiApiKey.kt
