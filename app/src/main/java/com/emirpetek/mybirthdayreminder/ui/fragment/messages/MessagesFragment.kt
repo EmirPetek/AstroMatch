@@ -96,7 +96,7 @@ class MessagesFragment : Fragment() {
             })
 
             binding.buttonMessagesFragmentSendMessage.setOnClickListener {
-                if (binding.editTextMessagesFragmentMessage.text.toString().isEmpty()){
+                if (binding.editTextMessagesFragmentMessage.text.toString().isEmpty() && selectedImages.isEmpty()){
                     Toast.makeText(requireContext(),getString(R.string.no_send_empty_text),Toast.LENGTH_SHORT).show()
                 }else checkAndSendMessage(chatID!!)
             }
