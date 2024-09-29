@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.apiKey.getAdmobApiKey
 import com.emirpetek.mybirthdayreminder.data.entity.user.UserGalleryPhoto
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
 import com.emirpetek.mybirthdayreminder.data.entity.user.ProfileVisit
@@ -269,7 +270,7 @@ class ProfileFragment : Fragment() {
 
                 // NATIVE REKLAM İÇİN GEREKEN KODLAR. GITHUB FORKLADIM. ORADAN BAK. GEREKLI DEPENDENCIESLERI SYNC ETMEN LAZIM
                 val admobNativeAdAdapter: AdmobNativeAdAdapter = AdmobNativeAdAdapter.Builder.with(
-                    getString(R.string.ad_native_id),
+                    getAdmobApiKey().getNativeAdmobApiKey(),
                     postAdapter,
                     "custom"
                 )

@@ -20,6 +20,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.apiKey.getAdmobApiKey
 import com.emirpetek.mybirthdayreminder.data.entity.horoscopeCompatibility.CompatibilityAnalysis
 import com.emirpetek.mybirthdayreminder.databinding.FragmentHoroscopeCompatibilityBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.horoscopeCompatibility.HoroscopeCompatibilityAdapter
@@ -96,7 +97,7 @@ class HoroscopeCompatibilityFragment : Fragment() {
         }
         mAdView = binding.adViewHoroscopeCompatibilityFragment
         val adView = AdView(requireContext())
-        adView.adUnitId = getString(R.string.ad_unit_id)
+        adView.adUnitId = getAdmobApiKey().getUnitAdmobApiKey()
         val adSize = AdSize(LayoutParams.MATCH_PARENT,80)
         adView.setAdSize(adSize)
         this.mAdView = adView

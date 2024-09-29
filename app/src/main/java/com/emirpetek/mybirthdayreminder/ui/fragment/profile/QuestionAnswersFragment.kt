@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.apiKey.getAdmobApiKey
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
 import com.emirpetek.mybirthdayreminder.data.entity.question.QuestionAnswers
 import com.emirpetek.mybirthdayreminder.databinding.FragmentQuestionAnswersBinding
@@ -65,7 +66,7 @@ class QuestionAnswersFragment : Fragment() {
         }
         mAdView = binding.adViewQuestionAnswers
         val adView = AdView(requireContext())
-        adView.adUnitId = getString(R.string.ad_unit_id)
+        adView.adUnitId = getAdmobApiKey().getUnitAdmobApiKey()
         val adSize = AdSize(320,50)
         adView.setAdSize(adSize)
         this.mAdView = adView
@@ -145,7 +146,7 @@ class QuestionAnswersFragment : Fragment() {
 
             // NATIVE REKLAM İÇİN GEREKEN KODLAR. GITHUB FORKLADIM. ORADAN BAK. GEREKLI DEPENDENCIESLERI SYNC ETMEN LAZIM
             admobNativeAdAdapter = AdmobNativeAdAdapter.Builder.with(
-                getString(R.string.ad_native_id),
+                getAdmobApiKey().getNativeAdmobApiKey(),
                 answerAdapter,
                 "small")
                 .adItemInterval(3)

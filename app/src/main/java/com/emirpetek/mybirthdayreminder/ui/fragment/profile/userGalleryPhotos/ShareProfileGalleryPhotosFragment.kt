@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.apiKey.getAdmobApiKey
 import com.emirpetek.mybirthdayreminder.data.entity.user.UserGalleryPhoto
 import com.emirpetek.mybirthdayreminder.databinding.FragmentShareProfileGalleryPhotosBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.profile.userGalleryPhotos.ShareProfileGalleryPhotosFragmentAdapter
@@ -113,7 +114,7 @@ class ShareProfileGalleryPhotosFragment : Fragment() {
     private fun loadAds(){
         var adRequest = AdRequest.Builder().build()
 
-        InterstitialAd.load(requireContext(),getString(R.string.ad_interstitial_id), adRequest, object : InterstitialAdLoadCallback() {
+        InterstitialAd.load(requireContext(), getAdmobApiKey().getInterstitialAdmobApiKey(), adRequest, object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 mInterstitialAd = null
             }

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.apiKey.getAdmobApiKey
 import com.emirpetek.mybirthdayreminder.data.entity.birthdays.BirthdayGiftIdea
 import com.emirpetek.mybirthdayreminder.databinding.FragmentBirthdaysAnotherUserGiftIdeasBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.birthdays.giftIdeas.BirthdaysAnotherUserGiftIdeaBottomBarAdapter
@@ -128,7 +129,7 @@ class BirthdaysAnotherUserGiftIdeasFragment : Fragment() {
 
 
             admobNativeAdAdapter = AdmobNativeAdAdapter.Builder.with(
-                getString(R.string.ad_native_id),
+                getAdmobApiKey().getNativeAdmobApiKey(),
                 adapter,
                 "small")
                 .adItemInterval(10)
@@ -148,7 +149,7 @@ class BirthdaysAnotherUserGiftIdeasFragment : Fragment() {
         }
         mAdView = binding.adViewGiftIdeasFragment
         val adView = AdView(requireContext())
-        adView.adUnitId = getString(R.string.ad_unit_id)
+        adView.adUnitId = getAdmobApiKey().getUnitAdmobApiKey()
         val adSize = AdSize(LayoutParams.MATCH_PARENT, 60)
         adView.setAdSize(adSize)
         this.mAdView = adView

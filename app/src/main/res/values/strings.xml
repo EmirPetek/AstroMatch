@@ -145,10 +145,6 @@
     <string name="image_file">Image File</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
-    <string name="ad_unit_id">ca-app-pub-3940256099942544/9214589741</string>
-    <string name="ad_native_id">ca-app-pub-3940256099942544/2247696110</string>
-    <string name="ad_interstitial_id">ca-app-pub-3940256099942544/5224354917</string>
-    <string name="ad_rewarded_id">ca-app-pub-3940256099942544/5354046379</string>
     <string name="horoscope_compatibility_title">HOROSCOPE COMPATIBILITY</string>
     <string name="calculate_compatibility">Calculate Compatibility</string>
     <string name="your_name_label">Your name:</string>

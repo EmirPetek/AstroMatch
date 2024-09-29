@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.apiKey.getAdmobApiKey
 import com.emirpetek.mybirthdayreminder.data.entity.horoscopeCompatibility.CompatibilityAnalysis
 import com.emirpetek.mybirthdayreminder.ui.util.calculateTime.CalculateShareTime
 import com.emirpetek.mybirthdayreminder.viewmodel.horoscopeCompatibility.HoroscopeCompatibilityViewModel
@@ -114,7 +115,7 @@ class HoroscopeCompatibilityAdapter(
 
         var adRequest = AdRequest.Builder().build()
 
-        InterstitialAd.load(mContext,mContext.getString(R.string.ad_interstitial_id), adRequest, object : InterstitialAdLoadCallback() {
+        InterstitialAd.load(mContext,getAdmobApiKey().getInterstitialAdmobApiKey(), adRequest, object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 mInterstitialAd = null
                 progressBarHoroscopeCompatibility.visibility = View.GONE

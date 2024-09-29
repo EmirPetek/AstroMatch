@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.apiKey.getAdmobApiKey
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
 import com.emirpetek.mybirthdayreminder.databinding.FragmentSocialBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.social.main.post.SocialPostAdapter
@@ -117,7 +118,7 @@ class SocialFragment : Fragment() {
 
        // NATIVE REKLAM İÇİN GEREKEN KODLAR. GITHUB FORKLADIM. ORADAN BAK. GEREKLI DEPENDENCIESLERI SYNC ETMEN LAZIM
        admobNativeAdAdapter = AdmobNativeAdAdapter.Builder.with(
-           getString(R.string.ad_native_id),
+           getAdmobApiKey().getNativeAdmobApiKey(),
                postAdapter,
                "small")
            .adItemInterval(3)

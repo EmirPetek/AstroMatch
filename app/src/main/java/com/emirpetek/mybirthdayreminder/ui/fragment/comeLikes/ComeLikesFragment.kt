@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.apiKey.getAdmobApiKey
 import com.emirpetek.mybirthdayreminder.data.entity.like.Like
 import com.emirpetek.mybirthdayreminder.databinding.FragmentComeLikesBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.comeLikes.ComeLikesAdapter
@@ -78,7 +79,7 @@ class ComeLikesFragment : Fragment() {
         }
         mAdView = binding.adViewComeLikes
         val adView = AdView(requireContext())
-        adView.adUnitId = getString(R.string.ad_unit_id)
+        adView.adUnitId = getAdmobApiKey().getUnitAdmobApiKey()
         val adSize = AdSize(LayoutParams.MATCH_PARENT, 60)
         adView.setAdSize(adSize)
         this.mAdView = adView

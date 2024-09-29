@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.apiKey.getAdmobApiKey
 import com.emirpetek.mybirthdayreminder.ui.util.bottomNavigation.ManageBottomNavigationVisibility
 import com.emirpetek.mybirthdayreminder.databinding.FragmentEarnGoldBinding
 import com.emirpetek.mybirthdayreminder.viewmodel.earnGold.EarnGoldViewModel
@@ -108,7 +109,7 @@ class EarnGoldFragment : Fragment() {
 
         var adRequest = AdRequest.Builder().build()
 
-        InterstitialAd.load(requireContext(),getString(R.string.ad_interstitial_id), adRequest, object : InterstitialAdLoadCallback() {
+        InterstitialAd.load(requireContext(),getAdmobApiKey().getInterstitialAdmobApiKey(), adRequest, object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 mInterstitialAd = null
                 binding.progressBarEarnGoldWatchAd.visibility = View.GONE

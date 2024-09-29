@@ -16,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.apiKey.getAdmobApiKey
 import com.emirpetek.mybirthdayreminder.data.entity.question.Post
 import com.emirpetek.mybirthdayreminder.databinding.FragmentAskQuestionBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.social.sharePost.question.AskQuestionFragmentImageAdapter
@@ -150,7 +151,7 @@ class AskQuestionFragment : Fragment() {
     private fun loadAds(){
         var adRequest = AdRequest.Builder().build()
 
-        InterstitialAd.load(requireContext(),getString(R.string.ad_interstitial_id), adRequest, object : InterstitialAdLoadCallback() {
+        InterstitialAd.load(requireContext(), getAdmobApiKey().getInterstitialAdmobApiKey(), adRequest, object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 mInterstitialAd = null
             }

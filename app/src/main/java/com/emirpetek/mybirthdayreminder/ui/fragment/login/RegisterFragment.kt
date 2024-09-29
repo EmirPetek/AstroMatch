@@ -22,6 +22,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.emirpetek.mybirthdayreminder.R
+import com.emirpetek.mybirthdayreminder.apiKey.getAdmobApiKey
 import com.emirpetek.mybirthdayreminder.data.entity.user.User
 import com.emirpetek.mybirthdayreminder.databinding.FragmentRegisterBinding
 import com.emirpetek.mybirthdayreminder.ui.util.calculateTime.CalculateAge
@@ -145,7 +146,7 @@ class RegisterFragment : Fragment() {
     private fun bindAdMob(){
         mAdView = binding.adViewFragmentRegister
         val adView = AdView(requireContext())
-        adView.adUnitId = getString(R.string.ad_unit_id)
+        adView.adUnitId = getAdmobApiKey().getUnitAdmobApiKey()
         val adSize = AdSize(LayoutParams.MATCH_PARENT,50)
         adView.setAdSize(adSize)
         this.mAdView = adView
