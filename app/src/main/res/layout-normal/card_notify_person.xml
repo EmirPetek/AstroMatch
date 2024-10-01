@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/tranparent_color"
+    android:orientation="vertical">
+
+    <RadioButton
+        android:id="@+id/radioButtonCardNotifyPerson"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="3dp"
+        android:fontFamily="@font/nunito"
+        android:text="RadioButton"
+        android:textColor="@color/text_black"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/editTextCardNotifyPerson"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="3dp"
+        android:ems="10"
+        android:fontFamily="@font/nunito"
+        android:hint="@string/enter_notify_message"
+        android:inputType="text"
+        android:textColor="@color/text_black"
+        android:textColorHint="@color/hint_color"
+        android:textSize="16sp"
+        android:visibility="gone" />
+</LinearLayout>
