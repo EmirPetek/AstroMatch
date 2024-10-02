@@ -109,6 +109,7 @@ class BirthdayUpdateFragment : Fragment() {
             birthdayData = it.toList()
             bindComponents()
             bindUpdateButton()
+            bindDeleteButton()
         })
     }
 
