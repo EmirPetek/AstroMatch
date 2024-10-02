@@ -49,7 +49,7 @@ class BirthdayUpdateFragment : Fragment() {
     private lateinit var birthdayKey : String
     private var birthdayData : List<Birthdays> = listOf()
     private var userDegrees = arrayListOf<String>()
-    private var userDegree:String = ""
+    private var userDegree:Int = 0
     private lateinit var auth: FirebaseAuth
     private lateinit var mAdView : AdView
 
@@ -71,8 +71,7 @@ class BirthdayUpdateFragment : Fragment() {
         //birthdayKey = Bundle().getBundle("BIRTHDAY_KEY").toString()
         getBirthdayList()
         bindBackButton()
-        bindUpdateButton()
-        bindDeleteButton()
+
         hideBottomNav()
         bindAdMob()
 
@@ -109,6 +108,7 @@ class BirthdayUpdateFragment : Fragment() {
         viewModel.birthdayList.observe(viewLifecycleOwner, Observer {
             birthdayData = it.toList()
             bindComponents()
+            bindUpdateButton()
         })
     }
 
@@ -118,7 +118,7 @@ class BirthdayUpdateFragment : Fragment() {
             binding.editTextBDUpdateDate.setText(b.date)
             binding.editTextBDUpdateGiftIdea.setText(b.giftIdea)
             binding.editTextBDUpdateNameSurname.setText(b.name)
-            setUserDegreeSpinner(binding.spinnerDBUserDegree,b.userDegree)
+            userDegree = setUserDegreeSpinner(binding.spinnerDBUserDegree,b.userDegree)
             birthdaySelecter(binding.editTextBDUpdateDate,b.date)
         }
     }
