@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.apiKey.getAdmobApiKey
 import com.emirpetek.mybirthdayreminder.data.entity.user.UserGalleryPhoto
 import com.emirpetek.mybirthdayreminder.databinding.FragmentProfileGalleryViewAllBinding
@@ -66,7 +65,7 @@ class ProfileGalleryViewAllFragment : Fragment() {
         }
         mAdView = binding.adViewFragmentProfileGalleryViewAll
         val adView = AdView(requireContext())
-        adView.adUnitId = getAdmobApiKey().getUnitAdmobApiKey()
+        adView.adUnitId = getAdmobApiKey().getBannerAdmobApiKey()
         val adSize = AdSize(400,50)
         adView.setAdSize(adSize)
         this.mAdView = adView

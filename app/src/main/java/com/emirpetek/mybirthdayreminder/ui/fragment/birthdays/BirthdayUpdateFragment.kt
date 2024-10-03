@@ -92,7 +92,7 @@ class BirthdayUpdateFragment : Fragment() {
         }
         mAdView = binding.adViewFragmentBirthdayUpdate
         val adView = AdView(requireContext())
-        adView.adUnitId = getAdmobApiKey().getUnitAdmobApiKey()
+        adView.adUnitId = getAdmobApiKey().getBannerAdmobApiKey()
         val adSize = AdSize(LayoutParams.MATCH_PARENT,80)
         adView.setAdSize(adSize)
         this.mAdView = adView
@@ -135,7 +135,7 @@ class BirthdayUpdateFragment : Fragment() {
            val update = mapOf(
                "name" to binding.editTextBDUpdateNameSurname.text.toString(),
                "date" to binding.editTextBDUpdateDate.text.toString(),
-               "giftIdea" to binding.editTextBDUpdateGiftIdea.text.toString().toInt(),
+               "giftIdea" to binding.editTextBDUpdateGiftIdea.text.toString(),
                "userDegree" to userDegree
            )
 
@@ -215,6 +215,7 @@ class BirthdayUpdateFragment : Fragment() {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 selectedDegree = position
+                userDegree = selectedDegree
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

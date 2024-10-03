@@ -97,7 +97,7 @@ class HoroscopeCompatibilityFragment : Fragment() {
         }
         mAdView = binding.adViewHoroscopeCompatibilityFragment
         val adView = AdView(requireContext())
-        adView.adUnitId = getAdmobApiKey().getUnitAdmobApiKey()
+        adView.adUnitId = getAdmobApiKey().getBannerAdmobApiKey()
         val adSize = AdSize(LayoutParams.MATCH_PARENT,80)
         adView.setAdSize(adSize)
         this.mAdView = adView
@@ -270,6 +270,7 @@ class HoroscopeCompatibilityFragment : Fragment() {
             analysis.compatibilityDescription = response
             viewModel.saveCompatibilityResult(analysis)
             closeLoadingAlert()
+
             findNavController().popBackStack()
         })
     }

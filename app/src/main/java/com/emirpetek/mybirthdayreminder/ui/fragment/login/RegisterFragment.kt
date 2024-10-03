@@ -146,7 +146,7 @@ class RegisterFragment : Fragment() {
     private fun bindAdMob(){
         mAdView = binding.adViewFragmentRegister
         val adView = AdView(requireContext())
-        adView.adUnitId = getAdmobApiKey().getUnitAdmobApiKey()
+        adView.adUnitId = getAdmobApiKey().getBannerAdmobApiKey()
         val adSize = AdSize(LayoutParams.MATCH_PARENT,50)
         adView.setAdSize(adSize)
         this.mAdView = adView

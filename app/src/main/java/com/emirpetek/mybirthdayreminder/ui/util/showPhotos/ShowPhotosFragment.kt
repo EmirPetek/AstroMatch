@@ -1,6 +1,5 @@
 package com.emirpetek.mybirthdayreminder.ui.util.showPhotos
 
-import android.graphics.Rect
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
-import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.apiKey.getAdmobApiKey
 import com.emirpetek.mybirthdayreminder.databinding.FragmentShowPhotosBinding
 import com.emirpetek.mybirthdayreminder.ui.util.bottomNavigation.ManageBottomNavigationVisibility
@@ -21,7 +19,6 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -71,7 +68,7 @@ class ShowPhotosFragment : Fragment() {
         }
         mAdView = binding.adViewShowPhotos
         val adView = AdView(requireContext())
-        adView.adUnitId = getAdmobApiKey().getUnitAdmobApiKey()
+        adView.adUnitId = getAdmobApiKey().getBannerAdmobApiKey()
         val adSize = AdSize(400,50)
         adView.setAdSize(adSize)
         this.mAdView = adView

@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
 import androidx.navigation.fragment.findNavController
-import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.apiKey.getAdmobApiKey
 import com.emirpetek.mybirthdayreminder.databinding.FragmentHoroscopeCompatibilityDetailBinding
 import com.emirpetek.mybirthdayreminder.ui.util.bottomNavigation.ManageBottomNavigationVisibility
@@ -55,7 +54,7 @@ class HoroscopeCompatibilityDetailFragment : Fragment() {
         }
         mAdView = binding.adViewHoroscopeCompatibiiltyDetail
         val adView = AdView(requireContext())
-        adView.adUnitId = getAdmobApiKey().getUnitAdmobApiKey()
+        adView.adUnitId = getAdmobApiKey().getBannerAdmobApiKey()
         val adSize = AdSize(LayoutParams.MATCH_PARENT,80)
         adView.setAdSize(adSize)
         this.mAdView = adView

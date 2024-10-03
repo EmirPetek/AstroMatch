@@ -149,7 +149,7 @@ class BirthdaysAnotherUserGiftIdeasFragment : Fragment() {
         }
         mAdView = binding.adViewGiftIdeasFragment
         val adView = AdView(requireContext())
-        adView.adUnitId = getAdmobApiKey().getUnitAdmobApiKey()
+        adView.adUnitId = getAdmobApiKey().getBannerAdmobApiKey()
         val adSize = AdSize(LayoutParams.MATCH_PARENT, 60)
         adView.setAdSize(adSize)
         this.mAdView = adView

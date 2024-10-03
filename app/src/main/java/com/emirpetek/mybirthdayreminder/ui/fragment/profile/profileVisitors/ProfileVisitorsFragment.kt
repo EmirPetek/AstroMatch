@@ -10,7 +10,6 @@ import android.view.ViewGroup.LayoutParams
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.emirpetek.mybirthdayreminder.R
 import com.emirpetek.mybirthdayreminder.apiKey.getAdmobApiKey
 import com.emirpetek.mybirthdayreminder.databinding.FragmentProfileVisitorsBinding
 import com.emirpetek.mybirthdayreminder.ui.adapter.profile.profileVisitors.ProfileVisitorsAdapter
@@ -75,7 +74,7 @@ class ProfileVisitorsFragment : Fragment() {
         }
         mAdView = binding.adViewProfileVisitors
         val adView = AdView(requireContext())
-        adView.adUnitId = getAdmobApiKey().getUnitAdmobApiKey()
+        adView.adUnitId = getAdmobApiKey().getBannerAdmobApiKey()
         val adSize = AdSize(LayoutParams.MATCH_PARENT,80)
         adView.setAdSize(adSize)
         this.mAdView = adView

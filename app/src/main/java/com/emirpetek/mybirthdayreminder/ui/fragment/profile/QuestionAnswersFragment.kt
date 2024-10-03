@@ -66,7 +66,7 @@ class QuestionAnswersFragment : Fragment() {
         }
         mAdView = binding.adViewQuestionAnswers
         val adView = AdView(requireContext())
-        adView.adUnitId = getAdmobApiKey().getUnitAdmobApiKey()
+        adView.adUnitId = getAdmobApiKey().getBannerAdmobApiKey()
         val adSize = AdSize(320,50)
         adView.setAdSize(adSize)
         this.mAdView = adView
