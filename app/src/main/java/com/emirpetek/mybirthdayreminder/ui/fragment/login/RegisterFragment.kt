@@ -74,7 +74,6 @@ class RegisterFragment : Fragment() {
         bindAdMob()
 
         auth = Firebase.auth
-        mockEditText()
 
 
         binding.editTextRegisterBirthdate.setOnClickListener {
@@ -164,16 +163,6 @@ class RegisterFragment : Fragment() {
         val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNav?.visibility = View.GONE
     }
-
-    private fun mockEditText(){
-        binding.editTextRegisterNameSurname.setText("Emir Petek")
-        binding.editTextRegisterEmail.setText("emirpetek2002@gmail.com")
-        binding.editTextRegisterPassword.setText("emir2002")
-        binding.editTextRegisterPasswordAgain.setText("emir2002")
-        binding.editTextRegisterBirthdate.setText("25/01/2002")
-        binding.editTextRegisterBirthTime.setText("04:20")
-    }
-
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.

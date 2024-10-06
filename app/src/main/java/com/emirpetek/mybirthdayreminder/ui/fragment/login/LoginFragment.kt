@@ -63,8 +63,6 @@ class LoginFragment : Fragment() {
         hideBottomNav()
 
 
-        mockEditText()
-
         checkRememberMe()
 
         binding.buttonLoginSignIn.setOnClickListener {
@@ -84,11 +82,6 @@ class LoginFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-    }
-
-    private fun mockEditText() {
-        binding.editTextLoginEmail.setText("emirpetek2002@gmail.com")
-        binding.editTextLoginPassword.setText("emir2002")
     }
 
     private fun setRememberMe(email: String, password: String) {
