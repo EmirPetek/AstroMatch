@@ -23,6 +23,7 @@ This project was prepared by Emir Petek. The project was developed in the Androi
 -	SharedPreferences
 -	OnBoarding
 -	Splash Screen
+-	GitHub
 
 
 ![alt text](https://github.com/EmirPetek/AstroMatch/blob/master/app/src/main/res/drawable/store_1.PNG)
