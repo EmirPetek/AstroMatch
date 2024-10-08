@@ -26,11 +26,8 @@ This project was prepared by Emir Petek. The project was developed in the Androi
 -	GitHub
 
 
-![alt text](https://github.com/EmirPetek/AstroMatch/blob/master/app/src/main/res/drawable/store_1.PNG)
-![alt text](https://github.com/EmirPetek/AstroMatch/blob/master/app/src/main/res/drawable/store_2.PNG)
-![alt text](https://github.com/EmirPetek/AstroMatch/blob/master/app/src/main/res/drawable/store_3.PNG)
-![alt text](https://github.com/EmirPetek/AstroMatch/blob/master/app/src/main/res/drawable/store_4.PNG)
-![alt text](https://github.com/EmirPetek/AstroMatch/blob/master/app/src/main/res/drawable/store_5.PNG)
-![alt text](https://github.com/EmirPetek/AstroMatch/blob/master/app/src/main/res/drawable/store_6.PNG)
+![alt text](https://github.com/EmirPetek/AstroMatch/blob/master/app/src/main/res/drawable/store_1.PNG) ![alt text](https://github.com/EmirPetek/AstroMatch/blob/master/app/src/main/res/drawable/store_2.PNG)
+![alt text](https://github.com/EmirPetek/AstroMatch/blob/master/app/src/main/res/drawable/store_3.PNG) ![alt text](https://github.com/EmirPetek/AstroMatch/blob/master/app/src/main/res/drawable/store_4.PNG)
+![alt text](https://github.com/EmirPetek/AstroMatch/blob/master/app/src/main/res/drawable/store_5.PNG) ![alt text](https://github.com/EmirPetek/AstroMatch/blob/master/app/src/main/res/drawable/store_6.PNG)
 ![alt text](https://github.com/EmirPetek/AstroMatch/blob/master/app/src/main/res/drawable/store_7.PNG)
 
