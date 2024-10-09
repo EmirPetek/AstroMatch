@@ -22,6 +22,7 @@ This project was prepared by Emir Petek. The project was developed in the Androi
 -	Webview
 -	SharedPreferences
 -	OnBoarding
+-	ViewPager2
 -	Splash Screen
 -	GitHub
 
