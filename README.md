@@ -1,6 +1,8 @@
 
 # About AstroMatch
 
+You can download this app from here: https://www.upload-apk.com/en/li6jEbz0xmInjPO
+
 This project was prepared by Emir Petek. The project was developed in the Android Studio environment and the language used is Kotlin. The application is essentially a social media application. The application includes features such as person matching, messaging, post sharing, profile editing, and AI-supported person horoscope compatibility analysis. OpenAI was used for AI support. The technologies used in this application are as follows:
 
 -	MVVM
